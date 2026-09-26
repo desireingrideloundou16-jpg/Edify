@@ -1,0 +1,239 @@
+/* ==========================================================================
+   EDIFY STUDIO — 2D TECHNICAL DIE-LINE CANVAS STYLES (CLEAN & SANS-SERIF)
+   ========================================================================== */
+
+/* Blueprint dot pattern behind the technical dieline */
+.edify-canvas-bg {
+  background-color: #f8fafc;
+  background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+
+/* Technical Die-Line Stroke Guides */
+.cut-line {
+  stroke: #ef4444;
+  stroke-width: 1.5;
+}
+
+.crease-line {
+  stroke: #3b82f6;
+  stroke-width: 1.5;
+  stroke-dasharray: 4, 4;
+}
+
+.bleed-line {
+  stroke: #10b981;
+  stroke-width: 1;
+  stroke-dasharray: 2, 2;
+}
+
+.safety-line {
+  stroke: rgba(16, 185, 129, 0.65);
+  stroke-dasharray: 3, 3;
+}
+
+/* 2D Canvas Viewport Header */
+.edify-canvas-header {
+  height: 56px;
+  padding: 0 24px;
+  border-bottom: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 15;
+  flex-shrink: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Zoom Controls Pill */
+.edify-zoom-controls {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 3px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.edify-zoom-controls:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.edify-zoom-btn {
+  padding: 6px 8px;
+  border-radius: 8px;
+  color: #475569;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.edify-zoom-btn:hover {
+  background: #ffffff;
+  color: #0f172a;
+  transform: scale(1.05);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.edify-zoom-value {
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Center 2D Die-Line Technical Assembly Container */
+.edify-die-assembly-card {
+  position: relative;
+  background: #ffffff;
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 12px 36px -4px rgba(15, 23, 42, 0.07);
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  max-width: 100%;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.edify-die-assembly-card:hover {
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    0 20px 48px -6px rgba(15, 23, 42, 0.1);
+}
+
+/* Die-line Panels Layout */
+.edify-die-panels-row {
+  position: relative;
+  margin-top: 24px;
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  max-width: 100%;
+}
+
+/* Panel 0: Glue Tab (Languette de colle) */
+.edify-panel-glue {
+  width: 32px;
+  height: 290px;
+  background: #f8fafc;
+  border-top: 1.5px dashed #f87171;
+  border-bottom: 1.5px dashed #f87171;
+  border-left: 1.5px dashed #f87171;
+  border-right: 1.5px dashed #60a5fa;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.edify-panel-glue:hover {
+  background: #f1f5f9;
+}
+
+/* Standard Panel Sizing */
+.edify-die-panel {
+  width: 120px;
+  height: 290px;
+  border-top: 1.5px dashed #60a5fa;
+  border-bottom: 1.5px dashed #60a5fa;
+  border-right: 1.5px dashed #60a5fa;
+  position: relative;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 12px;
+  flex-shrink: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.edify-die-panel:hover {
+  background: rgba(248, 250, 252, 0.95);
+  box-shadow: inset 0 0 12px rgba(59, 130, 246, 0.05);
+}
+
+/* Panel 4: Right Side (Cut line indicator on right edge) */
+.edify-die-panel-cut-edge {
+  border-right: 1.5px solid #ef4444 !important;
+}
+
+/* Front Panel Artful Gradient & Embellishments */
+.edify-panel-front {
+  background: linear-gradient(180deg, rgba(253, 242, 248, 0.5) 0%, #ffffff 50%, rgba(254, 243, 199, 0.4) 100%);
+  box-shadow: inset 0 0 18px rgba(236, 72, 153, 0.08);
+  border-top: 1.5px dashed #60a5fa;
+  border-bottom: 1.5px dashed #60a5fa;
+  border-right: 1.5px dashed #60a5fa;
+}
+
+.edify-panel-front:hover {
+  box-shadow: inset 0 0 24px rgba(236, 72, 153, 0.14);
+}
+
+/* Barcode Simulation Element */
+.edify-barcode {
+  width: 70px;
+  height: 34px;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Dimension Guide Arrows */
+.edify-dimension-guides {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Responsive scaling on small viewports */
+@media (max-width: 640px) {
+  .edify-die-assembly-card {
+    padding: 16px 12px;
+    border-radius: 14px;
+  }
+  .edify-die-panel {
+    width: 95px;
+    height: 240px;
+    padding: 8px;
+  }
+  .edify-panel-glue {
+    width: 24px;
+    height: 240px;
+  }
+}

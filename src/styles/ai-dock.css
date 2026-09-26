@@ -1,0 +1,177 @@
+/* ==========================================================================
+   EDIFY STUDIO — PACDORA-STYLE BOTTOM AI PROMPTING DOCK
+   ========================================================================== */
+
+.edify-ai-dock {
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid #e2e8f0;
+  flex-shrink: 0;
+  z-index: 25;
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.04);
+}
+
+.edify-ai-dock-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Quick Suggestion Pills Horizontal Carousel */
+.edify-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  font-size: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.edify-pill-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.edify-quick-pill {
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.edify-quick-pill:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.edify-quick-pill:active {
+  transform: scale(0.97);
+}
+
+/* Main AI Prompt Input Bar */
+.edify-prompt-input-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 6px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.edify-prompt-input-bar:focus-within {
+  border-color: #ec4899;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15), 0 4px 12px rgba(236, 72, 153, 0.08);
+}
+
+.edify-reference-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.edify-reference-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.edify-prompt-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #0f172a;
+  padding: 0 12px;
+  font-weight: 500;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.edify-prompt-field::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.edify-generate-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.edify-generate-btn:hover {
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+}
+
+.edify-generate-btn:active {
+  transform: scale(0.96);
+}
+
+.edify-generate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Generation Progress Overlay Animation */
+.edify-generation-loader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: rgba(236, 72, 153, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(236, 72, 153, 0.2);
+  color: #be185d;
+  font-size: 11px;
+  font-weight: 600;
+}

@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "skills": {
+    "3d-high-poly-models": {
+      "source": "MengTo/Skills",
+      "sourceType": "github",
+      "skillPath": "agent-skills/3d/3d-high-poly-models/SKILL.md",
+      "computedHash": "1b9934af3824f1095d7ddd514cedc126469b3d20e58f250240db229da0156e50"
+    },
+    "3d-high-resolution-textures": {
+      "source": "MengTo/Skills",
+      "sourceType": "github",
+      "skillPath": "agent-skills/3d/3d-high-resolution-textures/SKILL.md",
+      "computedHash": "8011f68ff2471e094ba131d7824b1cb47ed134bd253f4cfc5dd3de72489dc88f"
+    },
+    "3d-retina-resolution": {
+      "source": "MengTo/Skills",
+      "sourceType": "github",
+      "skillPath": "agent-skills/3d/3d-retina-resolution/SKILL.md",
+      "computedHash": "fce439852313965892ccc8d07e24f6977f56153c894c4ad933d6259d9601a07c"
+    },
+    "a11y-audit": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/a11y-audit/SKILL.md",
+      "computedHash": "4ed2b77077f66ae8862861d1e0a3a8c8bd0ce6ce04a0a4edd68474edc43f1bc2"
+    },
+    "apply-aesthetic": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/apply-aesthetic/SKILL.md",
+      "computedHash": "7da9afea11a2bd118aaff1bc542d97da6a721a1a25ca65fea5272d070ff610a0"
+    },
+    "brand-context": {
+      "source": "arnabbagxd/brand-building-skills",
+      "sourceType": "github",
+      "skillPath": "skills/brand-context/SKILL.md",
+      "computedHash": "3898668fae7b44f37815b3e57b0bc2d1747986824e5034982fb6f24859ed8a42"
+    },
+    "brand-guidelines": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/brand-guidelines/SKILL.md",
+      "computedHash": "c82f0b24cdcc7e2693a963d30c810558b7bb89ed84508b2328228d21256ef865"
+    },
+    "brand-packaging": {
+      "source": "arnabbagxd/brand-building-skills",
+      "sourceType": "github",
+      "skillPath": "skills/brand-packaging/SKILL.md",
+      "computedHash": "2a36d1f9503ac57304cb1ff1102c5f54e19f58418767bcb18f3af5bbdfae63f6"
+    },
+    "brandkit": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/brandkit/SKILL.md",
+      "computedHash": "9ef0f6223c136bc1523242a453da8c448f7ef8776e6b876b0399e425f34f129b"
+    },
+    "canvas-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/canvas-design/SKILL.md",
+      "computedHash": "4e8bbc31d3b159efdd32d31a63ba8cd5a44d84911e924c1f2c709c50cbcdd0ec"
+    },
+    "design-code": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-code/SKILL.md",
+      "computedHash": "87eed3510c1fc73425c26c66c801ff5cadf3b3d8efd0ffb2a8b736bc1403d58e"
+    },
+    "design-component": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-component/SKILL.md",
+      "computedHash": "f4ba5f0b0d493eacfc3749efc9356ccbabfcf5bf0502d63a39f01d487401c0e0"
+    },
+    "design-doctrine": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-doctrine/SKILL.md",
+      "computedHash": "835b9d342a5e253309aa4b6c7313aec9dbf26da5d5543333745179ea0a91f3da"
+    },
+    "design-qa": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-qa/SKILL.md",
+      "computedHash": "f83de2cb3fc761886906580d1dcecd28da9c036e765399d0dc1c9378245d3285"
+    },
+    "design-review": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-review/SKILL.md",
+      "computedHash": "7c44ccad130ba9d76af4c1742f2ca18e0a2db2c1ceed97b1814a90f05095340e"
+    },
+    "design-tokens": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/design-tokens/SKILL.md",
+      "computedHash": "d3ac6e79a5cfdf8b9a0675ede69621a0d791227bdf625109fb991ab701ca2e00"
+    },
+    "figma-integration": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/figma-integration/SKILL.md",
+      "computedHash": "c4c5f6a5a6752658919d4ce5cb66d62ad278f167e83eb2121e1271c13fecbcd6"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "106acf230014cbb43ca34e6410371321b56ca742f9ee0442e8ec05bf02eb0384"
+    },
+    "governance": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/governance/SKILL.md",
+      "computedHash": "ffe5f3f18ee3bdfb5c81d4d83d16ccb7dabf40854648b79bb3a2e0999ca3c3e8"
+    },
+    "image-to-code": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/image-to-code/SKILL.md",
+      "computedHash": "8c723c2150c30a40b6f24119a8aac4384c40d10ef7d02f51c178d49f61877940"
+    },
+    "migrate-design-system": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/migrate-design-system/SKILL.md",
+      "computedHash": "c120209a4ad9a5ae3161245bd020dc8aaa84da71756de992904bf65f6814e5b2"
+    },
+    "packaging-design-generation": {
+      "source": "eachlabs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/packaging-design-generation/SKILL.md",
+      "computedHash": "ce55ace3bb4767de661582ea25b8e5680f413d7ee0f1ca0ce3939f313bde4fb4"
+    },
+    "performance": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/performance/SKILL.md",
+      "computedHash": "1ffcca8ea3b0210a8d72307244dfecef9001c8d1e484adf6c010c28fae689aa6"
+    },
+    "prototype": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/prototype/SKILL.md",
+      "computedHash": "a096de9a919aaf38bd40b5f9d19be7bca3a4f51bf87b38a9bd6f06a1d3f16ad7"
+    },
+    "redesign": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/redesign/SKILL.md",
+      "computedHash": "4046c7432659c4c7379b75b880368ee92dd82b944cac684854d0808cdd4679f4"
+    },
+    "theme-factory": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/theme-factory/SKILL.md",
+      "computedHash": "e9ec1fe85faa729e9f3d1731cd7e4e485f98c099ccc7c1c0d198f473aa4b654a"
+    },
+    "token-build": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/token-build/SKILL.md",
+      "computedHash": "4991a50351182ce73f2349fd83f9366436c89648783e496ec420651495fe9900"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "computedHash": "eb75bf6085080d7d31fa2c0f9fd98d49abd229356147999b09177b733276f806"
+    },
+    "ux-writing": {
+      "source": "plugin87/ux-ui-agent-skills",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/ux-writing/SKILL.md",
+      "computedHash": "16c98ae70c6c4911bf81a6de704281598b7d2e1061aa608000fe524d61f4d681"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+    }
+  }
+}
