@@ -246,7 +246,7 @@ export function EdifyWorkspace() {
     const t = setTimeout(async () => {
       const supabase = createSupabase();
       const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName };
-      const row = { name: content.projectName || "Sans titre", data };
+      const row = { name: (content.projectName || "Sans titre").slice(0, 120), data };
       const id = projectId.current ?? (await ensureProjectId());
       if (!id) return setSaveState("error");
       const res = await supabase.from("projects").update(row).eq("id", id).select("id").single();
@@ -269,7 +269,7 @@ export function EdifyWorkspace() {
     if (!creatingProject.current) {
       const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName };
       creatingProject.current = (async () => {
-        const { data: row } = await createSupabase().from("projects").insert({ name: content.projectName || "Nouveau packaging", data }).select("id").single();
+        const { data: row } = await createSupabase().from("projects").insert({ name: (content.projectName || "Nouveau packaging").slice(0, 120), data }).select("id").single();
         projectId.current = row?.id ?? null;
         return projectId.current;
       })().finally(() => {

@@ -162,7 +162,12 @@ export async function POST(req: Request) {
   if (!prompt || !current) {
     return Response.json({ error: "Brief manquant." }, { status: 400 });
   }
-  const reference = body.reference ?? null;
+  const REF_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif", "application/pdf"];
+  const ref = body.reference ?? null;
+  if (ref && (typeof ref.data !== "string" || !REF_TYPES.includes(ref.mediaType) || ref.data.length > 4_000_000)) {
+    return Response.json({ error: "Fichier non accepté : image (PNG, JPEG, WebP) ou PDF de 3 Mo maximum." }, { status: 400 });
+  }
+  const reference = ref;
   const msgOpts = {
     fresh: body.fresh === true,
     hasLogo: reference?.name === "logo",
@@ -211,6 +216,7 @@ export async function POST(req: Request) {
       console.error(`[api/design] ${engine.name}`, error);
       await logAiEvent(user.id, "design", engine.name, false);
       failures.push(describeError(error));
+      console.error("[api/design] échec", engine.name, describeError(error));
     }
   }
 
@@ -220,8 +226,9 @@ export async function POST(req: Request) {
     engine: "local",
     credits: available,
     projectId: project.id,
+    // Provider details stay in the server logs; the customer gets a plain message.
     notice: engines.length
-      ? `Designer IA indisponible (${failures.join(" ; ")}) : design généré en mode hors ligne.`
-      : "Mode hors ligne : ajoutez GEMINI_API_KEY (gratuit) dans .env.local pour activer le designer IA.",
+      ? "Le designer IA est très demandé en ce moment : design réalisé en mode simplifié. Réessayez dans quelques minutes pour la version complète."
+      : "Designer IA momentanément indisponible : design réalisé en mode simplifié.",
   });
 }

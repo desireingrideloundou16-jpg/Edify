@@ -17,7 +17,10 @@ export async function POST(req: Request) {
     tone: ["info", "promo", "warning"].includes(a.tone) ? a.tone : "info",
   };
   const { error } = await createAdminClient().from("app_settings").upsert({ key: "announcement", value: announcement, updated_at: new Date().toISOString() });
-  if (error) return Response.json({ error: error.message }, { status: 500 });
+  if (error) {
+    console.error("[admin/settings]", error.message);
+    return Response.json({ error: "server_error" }, { status: 500 });
+  }
   await audit(admin, "Bandeau d'annonce mis à jour", null, announcement);
   return Response.json({ ok: true, announcement });
 }

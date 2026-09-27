@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",
-    "@pdf-lib/fontkit": "^1.1.1",
     "@react-three/drei": "^9.114.0",
     "@react-three/fiber": "^8.17.10",
     "@supabase/ssr": "^0.12.7",
@@ -22,10 +21,8 @@
     "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwind-merge": "^2.5.2",
     "three": "^0.169.0",
-    "zod": "^4.6.5",
-    "zustand": "^5.0.15"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^20.16.5",

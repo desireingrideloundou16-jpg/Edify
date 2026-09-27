@@ -23,7 +23,8 @@ export async function POST(req: Request, { params }: { params: { id: string } })
       await audit(admin, "Paiement revérifié auprès de SasPay", target, { status });
       return Response.json({ ok: true, status });
     } catch (e) {
-      return Response.json({ error: e instanceof Error ? e.message : "gateway_error" }, { status: 502 });
+      console.error("[admin/payments] verify", e);
+      return Response.json({ error: "gateway_error" }, { status: 502 });
     }
   }
   if (action === "mark_paid") {

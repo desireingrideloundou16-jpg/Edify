@@ -2,10 +2,14 @@ import { localSuggestions } from "@/lib/ai/suggest";
 import { SUGGEST_STEPS, type StartBrief, type SuggestStep } from "@/lib/design/brief";
 import { isLang, LANG_NAMES, type Lang } from "@/lib/i18n/config";
 import { logAiEvent } from "@/lib/admin/log";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
 
-// Open to visitors before sign-up, so it is rate-limited per IP (per server instance).
+// Open to visitors before sign-up: rate-limited per IP (per server instance) and, reliably,
+// by a global hourly cap counted in the database (survives restarts and scales across instances).
+const GLOBAL_PER_HOUR = 400;
+const BRIEF_KEYS = ["packaging", "brand", "ingredients", "usage", "quantity", "barcode", "expiry", "production", "price", "extra"] as const;
 const WINDOW_MS = 10 * 60_000;
 const MAX_PER_WINDOW = 40;
 const hits = new Map<string, number[]>();
@@ -79,7 +83,11 @@ export async function POST(req: Request) {
   const step = body.step as SuggestStep;
   if (!SUGGEST_STEPS.includes(step)) return Response.json({ error: "unknown step" }, { status: 400 });
   const lang: Lang = isLang(body.lang) ? body.lang : "fr";
-  const brief = body.brief ?? {};
+  // Only the known text fields, each capped: the prompt can't be inflated with extra keys.
+  const raw = (body.brief ?? {}) as Record<string, unknown>;
+  const brief: Partial<StartBrief> = Object.fromEntries(
+    BRIEF_KEYS.filter((k) => typeof raw[k] === "string").map((k) => [k, String(raw[k]).slice(0, 300)])
+  );
   const local = localSuggestions(step, brief, lang);
 
   // Dates are computed locally: exact and instant.
@@ -87,6 +95,14 @@ export async function POST(req: Request) {
 
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "local";
   if (limited(ip)) return Response.json({ suggestions: local, source: "local" });
+  const since = new Date(Date.now() - 3600_000).toISOString();
+  const { count } = await createAdminClient()
+    .from("ai_events")
+    .select("id", { count: "exact", head: true })
+    .eq("kind", "suggest")
+    .eq("engine", "gemini")
+    .gte("created_at", since);
+  if ((count ?? 0) >= GLOBAL_PER_HOUR) return Response.json({ suggestions: local, source: "local" });
 
   const ai = await aiSuggestions(step, brief, lang);
   await logAiEvent(null, "suggest", ai ? "gemini" : "local", !!ai);

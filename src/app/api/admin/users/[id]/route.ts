@@ -80,7 +80,10 @@ export async function POST(req: Request, { params }: { params: { id: string } })
       if (id === admin.id) return bad("self");
       if (body.confirm !== profile.email) return bad("confirm");
       const { error } = await db.auth.admin.deleteUser(id);
-      if (error) return Response.json({ error: error.message }, { status: 500 });
+      if (error) {
+        console.error("[admin/users] delete", error.message);
+        return Response.json({ error: "server_error" }, { status: 500 });
+      }
       await audit(admin, "Compte supprimé", profile.email);
       return Response.json({ ok: true, deleted: true });
     }
