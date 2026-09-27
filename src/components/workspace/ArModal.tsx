@@ -1,5 +1,6 @@
 "use client";
 
+import { saveBlob } from "@/lib/download";
 import React, { useEffect, useState } from "react";
 import { X, Smartphone, Download, Loader2 } from "lucide-react";
 import { exportGlb, exportUsdz, isIOS } from "@/lib/three/arExport";
@@ -16,14 +17,7 @@ interface ArModalProps {
   onToast: (msg: string) => void;
 }
 
-function save(blob: Blob, name: string) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = name;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 2000);
-}
+const save = saveBlob;
 
 export function ArModal({ isOpen, onClose, spec, design, projectName, onToast }: ArModalProps) {
   const [busy, setBusy] = useState<"glb" | "usdz" | "ios" | null>(null);

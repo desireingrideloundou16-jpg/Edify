@@ -2,6 +2,7 @@
  * Print-ready PDF: page 1 = artwork with 3 mm bleed, crop marks, trim/bleed
  * boxes; page 2 = vector die-line (cut + crease) for the printer.
  */
+import { saveBlob } from "@/lib/download";
 import { PDFDocument, StandardFonts, cmyk, rgb, LineCapStyle, type PDFPage } from "pdf-lib";
 import { loadDesignFonts, type PackagingDesign } from "@/lib/artwork/draw";
 import { BLEED_MM, flatLayout, type FlatLayout, type Pt } from "./layout";
@@ -109,12 +110,7 @@ export async function generatePrintPdf(shape: PackagingShape, design: PackagingD
 export async function downloadPrintPdf(shape: PackagingShape, design: PackagingDesign, projectName: string) {
   const res = await generatePrintPdf(shape, design, projectName);
   const blob = new Blob([res.bytes as BlobPart], { type: "application/pdf" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${slugify(projectName) || shape.id}-impression.pdf`;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  saveBlob(blob, `${slugify(projectName) || shape.id}-impression.pdf`);
   return res;
 }
 

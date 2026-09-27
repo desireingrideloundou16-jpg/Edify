@@ -6,6 +6,7 @@ import { AD_FORMATS, AD_SCENES, renderAd, type AdFormat, type AdScene } from "@/
 import type { PackagingSpec } from "@/lib/three/packagingModels";
 import type { PackagingDesign } from "@/lib/artwork/draw";
 import { slugify } from "@/lib/print/exportPrintPdf";
+import { saveDataUrl } from "@/lib/download";
 
 interface AdStudioModalProps {
   isOpen: boolean;
@@ -32,6 +33,8 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
   const [seed, setSeed] = useState(1);
   const [image, setImage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
   /** AI photo backdrop (Cloudflare Workers AI · FLUX). */
   const [decor, setDecor] = useState(DECORS[0]);
   const [photoBg, setPhotoBg] = useState<string | null>(null);
@@ -64,13 +67,21 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
 
   const generate = useCallback(async () => {
     setBusy(true);
+    setError(null);
+    // Let the spinner paint before the heavy render.
+    await new Promise((r) => setTimeout(r, 30));
     try {
-      // Let the spinner paint before the heavy render.
-      await new Promise((r) => setTimeout(r, 30));
       setImage(await renderAd({ spec, design, scene, format, withCopy, seed, backgroundUrl: photoBg }));
     } catch (e) {
-      console.error(e);
-      onToast("Impossible de générer le visuel sur cet appareil (WebGL indisponible).");
+      console.error("[visuel] rendu HD", e);
+      // Lighter second attempt: some graphics cards refuse the full-HD canvas.
+      try {
+        setImage(await renderAd({ spec, design, scene, format, withCopy, seed, backgroundUrl: photoBg, scale: 0.6 }));
+      } catch (e2) {
+        console.error("[visuel] rendu allégé", e2);
+        setImage(null);
+        setError("Le visuel n'a pas pu être calculé sur cet appareil. Fermez les autres onglets 3D puis réessayez, ou activez l'accélération matérielle du navigateur.");
+      }
     } finally {
       setBusy(false);
     }
@@ -90,12 +101,18 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
 
   if (!isOpen) return null;
 
-  const download = () => {
+  const download = async () => {
     if (!image) return;
-    const a = document.createElement("a");
-    a.href = image;
-    a.download = `${slugify(projectName) || "edify"}-pub-${format}.png`;
-    a.click();
+    setSaving(true);
+    try {
+      await saveDataUrl(image, `${slugify(projectName) || "edify"}-visuel-${format}.png`);
+      onToast("✓ Visuel téléchargé (PNG haute définition).");
+    } catch (e) {
+      console.error(e);
+      onToast("Le téléchargement a échoué. Réessayez.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const fmt = AD_FORMATS.find((f) => f.id === format)!;
@@ -128,6 +145,14 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
               {image && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={image} alt="Visuel publicitaire généré" className={`w-full h-full object-contain transition-opacity ${busy ? "opacity-40" : ""}`} />
+              )}
+              {!image && !busy && error && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center text-slate-600">
+                  <span className="text-sm font-semibold">{error}</span>
+                  <button type="button" onClick={generate} className="edify-secondary-btn justify-center">
+                    <RefreshCw className="w-3.5 h-3.5" /> Réessayer
+                  </button>
+                </div>
               )}
               {busy && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-600">
@@ -173,8 +198,8 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
               <button type="button" onClick={() => setSeed((s) => s + 1)} disabled={busy} className="edify-secondary-btn w-full justify-center">
                 <RefreshCw className="w-3.5 h-3.5" /> Nouvelle variante
               </button>
-              <button type="button" onClick={download} disabled={!image || busy} className="edify-primary-download-btn w-full">
-                <Download className="w-4 h-4" /> Télécharger (PNG)
+              <button type="button" onClick={download} disabled={!image || busy || saving} className="edify-primary-download-btn w-full">
+                {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />} Télécharger (PNG)
               </button>
             </div>
           </div>

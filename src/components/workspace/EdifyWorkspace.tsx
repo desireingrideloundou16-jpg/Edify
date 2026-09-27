@@ -22,6 +22,7 @@ import { briefContent, briefToPrompt, clearBrief, loadBrief } from "@/lib/design
 import { PlanPaywall, type PaywallReason } from "@/components/billing/PlanPaywall";
 import { hasProFeatures } from "@/lib/billing/plans";
 import { analyzeLogo } from "@/lib/design/logoColors";
+import { saveBlob } from "@/lib/download";
 
 interface SavedProject {
   version: 1;
@@ -402,12 +403,7 @@ export function EdifyWorkspace() {
         )
       );
       const blob = await zip.generateAsync({ type: "blob" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `edify-${base}.zip`;
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      saveBlob(blob, `edify-${base}.zip`);
       showToast("✓ Archive téléchargée : PDF d'impression, aperçu 3D, modèle GLB et fiche technique.");
     } catch (e) {
       console.error(e);

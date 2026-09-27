@@ -121,181 +121,184 @@ export async function renderAd(opts: AdOptions): Promise<string> {
 
   const sceneObj = new THREE.Scene();
   const pmrem = new THREE.PMREMGenerator(renderer);
-  sceneObj.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-  sceneObj.environmentIntensity = scene === "luxe" ? 0.55 : 1;
+  // Always release the WebGL context, even if the render fails (browsers allow only a few).
+  try {
+    sceneObj.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    sceneObj.environmentIntensity = scene === "luxe" ? 0.55 : 1;
 
-  // Backdrop colours derived from the pack palette.
-  const lightBg = luminance(bg) > 0.35 ? bg : mix(bg, "#ffffff", 0.75);
-  const backdrop: Record<AdScene, [string, string]> = {
-    podium: [mix(lightBg, "#ffffff", 0.35), mix(lightBg, extra, 0.35)],
-    luxe: ["#2a2622", "#0c0b0a"],
-    nature: ["#eef1e8", "#c9d6bf"],
-    minimal: ["#fbfbfa", "#e9e9e6"],
-    pop: [mix(accent, "#ffffff", 0.45), accent],
-  };
-  const photo = opts.backgroundUrl ? await new THREE.TextureLoader().loadAsync(opts.backgroundUrl).catch(() => null) : null;
-  if (photo) {
-    // "cover" crop of the photo to the ad format
-    photo.colorSpace = THREE.SRGBColorSpace;
-    const img = photo.image as { width: number; height: number };
-    const ia = img.width / img.height, va = fmt.w / fmt.h;
-    if (ia > va) { photo.repeat.set(va / ia, 1); photo.offset.set((1 - va / ia) / 2, 0); }
-    else { photo.repeat.set(1, ia / va); photo.offset.set(0, (1 - ia / va) / 2); }
-    sceneObj.background = photo;
-  } else {
-    sceneObj.background = gradientTexture(...backdrop[scene]);
-  }
-
-  // Shadow catcher floor.
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: scene === "luxe" ? 0.55 : 0.28 }));
-  floor.rotation.x = -Math.PI / 2;
-  floor.receiveShadow = true;
-  sceneObj.add(floor);
-
-  const stage = new THREE.Group();
-  sceneObj.add(stage);
-  let productY = 0;
-
-  if (scene !== "minimal" && !photo) {
-    const podMat =
-      scene === "luxe" ? new THREE.MeshPhysicalMaterial({ color: "#141414", roughness: 0.25, metalness: 0.2, clearcoat: 1 })
-      : scene === "pop" ? new THREE.MeshStandardMaterial({ color: mix(extra, "#ffffff", 0.2), roughness: 0.6 })
-      : new THREE.MeshStandardMaterial({ map: stoneTexture(scene === "nature" ? "#e8e2d4" : "#eeebe6", scene === "nature" ? "#a89f8a" : "#9a948c"), roughness: 0.7 });
-    const podium = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.16, 96), podMat);
-    podium.position.y = 0.08;
-    podium.castShadow = podium.receiveShadow = true;
-    stage.add(podium);
-    productY = 0.16;
-    if (scene === "podium" || scene === "nature") {
-      const step = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.09, 72), podMat);
-      step.position.set(0.72, 0.045, 0.25);
-      step.castShadow = step.receiveShadow = true;
-      stage.add(step);
+    // Backdrop colours derived from the pack palette.
+    const lightBg = luminance(bg) > 0.35 ? bg : mix(bg, "#ffffff", 0.75);
+    const backdrop: Record<AdScene, [string, string]> = {
+      podium: [mix(lightBg, "#ffffff", 0.35), mix(lightBg, extra, 0.35)],
+      luxe: ["#2a2622", "#0c0b0a"],
+      nature: ["#eef1e8", "#c9d6bf"],
+      minimal: ["#fbfbfa", "#e9e9e6"],
+      pop: [mix(accent, "#ffffff", 0.45), accent],
+    };
+    const photo = opts.backgroundUrl ? await new THREE.TextureLoader().loadAsync(opts.backgroundUrl).catch(() => null) : null;
+    if (photo) {
+      // "cover" crop of the photo to the ad format
+      photo.colorSpace = THREE.SRGBColorSpace;
+      const img = photo.image as { width: number; height: number };
+      const ia = img.width / img.height, va = fmt.w / fmt.h;
+      if (ia > va) { photo.repeat.set(va / ia, 1); photo.offset.set((1 - va / ia) / 2, 0); }
+      else { photo.repeat.set(1, ia / va); photo.offset.set(0, (1 - ia / va) / 2); }
+      sceneObj.background = photo;
+    } else {
+      sceneObj.background = gradientTexture(...backdrop[scene]);
     }
-    // Arch backdrop
-    const arch = new THREE.Mesh(
-      new THREE.ExtrudeGeometry(archShape(1.5, 2.1), { depth: 0.06, bevelEnabled: false, curveSegments: 48 }),
-      new THREE.MeshStandardMaterial({ color: scene === "luxe" ? "#3a3129" : mix(backdrop[scene][1], accent, scene === "pop" ? 0.1 : 0.18), roughness: 0.9 })
-    );
-    arch.position.set(-0.15, 0, -0.95);
-    arch.receiveShadow = true;
-    stage.add(arch);
-  }
 
-  // Decorative spheres in the brand colours.
-  if (!photo && (scene === "pop" || scene === "nature" || scene === "podium")) {
-    const colors = scene === "nature" ? ["#9fb08f", "#d8cdb4"] : [accent, extra];
-    for (let i = 0; i < 2; i++) {
-      const r = 0.07 + rand(i) * 0.06;
-      const s = new THREE.Mesh(new THREE.SphereGeometry(r, 48, 32), new THREE.MeshPhysicalMaterial({ color: colors[i], roughness: 0.35, clearcoat: 0.6 }));
-      s.position.set(i === 0 ? -0.7 - rand(i + 3) * 0.2 : 0.62, r, 0.35 + rand(i + 5) * 0.2);
-      s.castShadow = true;
-      stage.add(s);
+    // Shadow catcher floor.
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: scene === "luxe" ? 0.55 : 0.28 }));
+    floor.rotation.x = -Math.PI / 2;
+    floor.receiveShadow = true;
+    sceneObj.add(floor);
+
+    const stage = new THREE.Group();
+    sceneObj.add(stage);
+    let productY = 0;
+
+    if (scene !== "minimal" && !photo) {
+      const podMat =
+        scene === "luxe" ? new THREE.MeshPhysicalMaterial({ color: "#141414", roughness: 0.25, metalness: 0.2, clearcoat: 1 })
+        : scene === "pop" ? new THREE.MeshStandardMaterial({ color: mix(extra, "#ffffff", 0.2), roughness: 0.6 })
+        : new THREE.MeshStandardMaterial({ map: stoneTexture(scene === "nature" ? "#e8e2d4" : "#eeebe6", scene === "nature" ? "#a89f8a" : "#9a948c"), roughness: 0.7 });
+      const podium = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.16, 96), podMat);
+      podium.position.y = 0.08;
+      podium.castShadow = podium.receiveShadow = true;
+      stage.add(podium);
+      productY = 0.16;
+      if (scene === "podium" || scene === "nature") {
+        const step = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.09, 72), podMat);
+        step.position.set(0.72, 0.045, 0.25);
+        step.castShadow = step.receiveShadow = true;
+        stage.add(step);
+      }
+      // Arch backdrop
+      const arch = new THREE.Mesh(
+        new THREE.ExtrudeGeometry(archShape(1.5, 2.1), { depth: 0.06, bevelEnabled: false, curveSegments: 48 }),
+        new THREE.MeshStandardMaterial({ color: scene === "luxe" ? "#3a3129" : mix(backdrop[scene][1], accent, scene === "pop" ? 0.1 : 0.18), roughness: 0.9 })
+      );
+      arch.position.set(-0.15, 0, -0.95);
+      arch.receiveShadow = true;
+      stage.add(arch);
     }
+
+    // Decorative spheres in the brand colours.
+    if (!photo && (scene === "pop" || scene === "nature" || scene === "podium")) {
+      const colors = scene === "nature" ? ["#9fb08f", "#d8cdb4"] : [accent, extra];
+      for (let i = 0; i < 2; i++) {
+        const r = 0.07 + rand(i) * 0.06;
+        const s = new THREE.Mesh(new THREE.SphereGeometry(r, 48, 32), new THREE.MeshPhysicalMaterial({ color: colors[i], roughness: 0.35, clearcoat: 0.6 }));
+        s.position.set(i === 0 ? -0.7 - rand(i + 3) * 0.2 : 0.62, r, 0.35 + rand(i + 5) * 0.2);
+        s.castShadow = true;
+        stage.add(s);
+      }
+    }
+
+    // Product
+    const product = buildPackaging(spec, design);
+    product.traverse((o) => {
+      if ((o as THREE.Mesh).isMesh) o.castShadow = o.receiveShadow = true;
+    });
+    const size = new THREE.Box3().setFromObject(product).getSize(new THREE.Vector3());
+    const scale = 1 / Math.max(size.y, size.x * 0.9);
+    product.scale.multiplyScalar(scale);
+    product.position.y = productY;
+    product.rotation.y = -0.35 + (rand(7) - 0.5) * 0.5;
+    sceneObj.add(product);
+
+    // Lights
+    const key = new THREE.DirectionalLight(scene === "luxe" ? "#ffe2bf" : "#ffffff", scene === "luxe" ? 2.4 : 2.2);
+    key.position.set(-2.2 + rand(9), 3.2, 2.4);
+    key.castShadow = true;
+    key.shadow.mapSize.set(2048, 2048);
+    key.shadow.radius = 14;
+    key.shadow.blurSamples = 24;
+    key.shadow.bias = -0.0004;
+    const sc = key.shadow.camera as THREE.OrthographicCamera;
+    sc.left = sc.bottom = -2.5;
+    sc.right = sc.top = 2.5;
+    sceneObj.add(key);
+    const rim = new THREE.DirectionalLight(scene === "luxe" ? "#ffcf8a" : "#ffffff", scene === "luxe" ? 2.2 : 0.9);
+    rim.position.set(2.5, 2, -2.5);
+    sceneObj.add(rim);
+    sceneObj.add(new THREE.HemisphereLight("#ffffff", scene === "luxe" ? "#1a1612" : "#d8d4cc", scene === "luxe" ? 0.25 : 0.6));
+
+    // Camera framing: product slightly lower when copy sits on top.
+    const aspect = fmt.w / fmt.h;
+    const camera = new THREE.PerspectiveCamera(aspect < 1 ? 32 : 26, aspect, 0.01, 100);
+    const target = new THREE.Vector3(0, productY + 0.5 * (withCopy && aspect <= 1 ? 0.78 : 0.62), 0);
+    const productHeight = size.y * scale;
+    target.y = productY + productHeight * (withCopy && aspect <= 1 ? 0.62 : 0.48);
+    const dist = (aspect < 1 ? 3.6 : 3.0) + (withCopy && aspect <= 1 ? 0.6 : 0);
+    const yaw = 0.18 + (rand(11) - 0.5) * 0.25;
+    camera.position.set(Math.sin(yaw) * dist, target.y + 0.35, Math.cos(yaw) * dist);
+    camera.lookAt(target);
+    if (aspect > 1) camera.position.x += withCopy ? -0.55 : 0;
+
+    renderer.render(sceneObj, camera);
+
+    // Compose with ad copy.
+    const out = document.createElement("canvas");
+    out.width = fmt.w;
+    out.height = fmt.h;
+    const ctx = out.getContext("2d")!;
+    ctx.drawImage(renderer.domElement, 0, 0);
+
+    if (withCopy) {
+      const darkBg = scene === "luxe" || luminance(backdrop[scene][0]) < 0.3;
+      const textColor = darkBg ? "#ffffff" : ink;
+      const head = fontCss(design.headingFont);
+      const body = fontCss(design.bodyFont);
+      const landscape = aspect > 1;
+      const cx = landscape ? fmt.w * 0.72 : fmt.w / 2;
+      const top = landscape ? fmt.h * 0.36 : fmt.h * 0.085;
+      const maxW = landscape ? fmt.w * 0.42 : fmt.w * 0.84;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+      ctx.fillStyle = textColor;
+      let size = fmt.w * (landscape ? 0.055 : 0.09);
+      const brand = design.brandName || "";
+      do {
+        ctx.font = `${fontWeight(design.headingFont, 800)} ${size}px ${head}`;
+        if (ctx.measureText(brand).width <= maxW) break;
+        size *= 0.92;
+      } while (size > 12);
+      ctx.fillText(brand, cx, top);
+      let y = top + size * 1.15;
+      ctx.globalAlpha = 0.92;
+      const sub = design.tagline || design.productName;
+      let s2 = fmt.w * (landscape ? 0.022 : 0.036);
+      do {
+        ctx.font = `${fontWeight(design.bodyFont, 400)} ${s2}px ${body}`;
+        if (ctx.measureText(sub).width <= maxW) break;
+        s2 *= 0.92;
+      } while (s2 > 10);
+      ctx.fillText(sub, cx, y);
+      ctx.globalAlpha = 1;
+      y += s2 * 1.9;
+      // CTA pill
+      const cta = design.productName && sub !== design.productName ? design.productName : "Disponible maintenant";
+      ctx.font = `${fontWeight(design.bodyFont, 700)} ${s2 * 0.8}px ${body}`;
+      const pw = ctx.measureText(cta).width + s2 * 1.8;
+      const ph = s2 * 1.7;
+      ctx.fillStyle = darkBg ? accent : ink;
+      ctx.beginPath();
+      ctx.roundRect(cx - pw / 2, y, pw, ph, ph / 2);
+      ctx.fill();
+      ctx.fillStyle = resolveColors([darkBg ? accent : ink]).ink;
+      ctx.textBaseline = "middle";
+      ctx.fillText(cta, cx, y + ph / 2);
+    }
+
+    return out.toDataURL("image/png");
+  } finally {
+    disposeObject(sceneObj);
+    (sceneObj.background as THREE.Texture | null)?.dispose();
+    sceneObj.environment?.dispose();
+    pmrem.dispose();
+    renderer.dispose();
+    renderer.forceContextLoss();
   }
-
-  // Product
-  const product = buildPackaging(spec, design);
-  product.traverse((o) => {
-    if ((o as THREE.Mesh).isMesh) o.castShadow = o.receiveShadow = true;
-  });
-  const size = new THREE.Box3().setFromObject(product).getSize(new THREE.Vector3());
-  const scale = 1 / Math.max(size.y, size.x * 0.9);
-  product.scale.multiplyScalar(scale);
-  product.position.y = productY;
-  product.rotation.y = -0.35 + (rand(7) - 0.5) * 0.5;
-  sceneObj.add(product);
-
-  // Lights
-  const key = new THREE.DirectionalLight(scene === "luxe" ? "#ffe2bf" : "#ffffff", scene === "luxe" ? 2.4 : 2.2);
-  key.position.set(-2.2 + rand(9), 3.2, 2.4);
-  key.castShadow = true;
-  key.shadow.mapSize.set(2048, 2048);
-  key.shadow.radius = 14;
-  key.shadow.blurSamples = 24;
-  key.shadow.bias = -0.0004;
-  const sc = key.shadow.camera as THREE.OrthographicCamera;
-  sc.left = sc.bottom = -2.5;
-  sc.right = sc.top = 2.5;
-  sceneObj.add(key);
-  const rim = new THREE.DirectionalLight(scene === "luxe" ? "#ffcf8a" : "#ffffff", scene === "luxe" ? 2.2 : 0.9);
-  rim.position.set(2.5, 2, -2.5);
-  sceneObj.add(rim);
-  sceneObj.add(new THREE.HemisphereLight("#ffffff", scene === "luxe" ? "#1a1612" : "#d8d4cc", scene === "luxe" ? 0.25 : 0.6));
-
-  // Camera framing: product slightly lower when copy sits on top.
-  const aspect = fmt.w / fmt.h;
-  const camera = new THREE.PerspectiveCamera(aspect < 1 ? 32 : 26, aspect, 0.01, 100);
-  const target = new THREE.Vector3(0, productY + 0.5 * (withCopy && aspect <= 1 ? 0.78 : 0.62), 0);
-  const productHeight = size.y * scale;
-  target.y = productY + productHeight * (withCopy && aspect <= 1 ? 0.62 : 0.48);
-  const dist = (aspect < 1 ? 3.6 : 3.0) + (withCopy && aspect <= 1 ? 0.6 : 0);
-  const yaw = 0.18 + (rand(11) - 0.5) * 0.25;
-  camera.position.set(Math.sin(yaw) * dist, target.y + 0.35, Math.cos(yaw) * dist);
-  camera.lookAt(target);
-  if (aspect > 1) camera.position.x += withCopy ? -0.55 : 0;
-
-  renderer.render(sceneObj, camera);
-
-  // Compose with ad copy.
-  const out = document.createElement("canvas");
-  out.width = fmt.w;
-  out.height = fmt.h;
-  const ctx = out.getContext("2d")!;
-  ctx.drawImage(renderer.domElement, 0, 0);
-
-  if (withCopy) {
-    const darkBg = scene === "luxe" || luminance(backdrop[scene][0]) < 0.3;
-    const textColor = darkBg ? "#ffffff" : ink;
-    const head = fontCss(design.headingFont);
-    const body = fontCss(design.bodyFont);
-    const landscape = aspect > 1;
-    const cx = landscape ? fmt.w * 0.72 : fmt.w / 2;
-    const top = landscape ? fmt.h * 0.36 : fmt.h * 0.085;
-    const maxW = landscape ? fmt.w * 0.42 : fmt.w * 0.84;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "top";
-    ctx.fillStyle = textColor;
-    let size = fmt.w * (landscape ? 0.055 : 0.09);
-    const brand = design.brandName || "";
-    do {
-      ctx.font = `${fontWeight(design.headingFont, 800)} ${size}px ${head}`;
-      if (ctx.measureText(brand).width <= maxW) break;
-      size *= 0.92;
-    } while (size > 12);
-    ctx.fillText(brand, cx, top);
-    let y = top + size * 1.15;
-    ctx.globalAlpha = 0.92;
-    const sub = design.tagline || design.productName;
-    let s2 = fmt.w * (landscape ? 0.022 : 0.036);
-    do {
-      ctx.font = `${fontWeight(design.bodyFont, 400)} ${s2}px ${body}`;
-      if (ctx.measureText(sub).width <= maxW) break;
-      s2 *= 0.92;
-    } while (s2 > 10);
-    ctx.fillText(sub, cx, y);
-    ctx.globalAlpha = 1;
-    y += s2 * 1.9;
-    // CTA pill
-    const cta = design.productName && sub !== design.productName ? design.productName : "Disponible maintenant";
-    ctx.font = `${fontWeight(design.bodyFont, 700)} ${s2 * 0.8}px ${body}`;
-    const pw = ctx.measureText(cta).width + s2 * 1.8;
-    const ph = s2 * 1.7;
-    ctx.fillStyle = darkBg ? accent : ink;
-    ctx.beginPath();
-    ctx.roundRect(cx - pw / 2, y, pw, ph, ph / 2);
-    ctx.fill();
-    ctx.fillStyle = resolveColors([darkBg ? accent : ink]).ink;
-    ctx.textBaseline = "middle";
-    ctx.fillText(cta, cx, y + ph / 2);
-  }
-
-  const url = out.toDataURL("image/png");
-  disposeObject(sceneObj);
-  (sceneObj.background as THREE.Texture | null)?.dispose();
-  sceneObj.environment?.dispose();
-  pmrem.dispose();
-  renderer.dispose();
-  renderer.forceContextLoss();
-  return url;
 }
