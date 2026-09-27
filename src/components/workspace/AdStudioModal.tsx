@@ -51,6 +51,8 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
           ? "Le décor photo IA s'active dès que Cloudflare Workers AI est configuré."
           : res.status === 402
             ? "Un abonnement actif est nécessaire pour le décor photo IA."
+            : res.status === 403
+              ? "Les décors photo IA sont inclus à partir du plan Pro."
             : "Le décor n'a pas pu être généré. Réessayez."
       );
     } catch {

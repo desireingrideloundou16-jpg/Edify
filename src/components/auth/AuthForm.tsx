@@ -4,60 +4,35 @@ import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Loader2, MailCheck } from "lucide-react";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
-import { useLang } from "@/components/i18n/LangProvider";
-import type { Lang } from "@/lib/i18n/config";
+import { useCopy } from "@/components/i18n/LangProvider";
 
 export type AuthMode = "login" | "signup" | "forgot" | "reset";
 
-const COPY: Record<Lang, Record<AuthMode, { title: string; sub: string; cta: string }>> = {
-  fr: {
-    login: { title: "Bon retour sur Edify", sub: "Connectez-vous pour retrouver vos packagings.", cta: "Se connecter" },
-    signup: { title: "Créez votre compte", sub: "Vos réponses sont gardées : l'IA conçoit votre packaging juste après.", cta: "Créer mon compte" },
-    forgot: { title: "Mot de passe oublié", sub: "Indiquez votre e-mail, nous vous envoyons un lien pour en choisir un nouveau.", cta: "Envoyer le lien" },
-    reset: { title: "Nouveau mot de passe", sub: "Choisissez un mot de passe d'au moins 8 caractères.", cta: "Enregistrer le mot de passe" },
-  },
-  en: {
-    login: { title: "Welcome back to Edify", sub: "Log in to find your packaging projects.", cta: "Log in" },
-    signup: { title: "Create your account", sub: "Your answers are saved: the AI designs your pack right after.", cta: "Create my account" },
-    forgot: { title: "Forgot your password", sub: "Enter your email and we'll send you a link to choose a new one.", cta: "Send the link" },
-    reset: { title: "New password", sub: "Choose a password with at least 8 characters.", cta: "Save the password" },
-  },
-};
+type AuthCopy = ReturnType<typeof useCopy<"auth">>;
 
-const T = {
-  fr: {
-    google: "Continuer avec Google", or: "ou avec votre e-mail", name: "Votre nom", namePh: "Ex. Awa Nkoulou", email: "Adresse e-mail", emailPh: "vous@exemple.com",
-    password: "Mot de passe", newPassword: "Nouveau mot de passe", forgot: "Mot de passe oublié ?", passPh: "Votre mot de passe", passNewPh: "8 caractères minimum",
-    show: "Afficher le mot de passe", hide: "Masquer le mot de passe", noAccount: "Pas encore de compte ?", create: "Créer un compte", already: "Déjà inscrit ?", login: "Se connecter",
-    back: "Retour à la connexion", legal: "En créant un compte, vous acceptez les conditions d'utilisation d'Edify.", checkMail: "Vérifiez votre boîte mail",
-    sentSignup: (e: string) => <>Nous avons envoyé un lien de confirmation à <strong>{e}</strong>. Cliquez dessus pour activer votre compte et ouvrir le studio.</>,
-    sentReset: (e: string) => <>Si un compte existe pour <strong>{e}</strong>, vous allez recevoir un lien pour choisir un nouveau mot de passe.</>,
-    spam: "Rien reçu après quelques minutes ? Regardez dans les courriers indésirables.",
-    notConfigured: "Supabase n'est pas configuré (voir .env.local).", short: "Le mot de passe doit contenir au moins 8 caractères.", generic: "Une erreur est survenue.",
-  },
-  en: {
-    google: "Continue with Google", or: "or with your email", name: "Your name", namePh: "E.g. Awa Nkoulou", email: "Email address", emailPh: "you@example.com",
-    password: "Password", newPassword: "New password", forgot: "Forgot password?", passPh: "Your password", passNewPh: "At least 8 characters",
-    show: "Show password", hide: "Hide password", noAccount: "No account yet?", create: "Create an account", already: "Already registered?", login: "Log in",
-    back: "Back to log in", legal: "By creating an account, you accept Edify's terms of use.", checkMail: "Check your inbox",
-    sentSignup: (e: string) => <>We sent a confirmation link to <strong>{e}</strong>. Click it to activate your account and open the studio.</>,
-    sentReset: (e: string) => <>If an account exists for <strong>{e}</strong>, you'll receive a link to choose a new password.</>,
-    spam: "Nothing after a few minutes? Check your spam folder.",
-    notConfigured: "Supabase isn't configured (see .env.local).", short: "The password must be at least 8 characters.", generic: "Something went wrong.",
-  },
-};
-
-function authError(message: string, code: string | undefined, lang: Lang) {
+function authError(message: string, code: string | undefined, t: AuthCopy) {
   const key = `${code ?? ""} ${message}`.toLowerCase();
-  const fr = lang === "fr";
-  if (key.includes("invalid_credentials") || key.includes("invalid login")) return fr ? "E-mail ou mot de passe incorrect." : "Wrong email or password.";
-  if (key.includes("email_not_confirmed") || key.includes("not confirmed")) return fr ? "Confirmez d'abord votre adresse : cliquez sur le lien reçu par e-mail." : "Confirm your address first: click the link we emailed you.";
-  if (key.includes("user_already_exists") || key.includes("already registered")) return fr ? "Un compte existe déjà avec cet e-mail. Connectez-vous plutôt." : "An account already exists with this email. Log in instead.";
-  if (key.includes("weak_password") || key.includes("at least")) return fr ? "Mot de passe trop faible : 8 caractères minimum, avec lettres et chiffres." : "Password too weak: at least 8 characters, with letters and numbers.";
-  if (key.includes("rate") && key.includes("limit")) return fr ? "Trop de tentatives. Patientez quelques minutes avant de réessayer." : "Too many attempts. Wait a few minutes and try again.";
-  if (key.includes("same_password")) return fr ? "Le nouveau mot de passe doit être différent de l'ancien." : "The new password must differ from the old one.";
-  if (key.includes("network") || key.includes("fetch")) return fr ? "Connexion impossible. Vérifiez votre accès à Internet." : "Can't connect. Check your internet access.";
+  if (key.includes("invalid_credentials") || key.includes("invalid login")) return t.errors.credentials;
+  if (key.includes("email_not_confirmed") || key.includes("not confirmed")) return t.errors.notConfirmed;
+  if (key.includes("user_already_exists") || key.includes("already registered")) return t.errors.exists;
+  if (key.includes("weak_password") || key.includes("at least")) return t.errors.weak;
+  if (key.includes("rate") && key.includes("limit")) return t.errors.rate;
+  if (key.includes("same_password")) return t.errors.same;
+  if (key.includes("banned") || key.includes("suspended")) return t.errors.suspended;
+  if (key.includes("network") || key.includes("fetch")) return t.errors.network;
   return message;
+}
+
+/** "Lien envoyé à {email}" with the address in bold. */
+function withEmail(text: string, email: string) {
+  const [before, after] = text.split("{email}");
+  return (
+    <>
+      {before}
+      <strong>{email}</strong>
+      {after}
+    </>
+  );
 }
 
 function GoogleIcon() {
@@ -74,8 +49,7 @@ function GoogleIcon() {
 export function AuthForm({ mode }: { mode: AuthMode }) {
   const router = useRouter();
   const params = useSearchParams();
-  const { lang } = useLang();
-  const t = T[lang];
+  const t = useCopy("auth");
   const rawNext = params.get("next") ?? "/create";
   const next = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/create";
   const [name, setName] = useState("");
@@ -85,7 +59,8 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
   const [busy, setBusy] = useState<"form" | "google" | null>(null);
   const [error, setError] = useState<string | null>(params.get("error"));
   const [sentTo, setSentTo] = useState<string | null>(null);
-  const copy = COPY[lang][mode];
+  const [title, sub, cta] = t.modes[mode];
+  const copy = { title, sub, cta };
 
   const callback = (target: string) => `${window.location.origin}/auth/callback?next=${encodeURIComponent(target)}`;
 
@@ -97,7 +72,7 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
       options: { redirectTo: callback(next), queryParams: { prompt: "select_account" } },
     });
     if (err) {
-      setError(authError(err.message, err.code, lang));
+      setError(authError(err.message, err.code, t));
       setBusy(null);
     }
   };
@@ -146,7 +121,7 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
       }
     } catch (err) {
       const e2 = err as { message?: string; code?: string };
-      setError(authError(e2.message ?? t.generic, e2.code, lang));
+      setError(authError(e2.message ?? t.generic, e2.code, t));
     } finally {
       setBusy(null);
     }
@@ -158,7 +133,7 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
         <span className="au-sent-icon"><MailCheck className="w-6 h-6" /></span>
         <h1 className="au-title">{t.checkMail}</h1>
         <p className="au-sub">
-          {mode === "signup" ? t.sentSignup(sentTo) : t.sentReset(sentTo)}
+          {withEmail(mode === "signup" ? t.sentSignup : t.sentReset, sentTo)}
         </p>
         <p className="au-hint">{t.spam}</p>
         <a href="/login" className="au-link-strong">{t.back}</a>

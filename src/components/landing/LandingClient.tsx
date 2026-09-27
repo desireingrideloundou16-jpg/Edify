@@ -5,7 +5,8 @@ import dynamic from "next/dynamic";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { pickTheme, type LandingTheme } from "./themes";
 import { SHOWCASE } from "./showcase";
-import { useLang } from "@/components/i18n/LangProvider";
+import { useCopy } from "@/components/i18n/LangProvider";
+import { fmt } from "@/lib/i18n/config";
 import { LangToggle, ThemeToggle } from "@/components/i18n/SiteToggles";
 
 // ─── Pack images (pre-rendered by the Edify engine, see /dev-renders?mode=landing) ───
@@ -30,7 +31,7 @@ const Hero3D = dynamic(() => import("./Hero3D").then((m) => m.Hero3D), { ssr: fa
 
 /** Hero cluster: a different universe (packs, art, accent, 3D scene) on every visit. */
 export function HeroCluster({ scene3d = true }: { scene3d?: boolean }) {
-  const { lang } = useLang();
+  const site = useCopy("site");
   const [theme, setTheme] = useState<LandingTheme | null>(null);
   const [use3d, setUse3d] = useState(false);
   const [ready3d, setReady3d] = useState(false);
@@ -50,8 +51,8 @@ export function HeroCluster({ scene3d = true }: { scene3d?: boolean }) {
   }, [scene3d]);
 
   useEffect(() => {
-    if (theme) applyThemeToPage(theme, lang === "fr" ? theme.label : theme.labelEn);
-  }, [theme, lang]);
+    if (theme) applyThemeToPage(theme, site.universes[theme.id as keyof typeof site.universes] ?? theme.label);
+  }, [theme, site]);
 
   if (!theme) return <div className="lp-cluster" aria-hidden="true" />;
   const [back, right, left, centre, front] = theme.packs;
@@ -62,11 +63,10 @@ export function HeroCluster({ scene3d = true }: { scene3d?: boolean }) {
     { i: centre, cls: "lp-c2" },
     { i: front, cls: "lp-c4" },
   ];
-  const fr = lang === "fr";
   return (
     <div
       className={`lp-cluster art-${theme.art} ${ready3d ? "is-3d" : ""}`}
-      aria-label={`${fr ? "Exemples de packagings conçus avec Edify" : "Packaging examples designed with Edify"} — ${fr ? theme.label : theme.labelEn}`}
+      aria-label={`${site.cluster.label} — ${site.universes[theme.id as keyof typeof site.universes] ?? theme.label}`}
     >
       <span className={`lp-cluster-disc is-${theme.disc}`} aria-hidden="true" />
       <div className="lp-cluster-static">
@@ -76,7 +76,7 @@ export function HeroCluster({ scene3d = true }: { scene3d?: boolean }) {
             index={i}
             eager
             className={cls}
-            alt={fr ? `Packaging ${SHOWCASE[i].design.brandName} généré avec Edify` : `${SHOWCASE[i].design.brandName} packaging generated with Edify`}
+            alt={fmt(site.cluster.packAlt, { brand: SHOWCASE[i].design.brandName })}
           />
         ))}
       </div>
@@ -100,26 +100,11 @@ function applyThemeToPage(t: LandingTheme, label: string) {
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
 
-const LINKS = {
-  fr: [
-    { href: "/#comment", label: "Comment ça marche" },
-    { href: "/#fonctionnalites", label: "Fonctionnalités" },
-    { href: "/#exemples", label: "Exemples" },
-    { href: "/#tarifs", label: "Tarifs" },
-    { href: "/#faq", label: "Questions" },
-  ],
-  en: [
-    { href: "/#comment", label: "How it works" },
-    { href: "/#fonctionnalites", label: "Features" },
-    { href: "/#exemples", label: "Examples" },
-    { href: "/#tarifs", label: "Pricing" },
-    { href: "/#faq", label: "FAQ" },
-  ],
-};
+const LINK_HREFS = ["/#comment", "/#fonctionnalites", "/#exemples", "/#tarifs", "/#faq"];
 
 export function LandingNav() {
-  const { lang } = useLang();
-  const fr = lang === "fr";
+  const t = useCopy("site").nav;
+  const links = LINK_HREFS.map((href, i) => ({ href, label: t.links[i] }));
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -143,17 +128,6 @@ export function LandingNav() {
     };
   }, [open]);
 
-  const t = {
-    home: fr ? "Edify, accueil" : "Edify, home",
-    nav: fr ? "Navigation principale" : "Main navigation",
-    login: fr ? "Se connecter" : "Log in",
-    cta: fr ? "Commencez maintenant" : "Start now",
-    ctaShort: fr ? "Commencer" : "Start",
-    open: fr ? "Ouvrir le menu" : "Open menu",
-    close: fr ? "Fermer le menu" : "Close menu",
-    prefs: fr ? "Langue et thème" : "Language and theme",
-  };
-
   return (
     <>
       <header className={`lp-nav ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}>
@@ -163,7 +137,7 @@ export function LandingNav() {
             <span>Edify</span>
           </a>
           <nav className="lp-nav-links" aria-label={t.nav}>
-            {LINKS[lang].map((l) => (
+            {links.map((l) => (
               <a key={l.href} href={l.href}>
                 {l.label}
               </a>
@@ -187,7 +161,7 @@ export function LandingNav() {
       {/* Mobile menu: full-height sheet (outside the header: its backdrop-filter would trap position: fixed) */}
       <div id="lp-sheet" className="lp-sheet" hidden={!open}>
         <nav aria-label={t.nav} className="lp-sheet-links">
-          {LINKS[lang].map((l, i) => (
+          {links.map((l, i) => (
             <a key={l.href} href={l.href} onClick={() => setOpen(false)} style={{ animationDelay: `${i * 40}ms` }}>
               {l.label}
               <ArrowRight className="w-5 h-5" aria-hidden="true" />

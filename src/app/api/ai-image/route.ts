@@ -1,4 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
+import { hasProFeatures } from "@/lib/billing/plans";
+import { logAiEvent } from "@/lib/admin/log";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -22,8 +24,9 @@ export async function POST(req: Request) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return Response.json({ error: "unauthenticated" }, { status: 401 });
-  const { data: profile } = await supabase.from("profiles").select("plan_expires_at").eq("id", user.id).single();
+  const { data: profile } = await supabase.from("profiles").select("plan, plan_expires_at").eq("id", user.id).single();
   if (!profile?.plan_expires_at || new Date(profile.plan_expires_at) <= new Date()) return Response.json({ error: "no_plan" }, { status: 402 });
+  if (!hasProFeatures(profile.plan)) return Response.json({ error: "upgrade" }, { status: 403 });
 
   const day = new Date().toISOString().slice(0, 10);
   const u = usage.get(user.id);
@@ -46,6 +49,7 @@ export async function POST(req: Request) {
     });
     const json = await res.json().catch(() => null);
     const image = json?.result?.image;
+    await logAiEvent(user.id, "image", "cloudflare", !!(res.ok && image));
     if (!res.ok || !image) {
       console.error("[ai-image]", res.status, JSON.stringify(json?.errors ?? json).slice(0, 300));
       return Response.json({ error: "generation_failed" }, { status: 502 });

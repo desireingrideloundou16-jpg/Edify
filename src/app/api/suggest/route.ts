@@ -1,6 +1,7 @@
 import { localSuggestions } from "@/lib/ai/suggest";
 import { SUGGEST_STEPS, type StartBrief, type SuggestStep } from "@/lib/design/brief";
-import { isLang, type Lang } from "@/lib/i18n/config";
+import { isLang, LANG_NAMES, type Lang } from "@/lib/i18n/config";
+import { logAiEvent } from "@/lib/admin/log";
 
 export const runtime = "nodejs";
 
@@ -39,7 +40,7 @@ async function aiSuggestions(step: SuggestStep, brief: Partial<StartBrief>, lang
   const prompt =
     lang === "fr"
       ? `Tu es un expert en packaging et en étiquetage pour des PME au Cameroun. Nous sommes le ${today}.\nInformations déjà connues sur le produit :\n${context || "(aucune)"}\n\nPropose 4 à 6 réponses courtes, concrètes et différentes pour : ${QUESTION[step].fr}.\nChaque réponse fait au plus 110 caractères, en français, sans numérotation. N'invente jamais de certification.`
-      : `You are a packaging and labelling expert for small businesses in Cameroon. Today is ${today}.\nWhat we already know about the product:\n${context || "(nothing yet)"}\n\nSuggest 4 to 6 short, concrete, different answers for: ${QUESTION[step].en}.\nEach answer is at most 110 characters, in English, no numbering. Never invent a certification.`;
+      : `You are a packaging and labelling expert for small businesses in Cameroon. Today is ${today}.\nWhat we already know about the product:\n${context || "(nothing yet)"}\n\nSuggest 4 to 6 short, concrete, different answers for: ${QUESTION[step].en}.\nEach answer is at most 110 characters, written in ${LANG_NAMES[lang]} (language code "${lang}"), no numbering. Never invent a certification.`;
 
   for (const model of ["gemini-flash-lite-latest", "gemini-flash-latest"]) {
     try {
@@ -88,6 +89,7 @@ export async function POST(req: Request) {
   if (limited(ip)) return Response.json({ suggestions: local, source: "local" });
 
   const ai = await aiSuggestions(step, brief, lang);
+  await logAiEvent(null, "suggest", ai ? "gemini" : "local", !!ai);
   if (!ai) return Response.json({ suggestions: local, source: "local" });
   // Keep a date-shaped answer for the expiry step.
   const list = step === "expiry" ? ai.filter((s) => /\d{4}-\d{2}-\d{2}/.test(s)).map((s) => s.match(/\d{4}-\d{2}-\d{2}/)![0]) : ai;

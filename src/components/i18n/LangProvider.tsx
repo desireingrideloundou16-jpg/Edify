@@ -1,12 +1,19 @@
 "use client";
 
-import React, { createContext, useCallback, useContext } from "react";
+import React, { createContext, useCallback, useContext, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { LANG_COOKIE, type Lang } from "@/lib/i18n/config";
+import { localize, type Messages, type Namespace } from "@/lib/i18n/localize";
 
-const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: "fr", setLang: () => {} });
+interface LangState {
+  lang: Lang;
+  setLang: (l: Lang) => void;
+  messages: Messages;
+}
 
-export function LangProvider({ lang, children }: { lang: Lang; children: React.ReactNode }) {
+const LangContext = createContext<LangState>({ lang: "fr", setLang: () => {}, messages: {} });
+
+export function LangProvider({ lang, messages, children }: { lang: Lang; messages: Messages; children: React.ReactNode }) {
   const router = useRouter();
   const setLang = useCallback(
     (l: Lang) => {
@@ -16,13 +23,14 @@ export function LangProvider({ lang, children }: { lang: Lang; children: React.R
     },
     [router]
   );
-  return <LangContext.Provider value={{ lang, setLang }}>{children}</LangContext.Provider>;
+  const value = useMemo(() => ({ lang, setLang, messages }), [lang, setLang, messages]);
+  return <LangContext.Provider value={value}>{children}</LangContext.Provider>;
 }
 
 export const useLang = () => useContext(LangContext);
 
-/** Pick the string for the current language: t({ fr: "…", en: "…" }). */
-export function useT() {
-  const { lang } = useLang();
-  return useCallback(<T,>(s: { fr: T; en: T }) => s[lang], [lang]);
+/** Copy of a namespace in the current language (translations merged over English). */
+export function useCopy<N extends Namespace>(ns: N) {
+  const { lang, messages } = useContext(LangContext);
+  return useMemo(() => localize(ns, lang, messages), [ns, lang, messages]);
 }

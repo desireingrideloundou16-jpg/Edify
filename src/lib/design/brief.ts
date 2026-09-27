@@ -2,7 +2,7 @@
  * The "Commencez maintenant" brief: answers collected step by step on /commencer, stored in
  * localStorage, then turned into a design by the studio after sign-in.
  */
-import type { Lang } from "@/lib/i18n/config";
+import { LANG_NAMES, type Lang } from "@/lib/i18n/config";
 import type { DesignContent } from "./state";
 
 export const BRIEF_KEY = "edify-start-brief";
@@ -58,7 +58,7 @@ export function briefToPrompt(b: StartBrief): string {
     b.production && `Date de production : ${b.production}`,
     b.price && `Prix de vente : ${b.price}`,
     b.extra && `Autres informations à faire figurer : ${b.extra}`,
-    `Langue principale du site de l'utilisateur : ${b.lang === "fr" ? "français" : "anglais"}. Marché : Cameroun / Afrique centrale, mentions bilingues français-anglais.`,
+    `Langue de l'utilisateur : ${LANG_NAMES[b.lang] ?? "Français"} (explique tes choix dans cette langue). Marché : Cameroun / Afrique centrale, mentions bilingues français-anglais.`,
   ];
   return lines.filter(Boolean).join("\n");
 }

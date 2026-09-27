@@ -1,32 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { getLang } from "@/lib/i18n/server";
+import { getLang, serverCopy } from "@/lib/i18n/server";
+import { getMessages } from "@/lib/i18n/messages";
 import { LangProvider } from "@/components/i18n/LangProvider";
 import { THEME_BOOT } from "@/lib/theme";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-const META = {
-  fr: {
-    title: "Edify — Créez votre packaging avec l'IA en quelques minutes",
-    short: "Edify — Votre packaging conçu par l'IA",
-    description:
-      "Répondez à quelques questions, l'IA d'Edify conçoit votre packaging : forme, design, mentions obligatoires FR/EN, maquette 3D et PDF prêt à imprimer. Paiement Mobile Money.",
-    keywords: ["packaging IA", "créer un packaging", "étiquette produit Cameroun", "design d'emballage", "maquette 3D packaging", "PDF prêt à imprimer", "Edify"],
-    locale: "fr_CM",
-  },
-  en: {
-    title: "Edify — Design your packaging with AI in minutes",
-    short: "Edify — Your packaging, designed by AI",
-    description:
-      "Answer a few questions and Edify's AI designs your packaging: shape, artwork, bilingual FR/EN label information, 3D mockup and print-ready PDF. Pay with Mobile Money.",
-    keywords: ["AI packaging", "packaging design", "product label Cameroon", "packaging mockup 3D", "print-ready PDF", "Edify"],
-    locale: "en_CM",
-  },
+const KEYWORDS = {
+  fr: ["packaging IA", "créer un packaging", "étiquette produit Cameroun", "design d'emballage", "maquette 3D packaging", "PDF prêt à imprimer", "Edify"],
+  en: ["AI packaging", "packaging design", "product label Cameroon", "packaging mockup 3D", "print-ready PDF", "Edify"],
 };
+const OG_LOCALE: Record<string, string> = { fr: "fr_CM", en: "en_CM", es: "es_ES", pt: "pt_PT", de: "de_DE", it: "it_IT", nl: "nl_NL" };
 
 export function generateMetadata(): Metadata {
-  const m = META[getLang()];
+  const lang = getLang();
+  const m = { ...serverCopy("meta", lang), keywords: KEYWORDS[lang === "fr" ? "fr" : "en"], locale: OG_LOCALE[lang] };
   return {
     metadataBase: new URL(SITE),
     title: { default: m.title, template: "%s · Edify" },
@@ -58,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/fonts/dm-sans-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="bg-white text-slate-900 font-sans antialiased selection:bg-purple-100 selection:text-purple-900">
-        <LangProvider lang={lang}>{children}</LangProvider>
+        <LangProvider lang={lang} messages={getMessages(lang)}>{children}</LangProvider>
       </body>
     </html>
   );

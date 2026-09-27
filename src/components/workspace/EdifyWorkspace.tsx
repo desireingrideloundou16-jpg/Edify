@@ -19,7 +19,9 @@ import type { DesignSpec } from "@/lib/ai/designSpec";
 import { generatePrintPdf, downloadPrintPdf, slugify } from "@/lib/print/exportPrintPdf";
 import { createClient as createSupabase } from "@/lib/supabase/client";
 import { briefContent, briefToPrompt, clearBrief, loadBrief } from "@/lib/design/brief";
-import { PlanPaywall } from "@/components/billing/PlanPaywall";
+import { PlanPaywall, type PaywallReason } from "@/components/billing/PlanPaywall";
+import { hasProFeatures } from "@/lib/billing/plans";
+import { analyzeLogo } from "@/lib/design/logoColors";
 
 interface SavedProject {
   version: 1;
@@ -66,10 +68,11 @@ export function EdifyWorkspace() {
   const [credits, setCredits] = useState<number | null>(null);
   /** null = not loaded yet; the studio is usable, AI and downloads need an active plan. */
   const [planActive, setPlanActive] = useState<boolean | null>(null);
-  const [paywall, setPaywall] = useState<null | "generate" | "export" | "credits">(null);
+  const [paywall, setPaywall] = useState<null | PaywallReason>(null);
+  const [plan, setPlan] = useState<string | null>(null);
   /** Answers the user typed in the wizard: never overwritten by the AI. */
   const keepFields = useRef<Partial<DesignContent>>({});
-  const [account, setAccount] = useState<{ name: string; email: string; avatar: string | null } | null>(null);
+  const [account, setAccount] = useState<{ name: string; email: string; avatar: string | null; isAdmin?: boolean } | null>(null);
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const projectId = useRef<string | null>(null);
   const restored = useRef(false);
@@ -116,14 +119,17 @@ export function EdifyWorkspace() {
       } = await supabase.auth.getUser();
       if (!user) return;
       const meta = user.user_metadata ?? {};
-      const { data: profile } = await supabase.from("profiles").select("full_name, avatar_url, credits, plan_expires_at").eq("id", user.id).single();
+      const { data: profile } = await supabase.from("profiles").select("full_name, avatar_url, credits, plan, plan_expires_at, role").eq("id", user.id).single();
       setAccount({
         name: profile?.full_name || meta.full_name || meta.name || user.email?.split("@")[0] || "Mon compte",
         email: user.email ?? "",
         avatar: profile?.avatar_url || meta.avatar_url || null,
+        isAdmin: profile?.role === "admin",
       });
       setCredits(profile?.credits ?? 0);
-      setPlanActive(!!profile?.plan_expires_at && new Date(profile.plan_expires_at) > new Date());
+      const active = !!profile?.plan_expires_at && new Date(profile.plan_expires_at) > new Date();
+      setPlanActive(active);
+      setPlan(active ? profile?.plan ?? null : null);
       // A shared link or a landing brief takes precedence over the last saved project.
       const qs = new URLSearchParams(window.location.search);
       const fromLink = window.location.hash.includes("d=") || qs.has("prompt") || qs.has("brief");
@@ -216,7 +222,16 @@ export function EdifyWorkspace() {
       }
     }
     showToast("✨ Conception de votre packaging en cours…", 60000);
-    handleGenerate(prompt, null).then((ok) => ok && brief && clearBrief());
+    (async () => {
+      // The brief is a brand-new pack: the AI must not start from the studio's current design.
+      const logo = brief?.logo ? await analyzeLogo(brief.logo).catch(() => null) : null;
+      const ok = await handleGenerate(prompt, logo ? { name: "logo", mediaType: logo.mediaType, data: logo.data } : null, {
+        fresh: !!brief,
+        fields: brief ? briefContent(brief) : {},
+        logoColors: logo?.colors ?? [],
+      });
+      if (ok && brief) clearBrief();
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -242,6 +257,9 @@ export function EdifyWorkspace() {
   };
 
   const applySpec = (sp: DesignSpec) => {
+    const { ingredients: _i, usage: _u, ...keep } = keepFields.current;
+    void _i;
+    void _u;
     const s = ALL_CATALOG_SHAPES.find((x) => x.id === sp.shapeId);
     const st = ALL_CATALOG_STYLES.find((x) => x.id === sp.styleId);
     if (s) setShape(s);
@@ -256,18 +274,23 @@ export function EdifyWorkspace() {
       tagline: sp.tagline,
       volume: sp.volume,
       details: sp.details,
-      ingredients: sp.ingredients ?? "",
-      usage: sp.usage ?? "",
       barcode: "",
       expiry: "",
       production: "",
       price: "",
       extra: "",
-      ...keepFields.current,
+      ...keep,
+      // The AI rewrites the user's ingredients and directions faithfully, in French and English.
+      ingredients: sp.ingredients?.trim() || keepFields.current.ingredients || "",
+      usage: sp.usage?.trim() || keepFields.current.usage || "",
     });
   };
 
-  const handleGenerate = async (prompt: string, reference: ReferenceFile | null) => {
+  const handleGenerate = async (
+    prompt: string,
+    reference: ReferenceFile | null,
+    opts: { fresh?: boolean; fields?: Partial<DesignContent>; logoColors?: string[] } = {}
+  ) => {
     if (planActive === false) {
       setPaywall("generate");
       return false;
@@ -284,7 +307,26 @@ export function EdifyWorkspace() {
         body: JSON.stringify({
           prompt,
           reference: reference ? { name: reference.name, mediaType: reference.mediaType, data: reference.data } : null,
-          current: { shapeId: shape.id, styleId: style.id, brandName: content.brandName, productName: content.productName, volume: content.volume },
+          fresh: opts.fresh ?? false,
+          logoColors: opts.logoColors ?? [],
+          current: {
+            shapeId: shape.id,
+            styleId: style.id,
+            brandName: content.brandName,
+            productName: content.productName,
+            volume: content.volume,
+            tagline: content.tagline,
+            details: content.details,
+            ingredients: content.ingredients,
+            usage: content.usage,
+            barcode: content.barcode,
+            expiry: content.expiry,
+            production: content.production,
+            price: content.price,
+            extra: content.extra,
+            // Wizard answers override whatever the studio showed before.
+            ...opts.fields,
+          },
         }),
       });
       const json = await res.json();
@@ -394,6 +436,11 @@ export function EdifyWorkspace() {
   const handleExport = (a: ExportAction) => {
     if (a !== "share" && planActive === false) {
       setPaywall("export");
+      return;
+    }
+    // 3D model / AR and the full ZIP pack come with Pro and Business.
+    if ((a === "ar" || a === "zip") && planActive && !hasProFeatures(plan)) {
+      setPaywall("upgrade");
       return;
     }
     if (a === "pdf") handleDownloadPdf();

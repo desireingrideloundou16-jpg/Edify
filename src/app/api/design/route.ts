@@ -8,6 +8,7 @@ import {
   type CurrentDesign, type DesignSpec,
 } from "@/lib/ai/designSpec";
 import { PACKAGING_KNOWLEDGE } from "@/lib/ai/packagingKnowledge";
+import { logAiEvent } from "@/lib/admin/log";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -61,8 +62,21 @@ ${styles}
 POLICES INSTALLÉES
 ${fonts}`;
 
-function userMessage(prompt: string, current: CurrentDesign) {
-  return `Design actuel (à faire évoluer seulement si le brief ne le contredit pas) : ${JSON.stringify(current)}
+function userMessage(prompt: string, current: CurrentDesign, opts: { fresh?: boolean; logoColors?: string[]; hasLogo?: boolean } = {}) {
+  const logo = opts.hasLogo
+    ? `\n\nLOGO DE LA MARQUE : fourni en image${opts.logoColors?.length ? `, couleurs dominantes ${opts.logoColors.join(", ")}` : ""}. Construis la palette à partir de ces couleurs (background ou accent = couleur principale du logo, ink contrasté) pour que le logo s'intègre parfaitement sur la face avant.`
+    : "";
+  if (opts.fresh) {
+    return `NOUVEAU PACKAGING À CRÉER DE ZÉRO : ignore tout design précédent. Conçois-le de façon autonome, comme un directeur artistique, en utilisant TOUTES les informations ci-dessous : le contenant doit correspondre exactement au packaging décrit et à sa contenance, le nom de marque est repris à l'identique, les ingrédients et l'usage inspirent l'univers visuel (couleurs du fruit, de l'épice, de la plante…), l'origine et les autres informations nourrissent l'accroche et le texte du dos.${logo}
+
+Brief de l'utilisateur :
+${prompt}`;
+  }
+  const { ingredients, usage, barcode, expiry, production, price, extra, ...design } = current;
+  const fields = Object.entries({ ingredients, usage, barcode, expiry, production, price, extra }).filter(([, v]) => v && String(v).trim());
+  return `Design actuel (à faire évoluer seulement si le brief ne le contredit pas) : ${JSON.stringify(design)}${
+    fields.length ? `\nInformations produit déjà saisies par l'utilisateur (à respecter et à utiliser) : ${JSON.stringify(Object.fromEntries(fields))}` : ""
+  }${logo}
 
 Brief de l'utilisateur :
 ${prompt}`;
@@ -83,12 +97,12 @@ function referenceBlock(ref: RefFile): Anthropic.Beta.BetaContentBlockParam | nu
   return null;
 }
 
-async function claudeDesign(prompt: string, current: CurrentDesign, reference: RefFile | null): Promise<DesignSpec> {
+async function claudeDesign(prompt: string, current: CurrentDesign, reference: RefFile | null, opts: Parameters<typeof userMessage>[2]): Promise<DesignSpec> {
   const client = new Anthropic();
   const content: Anthropic.Beta.BetaContentBlockParam[] = [];
   const ref = reference ? referenceBlock(reference) : null;
   if (ref) content.push(ref);
-  content.push({ type: "text", text: userMessage(prompt, current) });
+  content.push({ type: "text", text: userMessage(prompt, current, opts) });
 
   const response = await client.beta.messages.parse({
     model: "claude-opus-5",
@@ -125,8 +139,14 @@ function describeError(error: unknown) {
   return error instanceof Error ? error.message : "erreur inconnue";
 }
 
+/** Offline designer: at least wear the brand's own colours. */
+function withLogoColors(spec: DesignSpec, colors: string[]): DesignSpec {
+  if (!colors.length) return spec;
+  return { ...spec, palette: { ...spec.palette, accent: colors[0], extra: colors[1] ?? spec.palette.extra } };
+}
+
 export async function POST(req: Request) {
-  let body: { prompt?: string; current?: CurrentDesign; reference?: RefFile | null };
+  let body: { prompt?: string; current?: CurrentDesign; reference?: RefFile | null; fresh?: boolean; logoColors?: string[] };
   try {
     body = await req.json();
   } catch {
@@ -138,6 +158,11 @@ export async function POST(req: Request) {
     return Response.json({ error: "Brief manquant." }, { status: 400 });
   }
   const reference = body.reference ?? null;
+  const msgOpts = {
+    fresh: body.fresh === true,
+    hasLogo: reference?.name === "logo",
+    logoColors: Array.isArray(body.logoColors) ? body.logoColors.filter((c) => /^#[0-9a-f]{6}$/i.test(c)).slice(0, 4) : [],
+  };
 
   // Signed-in users only; credits are checked here and spent only when an AI engine succeeds.
   const supabase = createSupabase();
@@ -145,7 +170,8 @@ export async function POST(req: Request) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return Response.json({ error: "Connectez-vous pour générer un packaging." }, { status: 401 });
-  const { data: profile } = await supabase.from("profiles").select("credits, plan_expires_at").eq("id", user.id).single();
+  const { data: profile } = await supabase.from("profiles").select("credits, plan_expires_at, suspended").eq("id", user.id).single();
+  if (profile?.suspended) return Response.json({ error: "Compte suspendu.", reason: "suspended" }, { status: 403 });
   const available = profile?.credits ?? 0;
   if (!profile?.plan_expires_at || new Date(profile.plan_expires_at) <= new Date()) {
     return Response.json({ error: "Un abonnement actif est nécessaire.", reason: "no_plan", credits: available }, { status: 402 });
@@ -156,23 +182,26 @@ export async function POST(req: Request) {
 
   // Engines in order of quality; each failure falls through to the next one.
   const engines: { name: "claude" | "gemini"; run: () => Promise<DesignSpec> }[] = [];
-  if (hasClaude()) engines.push({ name: "claude", run: () => claudeDesign(prompt, current, reference) });
-  if (hasGemini()) engines.push({ name: "gemini", run: () => geminiDesign(SYSTEM, userMessage(prompt, current), reference) });
+  if (hasClaude()) engines.push({ name: "claude", run: () => claudeDesign(prompt, current, reference, msgOpts) });
+  if (hasGemini()) engines.push({ name: "gemini", run: () => geminiDesign(SYSTEM, userMessage(prompt, current, msgOpts), reference) });
 
   const failures: string[] = [];
   for (const engine of engines) {
     try {
       const spec = await engine.run();
       const { data: remaining } = await supabase.rpc("consume_credit");
+      await logAiEvent(user.id, "design", engine.name);
       return Response.json({ spec: sanitizeSpec(spec, current), engine: engine.name, credits: typeof remaining === "number" && remaining >= 0 ? remaining : available - 1 });
     } catch (error) {
       console.error(`[api/design] ${engine.name}`, error);
+      await logAiEvent(user.id, "design", engine.name, false);
       failures.push(describeError(error));
     }
   }
 
+  await logAiEvent(user.id, "design", "local");
   return Response.json({
-    spec: sanitizeSpec(localDesign(prompt, current), current),
+    spec: sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current),
     engine: "local",
     credits: available,
     notice: engines.length

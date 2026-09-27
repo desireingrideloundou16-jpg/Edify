@@ -26,7 +26,7 @@
 2. **Prépayé, sans prélèvement automatique.**
    - Le Mobile Money ne permet pas le renouvellement automatique par carte.
    - Le client paie 1, 3 ou 12 mois. C'est aussi rassurant pour lui : pas de mauvaise surprise.
-3. **Prix ronds en FCFA**, faciles à dire et à payer : 3 000 / 10 000 / 30 000.
+3. **Prix psychologiques en FCFA** : 3 000 / 9 750 / 29 999. Le Pro reste sous la barre des 10 000 et l'Entreprise sous celle des 30 000, deux seuils mentaux forts.
 4. **Ancrage** : chaque plan est comparé au prix d'un graphiste (25 000 FCFA et plus pour une seule étiquette). Même le plan Entreprise reste moins cher qu'une seule prestation d'agence.
 5. **Remise sur la durée** : −10 % pour 3 mois, −20 % pour 12 mois. Cela améliore la trésorerie et réduit le désabonnement.
 
@@ -34,17 +34,19 @@
 
 | | **Essentiel** | **Pro** (mis en avant) | **Entreprise** |
 |---|---|---|---|
-| Prix mensuel | **3 000 FCFA** | **10 000 FCFA** | **30 000 FCFA** |
-| 3 mois (−10 %) | 8 100 FCFA | 27 000 FCFA | 81 000 FCFA |
-| 12 mois (−20 %) | 28 800 FCFA | 96 000 FCFA | 288 000 FCFA |
-| Créations IA / mois | 15 | 60 | 250 |
+| Prix mensuel | **3 000 FCFA** | **9 750 FCFA** | **29 999 FCFA** |
+| 3 mois (−10 %) | 8 100 FCFA | 26 325 FCFA | 80 997 FCFA |
+| 12 mois (−20 %) | 28 800 FCFA | 93 600 FCFA | 287 990 FCFA |
+| Créations IA / mois | 20 | 80 | 300 |
 | Cible | Premier produit, micro-entrepreneur | Marque qui lance ou décline des produits chaque mois | PME, coopérative, agence, gamme complète |
-| Inclus | 97 contenants, 84 styles, 58 polices, mentions bilingues, PDF d'impression, aperçu 3D, projets sauvegardés, lien de partage | Tout Essentiel + visuels publicitaires HD, modèle 3D / réalité augmentée, pack ZIP imprimeur, support prioritaire WhatsApp | Tout Pro + plusieurs marques et gammes, accompagnement à l'impression, facture, interlocuteur dédié |
+| Inclus | Assistant « Commencez maintenant » avec suggestions IA, 97 contenants, 84 styles, 58 polices, mentions bilingues + vrai code-barres EAN-13, PDF HD d'impression, aperçu 3D 360°, visuels publicitaires, projets illimités, support e-mail 48 h | Tout Essentiel + décors photo IA, visuels HD réseaux sociaux, modèle 3D et réalité augmentée, pack ZIP imprimeur, relecture des mentions par l'équipe (1 étiquette/mois), support prioritaire WhatsApp | Tout Pro + marques et gammes illimitées, relecture de conformité de toutes les étiquettes, mise en relation avec des imprimeurs partenaires, prise en main d'1 h, facture, interlocuteur dédié, accès en avant-première |
 
 **Pourquoi ces paliers**
-- **3 000 FCFA**, c'est le prix d'un repas au restaurant ou d'un forfait internet. C'est une décision impulsive, qui fait entrer le client. 15 créations suffisent pour un produit et ses variantes.
-- **10 000 FCFA** est le cœur de revenu. L'écart ×3,3 est justifié par ×4 créations et les visuels publicitaires, dont les entrepreneurs ont besoin chaque semaine pour vendre sur WhatsApp, Facebook et Instagram. C'est le plan « Le plus choisi ».
-- **30 000 FCFA** sert d'ancre haute, et le service humain (impression, facture) justifie le prix pour les structures. Il rend le plan Pro raisonnable par comparaison.
+- **3 000 FCFA**, c'est le prix d'un repas au restaurant ou d'un forfait internet. C'est une décision impulsive, qui fait entrer le client. 20 créations suffisent pour un produit et ses variantes.
+- **9 750 FCFA** est le cœur de revenu. L'écart ×3,25 est justifié par ×4 créations, les décors photo IA et la 3D/AR, dont les entrepreneurs ont besoin chaque semaine pour vendre sur WhatsApp, Facebook et Instagram. C'est le plan « Le plus choisi ».
+- **29 999 FCFA** sert d'ancre haute : le service humain (relecture de conformité, imprimeurs partenaires, prise en main) justifie le prix pour les structures et rend le plan Pro raisonnable par comparaison.
+
+**Services humains promis** (à honorer) : relecture des mentions (Pro : 1 étiquette par mois ; Entreprise : toutes), support WhatsApp prioritaire, mise en relation avec des imprimeurs partenaires, séance de prise en main d'1 h.
 
 ## 4. Économie unitaire (ordres de grandeur)
 

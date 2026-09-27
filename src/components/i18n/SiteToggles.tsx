@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Monitor, Moon, Sun } from "lucide-react";
-import { useLang } from "./LangProvider";
+import React, { useEffect, useRef, useState } from "react";
+import { Check, Globe, Monitor, Moon, Sun } from "lucide-react";
+import { useCopy, useLang } from "./LangProvider";
 import { THEME_KEY, type ThemePref } from "@/lib/theme";
-
+import { LANGS, LANG_NAMES } from "@/lib/i18n/config";
 
 function applyTheme(pref: ThemePref) {
   const dark = pref === "dark" || (pref === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -15,7 +15,7 @@ function applyTheme(pref: ThemePref) {
 }
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const { lang } = useLang();
+  const t = useCopy("site").toggles;
   const [pref, setPref] = useState<ThemePref>("system");
 
   useEffect(() => {
@@ -38,18 +38,14 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   }, []);
 
   const next: Record<ThemePref, ThemePref> = { system: "light", light: "dark", dark: "system" };
-  const labels = {
-    fr: { system: "Thème : système", light: "Thème : clair", dark: "Thème : sombre" },
-    en: { system: "Theme: system", light: "Theme: light", dark: "Theme: dark" },
-  }[lang];
   const Icon = pref === "dark" ? Moon : pref === "light" ? Sun : Monitor;
 
   return (
     <button
       type="button"
       className={`site-toggle ${className}`}
-      aria-label={`${labels[pref]}. ${lang === "fr" ? "Changer" : "Change"}`}
-      title={labels[pref]}
+      aria-label={`${t.theme[pref]}. ${t.change}`}
+      title={t.theme[pref]}
       onClick={() => {
         const p = next[pref];
         setPref(p);
@@ -64,15 +60,65 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
   );
 }
 
-export function LangToggle({ className = "" }: { className?: string }) {
+/**
+ * Language picker: a globe button opening the list of languages (native names).
+ * variant="list" shows the languages inline (mobile menu).
+ */
+export function LangToggle({ className = "", variant = "menu" }: { className?: string; variant?: "menu" | "list" }) {
   const { lang, setLang } = useLang();
+  const t = useCopy("site").toggles;
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const choose = (l: (typeof LANGS)[number]) => {
+    setOpen(false);
+    if (l !== lang) setLang(l);
+  };
+
+  if (variant === "list") {
+    return (
+      <div className={`site-lang-list ${className}`} role="group" aria-label={t.language}>
+        <Globe className="w-4 h-4" aria-hidden="true" />
+        {LANGS.map((l) => (
+          <button key={l} type="button" lang={l} aria-pressed={lang === l} className={lang === l ? "is-active" : ""} onClick={() => choose(l)}>
+            {LANG_NAMES[l]}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className={`site-lang ${className}`} role="group" aria-label={lang === "fr" ? "Langue du site" : "Site language"}>
-      {(["fr", "en"] as const).map((l) => (
-        <button key={l} type="button" aria-pressed={lang === l} className={lang === l ? "is-active" : ""} onClick={() => lang !== l && setLang(l)}>
-          {l.toUpperCase()}
-        </button>
-      ))}
+    <div ref={ref} className={`site-lang-menu ${className}`}>
+      <button type="button" className="site-lang-btn" aria-haspopup="listbox" aria-expanded={open} aria-label={`${t.language} : ${LANG_NAMES[lang]}`} onClick={() => setOpen((v) => !v)}>
+        <Globe className="w-[18px] h-[18px]" />
+        <span>{lang.toUpperCase()}</span>
+      </button>
+      {open && (
+        <ul className="site-lang-pop" role="listbox" aria-label={t.language}>
+          {LANGS.map((l) => (
+            <li key={l}>
+              <button type="button" role="option" lang={l} aria-selected={lang === l} onClick={() => choose(l)}>
+                <span className="site-lang-code">{l.toUpperCase()}</span>
+                {LANG_NAMES[l]}
+                {lang === l && <Check className="w-4 h-4" />}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

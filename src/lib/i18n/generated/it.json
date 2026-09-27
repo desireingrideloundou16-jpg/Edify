@@ -1,0 +1,737 @@
+{
+ "landing": {
+  "skip": "Vai al contenuto",
+  "hero": {
+   "kicker": "Designer di packaging potenziato dall'IA",
+   "h1a": "Descrivi il tuo prodotto.",
+   "h1b": "Ottieni un packaging pronto per la stampa.",
+   "lead": "Edify progetta il tuo packaging con l'IA: la forma, la grafica, le informazioni obbligatorie dell'etichetta, il mockup 3D e il PDF per la tipografia. In pochi minuti, senza bisogno di un grafico.",
+   "cta": "Inizia ora",
+   "demo": "Guarda la demo",
+   "micro": "Paga con Mobile Money: MTN MoMo e Orange Money. A partire da 3.000 FCFA al mese.",
+   "proof": [
+    "Etichette FR/EN",
+    "PDF a 300 dpi",
+    "Mockup 3D"
+   ]
+  },
+  "stats": [
+   [
+    "97",
+    "forme di packaging"
+   ],
+   [
+    "84",
+    "stili visivi"
+   ],
+   [
+    "58",
+    "font esenti da diritti"
+   ],
+   [
+    "300 dpi",
+    "PDF pronto per la stampa"
+   ]
+  ],
+  "video": {
+   "title": "Edify in azione, in 24 secondi",
+   "sub": "Una frase, una confezione completa, un file pronto per la stampa e immagini per il lancio."
+  },
+  "cats": {
+   "title": "Un unico strumento per tutto il tuo packaging",
+   "list": [
+    "Succhi e bevande",
+    "Caffè",
+    "Cacao e cioccolato",
+    "Spezie",
+    "Miele",
+    "Cosmetici",
+    "Burro di karité",
+    "Snack",
+    "Oli",
+    "Saponi",
+    "Tè",
+    "Integratori"
+   ]
+  },
+  "live": {
+   "title": "Guarda l'IA progettare una confezione",
+   "sub": "Un brief, pochi secondi e ogni decisione che prenderebbe un direttore artistico: contenitore, colori, caratteri tipografici, finitura."
+  },
+  "how": {
+   "title": "Da una frase a un file di stampa",
+   "sub": "Lo stesso prodotto, passo dopo passo. Ogni immagine sottostante è prodotta da Edify."
+  },
+  "studio": {
+   "title": "Uno studio pensato per non-grafici",
+   "sub": "Scegli un contenitore, uno stile, un font: il tracciato fustellato piatto e il mockup 3D si aggiornano insieme.",
+   "alt": "Lo studio Edify: catalogo dei contenitori, tracciato fustellato piatto e anteprima 3D",
+   "callouts": [
+    [
+     "Tre schede",
+     "Il contenitore, lo stile, poi i tuoi testi e il logo. Nient'altro."
+    ],
+    [
+     "Una grande anteprima",
+     "Il tracciato fustellato piatto in tempo reale e la vista 3D in un solo clic."
+    ],
+    [
+     "Un pulsante",
+     "“Scarica”: PDF di stampa, visual pubblicitario, 3D, link di condivisione."
+    ]
+   ]
+  },
+  "features": {
+   "title": "Tutto ciò che uno studio di design consegnerebbe",
+   "t3d": [
+    "Mockup 3D realistico",
+    "Ruota la confezione, cambia l'illuminazione, guardala da ogni angolazione, anche da sotto."
+   ],
+   "print": [
+    "PDF pronto per la tipografia",
+    "Abbondaggio di 3 mm, segni di taglio e tracciato fustellato vettoriale su una pagina separata."
+   ],
+   "ai": [
+    "Un direttore artistico IA",
+    "Segue i codici della tua categoria, sceglie colori leggibili e scrive il testo obbligatorio dell'etichetta, in francese e in inglese."
+   ],
+   "aiSheet": [
+    [
+     "Brief",
+     "“Arabica del Camerun occidentale, sapore artigianale”"
+    ],
+    [
+     "Contenitore",
+     "Sacchetto per caffè con valvola, 250 g"
+    ],
+    [
+     "Font",
+     "Fraunces e DM Sans"
+    ]
+   ],
+   "colours": "Colori",
+   "ad": [
+    "Visual pubblicitari",
+    "Il tuo prodotto inserito in un set da studio, nei formati per Instagram, WhatsApp, storia e banner."
+   ],
+   "numbers": [
+    [
+     "97",
+     "forme di packaging"
+    ],
+    [
+     "84",
+     "stili visivi"
+    ],
+    [
+     "58",
+     "font esenti da diritti"
+    ]
+   ],
+   "ar": [
+    "Realtà aumentata",
+    "Posiziona la tua confezione a grandezza reale sul tuo tavolo, dal tuo telefono, prima di stamparla."
+   ],
+   "packAlt": [
+    "Bottiglia 3D",
+    "Lattina allestita per un annuncio pubblicitario"
+   ],
+   "dielineAlt": "Tracciato fustellato di una scatola pieghevole",
+   "face": "Fronte"
+  },
+  "gallery": {
+   "title": "Una frase, una confezione",
+   "sub": "Ogni esempio qui sotto è renderizzato dal motore 3D di Edify a partire dalla frase indicata."
+  },
+  "mockups": {
+   "title": "Mockup realistici, pronti da pubblicare",
+   "sub": "Ogni confezione è ambientata in uno studio: luce, ombre, set. Perfetti per Instagram, WhatsApp, pagine prodotto e pitch per i rivenditori.",
+   "items": [
+    [
+     "bissap",
+     "Bissap frizzante · set pop"
+    ],
+    [
+     "miel",
+     "Miele bianco di Oku · set natura"
+    ],
+    [
+     "cafe",
+     "Arabica del Camerun occidentale · set natura"
+    ],
+    [
+     "baobab",
+     "Siero al baobab · set lusso"
+    ]
+   ]
+  },
+  "compare": {
+   "title": "Risultati da agenzia, senza attese o budget elevati",
+   "head": [
+    "Con un'agenzia",
+    "Con Edify"
+   ],
+   "aria": "Confronto agenzia vs Edify",
+   "rows": [
+    [
+     "Tempi di consegna",
+     "Diverse settimane",
+     "Pochi minuti"
+    ],
+    [
+     "Budget",
+     "Da 100.000 a 500.000 FCFA",
+     "Da 3.000 FCFA al mese"
+    ],
+    [
+     "Punto di partenza",
+     "Brief scritto, riunioni",
+     "Poche risposte"
+    ],
+    [
+     "Informazioni sull'etichetta",
+     "Da verificare autonomamente",
+     "Scritte in FR e EN"
+    ],
+    [
+     "Risultati",
+     "Alla fine del progetto",
+     "PDF, 3D e visual in qualsiasi momento"
+    ]
+   ]
+  },
+  "formats": {
+   "title": "Tutti i file di cui hai bisogno",
+   "sub": "Un unico design e ogni formato per la tua tipografia, il tuo negozio, i tuoi social media e le tue presentazioni.",
+   "list": [
+    [
+     "PDF",
+     "File di stampa",
+     "Abbondaggio di 3 mm, segni di taglio, tracciato fustellato vettoriale."
+    ],
+    [
+     "PNG",
+     "Visual pubblicitari",
+     "Formati Instagram, WhatsApp, storia e banner, in alta definizione."
+    ],
+    [
+     "GLB",
+     "Modello 3D",
+     "Per il tuo sito web, Android e software 3D, a grandezza reale."
+    ],
+    [
+     "USDZ",
+     "Realtà aumentata",
+     "Posiziona la confezione sul tuo tavolo da un iPhone."
+    ],
+    [
+     "ZIP",
+     "Progetto completo",
+     "PDF, anteprima 3D, modello e scheda tecnica in un solo clic."
+    ],
+    [
+     "URL",
+     "Link di condivisione",
+     "Mostra il design a un cliente o alla tua tipografia."
+    ]
+   ]
+  },
+  "pricing": {
+   "title": "Prezzi pensati per gli imprenditori africani",
+   "sub": "Paga con Mobile Money, senza carta di banca e senza addebito automatico: ricarica il tuo piano quando vuoi.",
+   "perMonth": "/ mese",
+   "badge": "Il più popolare",
+   "choose": "Scegli questo piano",
+   "note": "Risparmia il 10% pagando per 3 mesi e il 20% per 12 mesi. Pagamento sicuro con MTN MoMo e Orange Money.",
+   "momo": "Pagamento Mobile Money",
+   "plans": {
+    "essentiel": {
+     "name": "Essenziale",
+     "desc": "Per lanciare il tuo primo prodotto con un packaging professionale.",
+     "features": [
+      "{credits} design IA al mese",
+      "Assistente “Inizia ora” con suggerimenti IA",
+      "97 contenitori, 84 stili e 58 font",
+      "Testo bilingue obbligatorio per l'etichetta e un vero codice a barre EAN-13",
+      "PDF HD pronto per la stampa con abbondanza e segni di taglio",
+      "Anteprima 3D a 360° e visual pubblicitari",
+      "Progetti illimitati e link di condivisione",
+      "Supporto via email entro 48 ore"
+     ]
+    },
+    "pro": {
+     "name": "Pro",
+     "desc": "Per i marchi che lanciano e ampliano prodotti ogni mese.",
+     "features": [
+      "{credits} design IA al mese",
+      "Tutto ciò che è incluso in Essenziale, più:",
+      "Set fotografici IA per i tuoi visual pubblicitari",
+      "Visual HD per Instagram, WhatsApp, Facebook e TikTok",
+      "Modello 3D e realtà aumentata",
+      "Pacchetto ZIP completo per la tua tipografia",
+      "Revisione del testo dell'etichetta da parte del nostro team (1 etichetta al mese)",
+      "Supporto prioritario su WhatsApp"
+     ]
+    },
+    "entreprise": {
+     "name": "Business",
+     "desc": "Per PMI, cooperative e agenzie che gestiscono una gamma di prodotti completa.",
+     "features": [
+      "{credits} design IA al mese",
+      "Tutto ciò che è incluso in Pro, più:",
+      "Marchi e gamme di prodotti illimitati",
+      "Controllo di conformità di tutte le tue etichette",
+      "Presentazioni alle nostre tipografie partner",
+      "Sessione di onboarding di 1 ora (video o WhatsApp)",
+      "Fatture per la tua contabilità",
+      "Contatto dedicato e accesso anticipato alle nuove funzioni"
+     ]
+    }
+   }
+  },
+  "trust": {
+   "title": "I tuoi design rimangono tuoi",
+   "list": [
+    [
+     "Proprietà",
+     "Le confezioni che crei sono tue. Stampale e vendile liberamente."
+    ],
+    [
+     "Pagamento locale",
+     "MTN MoMo e Orange Money, tramite il sicuro gateway SasPay. Nessuna carta necessaria."
+    ],
+    [
+     "Accesso sicuro",
+     "Email e password o il tuo account Google. I tuoi dati non vengono mai venduti."
+    ],
+    [
+     "Font esenti da diritti",
+     "Tutti i 58 font possono essere utilizzati commercialmente senza costi aggiuntivi."
+    ]
+   ]
+  },
+  "who": {
+   "title": "Creato per chi lancia prodotti",
+   "list": [
+    [
+     "Produttori alimentari e cooperative",
+     "che hanno bisogno di un packaging professionale per vendere nei supermercati e all'estero."
+    ],
+    [
+     "Marchi di cosmetica naturale",
+     "karité, oli, saponi: confezioni che ispirano fiducia."
+    ],
+    [
+     "PMI e rivenditori",
+     "che lanciano rapidamente nuove linee di prodotti."
+    ],
+    [
+     "Agenzie e designer",
+     "che presentano proposte creative in pochi minuti."
+    ]
+   ]
+  },
+  "faq": {
+   "title": "Domande frequenti",
+   "list": [
+    [
+     "Devo saper disegnare o usare software di grafica?",
+     "No. Rispondi ad alcune domande sul tuo prodotto, l'IA sceglie il contenitore, i colori e i font e scrive il testo. Puoi quindi modificare qualsiasi cosa in pochi clic."
+    ],
+    [
+     "Come posso pagare?",
+     "Con Mobile Money (MTN MoMo o Orange Money), tramite il gateway sicuro SasPay. Non c'è alcun addebito automatico: paghi in anticipo 1, 3 o 12 mesi e ricarichi quando vuoi."
+    ],
+    [
+     "Le informazioni obbligatorie per l'etichetta sono incluse?",
+     "Sì. Edify copre il nome del prodotto, gli ingredienti, la quantità netta, le date, il lotto, il produttore e le istruzioni, in francese e inglese come richiesto dal mercato camerunese. Fai sempre controllare la tua etichetta finale dalla tua tipografia o dall'autorità competente (ANOR)."
+    ],
+    [
+     "Il file è davvero pronto per la tipografia?",
+     "Edify produce un PDF con un'abbondanza di 3 mm, segni di taglio e un tracciato fustellato su una pagina separata. La tua tipografia lo convertirà in CMYK e ti invierà una bozza da approvare prima della produzione."
+    ],
+    [
+     "Posso usare il mio logo e il mio codice a barre?",
+     "Sì. Carica il tuo logo (PNG, SVG o JPG) e digita il tuo codice EAN-13: verrà stampato alla giusta dimensione sul retro della confezione e l'IA riprenderà i colori del tuo logo."
+    ],
+    [
+     "A chi appartengono i design?",
+     "A te. Le confezioni che crei con Edify sono tue e possono essere stampate e vendute."
+    ]
+   ]
+  },
+  "final": {
+   "title": "La tua prossima confezione inizia qui.",
+   "sub": "Rispondi ad alcune domande, l'IA farà il resto."
+  },
+  "packAlt": "Packaging di {brand} generato con Edify",
+  "jsonLd": "Edify progetta il tuo packaging con l'IA: forma, grafica, informazioni obbligatorie dell'etichetta, mockup 3D e PDF pronto per la stampa, in pochi minuti."
+ },
+ "site": {
+  "nav": {
+   "home": "Edify, home",
+   "nav": "Navigazione principale",
+   "login": "Accedi",
+   "cta": "Inizia ora",
+   "ctaShort": "Inizia",
+   "open": "Apri menu",
+   "close": "Chiudi menu",
+   "prefs": "Lingua e tema",
+   "links": [
+    "Come funziona",
+    "Funzionalità",
+    "Esempi",
+    "Prezzi",
+    "FAQ"
+   ]
+  },
+  "footer": {
+   "tagline": "Il designer di packaging basato sull'IA creato per gli imprenditori africani. Descrivi il tuo prodotto, ottieni un packaging pronto per la stampa.",
+   "product": "Prodotto",
+   "productLinks": [
+    "Inizia",
+    "Studio",
+    "Funzionalità",
+    "Esempi",
+    "Prezzi"
+   ],
+   "resources": "Risorse",
+   "resourcesLinks": [
+    "Video demo",
+    "FAQ",
+    "Contatti"
+   ],
+   "legal": "Note legali",
+   "legalLinks": [
+    "Note legali",
+    "Privacy",
+    "Termini d'uso"
+   ],
+   "rights": "Tutti i diritti riservati.",
+   "pay": "Pagamento Mobile Money: MTN MoMo · Orange Money"
+  },
+  "toggles": {
+   "language": "Lingua del sito",
+   "theme": {
+    "system": "Tema: di sistema",
+    "light": "Tema: chiaro",
+    "dark": "Tema: scuro"
+   },
+   "change": "Modifica"
+  },
+  "cluster": {
+   "label": "Esempi di packaging progettati con Edify",
+   "packAlt": "Packaging di {brand} generato con Edify"
+  },
+  "universes": {
+   "cafe": "Universo caffè",
+   "agrumes": "Universo agrumi",
+   "piquant": "Universo piccante",
+   "beaute": "Universo bellezza",
+   "miel": "Universo miele",
+   "neon": "Universo neon"
+  },
+  "video": {
+   "demo": "demo",
+   "soundOff": "Attiva audio",
+   "soundOn": "Audio attivo",
+   "pause": "Pausa",
+   "play": "Riproduci video",
+   "fullscreen": "Schermo intero",
+   "aria": "Demo di Edify: dalla descrizione del prodotto al file di stampa"
+  },
+  "live": {
+   "aria": "Demo dello studio Edify",
+   "brief": "Il tuo brief",
+   "designing": "Creazione in corso…",
+   "generate": "Genera",
+   "container": "Contenitore",
+   "colours": "Colori",
+   "fonts": "Font",
+   "and": "e",
+   "finish": "Finitura",
+   "packAlt": "Confezione di {brand} generata"
+  },
+  "story": {
+   "steps": [
+    [
+     "Poche risposte",
+     "Descrivi il prodotto, il tuo marchio e i suoi dettagli. Questo è tutto ciò che Edify ti chiede."
+    ],
+    [
+     "Un tracciato fustellato piatto, pronto per il taglio",
+     "L'IA posiziona il tuo design sul template reale del contenitore: pannelli, alette, linguetta di collatura, abbondaggio."
+    ],
+    [
+     "Un mockup 3D",
+     "Lo stesso design, piegato e illuminato in uno studio. Ruota il prodotto, cambia il testo, tutto si aggiorna."
+    ],
+    [
+     "Un visual per il lancio",
+     "Un solo clic ti offre un'immagine pubblicitaria pronta per Instagram, WhatsApp, pagine prodotto o fiere."
+    ]
+   ],
+   "dielineAlt": "Tracciato fustellato piatto con linee di taglio",
+   "mockAlt": "Mockup 3D della scatola di tè",
+   "adAlt": "Visual pubblicitario generato"
+  },
+  "marquee": {
+   "aria": "Esempi di packaging da ogni categoria"
+  },
+  "paywall": {
+   "generate": "Attiva il tuo piano per avviare l'IA",
+   "export": "Questa funzione fa parte di un piano",
+   "credits": "Hai esaurito tutti i tuoi design IA",
+   "upgrade": "Disponibile a partire dal piano Pro",
+   "sub": "Il tuo brief è salvato: verrà generato non appena il tuo piano sarà attivo. Paga con MTN MoMo o Orange Money.",
+   "perMonth": " / mese",
+   "cta": "Scegli il mio piano",
+   "close": "Chiudi"
+  }
+ },
+ "wizard": {
+  "title": "Crea il tuo packaging",
+  "close": "Esci",
+  "step": "Passaggio {n} di {total}",
+  "back": "Indietro",
+  "next": "Avanti",
+  "skip": "Salta",
+  "finish": "Crea il mio packaging",
+  "required": "Questa risposta è necessaria per continuare.",
+  "aiTitle": "Suggerimenti IA",
+  "aiMore": "Altre idee",
+  "aiLoading": "L'IA sta elaborando…",
+  "aiHint": "Tocca un suggerimento per usarlo, quindi modificalo se necessario.",
+  "yes": "Sì, ho un logo",
+  "no": "Non ancora",
+  "upload": "Carica il mio logo",
+  "uploadHint": "PNG, SVG o JPG · puoi anche aggiungerlo in seguito",
+  "noLogo": "Nessun problema: l'IA creerà un monogramma elegante dal nome del tuo marchio.",
+  "logoColours": "L'IA utilizzerà i colori del tuo logo.",
+  "remove": "Rimuovi",
+  "barcodeOk": "Codice valido: verrà stampato come un vero codice a barre EAN-13.",
+  "barcodeBad": "Questo codice non è valido (l'ultima cifra dovrebbe essere {digit}). Controllalo o lascialo vuoto.",
+  "barcodeFormat": "Un codice EAN-13 ha 13 cifre (o 12 per un UPC).",
+  "barcodeNone": "Non hai ancora un codice a barre? Puoi aggiungerlo in seguito nello studio. I codici sono emessi da GS1 Cameroon.",
+  "currency": "FCFA",
+  "review": "Tutto pronto!",
+  "reviewSub": "Controlla le tue risposte. L'IA progetterà tutto a partire da queste informazioni: contenitore, colori, font, testi e informazioni bilingui sull'etichetta.",
+  "edit": "Modifica",
+  "empty": "—",
+  "saving": "Preparazione in corso…",
+  "q": {
+   "packaging": [
+    "Quale packaging vuoi creare?",
+    "Descrivi il prodotto e il suo contenitore. Ad es. “Succo di bissap in una bottiglia da 50 cl”."
+   ],
+   "brand": [
+    "Qual è il nome del tuo marchio?",
+    "Verrà stampato in grande sulla parte anteriore, esattamente come lo digiti."
+   ],
+   "logo": [
+    "Hai già un logo?",
+    "Caricalo e l'IA costruirà il design attorno ad esso."
+   ],
+   "ingredients": [
+    "Quali sono gli ingredienti del tuo prodotto?",
+    "Dal più al meno importante. Non dimenticare gli allergeni."
+   ],
+   "usage": [
+    "Come deve essere usato il prodotto?",
+    "Modalità d'uso o di conservazione del prodotto."
+   ],
+   "quantity": [
+    "Qual è il peso o il volume?",
+    "In grammi, chili, millilitri o litri. Ad es. 250 g, 50 cl."
+   ],
+   "barcode": [
+    "Hai un codice a barre?",
+    "Digita le cifre del tuo codice EAN-13, se ne hai uno."
+   ],
+   "expiry": [
+    "Qual è la data di scadenza?",
+    "La data di scadenza o il termine minimo di conservazione."
+   ],
+   "production": [
+    "Qual è la data di produzione?",
+    "La data di fabbricazione o di confezionamento."
+   ],
+   "price": [
+    "Qual è il prezzo di vendita?",
+    "Facoltativo. Verrà mostrato sul retro della confezione."
+   ],
+   "extra": [
+    "Altre informazioni da aggiungere?",
+    "Origine, conservazione, contatti, allergeni, certificazioni…"
+   ]
+  },
+  "placeholder": {
+   "packaging": "Ad es. Caffè arabica macinato in un sacchetto da 250 g",
+   "brand": "Ad es. TERRA",
+   "ingredients": "Ad es. 100% caffè arabica torrefatto",
+   "usage": "Ad es. Conservare in luogo asciutto dopo l'apertura",
+   "quantity": "Ad es. 250 g",
+   "barcode": "Ad es. 6 123456 789012",
+   "price": "Ad es. 2.500",
+   "extra": "Ad es. Prodotto a Bafoussam, Camerun"
+  },
+  "labels": {
+   "packaging": "Packaging",
+   "brand": "Marchio",
+   "logo": "Logo",
+   "ingredients": "Ingredienti",
+   "usage": "Istruzioni",
+   "quantity": "Quantità",
+   "barcode": "Codice a barre",
+   "expiry": "Scadenza",
+   "production": "Produzione",
+   "price": "Prezzo",
+   "extra": "Altre info"
+  }
+ },
+ "auth": {
+  "modes": {
+   "login": [
+    "Bentornato su Edify",
+    "Accedi per trovare i tuoi progetti di packaging.",
+    "Accedi"
+   ],
+   "signup": [
+    "Crea il tuo account",
+    "Le tue risposte sono salvate: l'IA progetterà la tua confezione subito dopo.",
+    "Crea il mio account"
+   ],
+   "forgot": [
+    "Password dimenticata",
+    "Inserisci la tua email e ti invieremo un link per sceglierne una nuova.",
+    "Invia il link"
+   ],
+   "reset": [
+    "Nuova password",
+    "Scegli una password di almeno 8 caratteri.",
+    "Salva la password"
+   ]
+  },
+  "google": "Continua con Google",
+  "or": "o con la tua email",
+  "name": "Il tuo nome",
+  "namePh": "Ad es. Awa Nkoulou",
+  "email": "Indirizzo email",
+  "emailPh": "tu@esempio.com",
+  "password": "Password",
+  "newPassword": "Nuova password",
+  "forgot": "Hai dimenticato la password?",
+  "passPh": "La tua password",
+  "passNewPh": "Almeno 8 caratteri",
+  "show": "Mostra password",
+  "hide": "Nascondi password",
+  "noAccount": "Non hai ancora un account?",
+  "create": "Crea un account",
+  "already": "Sei già registrato?",
+  "login": "Accedi",
+  "back": "Torna all'accesso",
+  "legal": "Creando un account, accetti i termini d'uso di Edify.",
+  "checkMail": "Controlla la tua casella di posta",
+  "sentSignup": "Abbiamo inviato un link di conferma a {email}. Ciclalo per attivare il tuo account e aprire lo studio.",
+  "sentReset": "Se esiste un account per {email}, riceverai un link per scegliere una nuova password.",
+  "spam": "Non hai ricevuto nulla dopo qualche minuto? Controlla la cartella dello spam.",
+  "notConfigured": "Supabase non è configurato (vedi .env.local).",
+  "short": "La password deve contenere almeno 8 caratteri.",
+  "generic": "Qualcosa è andato storto.",
+  "errors": {
+   "credentials": "Email o password errate.",
+   "notConfirmed": "Conferma prima il tuo indirizzo: clicca sul link che ti abbiamo inviato via email.",
+   "exists": "Esiste già un account con questa email. Accedi invece.",
+   "weak": "Password troppo debole: almeno 8 caratteri, con lettere e numeri.",
+   "rate": "Troppi tentativi. Attendi qualche minuto e riprova.",
+   "same": "La nuova password deve essere diversa da quella vecchia.",
+   "network": "Impossibile connettersi. Controlla l'accesso a internet.",
+   "suspended": "Questo account è sospeso. Contattaci per maggiori informazioni."
+  },
+  "side": {
+   "quote": "Descrivi il tuo prodotto. Edify si occupa del packaging.",
+   "points": [
+    "Design completo generato dall'IA",
+    "Testo bilingue dell'etichetta e vero codice a barre",
+    "PDF pronto per la tipografia per la tua stampa"
+   ]
+  }
+ },
+ "billing": {
+  "back": "Indietro",
+  "title": "Scegli il tuo piano",
+  "sub": "Pagamento Mobile Money una tantum per il periodo scelto. Nessun addebito automatico: ricarica quando vuoi.",
+  "current": "Piano attuale: {plan}, attivo fino al {date} · {credits} design IA rimanenti.",
+  "none": "Non hai ancora un piano attivo.",
+  "duration": "Durata",
+  "month": "1 mese",
+  "months": "{n} mesi",
+  "save": "−{p}%",
+  "total": "Totale da pagare",
+  "includes": "{credits} design IA inclusi per il periodo",
+  "pay": "Paga con Mobile Money",
+  "paying": "Reindirizzamento al pagamento…",
+  "secure": "Pagamento sicuro tramite SasPlayer. Sceglierai MTN MoMo o Orange Money, quindi confermerai sul tuo telefono.",
+  "unavailable": "Il pagamento Mobile Money sarà attivo a brevissimo. Inviaci un messaggio dalla pagina Contatti per attivare subito il tuo piano.",
+  "error": "Non è stato possibile avviare il pagamento. Riprova tra poco.",
+  "return": {
+   "checking": [
+    "Verifica del pagamento in corso…",
+    "Stiamo confermando il tuo pagamento con l'operatore."
+   ],
+   "paid": [
+    "Pagamento confermato, grazie!",
+    "Il tuo piano è attivo."
+   ],
+   "pending": [
+    "Pagamento in sospeso",
+    "Conferma il pagamento sul tuo telefono (PIN Mobile Money). Questa pagina si aggiornerà da sola."
+   ],
+   "failed": [
+    "Il pagamento non è andato a buon fine",
+    "Non è stato addebitato alcun importo. Puoi riprovare."
+   ],
+   "cancelled": [
+    "Pagamento annullato",
+    "Non è stato addebitato alcun importo."
+   ],
+   "error": [
+    "Impossibile verificare il pagamento",
+    "Riprova tra poco o contattaci."
+   ],
+   "studio": "Crea il mio packaging",
+   "retry": "Riprova il pagamento",
+   "credits": "{n} design IA disponibili",
+   "until": "attivo fino al {date}"
+  }
+ },
+ "meta": {
+  "title": "Edify — Progetta il tuo packaging con l'IA in pochi minuti",
+  "short": "Edify — Il tuo packaging, progettato dall'IA",
+  "description": "Rispondi ad alcune domande e l'IA di Edify progetta il tuo packaging: forma, grafica, informazioni bilingui FR/EN sull'etichetta, mockup 3D e PDF pronto per la stampa. Paga con Mobile Money.",
+  "start": "Inizia il tuo packaging",
+  "startDescription": "Rispondi ad alcune domande: l'IA di Edify progetta il tuo packaging completo.",
+  "plans": "Piani"
+ },
+ "showcase": {
+  "prompts": [
+   "Una soda al bissap frizzante in lattina, audace e colorata, per 20-30enni",
+   "Fichi di caffè arabica del Camerun occidentale, marchio Terra, sapore artigianale",
+   "Siero illuminante al baobab in flacone con pipetta, look da clean beauty",
+   "Tè nero di montagna di qualità superiore, elegante e sobrio",
+   "Miele bianco del Monte Oku in un barattolo, etichetta vintage",
+   "Chips di plantain per bambini, una borsa divertente e allegra",
+   "Sciroppo di zenzero artigianale in bottiglia di vetro, etichetta classica e raffinata",
+   "Crema mani riparatrice, tubetto morbido, look da farmacia",
+   "Eau de parfum floreale, lussuosa bottiglia rosa e oro",
+   "Polvere di moringa per atleti, barattolo nero e verde neon energico",
+   "Candela profumata al fico e cedro, atmosfera accogliente",
+   "Biscotti al sesamo in una latta regalo rétro",
+   "Succo di ananas puro, cartone fresco e semplice",
+   "Shampoo delicato al burro di karité, bottiglia verde naturale",
+   "Energy drink per gaming, lattina slim al neon",
+   "Scatola per orologi di lusso, nero profondo e oro",
+   "Salsa piccante artigianale con pepe di Penja, etichetta vivace"
+  ]
+ }
+}

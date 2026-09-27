@@ -144,7 +144,9 @@ const addMonths = (d: Date, m: number) => {
   return x;
 };
 
-export function localSuggestions(step: SuggestStep, brief: Partial<StartBrief>, lang: Lang, today = new Date()): string[] {
+export function localSuggestions(step: SuggestStep, brief: Partial<StartBrief>, siteLang: Lang, today = new Date()): string[] {
+  // Local tables exist in French and English; other languages get English (the AI route answers in the right language).
+  const lang = siteLang === "fr" ? "fr" : "en";
   const cat = detectCategory(`${brief.packaging ?? ""} ${brief.brand ?? ""}`);
   switch (step) {
     case "packaging":

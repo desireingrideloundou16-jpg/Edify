@@ -1,0 +1,152 @@
+/* ═══ Studio in the Edify landing identity: paper, ink, CMYK, Syne, light and dark ═══ */
+
+.st-app {
+  --paper: #ffffff;
+  --surface: #ffffff;
+  --soft: #f3f3f1;
+  --line: #e4e4e0;
+  --k: #141414;
+  --grey: #5c5f66;
+  --btn: #141414;
+  --btn-text: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.9);
+  --c: #00a0e3;
+  --m: #e6007e;
+  --m-dark: #b80065;
+  --y: #ffe500;
+  --display: "Syne", "DM Sans", Arial, sans-serif;
+  --body: "DM Sans", "Plus Jakarta Sans", Arial, sans-serif;
+  --st-m: var(--m);
+  --st-m-dark: var(--m-dark);
+  --st-k: var(--k);
+  --st-grey: var(--grey);
+  --st-line: var(--line);
+  --st-soft: var(--soft);
+  background: var(--paper);
+  color: var(--k);
+  font-family: var(--body);
+}
+:root[data-theme="dark"] .st-app {
+  --paper: #0e0e10;
+  --surface: #17171a;
+  --soft: #121215;
+  --line: #2b2b31;
+  --k: #f4f2ee;
+  --grey: #a7a9b0;
+  --btn: #f4f2ee;
+  --btn-text: #121212;
+  --nav-bg: rgba(14, 14, 16, 0.88);
+  --m-dark: #ff2b97;
+}
+
+/* Top bar with the CMYK process bar underneath (landing signature) */
+.st-app .st-top { position: relative; background: var(--nav-bg); backdrop-filter: saturate(160%) blur(12px); -webkit-backdrop-filter: saturate(160%) blur(12px); border-bottom: 0; }
+.st-app .st-top::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg, var(--c) 0 25%, var(--m) 25% 50%, var(--y) 50% 75%, var(--k) 75% 100%);
+}
+.st-app .st-logo { font-family: var(--display); letter-spacing: -0.02em; }
+.st-app .st-project-name { font-family: var(--display); letter-spacing: -0.01em; }
+.st-app .st-project-input { background: var(--surface); color: var(--k); border-color: var(--k); }
+.st-app .st-credits { background: color-mix(in srgb, var(--m) 12%, var(--surface)); color: var(--m); border: 1.5px solid color-mix(in srgb, var(--m) 30%, transparent); }
+.st-app .st-download { background: var(--btn); color: var(--btn-text); }
+.st-app .st-download:hover { background: var(--m); color: #fff; }
+.st-app .st-theme { width: 36px; height: 36px; border-color: var(--line); color: var(--k); }
+.st-app .st-menu { background: var(--surface); border-color: var(--line); border-radius: 20px; }
+.st-app .st-menu button, .st-app .st-menu .st-menu-link { color: var(--k); }
+.st-app .st-menu .st-menu-link { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; }
+.st-app .st-menu .st-menu-link:hover { background: var(--soft); }
+.st-app .st-menu strong { font-family: var(--display); letter-spacing: -0.01em; }
+.st-app .st-menu-icon { background: var(--soft); color: var(--k); }
+.st-app .st-menu button:hover .st-menu-icon, .st-app .st-menu .st-menu-link:hover .st-menu-icon { background: var(--m); color: #fff; }
+
+/* Panel */
+.st-app .st-panel { background: var(--surface); border-right-color: var(--line); }
+.st-app .st-tabs { border-bottom-color: var(--line); background: var(--surface); }
+.st-app .st-tab { font-family: var(--display); border-radius: 999px; color: var(--grey); }
+.st-app .st-tab:hover { background: var(--soft); color: var(--k); }
+.st-app .st-tab.is-active { background: var(--btn); color: var(--btn-text); }
+.st-app .st-tab-n { background: var(--soft); color: var(--grey); }
+.st-app .st-label { font-family: var(--display); font-size: 13.5px; letter-spacing: -0.01em; color: var(--k); }
+.st-app .st-help { color: var(--grey); }
+.st-app .st-drop { border-color: var(--line); background: var(--soft); color: var(--grey); border-radius: 18px; }
+.st-app .st-drop span { color: var(--k); }
+.st-app .st-drop:hover, .st-app .st-drop.is-drag { border-color: var(--m); background: color-mix(in srgb, var(--m) 8%, var(--surface)); }
+
+/* Fields: the landing brief-box treatment */
+.st-app .edify-input, .st-app .edify-select {
+  border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); color: var(--k);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.st-app .edify-input:focus, .st-app .edify-select:focus { outline: none; border-color: var(--k); box-shadow: 4px 4px 0 var(--m); }
+.st-app .edify-input::placeholder { color: color-mix(in srgb, var(--grey) 80%, transparent); }
+
+/* Container catalogue cards */
+.st-app .edify-selector-card, .st-app [aria-pressed][class*="card"] { border-radius: 18px; }
+.st-app [aria-pressed="true"][class*="card"] { border-color: var(--k) !important; box-shadow: 5px 5px 0 var(--m); }
+
+/* Preview: soft paper with halftone rosette + crop marks around the sheet */
+.st-app .st-main {
+  background-color: var(--soft);
+  background-image:
+    radial-gradient(circle, color-mix(in srgb, var(--c) 28%, transparent) 1px, transparent 1.4px),
+    radial-gradient(circle, color-mix(in srgb, var(--m) 22%, transparent) 1px, transparent 1.4px);
+  background-size: 18px 18px, 18px 18px;
+  background-position: 0 0, 9px 9px;
+}
+.st-app .st-seg, .st-app .st-zoom { background: var(--surface); border-color: var(--line); border-radius: 999px; }
+.st-app .st-seg button { border-radius: 999px; color: var(--grey); }
+.st-app .st-seg button.is-active { background: var(--btn); color: var(--btn-text); }
+.st-app .st-zoom button { border-radius: 999px; color: var(--k); }
+.st-app .st-zoom button:hover { background: var(--soft); }
+.st-app .st-stage-meta { color: var(--grey); }
+.st-app .st-flat { position: relative; background: var(--surface); border-color: var(--line); border-radius: 28px; box-shadow: 0 24px 60px rgba(20, 20, 20, 0.08); }
+.st-app .st-stage-body { position: relative; }
+.st-app .st-stage-body::before, .st-app .st-stage-body::after {
+  content: ""; position: absolute; z-index: 2; width: 22px; height: 22px; pointer-events: none;
+  border-color: var(--k); border-style: solid; opacity: 0.55;
+}
+.st-app .st-stage-body::before { left: 6px; top: -6px; border-width: 1px 0 0 1px; }
+.st-app .st-stage-body::after { right: 6px; bottom: 6px; border-width: 0 1px 1px 0; }
+.st-app .st-3d { border-radius: 28px; border-color: var(--line); }
+:root[data-theme="dark"] .st-app .st-3d { background: radial-gradient(120% 90% at 50% 30%, #2a2a30 0%, #121215 70%); }
+:root[data-theme="dark"] .st-app .st-flat { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); }
+
+/* AI bar: the landing brief box (ink border, magenta offset shadow, magenta button) */
+.st-app .edify-prompt-input-bar {
+  background: var(--surface); border: 2px solid var(--k); border-radius: 20px; box-shadow: 6px 6px 0 var(--m);
+}
+.st-app .edify-prompt-input-bar:focus-within { box-shadow: 6px 6px 0 var(--c); border-color: var(--k); }
+.st-app .edify-prompt-field { color: var(--k); background: transparent; }
+.st-app .edify-prompt-field::placeholder { color: var(--grey); }
+.st-app .edify-generate-btn { background: var(--m); color: #fff; border-radius: 999px; font-family: var(--body); font-weight: 800; box-shadow: none; }
+.st-app .edify-generate-btn:hover:not(:disabled) { background: var(--m-dark); }
+.st-app .edify-generate-btn:disabled { background: color-mix(in srgb, var(--m) 45%, var(--surface)); color: #fff; }
+.st-app .edify-reference-btn { color: var(--grey); border-radius: 999px; }
+.st-app .edify-reference-btn:hover { color: var(--k); background: var(--soft); }
+.st-app .edify-pill-label { color: var(--grey); }
+.st-app .edify-quick-pill { background: var(--surface); color: var(--k); border: 1.5px solid var(--line); border-radius: 999px; box-shadow: none; }
+.st-app .edify-quick-pill:hover { border-color: var(--m); color: var(--m); background: var(--surface); }
+
+/* Modals, toast, buttons */
+.st-app .edify-modal-content { background: var(--surface); color: var(--k); border-radius: 28px; border: 1px solid var(--line); }
+.st-app .edify-modal-content h3 { font-family: var(--display); letter-spacing: -0.01em; }
+.st-app .edify-primary-download-btn { background: var(--m); color: #fff; border-radius: 999px; box-shadow: none; }
+.st-app .edify-primary-download-btn:hover:not(:disabled) { background: var(--m-dark); }
+.st-app .edify-secondary-btn { background: var(--surface); color: var(--k); border: 1.5px solid var(--line); border-radius: 999px; }
+.st-app .edify-secondary-btn:hover:not(:disabled) { border-color: var(--k); }
+.st-app .edify-toast { background: var(--btn); color: var(--btn-text); border-radius: 16px; }
+
+/* Dark mode for the Tailwind utilities used inside the studio's modals and panels */
+:root[data-theme="dark"] .st-app .bg-white { background-color: var(--surface) !important; }
+:root[data-theme="dark"] .st-app .bg-slate-50, :root[data-theme="dark"] .st-app .bg-slate-100 { background-color: var(--soft) !important; }
+:root[data-theme="dark"] .st-app .text-slate-900, :root[data-theme="dark"] .st-app .text-slate-800, :root[data-theme="dark"] .st-app .text-slate-700 { color: var(--k) !important; }
+:root[data-theme="dark"] .st-app .text-slate-600, :root[data-theme="dark"] .st-app .text-slate-500, :root[data-theme="dark"] .st-app .text-slate-400 { color: var(--grey) !important; }
+:root[data-theme="dark"] .st-app .border-slate-200, :root[data-theme="dark"] .st-app .border-slate-100 { border-color: var(--line) !important; }
+:root[data-theme="dark"] .st-app .bg-slate-900 { background-color: var(--btn) !important; color: var(--btn-text) !important; }
+
+@media (max-width: 900px) {
+  .st-app .st-tabs { background: var(--surface); }
+  .st-app .st-theme { display: none; }
+  .st-app .st-stage-body::before, .st-app .st-stage-body::after { display: none; }
+}

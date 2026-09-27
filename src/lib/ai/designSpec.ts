@@ -28,6 +28,16 @@ export interface DesignSpec {
 export interface CurrentDesign {
   shapeId: string;
   styleId: string;
+  /** Label information already entered by the user (kept as is on the pack). */
+  ingredients?: string;
+  usage?: string;
+  barcode?: string;
+  expiry?: string;
+  production?: string;
+  price?: string;
+  extra?: string;
+  tagline?: string;
+  details?: string;
   brandName: string;
   productName: string;
   volume: string;

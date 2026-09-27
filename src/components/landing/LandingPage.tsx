@@ -1,9 +1,11 @@
 import React from "react";
 import { ArrowRight, Play, Smartphone } from "lucide-react";
-import type { Lang } from "@/lib/i18n/config";
+import { fmt, type Lang } from "@/lib/i18n/config";
+import { getMessages } from "@/lib/i18n/messages";
 import { HeroCluster, LandingNav, PackRender } from "./LandingClient";
 import { HeroParallax, LiveDemo, PackMarquee, ScrollStory } from "./LandingRich";
 import { DemoVideo } from "./DemoVideo";
+import { AnnouncementBar } from "./AnnouncementBar";
 import { SiteFooter } from "./SiteChrome";
 import { SHOWCASE } from "./showcase";
 import { landingCopy, type LandingCopy } from "./copy";
@@ -51,7 +53,7 @@ function DielineArt({ t }: { t: LandingCopy }) {
 }
 
 export function LandingPage({ lang }: { lang: Lang }) {
-  const t = landingCopy(lang);
+  const t = landingCopy(lang, getMessages(lang));
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -66,6 +68,7 @@ export function LandingPage({ lang }: { lang: Lang }) {
     <div className="lp" id="top">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <a href="#contenu" className="lp-skip">{t.skip}</a>
+      <AnnouncementBar />
       <LandingNav />
 
       <main id="contenu">
@@ -224,9 +227,9 @@ export function LandingPage({ lang }: { lang: Lang }) {
               {SHOWCASE.slice(0, 8).map((item, i) => (
                 <figure key={item.shapeId} className="lp-card">
                   <div className="lp-card-stage" style={{ background: item.design.palette[3] + "33" }}>
-                    <PackRender index={i} alt={t.packAlt(item.design.brandName)} />
+                    <PackRender index={i} alt={fmt(t.packAlt, { brand: item.design.brandName })} />
                   </div>
-                  <figcaption>« {lang === "fr" ? item.prompt : item.promptEn} »</figcaption>
+                  <figcaption>« {t.examples[i]} »</figcaption>
                 </figure>
               ))}
             </div>

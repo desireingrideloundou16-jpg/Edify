@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { ChevronDown, Download, FileDown, Megaphone, Archive, Smartphone, Link2, Loader2, LogOut, Sparkles, Pencil } from "lucide-react";
+import { ChevronDown, Download, FileDown, Megaphone, Archive, Smartphone, Link2, Loader2, LogOut, Sparkles, Pencil, CreditCard, LayoutDashboard } from "lucide-react";
+import { ThemeToggle } from "@/components/i18n/SiteToggles";
 
 export type ExportAction = "pdf" | "ad" | "zip" | "ar" | "share";
 
@@ -11,7 +12,7 @@ interface StudioTopBarProps {
   saveState: "idle" | "saving" | "saved" | "error";
   credits: number | null;
   onCredits: () => void;
-  account: { name: string; email: string; avatar: string | null } | null;
+  account: { name: string; email: string; avatar: string | null; isAdmin?: boolean } | null;
   busy: ExportAction | null;
   onExport: (a: ExportAction) => void;
 }
@@ -99,6 +100,7 @@ export function StudioTopBar({ projectName, onRename, saveState, credits, onCred
       </div>
 
       <div className="st-top-actions">
+        <ThemeToggle className="st-theme" />
         <button type="button" className="st-credits" onClick={onCredits} title="Crédits IA restants">
           <Sparkles className="w-4 h-4" />
           {credits === null ? "…" : `${credits} crédit${credits > 1 ? "s" : ""}`}
@@ -150,6 +152,16 @@ export function StudioTopBar({ projectName, onRename, saveState, credits, onCred
                   <strong>{account.name}</strong>
                   <small>{account.email}</small>
                 </div>
+                <a href="/abonnement" role="menuitem" className="st-menu-link">
+                  <span className="st-menu-icon"><CreditCard className="w-4 h-4" /></span>
+                  <span><strong>Mon abonnement</strong></span>
+                </a>
+                {account.isAdmin && (
+                  <a href="/admin" role="menuitem" className="st-menu-link">
+                    <span className="st-menu-icon"><LayoutDashboard className="w-4 h-4" /></span>
+                    <span><strong>Administration</strong></span>
+                  </a>
+                )}
                 <form action="/auth/signout" method="post">
                   <button type="submit" role="menuitem">
                     <span className="st-menu-icon"><LogOut className="w-4 h-4" /></span>

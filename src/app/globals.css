@@ -10,6 +10,8 @@
 @import "../styles/studio.css";
 @import "../styles/start.css";
 @import "../styles/billing.css";
+@import "../styles/admin.css";
+@import "../styles/studio-theme.css";
 
 @tailwind base;
 @tailwind components;

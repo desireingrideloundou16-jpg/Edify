@@ -2,7 +2,8 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, ImagePlus, Loader2, RefreshCw, Sparkles, Trash2, X } from "lucide-react";
-import { useLang } from "@/components/i18n/LangProvider";
+import { useCopy, useLang } from "@/components/i18n/LangProvider";
+import { fmt, LOCALES, type Lang } from "@/lib/i18n/config";
 import { LangToggle, ThemeToggle } from "@/components/i18n/SiteToggles";
 import { EMPTY_BRIEF, loadBrief, saveBrief, type StartBrief, type SuggestStep } from "@/lib/design/brief";
 import { localSuggestions } from "@/lib/ai/suggest";
@@ -35,143 +36,6 @@ const STEPS: StepDef[] = [
   { id: "review", kind: "review" },
 ];
 
-const COPY = {
-  fr: {
-    title: "Créez votre packaging",
-    close: "Quitter",
-    step: (n: number, t: number) => `Étape ${n} sur ${t}`,
-    back: "Retour",
-    next: "Suivant",
-    skip: "Passer",
-    finish: "Créer mon packaging",
-    required: "Cette réponse est nécessaire pour continuer.",
-    aiTitle: "Propositions de l'IA",
-    aiMore: "Autres idées",
-    aiLoading: "L'IA réfléchit…",
-    aiHint: "Touchez une proposition pour l'utiliser, puis modifiez-la si besoin.",
-    yes: "Oui, j'ai un logo",
-    no: "Non, pas encore",
-    upload: "Importer mon logo",
-    uploadHint: "PNG, SVG ou JPG · vous pourrez aussi l'ajouter plus tard",
-    noLogo: "Pas de souci : l'IA créera un monogramme élégant avec le nom de votre marque.",
-    remove: "Retirer",
-    barcodeOk: "Code valide : il sera imprimé en vrai code-barres EAN-13.",
-    barcodeBad: (e?: number) => `Ce code n'est pas valide${e !== undefined ? ` (le dernier chiffre devrait être ${e})` : ""}. Vérifiez-le ou laissez vide.`,
-    barcodeFormat: "Un code EAN-13 comporte 13 chiffres (ou 12 pour un UPC).",
-    barcodeNone: "Pas encore de code-barres ? Vous pourrez l'ajouter dans le studio. Il s'obtient auprès de GS1 Cameroun.",
-    orPick: "ou choisissez une date",
-    currency: "FCFA",
-    review: "Tout est prêt !",
-    reviewSub: "Vérifiez vos réponses. L'IA va concevoir le design complet : contenant, couleurs, polices, textes et mentions bilingues.",
-    edit: "Modifier",
-    empty: "—",
-    saving: "Préparation…",
-    q: {
-      packaging: ["Quel packaging voulez-vous créer ?", "Décrivez le produit et son contenant. Ex. : « Jus de bissap en bouteille 50 cl »."],
-      brand: ["Quel est le nom de votre marque ?", "Il sera écrit en grand sur la face avant, exactement comme vous le tapez."],
-      logo: ["Avez-vous déjà un logo ?", "Importez-le et l'IA construira le design autour."],
-      ingredients: ["Quels sont les ingrédients de votre produit ?", "Du plus important au moins important. N'oubliez pas les allergènes."],
-      usage: ["Quel est le mode d'utilisation ?", "Comment utiliser ou conserver le produit."],
-      quantity: ["Quel est le grammage ou la quantité ?", "En grammes, kilos, millilitres ou litres. Ex. : 250 g, 50 cl."],
-      barcode: ["Avez-vous un code-barres ?", "Saisissez les chiffres de votre code EAN-13, si vous en avez un."],
-      expiry: ["Quelle est la date de péremption ?", "La date limite de consommation ou d'utilisation optimale."],
-      production: ["Quelle est la date de production ?", "La date de fabrication ou de conditionnement."],
-      price: ["Quel est le prix de vente ?", "Facultatif. Il sera indiqué au dos du packaging."],
-      extra: ["D'autres informations à ajouter ?", "Origine, conservation, contact, allergènes, certifications…"],
-    } as Record<Exclude<StepId, "review">, [string, string]>,
-    placeholder: {
-      packaging: "Ex. Café arabica moulu en sachet 250 g",
-      brand: "Ex. TERRA",
-      ingredients: "Ex. Café arabica 100 % torréfié",
-      usage: "Ex. Conserver au sec après ouverture",
-      quantity: "Ex. 250 g",
-      barcode: "Ex. 6 123456 789012",
-      price: "Ex. 2 500",
-      extra: "Ex. Fabriqué à Bafoussam, Cameroun",
-    } as Record<string, string>,
-    labels: {
-      packaging: "Packaging",
-      brand: "Marque",
-      logo: "Logo",
-      ingredients: "Ingrédients",
-      usage: "Utilisation",
-      quantity: "Quantité",
-      barcode: "Code-barres",
-      expiry: "Péremption",
-      production: "Production",
-      price: "Prix",
-      extra: "Autres infos",
-    } as Record<string, string>,
-  },
-  en: {
-    title: "Create your packaging",
-    close: "Exit",
-    step: (n: number, t: number) => `Step ${n} of ${t}`,
-    back: "Back",
-    next: "Next",
-    skip: "Skip",
-    finish: "Create my packaging",
-    required: "This answer is needed to continue.",
-    aiTitle: "AI suggestions",
-    aiMore: "More ideas",
-    aiLoading: "The AI is thinking…",
-    aiHint: "Tap a suggestion to use it, then edit it if needed.",
-    yes: "Yes, I have a logo",
-    no: "Not yet",
-    upload: "Upload my logo",
-    uploadHint: "PNG, SVG or JPG · you can also add it later",
-    noLogo: "No problem: the AI will create an elegant monogram from your brand name.",
-    remove: "Remove",
-    barcodeOk: "Valid code: it will be printed as a real EAN-13 barcode.",
-    barcodeBad: (e?: number) => `This code isn't valid${e !== undefined ? ` (the last digit should be ${e})` : ""}. Check it or leave it empty.`,
-    barcodeFormat: "An EAN-13 code has 13 digits (or 12 for a UPC).",
-    barcodeNone: "No barcode yet? You can add it later in the studio. Codes are issued by GS1 Cameroon.",
-    orPick: "or pick a date",
-    currency: "FCFA",
-    review: "All set!",
-    reviewSub: "Check your answers. The AI will design everything: container, colours, fonts, copy and bilingual label information.",
-    edit: "Edit",
-    empty: "—",
-    saving: "Preparing…",
-    q: {
-      packaging: ["What packaging do you want to create?", "Describe the product and its container. E.g. “Bissap juice in a 50 cl bottle”."],
-      brand: ["What is your brand name?", "It will be printed large on the front, exactly as you type it."],
-      logo: ["Do you already have a logo?", "Upload it and the AI will build the design around it."],
-      ingredients: ["What are your product's ingredients?", "From most to least important. Don't forget allergens."],
-      usage: ["How should the product be used?", "How to use or store the product."],
-      quantity: ["What is the weight or volume?", "In grams, kilos, millilitres or litres. E.g. 250 g, 50 cl."],
-      barcode: ["Do you have a barcode?", "Type the digits of your EAN-13 code, if you have one."],
-      expiry: ["What is the expiry date?", "The use-by or best-before date."],
-      production: ["What is the production date?", "The manufacturing or packing date."],
-      price: ["What is the retail price?", "Optional. It will be shown on the back of the pack."],
-      extra: ["Any other information to add?", "Origin, storage, contact, allergens, certifications…"],
-    } as Record<Exclude<StepId, "review">, [string, string]>,
-    placeholder: {
-      packaging: "E.g. Ground arabica coffee in a 250 g bag",
-      brand: "E.g. TERRA",
-      ingredients: "E.g. 100% roasted arabica coffee",
-      usage: "E.g. Keep dry after opening",
-      quantity: "E.g. 250 g",
-      barcode: "E.g. 6 123456 789012",
-      price: "E.g. 2,500",
-      extra: "E.g. Made in Bafoussam, Cameroon",
-    } as Record<string, string>,
-    labels: {
-      packaging: "Packaging",
-      brand: "Brand",
-      logo: "Logo",
-      ingredients: "Ingredients",
-      usage: "Directions",
-      quantity: "Quantity",
-      barcode: "Barcode",
-      expiry: "Expiry",
-      production: "Production",
-      price: "Price",
-      extra: "Other info",
-    } as Record<string, string>,
-  },
-};
-
 /** Resize an uploaded logo so the brief fits in localStorage (max 640 px, PNG keeps transparency). */
 function readLogo(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -196,14 +60,14 @@ function readLogo(file: File): Promise<string> {
   });
 }
 
-const fmtDate = (v: string, lang: "fr" | "en") => {
+const fmtDate = (v: string, lang: Lang) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
-  return new Date(v + "T12:00:00").toLocaleDateString(lang === "fr" ? "fr-FR" : "en-GB", { day: "numeric", month: "long", year: "numeric" });
+  return new Date(v + "T12:00:00").toLocaleDateString(LOCALES[lang], { day: "numeric", month: "long", year: "numeric" });
 };
 
 export function StartWizard() {
   const { lang } = useLang();
-  const t = COPY[lang];
+  const t = useCopy("wizard");
   const [brief, setBrief] = useState<StartBrief>({ ...EMPTY_BRIEF, lang });
   const [index, setIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -279,7 +143,7 @@ export function StartWizard() {
       return;
     }
     if (dir === 1 && step.id === "barcode" && brief.barcode.trim() && !ean.ok && !skip) {
-      setError(ean.reason === "format" ? t.barcodeFormat : t.barcodeBad(ean.ok ? undefined : ean.expected));
+      setError(ean.reason === "format" ? t.barcodeFormat : fmt(t.barcodeBad, { digit: ean.ok ? "?" : ean.expected ?? "?" }));
       return;
     }
     if (dir === 1 && skip && step.id !== "review") setBrief((b) => ({ ...b, [step.id]: step.id === "logo" ? b.hasLogo : "" }));
@@ -340,9 +204,9 @@ export function StartWizard() {
         <div className="sw-card" key={step.id}>
           {step.id !== "review" ? (
             <>
-              <p className="sw-step">{t.step(index + 1, total)}</p>
-              <h1 className="sw-q">{t.q[step.id][0]}</h1>
-              <p className="sw-help">{t.q[step.id][1]}</p>
+              <p className="sw-step">{fmt(t.step, { n: index + 1, total })}</p>
+              <h1 className="sw-q">{t.q[step.id as keyof typeof t.q][0]}</h1>
+              <p className="sw-help">{t.q[step.id as keyof typeof t.q][1]}</p>
 
               {(step.kind === "text" || step.kind === "price") && (
                 <div className={`sw-field ${step.kind === "price" ? "has-suffix" : ""}`}>
@@ -351,7 +215,7 @@ export function StartWizard() {
                     className="sw-input"
                     value={value}
                     inputMode={step.kind === "price" ? "numeric" : undefined}
-                    placeholder={t.placeholder[step.id]}
+                    placeholder={t.placeholder[step.id as keyof typeof t.placeholder]}
                     maxLength={step.id === "brand" ? 40 : 140}
                     onChange={(e) => {
                       set(step.id as keyof StartBrief, e.target.value as never);
@@ -370,7 +234,7 @@ export function StartWizard() {
                   className="sw-input sw-textarea"
                   value={value}
                   rows={3}
-                  placeholder={t.placeholder[step.id]}
+                  placeholder={t.placeholder[step.id as keyof typeof t.placeholder]}
                   maxLength={600}
                   onChange={(e) => set(step.id as keyof StartBrief, e.target.value as never)}
                 />
@@ -392,7 +256,7 @@ export function StartWizard() {
                     onKeyDown={onKeyDown}
                   />
                   <p className={`sw-note ${brief.barcode.trim() ? (ean.ok ? "is-ok" : "is-warn") : ""}`}>
-                    {!brief.barcode.trim() ? t.barcodeNone : ean.ok ? t.barcodeOk : ean.reason === "format" ? t.barcodeFormat : t.barcodeBad(ean.expected)}
+                    {!brief.barcode.trim() ? t.barcodeNone : ean.ok ? t.barcodeOk : ean.reason === "format" ? t.barcodeFormat : fmt(t.barcodeBad, { digit: ean.expected ?? "?" })}
                   </p>
                 </>
               )}
@@ -430,6 +294,7 @@ export function StartWizard() {
                         <button type="button" onClick={() => setBrief((b) => ({ ...b, logo: null, logoName: null }))}>
                           <Trash2 className="w-4 h-4" /> {t.remove}
                         </button>
+                        <small className="sw-logo-note">{t.logoColours}</small>
                       </div>
                     ) : (
                       <button type="button" className="sw-drop" onClick={() => fileRef.current?.click()}>
@@ -495,7 +360,7 @@ export function StartWizard() {
                   const shown = s.kind === "date" ? fmtDate(raw, lang) : s.id === "price" && raw ? `${raw} ${t.currency}` : raw;
                   return (
                     <div key={s.id}>
-                      <dt>{t.labels[s.id]}</dt>
+                      <dt>{t.labels[s.id as keyof typeof t.labels]}</dt>
                       <dd>{shown || <span className="sw-empty">{t.empty}</span>}</dd>
                       <button type="button" onClick={() => setIndex(i)}>{t.edit}</button>
                     </div>

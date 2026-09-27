@@ -6,7 +6,8 @@ import { ALL_CATALOG_SHAPES } from "@/lib/catalog/shapes";
 import { PackRender } from "./LandingClient";
 import { SHOWCASE } from "./showcase";
 import { visitSeed } from "./themes";
-import { useLang } from "@/components/i18n/LangProvider";
+import { useCopy } from "@/components/i18n/LangProvider";
+import { fmt } from "@/lib/i18n/config";
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -63,8 +64,8 @@ const DEMO_ORDER = [1, 0, 2, 4, 9, 14];
 type Phase = "typing" | "thinking" | "done";
 
 export function LiveDemo() {
-  const { lang } = useLang();
-  const fr = lang === "fr";
+  const t = useCopy("site").live;
+  const prompts = useCopy("showcase").prompts;
   const reduced = useReducedMotion();
   const [ref, seen] = useInView<HTMLDivElement>("0px");
   const [slot, setSlot] = useState(0);
@@ -73,7 +74,7 @@ export function LiveDemo() {
   const index = DEMO_ORDER[slot];
   const item = SHOWCASE[index];
   const shape = ALL_CATALOG_SHAPES.find((s) => s.id === item.shapeId);
-  const prompt = fr ? item.prompt : item.promptEn;
+  const prompt = prompts[index] ?? item.promptEn;
 
   useEffect(() => {
     if (!seen) return;
@@ -104,35 +105,35 @@ export function LiveDemo() {
 
   const d = item.design;
   return (
-    <div ref={ref} className="lp-demo" aria-label={fr ? "Démonstration du studio Edify" : "Edify studio demo"}>
+    <div ref={ref} className="lp-demo" aria-label={t.aria}>
       <div className="lp-demo-bar" aria-hidden="true">
         <span /><span /><span />
         <p>edify / studio</p>
       </div>
       <div className="lp-demo-body">
         <div className="lp-demo-left">
-          <p className="lp-demo-label">{fr ? "Votre brief" : "Your brief"}</p>
+          <p className="lp-demo-label">{t.brief}</p>
           <div className="lp-demo-prompt">
             {typed}
             {phase === "typing" && <span className="lp-caret" aria-hidden="true" />}
           </div>
           <div className={`lp-demo-btn ${phase !== "typing" ? "is-pressed" : ""}`}>
             {phase === "thinking" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-            {phase === "thinking" ? (fr ? "Conception en cours…" : "Designing…") : fr ? "Générer" : "Generate"}
+            {phase === "thinking" ? t.designing : t.generate}
           </div>
           <dl className={`lp-demo-sheet ${phase === "done" ? "is-visible" : ""}`}>
-            <div><dt>{fr ? "Contenant" : "Container"}</dt><dd>{shape?.name} · {shape?.dimensions}</dd></div>
+            <div><dt>{t.container}</dt><dd>{shape?.name} · {shape?.dimensions}</dd></div>
             <div>
-              <dt>{fr ? "Couleurs" : "Colours"}</dt>
+              <dt>{t.colours}</dt>
               <dd className="lp-ai-swatches">{d.palette.map((c) => <span key={c} style={{ background: c }} />)}</dd>
             </div>
-            <div><dt>{fr ? "Polices" : "Fonts"}</dt><dd>{d.headingFont} {fr ? "et" : "and"} {d.bodyFont}</dd></div>
-            <div><dt>{fr ? "Finition" : "Finish"}</dt><dd>{d.finishing}</dd></div>
+            <div><dt>{t.fonts}</dt><dd>{d.headingFont} {t.and} {d.bodyFont}</dd></div>
+            <div><dt>{t.finish}</dt><dd>{d.finishing}</dd></div>
           </dl>
         </div>
         <div className="lp-demo-right" style={{ background: `${d.palette[3]}40` }}>
           <div className={`lp-demo-stage ${phase === "done" ? "is-visible" : ""}`}>
-            <PackRender key={index} index={index} size={520} yaw={-0.45} alt={fr ? `Packaging ${d.brandName} généré` : `Generated ${d.brandName} pack`} />
+            <PackRender key={index} index={index} size={520} yaw={-0.45} alt={fmt(t.packAlt, { brand: d.brandName })} />
           </div>
           {phase !== "done" && (
             <div className="lp-demo-wait" aria-hidden="true">
@@ -149,25 +150,11 @@ export function LiveDemo() {
 
 const STORY_INDEX = 3; // tea box: shows a real carton die-line
 
-const STORY = {
-  fr: [
-  { title: "Quelques réponses", text: "Vous décrivez le produit, votre marque et ses informations. C'est tout ce qu'Edify vous demande." },
-  { title: "Un patron à plat, prêt pour la découpe", text: "L'IA place votre design sur le vrai gabarit du contenant : faces, rabats, languette de collage, fonds perdus." },
-  { title: "Une maquette 3D", text: "Le même design, plié et éclairé en studio. Vous tournez le produit, vous changez les textes, tout se met à jour." },
-  { title: "Un visuel pour le lancer", text: "Un clic suffit pour obtenir une image publicitaire prête pour Instagram, WhatsApp, vos fiches produits ou vos salons." },
-  ],
-  en: [
-    { title: "A few answers", text: "You describe the product, your brand and its details. That's all Edify asks of you." },
-    { title: "A flat die-line, ready for cutting", text: "The AI places your design on the container's real template: panels, flaps, glue tab, bleed." },
-    { title: "A 3D mockup", text: "The same design, folded and lit in a studio. Spin the product, change the text, everything updates." },
-    { title: "A visual to launch it", text: "One click gives you an ad image ready for Instagram, WhatsApp, product pages or trade fairs." },
-  ],
-};
 
 export function ScrollStory() {
-  const { lang } = useLang();
-  const fr = lang === "fr";
-  const steps = STORY[lang];
+  const story = useCopy("site").story;
+  const prompts = useCopy("showcase").prompts;
+  const steps = story.steps.map(([title, text]) => ({ title, text }));
   const [active, setActive] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const dieline = "/landing/story-dieline.webp", ad = "/landing/story-ad.webp";
@@ -186,15 +173,15 @@ export function ScrollStory() {
   const visual = (i: number) => {
     switch (i) {
       case 0:
-        return <div className="lp-story-brief">« {fr ? item.prompt : item.promptEn} »</div>;
+        return <div className="lp-story-brief">« {prompts[STORY_INDEX] ?? item.promptEn} »</div>;
       case 1:
         // eslint-disable-next-line @next/next/no-img-element
-        return <img src={dieline} alt={fr ? "Patron à plat avec tracé de découpe" : "Flat die-line with cut lines"} className="lp-story-img" loading="lazy" decoding="async" />;
+        return <img src={dieline} alt={story.dielineAlt} className="lp-story-img" loading="lazy" decoding="async" />;
       case 2:
-        return <PackRender index={STORY_INDEX} size={620} yaw={-0.55} alt={fr ? "Maquette 3D de la boîte de thé" : "3D mockup of the tea box"} className="lp-story-pack" />;
+        return <PackRender index={STORY_INDEX} size={620} yaw={-0.55} alt={story.mockAlt} className="lp-story-pack" />;
       default:
         // eslint-disable-next-line @next/next/no-img-element
-        return <img src={ad} alt={fr ? "Visuel publicitaire généré" : "Generated ad visual"} className="lp-story-img lp-story-ad" loading="lazy" decoding="async" />;
+        return <img src={ad} alt={story.adAlt} className="lp-story-img lp-story-ad" loading="lazy" decoding="async" />;
     }
   };
 
@@ -224,7 +211,7 @@ export function ScrollStory() {
 // ─── Marquee of many different packs ─────────────────────────────────────────
 
 export function PackMarquee() {
-  const { lang } = useLang();
+  const t = useCopy("site").marquee;
   const [ref, seen] = useInView<HTMLDivElement>("400px");
   // Different order on every visit (applied after hydration to keep server and client HTML identical).
   const [shift, setShift] = useState(0);
@@ -232,7 +219,7 @@ export function PackMarquee() {
   const rotate = (a: number[]) => a.map((_, k) => a[(k + shift) % a.length]);
   const rows = [rotate([0, 5, 8, 3, 10, 12, 6, 15, 16]), rotate([1, 9, 2, 11, 4, 13, 7, 14, 16].reverse())];
   return (
-    <div ref={ref} className="lp-marquee" aria-label={lang === "fr" ? "Exemples de packagings de toutes catégories" : "Packaging examples from every category"}>
+    <div ref={ref} className="lp-marquee" aria-label={t.aria}>
       {rows.map((row, r) => (
         <div key={r} className={`lp-marquee-row ${r ? "is-reverse" : ""}`}>
           <div className="lp-marquee-track">
