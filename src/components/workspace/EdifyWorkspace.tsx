@@ -111,6 +111,14 @@ export function EdifyWorkspace() {
     [shape]
   );
 
+  // Catalog thumbnails wear the user's current design (redrawn shortly after each edit).
+  useEffect(() => {
+    const t = setTimeout(() => {
+      import("@/lib/three/thumbnails").then((m) => m.setThumbnailDesign(fullDesign, shape.id)).catch(() => {});
+    }, 900);
+    return () => clearTimeout(t);
+  }, [fullDesign, shape.id]);
+
   // ── Account: profile, credits and the last saved project ──────────────
   useEffect(() => {
     const supabase = createSupabase();

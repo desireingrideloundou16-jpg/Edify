@@ -9,6 +9,7 @@ import { loadDesignFonts } from "@/lib/artwork/draw";
 import { flatLayout, BLEED_MM } from "@/lib/print/layout";
 import { renderFlatArtwork, drawDieline } from "@/lib/print/artwork";
 import type { PackagingSpec } from "@/lib/three/packagingModels";
+import type { ViewPreset } from "@/components/workspace/Packaging3DViewer";
 
 const Packaging3DViewer = dynamic(() => import("@/components/workspace/Packaging3DViewer"), {
   ssr: false,
@@ -81,6 +82,46 @@ function DielinePreview({ shape, design, zoom }: { shape: PackagingShape; design
 
 export type PreviewMode = "flat" | "3d";
 
+/** Small live 3D view shown next to the flat die-line; redrawn shortly after each edit. */
+function LiveMini3D({ shape, design, onOpen }: { shape: PackagingShape; design: PackagingDesign; onOpen: () => void }) {
+  const [url, setUrl] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    setBusy(true);
+    const t = setTimeout(async () => {
+      const { renderShowcase } = await import("@/lib/three/thumbnails");
+      const img = await renderShowcase(shape, design, 440, -0.55).catch(() => null);
+      if (alive) {
+        if (img) setUrl(img);
+        setBusy(false);
+      }
+    }, 450);
+    return () => {
+      alive = false;
+      clearTimeout(t);
+    };
+  }, [shape, design]);
+  return (
+    <button type="button" className="st-mini3d" onClick={onOpen} title="Ouvrir la vue 3D">
+      {url ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={url} alt="Aperçu 3D en direct" />
+      ) : (
+        <span className="st-mini3d-wait"><Loader2 className="w-5 h-5 animate-spin" /></span>
+      )}
+      <span className="st-mini3d-label">{busy && url ? <Loader2 className="w-3 h-3 animate-spin" /> : <Box className="w-3 h-3" />} 3D en direct</span>
+    </button>
+  );
+}
+
+const VIEWS: { id: ViewPreset; label: string }[] = [
+  { id: "front", label: "Face" },
+  { id: "threeQuarter", label: "¾" },
+  { id: "back", label: "Dos" },
+  { id: "bottom", label: "Dessous" },
+];
+
 interface PreviewStageProps {
   mode: PreviewMode;
   onMode: (m: PreviewMode) => void;
@@ -96,6 +137,7 @@ export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, lo
   const [zoom, setZoom] = useState(1);
   const [autoRotate, setAutoRotate] = useState(true);
   const [viewKey, setViewKey] = useState(0);
+  const [view, setView] = useState<ViewPreset>("threeQuarter");
 
   return (
     <section className="st-stage" aria-label="Aperçu du packaging">
@@ -116,7 +158,22 @@ export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, lo
             <button type="button" onClick={() => setZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)))} aria-label="Zoomer"><Plus className="w-4 h-4" /></button>
           </div>
         ) : (
-          <div className="st-zoom">
+          <div className="st-zoom st-views" role="group" aria-label="Angle de vue">
+            {VIEWS.map((v) => (
+              <button
+                key={v.id}
+                type="button"
+                className={view === v.id && !autoRotate ? "is-on" : ""}
+                aria-pressed={view === v.id && !autoRotate}
+                onClick={() => {
+                  setAutoRotate(false);
+                  setView(v.id);
+                  setViewKey((k) => k + 1);
+                }}
+              >
+                {v.label}
+              </button>
+            ))}
             <button type="button" onClick={() => setAutoRotate((v) => !v)} aria-pressed={autoRotate} title="Rotation automatique" className={autoRotate ? "is-on" : ""}>
               <RotateCw className="w-4 h-4" />
             </button>
@@ -127,8 +184,11 @@ export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, lo
 
       <div className="st-stage-body">
         {mode === "flat" ? (
-          <div className="st-flat">
-            <DielinePreview shape={shape} design={design} zoom={zoom} />
+          <div className="st-flat-wrap">
+            <div className="st-flat">
+              <DielinePreview shape={shape} design={design} zoom={zoom} />
+            </div>
+            <LiveMini3D shape={shape} design={design} onOpen={() => onMode("3d")} />
           </div>
         ) : (
           <div className="st-3d" key={viewKey}>
@@ -136,7 +196,7 @@ export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, lo
               spec={spec}
               design={baseDesign}
               logoUrl={logoUrl}
-              view="threeQuarter"
+              view={view}
               lighting="studio"
               autoRotate={autoRotate}
               onCaptureReady={onCaptureReady}

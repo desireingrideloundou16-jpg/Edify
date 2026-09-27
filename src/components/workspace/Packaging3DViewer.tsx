@@ -8,12 +8,13 @@ import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { buildPackaging, disposeObject, PackagingDesign, PackagingSpec } from "@/lib/three/packagingModels";
 import { loadDesignFonts } from "@/lib/artwork/draw";
 
-export type ViewPreset = "front" | "threeQuarter" | "top" | "bottom";
+export type ViewPreset = "front" | "threeQuarter" | "back" | "top" | "bottom";
 export type LightingPreset = "studio" | "soft" | "warm";
 
 const VIEW_DIR: Record<ViewPreset, [number, number, number]> = {
   front: [0, 0.12, 1],
   threeQuarter: [0.75, 0.38, 1],
+  back: [-0.35, 0.18, -1],
   top: [0.35, 1.25, 0.7],
   bottom: [0.3, -1.1, 0.8],
 };

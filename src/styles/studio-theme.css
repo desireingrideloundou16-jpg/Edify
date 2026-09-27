@@ -150,3 +150,24 @@
   .st-app .st-theme { display: none; }
   .st-app .st-stage-body::before, .st-app .st-stage-body::after { display: none; }
 }
+.st-app .st-top { z-index: 60; }
+
+/* Flat die-line + live 3D mini view */
+.st-app .st-flat-wrap { position: relative; height: 100%; }
+.st-app .st-mini3d {
+  position: absolute; right: 14px; bottom: 14px; z-index: 3; width: 168px; aspect-ratio: 1;
+  border-radius: 20px; border: 1.5px solid var(--line); background: radial-gradient(110% 90% at 50% 30%, var(--surface) 0%, var(--soft) 80%);
+  box-shadow: 0 14px 34px rgba(20, 20, 20, 0.14); overflow: hidden; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.st-app .st-mini3d:hover { transform: translateY(-3px); border-color: var(--k); }
+.st-app .st-mini3d img { width: 100%; height: 100%; object-fit: contain; }
+.st-app .st-mini3d-wait { position: absolute; inset: 0; display: grid; place-items: center; color: var(--grey); }
+.st-app .st-mini3d-label {
+  position: absolute; left: 8px; bottom: 8px; display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 999px; background: var(--btn); color: var(--btn-text); font-size: 11px; font-weight: 800;
+}
+.st-app .st-views button { min-width: 0; padding: 0 10px; font-size: 12.5px; }
+@media (max-width: 900px) {
+  .st-app .st-mini3d { width: 110px; right: 10px; bottom: 10px; border-radius: 16px; }
+  .st-app .st-views button { padding: 0 7px; }
+}

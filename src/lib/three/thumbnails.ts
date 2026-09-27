@@ -13,6 +13,10 @@ import type { PackagingShape } from "@/components/workspace/Modals";
 const SIZE = 320;
 const cache = new Map<string, string>();
 const listeners = new Map<string, Set<(url: string) => void>>();
+const shapes = new Map<string, PackagingShape>();
+/** Design shown on catalog thumbnails: the user's current pack, or the neutral mockup. */
+let current: { design: PackagingDesign; key: string } | null = null;
+const cacheKey = (shapeId: string) => `${shapeId}|${current?.key ?? "neutral"}`;
 const queue: PackagingShape[] = [];
 const queued = new Set<string>();
 
@@ -73,7 +77,7 @@ function renderOne(shape: PackagingShape) {
   if (!renderer || !shape.model) return;
   const obj = buildPackaging(
     { model: shape.model, lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material },
-    neutralDesign(shape.name, shape.material)
+    current ? current.design : neutralDesign(shape.name, shape.material)
   );
   obj.rotation.y = -0.55;
   scene.add(obj);
@@ -95,7 +99,9 @@ function renderOne(shape: PackagingShape) {
   scene.remove(obj);
   disposeObject(obj);
 
-  cache.set(shape.id, url);
+  cache.set(cacheKey(shape.id), url);
+  // Keep memory bounded: the oldest designs are dropped first.
+  if (cache.size > 400) cache.delete(cache.keys().next().value as string);
   listeners.get(shape.id)?.forEach((fn) => fn(url));
 }
 
@@ -109,7 +115,7 @@ function pump() {
       return;
     }
     queued.delete(next.id);
-    if (!cache.has(next.id)) renderOne(next);
+    if (!cache.has(cacheKey(next.id))) renderOne(next);
     requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
@@ -117,21 +123,51 @@ function pump() {
 
 /** Subscribe to a shape's thumbnail; calls back immediately when cached. */
 export function requestThumbnail(shape: PackagingShape, onReady: (url: string) => void): () => void {
-  const hit = cache.get(shape.id);
-  if (hit) {
-    onReady(hit);
-    return () => {};
-  }
-  if (!init()) return () => {};
+  shapes.set(shape.id, shape);
   let set = listeners.get(shape.id);
   if (!set) listeners.set(shape.id, (set = new Set()));
   set.add(onReady);
+  const hit = cache.get(cacheKey(shape.id));
+  if (hit) {
+    onReady(hit);
+    return () => set!.delete(onReady);
+  }
+  if (!init()) return () => set!.delete(onReady);
   if (!queued.has(shape.id)) {
     queued.add(shape.id);
     queue.push(shape);
   }
   pump();
   return () => set!.delete(onReady);
+}
+
+/**
+ * Show the user's own design on every catalog thumbnail (null = neutral mockups).
+ * Every mounted card is redrawn, the selected container first.
+ */
+export async function setThumbnailDesign(design: PackagingDesign | null, priorityShapeId?: string) {
+  const { logo, ...rest } = design ?? ({} as PackagingDesign);
+  const key = design ? JSON.stringify(rest) + (logo?.src ? `|logo:${logo.src.length}:${logo.src.slice(-32)}` : "") : "neutral";
+  if ((current?.key ?? "neutral") === key) return;
+  if (design) await loadDesignFonts(design);
+  current = design ? { design, key } : null;
+  const ids = [...listeners.entries()].filter(([, set]) => set.size).map(([id]) => id);
+  if (priorityShapeId) ids.sort((a, b) => (a === priorityShapeId ? -1 : b === priorityShapeId ? 1 : 0));
+  queue.length = 0;
+  queued.clear();
+  for (const id of ids) {
+    const hit = cache.get(cacheKey(id));
+    if (hit) {
+      listeners.get(id)?.forEach((fn) => fn(hit));
+      continue;
+    }
+    const shape = shapes.get(id);
+    if (shape) {
+      queued.add(id);
+      queue.push(shape);
+    }
+  }
+  if (init()) pump();
 }
 
 /**
