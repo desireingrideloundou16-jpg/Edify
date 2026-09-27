@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import Link from "next/link";
 import { dashboardStats, isActive } from "@/lib/admin/data";
 import { BarChart, Card, Empty, Kpi, PageHead, PaymentStatus, PlanBadge, PLAN_LABEL, ago, date, money } from "@/components/admin/ui";
@@ -5,6 +6,7 @@ import { BarChart, Card, Empty, Kpi, PageHead, PaymentStatus, PlanBadge, PLAN_LA
 export const metadata = { title: "Tableau de bord" };
 
 export default async function AdminDashboard() {
+  await requireAdminPage();
   const s = await dashboardStats();
   return (
     <>

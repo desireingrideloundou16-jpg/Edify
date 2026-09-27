@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import { aiStats, systemStatus } from "@/lib/admin/data";
 import { BarChart, Card, Empty, Kpi, PageHead } from "@/components/admin/ui";
 
@@ -7,6 +8,7 @@ const KIND: Record<string, string> = { design: "Designs de packaging", suggest: 
 const ENGINE: Record<string, string> = { claude: "Claude (Anthropic)", gemini: "Gemini (Google)", local: "Mode hors ligne", cloudflare: "Cloudflare Workers AI" };
 
 export default async function AiPage() {
+  await requireAdminPage();
   const s = await aiStats();
   const status = systemStatus();
   const engines = status.filter((x) => ["Gemini", "Claude (Anthropic)", "Cloudflare Workers AI"].includes(x.key));

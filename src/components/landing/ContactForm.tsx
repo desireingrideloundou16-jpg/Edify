@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import { Loader2, Send, CheckCircle2 } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
 
 const SUBJECTS = ["Question", "Démonstration", "Offre entreprise", "Partenariat", "Signaler un problème"];
 
 export function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", subject: SUBJECTS[0], message: "" });
+  const [form, setForm] = useState({ name: "", email: "", subject: SUBJECTS[0], message: "", website: "" });
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -19,15 +18,18 @@ export function ContactForm() {
       return;
     }
     setState("sending");
-    const { error: err } = await createClient().from("contact_messages").insert({
-      name: form.name.trim(),
-      email: form.email.trim(),
-      subject: form.subject,
-      message: form.message.trim(),
-    });
-    if (err) {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: form.name.trim(), email: form.email.trim(), subject: form.subject, message: form.message.trim(), website: form.website }),
+    }).catch(() => null);
+    if (!res?.ok) {
       setState("error");
-      setError("L'envoi a échoué. Vérifiez votre connexion et réessayez.");
+      setError(
+        res?.status === 429
+          ? "Vous avez déjà envoyé plusieurs messages. Réessayez dans une heure, ou écrivez-nous sur WhatsApp."
+          : "L'envoi a échoué. Vérifiez votre connexion et réessayez."
+      );
       return;
     }
     setState("sent");
@@ -66,6 +68,8 @@ export function ContactForm() {
       <label>
         <span>Message</span>
         <textarea rows={6} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} maxLength={4000} required />
+        {/* Honeypot: invisible to people, filled in by spam bots. */}
+        <input type="text" name="website" value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })} tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, opacity: 0 }} />
       </label>
       {error && <p className="au-error" role="alert">{error}</p>}
       <button type="submit" className="lp-btn lp-btn-magenta" disabled={state === "sending"}>

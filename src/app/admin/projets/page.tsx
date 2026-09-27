@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import Link from "next/link";
 import { listProjects } from "@/lib/admin/data";
 import { Card, Empty, Filters, PageHead, Pager, ago, date } from "@/components/admin/ui";
@@ -7,6 +8,7 @@ import { ALL_CATALOG_STYLES } from "@/lib/catalog/styles";
 export const metadata = { title: "Projets" };
 
 export default async function ProjectsPage({ searchParams }: { searchParams: { q?: string; page?: string } }) {
+  await requireAdminPage();
   const q = searchParams.q ?? "";
   const res = await listProjects({ q, page: Number(searchParams.page) || 1 });
   return (

@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -9,6 +10,7 @@ import { UserActions } from "@/components/admin/actions";
 export const metadata = { title: "Fiche utilisateur" };
 
 export default async function UserPage({ params }: { params: { id: string } }) {
+  await requireAdminPage();
   const [d, admin] = await Promise.all([userDetail(params.id), getAdmin()]);
   if (!d) notFound();
   const p = d.profile;

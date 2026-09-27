@@ -1,3 +1,4 @@
+import { assertAdmin } from "./auth";
 /**
  * Server-only data for the admin board (secret-key client, after getAdmin()).
  * Aggregations are done in JS: fine for Edify's volume, and easy to move to SQL views later.
@@ -40,6 +41,7 @@ export interface ProfileRow {
 export const isActive = (p: Pick<ProfileRow, "plan_expires_at">) => !!p.plan_expires_at && new Date(p.plan_expires_at) > new Date();
 
 export async function dashboardStats() {
+  await assertAdmin();
   const db = createAdminClient();
   const days = lastDays(30);
   const since30 = new Date(Date.now() - 30 * DAY).toISOString();
@@ -89,6 +91,7 @@ export async function dashboardStats() {
 }
 
 export async function listUsers(opts: { q?: string; plan?: string; status?: string; page?: number }) {
+  await assertAdmin();
   const db = createAdminClient();
   const size = 25;
   const page = Math.max(1, opts.page ?? 1);
@@ -106,6 +109,7 @@ export async function listUsers(opts: { q?: string; plan?: string; status?: stri
 }
 
 export async function userDetail(id: string) {
+  await assertAdmin();
   const db = createAdminClient();
   const [profile, payments, projects, ai, auth] = await Promise.all([
     db.from("profiles").select("*").eq("id", id).maybeSingle(),
@@ -132,18 +136,23 @@ export async function userDetail(id: string) {
  * payment, with at most LEGAL.refundMaxPackagings packaging(s) used since.
  */
 export async function refundEligibility(payment: { id: string; user_id: string; status: string; paid_at: string | null; created_at: string }) {
+  await assertAdmin();
   if (payment.status !== "paid") return { eligible: false, reason: "Paiement non encaissé" };
   const db = createAdminClient();
   const paidAt = payment.paid_at ?? payment.created_at;
   if (Date.now() - new Date(paidAt).getTime() > LEGAL.refundDays * DAY) return { eligible: false, reason: `Plus de ${LEGAL.refundDays} jours` };
   const { data: earlier } = await db.from("payments").select("id").eq("user_id", payment.user_id).in("status", ["paid", "refunded"]).lt("created_at", payment.created_at).limit(1);
   if (earlier?.length) return { eligible: false, reason: "Pas le premier paiement" };
-  const { count } = await db.from("projects").select("id", { count: "exact", head: true }).eq("user_id", payment.user_id).eq("counted", true).gte("counted_at", paidAt);
-  if ((count ?? 0) > LEGAL.refundMaxPackagings) return { eligible: false, reason: `${count} packagings utilisés` };
-  return { eligible: true, reason: `${count ?? 0} packaging(s) utilisé(s)` };
+  // Indelible counter (incremented by claim_packaging): deleting projects can't hide usage.
+  // It is the first payment, so every packaging counted so far belongs to it.
+  const { data: prof } = await db.from("profiles").select("packagings_used").eq("id", payment.user_id).single();
+  const used = prof?.packagings_used ?? 0;
+  if (used > LEGAL.refundMaxPackagings) return { eligible: false, reason: `${used} packagings utilisés` };
+  return { eligible: true, reason: `${used} packaging(s) utilisé(s)` };
 }
 
 export async function listPayments(opts: { status?: string; page?: number }) {
+  await assertAdmin();
   const db = createAdminClient();
   const size = 30;
   const page = Math.max(1, opts.page ?? 1);
@@ -166,6 +175,7 @@ export async function listPayments(opts: { status?: string; page?: number }) {
 }
 
 export async function listProjects(opts: { q?: string; page?: number }) {
+  await assertAdmin();
   const db = createAdminClient();
   const size = 30;
   const page = Math.max(1, opts.page ?? 1);
@@ -183,6 +193,7 @@ export async function listProjects(opts: { q?: string; page?: number }) {
 }
 
 export async function listMessages(status: string) {
+  await assertAdmin();
   const db = createAdminClient();
   let query = db.from("contact_messages").select("*");
   if (status !== "all") query = query.eq("status", status);
@@ -193,6 +204,7 @@ export async function listMessages(status: string) {
 }
 
 export async function aiStats() {
+  await assertAdmin();
   const db = createAdminClient();
   const days = lastDays(30);
   const { data } = await db.from("ai_events").select("kind, engine, success, created_at").gte("created_at", new Date(Date.now() - 30 * DAY).toISOString());
@@ -222,6 +234,7 @@ export async function aiStats() {
 }
 
 export async function auditLog(page = 1) {
+  await assertAdmin();
   const size = 50;
   const { data, count } = await createAdminClient()
     .from("admin_audit")
@@ -239,6 +252,7 @@ export interface Announcement {
 }
 
 export async function getSettings() {
+  await assertAdmin();
   const { data } = await createAdminClient().from("app_settings").select("key, value");
   const map = Object.fromEntries((data ?? []).map((r) => [r.key, r.value]));
   return {
@@ -247,6 +261,7 @@ export async function getSettings() {
 }
 
 export async function listAdmins() {
+  await assertAdmin();
   const { data } = await createAdminClient().from("profiles").select("id, email, full_name").eq("role", "admin");
   return data ?? [];
 }

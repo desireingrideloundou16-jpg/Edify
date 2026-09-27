@@ -44,6 +44,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Admin area: role checked here, before any admin page code runs (the admin's own profile is
+  // readable through RLS). Non-admins get a 404, so the area isn't even revealed.
+  if (user && pathname.startsWith("/admin")) {
+    const { data: profile } = await supabase.from("profiles").select("role, suspended").eq("id", user.id).single();
+    if (profile?.role !== "admin" || profile?.suspended) {
+      return NextResponse.rewrite(new URL("/_admin-introuvable", request.url), { status: 404 });
+    }
+  }
+
   if (user && GUEST_ONLY.includes(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = searchParams.get("next")?.startsWith("/") ? searchParams.get("next")!.split("?")[0] : "/create";

@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import Link from "next/link";
 import { listMessages } from "@/lib/admin/data";
 import { Badge, Card, Empty, PageHead, date } from "@/components/admin/ui";
@@ -13,6 +14,7 @@ const TABS = [
 ] as const;
 
 export default async function MessagesPage({ searchParams }: { searchParams: { status?: string } }) {
+  await requireAdminPage();
   const status = searchParams.status ?? "new";
   const res = await listMessages(status);
   return (

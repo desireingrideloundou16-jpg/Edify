@@ -1,9 +1,11 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import { auditLog } from "@/lib/admin/data";
 import { Card, Empty, PageHead, Pager, date } from "@/components/admin/ui";
 
 export const metadata = { title: "Journal d'activité" };
 
 export default async function AuditPage({ searchParams }: { searchParams: { page?: string } }) {
+  await requireAdminPage();
   const res = await auditLog(Number(searchParams.page) || 1);
   return (
     <>

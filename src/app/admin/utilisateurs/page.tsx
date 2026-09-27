@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import Link from "next/link";
 import { isActive, listUsers } from "@/lib/admin/data";
 import { Badge, Card, Empty, Filters, PageHead, Pager, PlanBadge, ago, date } from "@/components/admin/ui";
@@ -5,6 +6,7 @@ import { Badge, Card, Empty, Filters, PageHead, Pager, PlanBadge, ago, date } fr
 export const metadata = { title: "Utilisateurs" };
 
 export default async function UsersPage({ searchParams }: { searchParams: { q?: string; plan?: string; status?: string; page?: string } }) {
+  await requireAdminPage();
   const { q = "", plan = "all", status = "all" } = searchParams;
   const res = await listUsers({ q, plan, status, page: Number(searchParams.page) || 1 });
   const qs = (p: number) => `/admin/utilisateurs?${new URLSearchParams({ q, plan, status, page: String(p) })}`;

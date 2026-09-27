@@ -23,6 +23,12 @@ export async function POST(req: Request) {
 
   const amount = priceFor(plan, months);
   const admin = createAdminClient();
+  const { count: recent } = await admin
+    .from("payments")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", user.id)
+    .gte("created_at", new Date(Date.now() - 3600_000).toISOString());
+  if ((recent ?? 0) >= 10) return Response.json({ error: "rate_limited" }, { status: 429 });
   const { data: payment, error } = await admin
     .from("payments")
     .insert({ user_id: user.id, plan, months, amount, credits: creditsFor(plan, months) })

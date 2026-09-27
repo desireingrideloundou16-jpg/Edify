@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import Link from "next/link";
 import { listPayments } from "@/lib/admin/data";
 import { Card, Empty, Filters, Kpi, PageHead, Pager, PaymentStatus, PLAN_LABEL, date, money } from "@/components/admin/ui";
@@ -6,6 +7,7 @@ import { PaymentActions } from "@/components/admin/actions";
 export const metadata = { title: "Paiements" };
 
 export default async function PaymentsPage({ searchParams }: { searchParams: { status?: string; page?: string } }) {
+  await requireAdminPage();
   const status = searchParams.status ?? "all";
   const res = await listPayments({ status, page: Number(searchParams.page) || 1 });
   return (

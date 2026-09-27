@@ -1,3 +1,4 @@
+import { requireAdminPage } from "@/lib/admin/auth";
 import Link from "next/link";
 import { getSettings, listAdmins, systemStatus } from "@/lib/admin/data";
 import { Card, PageHead, money } from "@/components/admin/ui";
@@ -9,6 +10,7 @@ export const metadata = { title: "Paramètres" };
 const NAMES: Record<PlanId, string> = { essentiel: "Essentiel", pro: "Pro", entreprise: "Entreprise" };
 
 export default async function SettingsPage() {
+  await requireAdminPage();
   const [settings, admins] = await Promise.all([getSettings(), listAdmins()]);
   const status = systemStatus();
   return (
