@@ -1,6 +1,7 @@
 import type { VisualStylePreset } from "@/components/workspace/Modals";
 import type { PackagingDesign } from "@/lib/artwork/draw";
 import { PACKAGING_FONTS } from "@/lib/catalog/fonts";
+import { isLayout, isMotif } from "@/lib/artwork/compose";
 
 /** Everything the user (or the AI) can change about the packaging. */
 export interface DesignContent {
@@ -29,6 +30,9 @@ export interface DesignSelection {
   customPalette: string[] | null;
   headingFont: string | null;
   bodyFont: string | null;
+  /** Front composition and motif (null = classic, no motif). */
+  layout?: string | null;
+  motif?: string | null;
 }
 
 const BY_KEY: Record<string, [string, string]> = {
@@ -99,6 +103,8 @@ export function toPackagingDesign(content: DesignContent, style: VisualStylePres
     headingFont: isInstalledFont(sel.headingFont) ? sel.headingFont : h,
     bodyFont: isInstalledFont(sel.bodyFont) ? sel.bodyFont : b,
     finishing: style.finishing,
+    layout: isLayout(sel.layout) ? sel.layout : "classic",
+    motif: isMotif(sel.motif) ? sel.motif : "none",
   };
 }
 

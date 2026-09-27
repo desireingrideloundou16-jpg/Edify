@@ -2,14 +2,15 @@
 
 import React, { useRef, useState } from "react";
 import { Sparkles, ImagePlus, Paperclip, Loader2, X, FileText } from "lucide-react";
+import { VoiceNoteButton } from "./VoiceNote";
 
 const QUICK_IDEAS = [
-  "Café de spécialité bio en grains, marque « Terra », style artisanal",
-  "Sérum vitamine C pour peau lumineuse, flacon pipette, esprit clean beauty",
-  "Coffret cadeau luxe pour bougie parfumée, noir et or",
-  "Bière IPA artisanale en canette, graphique et coloré",
-  "Miel de lavande de Provence, pot en verre, étiquette vintage",
-  "Chips de légumes pour enfants, sachet fun et joyeux",
+  "Jus de bissap en bouteille verre 50 cl, marque « Savane », frais et premium",
+  "Café arabica de l'Ouest Cameroun en grains, sachet kraft 250 g, esprit artisanal",
+  "Miel blanc d'Oku en pot verre 500 g, étiquette vintage",
+  "Beurre de karité pur en pot 200 ml, cosmétique naturelle haut de gamme",
+  "Poivre blanc de Penja en sachet 100 g, élégant noir et or",
+  "Chips de plantain pour enfants, sachet 80 g fun et coloré",
 ];
 
 export interface ReferenceFile {
@@ -23,11 +24,14 @@ interface AiPromptDockProps {
   onGenerate: (prompt: string, reference: ReferenceFile | null) => Promise<boolean> | boolean;
   isGenerating: boolean;
   onToast: (msg: string) => void;
+  /** Voice note (16 kHz WAV, base64) to be understood and executed by the AI. */
+  onVoice?: (wavBase64: string) => void;
+  voiceBusy?: boolean;
 }
 
 const MAX_BYTES = 8 * 1024 * 1024;
 
-export function AiPromptDock({ onGenerate, isGenerating, onToast }: AiPromptDockProps) {
+export function AiPromptDock({ onGenerate, isGenerating, onToast, onVoice, voiceBusy = false }: AiPromptDockProps) {
   const [prompt, setPrompt] = useState("");
   const [reference, setReference] = useState<ReferenceFile | null>(null);
   const imageRef = useRef<HTMLInputElement>(null);
@@ -101,12 +105,13 @@ export function AiPromptDock({ onGenerate, isGenerating, onToast }: AiPromptDock
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             disabled={isGenerating}
-            placeholder="Décrivez votre produit : type, marque, ambiance, couleurs…"
+            placeholder="Décrivez ou dictez 🎙 : produit, marque, couleurs, changement à faire…"
             className="edify-prompt-field"
             aria-label="Brief du packaging"
           />
 
           <div className="flex items-center space-x-0.5 sm:space-x-1 pr-1">
+            {onVoice && <VoiceNoteButton onAudio={(a) => onVoice(a)} busy={voiceBusy || isGenerating} onError={onToast} />}
             <button type="button" onClick={() => imageRef.current?.click()} className="p-2 text-slate-500 hover:text-slate-800 rounded-lg hover:bg-slate-100 transition" title="Ajouter une image d'inspiration ou votre charte" aria-label="Ajouter une image">
               <ImagePlus className="w-4 h-4" />
             </button>

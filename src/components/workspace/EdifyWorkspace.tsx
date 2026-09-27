@@ -8,6 +8,9 @@ import { StudioTopBar, type ExportAction } from "@/components/studio/StudioTopBa
 import { StudioPanel, type PanelTab } from "@/components/studio/StudioPanel";
 import { PreviewStage, type PreviewMode } from "@/components/studio/PreviewStage";
 import { AdStudioModal } from "./AdStudioModal";
+import { DesignInProgress, DesignReveal, FirstPackagingInvite } from "./DesignReveal";
+import { GameCelebration, GameChip, GamePanel, useGame } from "@/components/studio/Game";
+import { normalizeEan } from "@/lib/print/ean13";
 import { ArModal } from "./ArModal";
 import type { PackagingShape, VisualStylePreset } from "./Modals";
 import { ALL_CATALOG_SHAPES } from "@/lib/catalog/shapes";
@@ -42,15 +45,18 @@ interface SavedProject {
   customPalette: string[] | null;
   headingFont: string | null;
   bodyFont: string | null;
+  layout?: string | null;
+  motif?: string | null;
 }
 
+/** Neutral placeholders: the studio never shows a demo product as if it were the user's. */
 const DEFAULT_CONTENT: DesignContent = {
-  projectName: "Lumina Sérum 30 ml",
-  brandName: "LUMINA",
-  productName: "Sérum Éclat",
-  tagline: "Vitamine C pure 15 %",
-  volume: "30 ml — 1.0 fl oz",
-  details: "Aqua, Glycerin, Sodium Hyaluronate, Ascorbic Acid, Citrus Aurantium Flower Oil. Appliquer 3 gouttes matin et soir sur peau propre. Éviter le contour des yeux.",
+  projectName: "Nouveau packaging",
+  brandName: "VOTRE MARQUE",
+  productName: "Nom du produit",
+  tagline: "Votre accroche",
+  volume: "250 g",
+  details: "",
 };
 
 function useImage(url: string | null) {
@@ -72,6 +78,8 @@ export function EdifyWorkspace() {
   const [customPalette, setCustomPalette] = useState<string[] | null>(null);
   const [headingFont, setHeadingFont] = useState<string | null>(null);
   const [bodyFont, setBodyFont] = useState<string | null>(null);
+  const [layout, setLayout] = useState<string | null>(null);
+  const [motif, setMotif] = useState<string | null>(null);
   const [content, setContent] = useState<DesignContent>(DEFAULT_CONTENT);
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
   const [uploadedLogoName, setUploadedLogoName] = useState<string | null>(null);
@@ -89,7 +97,17 @@ export function EdifyWorkspace() {
   /** Whether the current project already counts as one of the plan's packagings. */
   const [projectCounted, setProjectCounted] = useState(false);
   const [projects, setProjects] = useState<ProjectItem[]>([]);
+  /** A brand-new design is being made: the preview shows the progress, never the previous pack. */
+  const [designPending, setDesignPending] = useState(false);
+  const [showInvite, setShowInvite] = useState(false);
+  const [reveal, setReveal] = useState(false);
+  const [lastRationale, setLastRationale] = useState<string | null>(null);
+  const [voiceBusy, setVoiceBusy] = useState(false);
+  const [gameOpen, setGameOpen] = useState(false);
   const restored = useRef(false);
+  const creatingProject = useRef<Promise<string | null> | null>(null);
+  /** Account, plan and projects are loaded (or there is no account): the brief may start. */
+  const [ready, setReady] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [isExportingZip, setIsExportingZip] = useState(false);
@@ -112,10 +130,10 @@ export function EdifyWorkspace() {
   }, []);
 
   // ── Derived design ──────────────────────────────────────────────────────
-  const selection = { shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont };
+  const selection = { shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif };
   const baseDesign = useMemo(
-    () => toPackagingDesign(content, style, { shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont }),
-    [content, style, shape.id, customPalette, headingFont, bodyFont]
+    () => toPackagingDesign(content, style, { shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif }),
+    [content, style, shape.id, customPalette, headingFont, bodyFont, layout, motif]
   );
   const logoImg = useImage(uploadedLogo);
   const fullDesign: PackagingDesign = useMemo(() => ({ ...baseDesign, logo: logoImg }), [baseDesign, logoImg]);
@@ -123,6 +141,25 @@ export function EdifyWorkspace() {
     () => ({ model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material }),
     [shape]
   );
+
+  const game = useGame(!!account);
+  const { track } = game;
+
+  // Small edits and a valid barcode count for the game (debounced).
+  const editTick = useRef(0);
+  useEffect(() => {
+    if (!restored.current || !account) return;
+    if (++editTick.current <= 2) return; // ignore the initial load
+    const t = setTimeout(() => track("edit_text"), 2500);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
+  useEffect(() => {
+    if (normalizeEan(content.barcode).ok) track("barcode_valid");
+  }, [content.barcode, track]);
+  useEffect(() => {
+    if (previewMode === "3d") track("view_3d");
+  }, [previewMode, track]);
 
   // Catalog thumbnails wear the user's current design (redrawn shortly after each edit).
   useEffect(() => {
@@ -157,6 +194,7 @@ export function EdifyWorkspace() {
       const fromLink = window.location.hash.includes("d=") || qs.has("prompt") || qs.has("brief");
       const { data: list } = await supabase.from("projects").select("id, name, updated_at, counted").order("updated_at", { ascending: false }).limit(100);
       setProjects((list ?? []) as ProjectItem[]);
+      if (!list?.length && !fromLink) setShowInvite(true);
       // A brief or a shared link is a new packaging: it must never overwrite the last one.
       if (list?.length && !fromLink) {
         const { data: last } = await supabase.from("projects").select("id, data, counted").eq("id", list[0].id).single();
@@ -166,8 +204,15 @@ export function EdifyWorkspace() {
           restoreSaved(last.data as SavedProject);
         }
       }
+      // A brief started before subscribing leaves an untitled, never-counted draft: reuse it
+      // instead of creating a duplicate packaging.
+      if (list?.length && fromLink && !list[0].counted && ["Nouveau packaging", "Sans titre"].includes(list[0].name)) {
+        projectId.current = list[0].id;
+      }
       restored.current = true;
-    })().catch(console.error);
+    })()
+      .catch(console.error)
+      .finally(() => setReady(true));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -180,6 +225,8 @@ export function EdifyWorkspace() {
     setCustomPalette(d.customPalette ?? null);
     setHeadingFont(d.headingFont ?? null);
     setBodyFont(d.bodyFont ?? null);
+    setLayout(d.layout ?? null);
+    setMotif(d.motif ?? null);
     setContent({ ...DEFAULT_CONTENT, ...d.content });
     setUploadedLogo(d.logo ?? null);
     setUploadedLogoName(d.logoName ?? null);
@@ -191,11 +238,11 @@ export function EdifyWorkspace() {
     setSaveState("saving");
     const t = setTimeout(async () => {
       const supabase = createSupabase();
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, logo: uploadedLogo, logoName: uploadedLogoName };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, logo: uploadedLogo, logoName: uploadedLogoName };
       const row = { name: content.projectName || "Sans titre", data };
-      const res = projectId.current
-        ? await supabase.from("projects").update(row).eq("id", projectId.current).select("id").single()
-        : await supabase.from("projects").insert(row).select("id").single();
+      const id = projectId.current ?? (await ensureProjectId());
+      if (!id) return setSaveState("error");
+      const res = await supabase.from("projects").update(row).eq("id", id).select("id").single();
       if (res.error) return setSaveState("error");
       projectId.current = res.data.id;
       setSaveState("saved");
@@ -206,16 +253,23 @@ export function EdifyWorkspace() {
     }, 1200);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, uploadedLogo, uploadedLogoName]);
+  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, uploadedLogo, uploadedLogoName]);
 
   /** Makes sure the packaging exists in the database (needed before the AI or a download). */
   const ensureProjectId = async () => {
     if (projectId.current) return projectId.current;
-    const supabase = createSupabase();
-    const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, logo: uploadedLogo, logoName: uploadedLogoName };
-    const { data: row } = await supabase.from("projects").insert({ name: content.projectName || "Nouveau packaging", data }).select("id").single();
-    projectId.current = row?.id ?? null;
-    return projectId.current;
+    // Single flight: the autosave and the AI may ask at the same time — create one packaging only.
+    if (!creatingProject.current) {
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, logo: uploadedLogo, logoName: uploadedLogoName };
+      creatingProject.current = (async () => {
+        const { data: row } = await createSupabase().from("projects").insert({ name: content.projectName || "Nouveau packaging", data }).select("id").single();
+        projectId.current = row?.id ?? null;
+        return projectId.current;
+      })().finally(() => {
+        creatingProject.current = null;
+      });
+    }
+    return creatingProject.current;
   };
 
   /** A download counts the packaging once (first download or first AI design). */
@@ -256,6 +310,8 @@ export function EdifyWorkspace() {
     setCustomPalette(shared.customPalette ?? null);
     setHeadingFont(shared.headingFont ?? null);
     setBodyFont(shared.bodyFont ?? null);
+    setLayout(shared.layout ?? null);
+    setMotif(shared.motif ?? null);
     setContent({
       projectName: shared.projectName ?? DEFAULT_CONTENT.projectName,
       brandName: shared.brandName ?? "",
@@ -277,7 +333,7 @@ export function EdifyWorkspace() {
   // ── Brief sent from the landing page (/create?prompt=…) ─────────────────
   const autoPrompt = useRef(false);
   useEffect(() => {
-    if (autoPrompt.current) return;
+    if (!ready || autoPrompt.current) return;
     autoPrompt.current = true;
     const qs = new URLSearchParams(window.location.search);
     const brief = qs.has("brief") ? loadBrief() : null;
@@ -293,7 +349,8 @@ export function EdifyWorkspace() {
         setUploadedLogoName(brief.logoName ?? "logo");
       }
     }
-    showToast("✨ Conception de votre packaging en cours…", 60000);
+    if (brief) setDesignPending(true);
+    else showToast("✨ Conception de votre packaging en cours…", 60000);
     (async () => {
       // The brief is a brand-new pack: the AI must not start from the studio's current design.
       const logo = brief?.logo ? await analyzeLogo(brief.logo).catch(() => null) : null;
@@ -303,9 +360,14 @@ export function EdifyWorkspace() {
         logoColors: logo?.colors ?? [],
       });
       if (ok && brief) clearBrief();
+      setDesignPending(false);
+      if (ok && brief) {
+        setToast(null);
+        setReveal(true);
+      }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ready]);
 
   // ── Handlers ────────────────────────────────────────────────────────────
   const updateContent = useCallback((patch: Partial<DesignContent>) => setContent((c) => ({ ...c, ...patch })), []);
@@ -329,6 +391,7 @@ export function EdifyWorkspace() {
   };
 
   const applySpec = (sp: DesignSpec) => {
+    setLastRationale(sp.rationale || null);
     const { ingredients: _i, usage: _u, ...keep } = keepFields.current;
     void _i;
     void _u;
@@ -339,6 +402,8 @@ export function EdifyWorkspace() {
     setCustomPalette([sp.palette.background, sp.palette.ink, sp.palette.accent, sp.palette.extra]);
     setHeadingFont(sp.headingFont || null);
     setBodyFont(sp.bodyFont || null);
+    setLayout(sp.layout || null);
+    setMotif(sp.motif || null);
     setContent({
       projectName: sp.projectName,
       brandName: sp.brandName,
@@ -418,12 +483,15 @@ export function EdifyWorkspace() {
         showToast(json.error ?? "Limite de régénérations atteinte pour ce packaging.", 7000);
         return false;
       }
+      if (json.projectId && !projectId.current) projectId.current = json.projectId;
       if (json.counted) {
         setProjectCounted(true);
         setProjects((list) => list.map((p) => (p.id === json.projectId ? { ...p, counted: true } : p)));
       }
       if (!res.ok || !json.spec) throw new Error(json.error || `HTTP ${res.status}`);
       applySpec(json.spec as DesignSpec);
+      if (json.engine !== "local") track("ai_design");
+      if (opts.fresh) track("new_packaging");
       const msg = json.engine === "local" ? `Design généré hors ligne (aucun packaging décompté). ${json.notice ?? ""}` : `✨ ${json.spec.rationale}`;
       showToast(msg, 7000);
       return true;
@@ -436,10 +504,64 @@ export function EdifyWorkspace() {
     }
   };
 
+  /** Voice note → AI understanding → studio action (edit the pack or design a new one). */
+  const handleVoice = async (audio: string) => {
+    setVoiceBusy(true);
+    try {
+      const res = await fetch("/api/voice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          audio,
+          context: { projectName: content.projectName, brandName: content.brandName, productName: content.productName, tagline: content.tagline, volume: content.volume, price: content.price, container: shape.name, style: style.label ?? style.name, layout, motif, palette: baseDesign.palette },
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.command) {
+        showToast(res.status === 401 ? "Connectez-vous pour utiliser les notes vocales." : "La note vocale n'a pas pu être analysée. Réessayez en parlant près du micro.");
+        return;
+      }
+      const c = json.command as {
+        transcript?: string; reply?: string; action?: string; designBrief?: string;
+        edits?: Partial<Record<keyof DesignContent, string>>; layout?: string; motif?: string;
+        colors?: { background?: string; accent?: string; ink?: string }; containerQuery?: string;
+      };
+      showToast(`🎙 « ${(c.transcript ?? "").slice(0, 120)} » — ${c.reply ?? ""}`, 8000);
+      track("voice_note");
+      if (c.action === "design" && c.designBrief) {
+        await handleGenerate(c.designBrief, null);
+        return;
+      }
+      if (c.action !== "edit") return;
+      const edits = Object.fromEntries(Object.entries(c.edits ?? {}).filter(([, v]) => typeof v === "string" && v.trim())) as Partial<DesignContent>;
+      if (Object.keys(edits).length) updateContent(edits);
+      if (c.layout && c.layout !== "keep") setLayout(c.layout);
+      if (c.motif && c.motif !== "keep") setMotif(c.motif);
+      const hex = (v?: string) => (v && /^#[0-9a-f]{6}$/i.test(v) ? v : null);
+      if (hex(c.colors?.background) || hex(c.colors?.accent) || hex(c.colors?.ink)) {
+        const p = baseDesign.palette;
+        setCustomPalette([hex(c.colors?.background) ?? p[0], hex(c.colors?.ink) ?? p[1], hex(c.colors?.accent) ?? p[2], p[3] ?? p[2]]);
+      }
+      if (c.containerQuery?.trim()) {
+        const words = c.containerQuery.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(/\s+/).filter((w) => w.length > 2);
+        const norm = (t: string) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        const best = ALL_CATALOG_SHAPES.map((sh) => ({ sh, score: words.filter((w) => norm(`${sh.name} ${sh.category ?? ""} ${sh.material ?? ""}`).includes(w)).length }))
+          .sort((a, b) => b.score - a.score)[0];
+        if (best?.score) setShape(best.sh);
+      }
+    } catch (e) {
+      console.error(e);
+      showToast("La note vocale n'a pas pu être envoyée. Vérifiez votre connexion.");
+    } finally {
+      setVoiceBusy(false);
+    }
+  };
+
   const handleDownloadPdf = async () => {
     setIsExportingPdf(true);
     try {
       const res = await downloadPrintPdf(shape, fullDesign, content.projectName);
+      track("download_pdf");
       showToast(`✓ PDF d'impression téléchargé (${res.dpi} dpi, fonds perdus 3 mm, tracé de découpe en page 2).`, 5000);
     } catch (e) {
       console.error(e);
@@ -496,6 +618,7 @@ export function EdifyWorkspace() {
   };
 
   const handleShare = async () => {
+    track("share");
     const url = `${window.location.origin}${window.location.pathname}#d=${encodeShare({ ...content, ...selection })}`;
     window.history.replaceState(null, "", url);
     try {
@@ -524,7 +647,10 @@ export function EdifyWorkspace() {
     if (a !== "share" && !(await ensurePackagingClaimed())) return;
     if (a === "pdf") handleDownloadPdf();
     else if (a === "zip") handleDownloadZip();
-    else if (a === "ad") setIsAdOpen(true);
+    else if (a === "ad") {
+      setIsAdOpen(true);
+      track("ad_visual");
+    }
     else if (a === "ar") setIsArOpen(true);
     else handleShare();
   };
@@ -550,6 +676,7 @@ export function EdifyWorkspace() {
         projects={projects}
         currentProjectId={projectId.current}
         onOpenProject={openProject}
+        extra={<GameChip state={game.state} gain={game.gain} onOpen={() => setGameOpen(true)} />}
       />
 
       <div className="st-body">
@@ -561,6 +688,13 @@ export function EdifyWorkspace() {
           isCustomPalette={!!customPalette}
           headingFont={baseDesign.headingFont}
           bodyFont={baseDesign.bodyFont}
+          layout={baseDesign.layout ?? "classic"}
+          motif={baseDesign.motif ?? "none"}
+          onChangeLayout={(v) => {
+            setLayout(v);
+            track("change_layout", v);
+          }}
+          onChangeMotif={(v) => setMotif(v)}
           content={content}
           logo={uploadedLogo}
           logoName={uploadedLogoName}
@@ -571,6 +705,7 @@ export function EdifyWorkspace() {
           onLogoUpload={(dataUrl, name) => {
             setUploadedLogo(dataUrl);
             setUploadedLogoName(name);
+            track("logo_upload");
             showToast(`✓ Logo « ${name} » appliqué au packaging.`);
           }}
           onRemoveLogo={() => {
@@ -581,7 +716,9 @@ export function EdifyWorkspace() {
           onToast={showToast}
         />
 
-        <main className="st-main">
+        <main className="st-main st-main-rel">
+          {designPending && <DesignInProgress />}
+          {showInvite && !designPending && <FirstPackagingInvite onDismiss={() => setShowInvite(false)} />}
           <PreviewStage
             mode={previewMode}
             onMode={setPreviewMode}
@@ -591,12 +728,32 @@ export function EdifyWorkspace() {
             baseDesign={baseDesign}
             logoUrl={uploadedLogo}
             onCaptureReady={handleCaptureReady}
+            onViewChange={(v) => v === "back" && track("view_back")}
           />
-          <AiPromptDock onGenerate={handleGenerate} isGenerating={isGenerating} onToast={showToast} />
+          <AiPromptDock onGenerate={handleGenerate} isGenerating={isGenerating} onToast={showToast} onVoice={handleVoice} voiceBusy={voiceBusy} />
         </main>
       </div>
 
       <AdStudioModal isOpen={isAdOpen} onClose={() => setIsAdOpen(false)} spec={spec} design={fullDesign} projectName={content.projectName} onToast={showToast} />
+      <DesignReveal
+        open={reveal}
+        onClose={() => setReveal(false)}
+        shape={shape}
+        spec={spec}
+        design={fullDesign}
+        projectName={content.projectName}
+        rationale={lastRationale}
+        onDownloadPdf={() => {
+          setReveal(false);
+          handleExport("pdf");
+        }}
+        onOpen3d={() => {
+          setReveal(false);
+          setPreviewMode("3d");
+        }}
+      />
+      <GamePanel open={gameOpen} state={game.state} onClose={() => setGameOpen(false)} />
+      <GameCelebration celebration={game.celebration} onClose={game.dismissCelebration} />
       <PlanPaywall open={!!paywall} reason={paywall ?? "generate"} onClose={() => setPaywall(null)} />
       <ArModal isOpen={isArOpen} onClose={() => setIsArOpen(false)} spec={spec} design={fullDesign} projectName={content.projectName} onToast={showToast} />
     </div>

@@ -14,6 +14,7 @@ import {
 import type { PackagingShape, VisualStylePreset } from "@/components/workspace/Modals";
 import type { DesignContent } from "@/lib/design/state";
 import { normalizeEan } from "@/lib/print/ean13";
+import { LAYOUTS, LAYOUT_LABELS, MOTIFS, MOTIF_LABELS } from "@/lib/artwork/compose";
 import { SHAPE_CATEGORIES, searchShapes } from "@/lib/catalog/shapes";
 import { STYLE_FAMILIES, ALL_CATALOG_STYLES } from "@/lib/catalog/styles";
 import { PACKAGING_FONTS, type FontCategory } from "@/lib/catalog/fonts";
@@ -164,6 +165,10 @@ interface StudioPanelProps {
   onSelectShape: (s: PackagingShape) => void;
   onSelectStyle: (s: VisualStylePreset) => void;
   onChangeFont: (role: "heading" | "body", family: string) => void;
+  layout: string;
+  motif: string;
+  onChangeLayout: (layout: string) => void;
+  onChangeMotif: (motif: string) => void;
   onChangeContent: (patch: Partial<DesignContent>) => void;
   onLogoUpload: (dataUrl: string, name: string) => void;
   onRemoveLogo: () => void;
@@ -233,7 +238,7 @@ function ShapeTab({ shape, onSelectShape }: StudioPanelProps) {
   );
 }
 
-function StyleTab({ style, isCustomPalette, headingFont, bodyFont, onSelectStyle, onChangeFont }: StudioPanelProps) {
+function StyleTab({ style, isCustomPalette, headingFont, bodyFont, onSelectStyle, onChangeFont, layout, motif, onChangeLayout, onChangeMotif }: StudioPanelProps) {
   return (
     <div className="st-section">
       <label htmlFor="st-style" className="st-label">Style visuel</label>
@@ -257,6 +262,21 @@ function StyleTab({ style, isCustomPalette, headingFont, bodyFont, onSelectStyle
           </optgroup>
         ))}
       </select>
+
+      <div className="grid grid-cols-2 gap-3">
+        <label className="block space-y-1.5">
+          <span className="st-label">Mise en page</span>
+          <select className="edify-select" value={layout} onChange={(e) => onChangeLayout(e.target.value)}>
+            {LAYOUTS.map((l) => <option key={l} value={l}>{LAYOUT_LABELS[l]}</option>)}
+          </select>
+        </label>
+        <label className="block space-y-1.5">
+          <span className="st-label">Motif</span>
+          <select className="edify-select" value={motif} onChange={(e) => onChangeMotif(e.target.value)}>
+            {MOTIFS.map((m) => <option key={m} value={m}>{MOTIF_LABELS[m]}</option>)}
+          </select>
+        </label>
+      </div>
 
       {([
         ["heading", "Police des titres", headingFont],

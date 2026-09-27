@@ -6,6 +6,7 @@
 import { SHAPE_ROWS } from "@/lib/catalog/shapeData";
 import { ALL_CATALOG_STYLES } from "@/lib/catalog/styles";
 import { PACKAGING_FONTS } from "@/lib/catalog/fonts";
+import { LAYOUTS, MOTIFS, isLayout, isMotif } from "@/lib/artwork/compose";
 
 export interface DesignSpec {
   shapeId: string;
@@ -13,6 +14,9 @@ export interface DesignSpec {
   headingFont: string;
   bodyFont: string;
   palette: { background: string; ink: string; accent: string; extra: string };
+  /** Front composition and background motif (see lib/artwork/compose). */
+  layout: string;
+  motif: string;
   projectName: string;
   brandName: string;
   productName: string;
@@ -46,6 +50,19 @@ export interface CurrentDesign {
 export const SHAPE_IDS = SHAPE_ROWS.map((r) => r[0]);
 export const STYLE_IDS = ALL_CATALOG_STYLES.map((s) => s.id);
 export const FONT_FAMILIES = PACKAGING_FONTS.map((f) => f.family);
+export const LAYOUT_IDS = [...LAYOUTS];
+export const MOTIF_IDS = [...MOTIFS];
+
+/** Art direction by category, used when the model gives nothing usable and by the offline designer. */
+export function defaultArtDirection(text: string, seed: number): { layout: string; motif: string } {
+  const t = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const pick = <T,>(list: T[]) => list[seed % list.length];
+  if (/miel|honey|epice|poivre|penja|biscuit|chocolat|cacao|vin|rhum|whisky/.test(t)) return { layout: pick(["frame", "emblem", "window"]), motif: pick(["geometric", "wax", "none", "botanical"]) };
+  if (/cafe|coffee|the |tea|infusion|moringa/.test(t)) return { layout: pick(["emblem", "minimal", "window", "split"]), motif: pick(["botanical", "geometric", "none"]) };
+  if (/serum|creme|karite|shea|parfum|cosmet|savon|huile|lotion/.test(t)) return { layout: pick(["minimal", "window", "classic"]), motif: pick(["none", "botanical", "waves"]) };
+  if (/chips|snack|plantain|bonbon|enfant|kids|jus|juice|bissap|soda|canette|energy/.test(t)) return { layout: pick(["pop", "bold", "band", "split"]), motif: pick(["dots", "stripes", "sunburst", "wax"]) };
+  return { layout: pick(["band", "split", "classic", "window", "bold"]), motif: pick(["geometric", "dots", "none", "waves"]) };
+}
 
 /** Compact catalog description given to the model. */
 export function catalogForPrompt() {
@@ -68,6 +85,10 @@ export function sanitizeSpec(spec: DesignSpec, current: CurrentDesign): DesignSp
     styleId: style.id,
     headingFont: FONT_FAMILIES.includes(spec.headingFont) ? spec.headingFont : "",
     bodyFont: FONT_FAMILIES.includes(spec.bodyFont) ? spec.bodyFont : "",
+    ...(() => {
+      const fallback = defaultArtDirection(`${spec.productName} ${spec.projectName} ${spec.shapeId}`, spec.brandName?.length ?? 0);
+      return { layout: isLayout(spec.layout) ? spec.layout : fallback.layout, motif: isMotif(spec.motif) ? spec.motif : fallback.motif };
+    })(),
     palette: { background: fix(pal.background, 0), ink: fix(pal.ink, 1), accent: fix(pal.accent, 2), extra: fix(pal.extra, 3) },
     brandName: (spec.brandName || current.brandName).slice(0, 40),
     productName: (spec.productName || current.productName).slice(0, 60),
@@ -243,6 +264,7 @@ export function localDesign(prompt: string, current: CurrentDesign): DesignSpec 
     tagline,
     volume: vol ? `${vol[1]} ${vol[2]}` : intent?.volume ?? current.volume,
     details: intent?.details ?? "",
+    ...defaultArtDirection(prompt, prompt.length),
     ingredients: "",
     usage: "",
     rationale: `Contenant et style choisis à partir des mots-clés de votre brief (${[intent?.product, style.label].filter(Boolean).join(", ")}).`,

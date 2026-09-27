@@ -4,6 +4,7 @@
  */
 import { PACKAGING_FONTS } from "@/lib/catalog/fonts";
 import { ean13Modules, isGuardModule, normalizeEan } from "@/lib/print/ean13";
+import { drawLayout, drawMotif, type LayoutId, type MotifId } from "./compose";
 
 export interface PackagingDesign {
   brandName: string;
@@ -28,6 +29,11 @@ export interface PackagingDesign {
   bodyFont: string;
   finishing: string;
   logo?: HTMLImageElement | null;
+  /** Front composition and background motif chosen by the AI designer (see compose.ts). */
+  layout?: LayoutId;
+  motif?: MotifId;
+  /** Variation seed (angles, motif placement). */
+  seed?: number;
 }
 
 export type FaceKind = "front" | "back" | "side" | "top" | "plain" | "strip";
@@ -77,7 +83,7 @@ export function fontWeight(family: string, wanted: number) {
   return weights.filter((w) => w <= wanted).pop() ?? weights[0];
 }
 
-function isScript(family: string) {
+export function isScript(family: string) {
   return FONT_INDEX.get(family)?.category === "script";
 }
 
@@ -94,7 +100,7 @@ export async function loadDesignFonts(d: Pick<PackagingDesign, "headingFont" | "
 
 // ─── Drawing primitives ──────────────────────────────────────────────────────
 
-function fitText(ctx: CanvasRenderingContext2D, text: string, maxW: number, size: number, font: (s: number) => string) {
+export function fitText(ctx: CanvasRenderingContext2D, text: string, maxW: number, size: number, font: (s: number) => string) {
   let s = size;
   do {
     ctx.font = font(s);
@@ -170,6 +176,10 @@ function backSections(d: PackagingDesign): { label: string; text: string }[] {
 
 /** Main front artwork inside the rectangle (x, y, w, h). */
 export function drawFront(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, d: PackagingDesign) {
+  if (d.layout && d.layout !== "classic") {
+    drawLayout(ctx, x, y, w, h, d);
+    return;
+  }
   const { ink, accent } = resolveColors(d.palette);
   const head = fontCss(d.headingFont);
   const body = fontCss(d.bodyFont);
@@ -349,6 +359,8 @@ export function drawFace(
     ctx.fillRect(x, y, w, h);
   }
   if (opts.grain) paperGrain(ctx, x, y, w, h, luminance(bg) < 0.3);
+  // The motif dresses every panel except the back, which stays plain for legibility.
+  if (opts.background !== false && kind !== "back" && kind !== "plain") drawMotif(ctx, x, y, w, h, d, kind === "front" ? 1 : 0.8);
   if (kind === "front" || kind === "top") drawFront(ctx, x, y, w, h, d);
   else if (kind === "side" || kind === "strip") drawSide(ctx, x, y, w, h, d, kind);
   else if (kind === "back") drawBack(ctx, x, y, w, h, d);
@@ -363,6 +375,7 @@ export function drawWrap(
   ctx.fillStyle = bg;
   ctx.fillRect(x, y, w, h);
   if (opts.grain) paperGrain(ctx, x, y, w, h, luminance(bg) < 0.3);
+  drawMotif(ctx, x, y, w, h, d);
   ctx.fillStyle = accent;
   ctx.fillRect(x, y, w, h * 0.035);
   ctx.fillRect(x, y + h * 0.965, w, h * 0.035);
@@ -370,5 +383,12 @@ export function drawWrap(
   drawFront(ctx, x + (w - fw) / 2, y + h * 0.035, fw, h * 0.93, d);
   // Legal copy on the left-hand side of the wrap (reads when the pack is turned).
   const side = (w - fw) / 2;
-  if (side > h * 0.35) drawBack(ctx, x + side * 0.05, y + h * 0.06, side * 0.9, h * 0.88, d);
+  if (side > h * 0.35) {
+    // Plain panel behind the label copy so it stays readable over a motif.
+    if (d.motif && d.motif !== "none") {
+      ctx.fillStyle = bg;
+      ctx.fillRect(x + side * 0.03, y + h * 0.05, side * 0.94, h * 0.9);
+    }
+    drawBack(ctx, x + side * 0.05, y + h * 0.06, side * 0.9, h * 0.88, d);
+  }
 }

@@ -2,7 +2,7 @@
  * Google Gemini engine (free tier) for the AI packaging designer.
  * Raw REST call with a JSON response schema, so the output always matches DesignSpec.
  */
-import { SHAPE_IDS, STYLE_IDS, FONT_FAMILIES, type DesignSpec } from "./designSpec";
+import { SHAPE_IDS, STYLE_IDS, FONT_FAMILIES, LAYOUT_IDS, MOTIF_IDS, type DesignSpec } from "./designSpec";
 
 const API = "https://generativelanguage.googleapis.com/v1beta/models";
 // Tried in order: newest fast model first, then the stable "latest" alias. Overridable with GEMINI_MODEL.
@@ -20,6 +20,8 @@ const RESPONSE_SCHEMA = {
     styleId: { type: "STRING", enum: STYLE_IDS },
     headingFont: { type: "STRING", enum: FONT_FAMILIES },
     bodyFont: { type: "STRING", enum: FONT_FAMILIES },
+    layout: { type: "STRING", enum: LAYOUT_IDS, description: "Composition de la face avant" },
+    motif: { type: "STRING", enum: MOTIF_IDS, description: "Motif graphique de fond" },
     palette: {
       type: "OBJECT",
       properties: { background: hex, ink: hex, accent: hex, extra: hex },
@@ -35,8 +37,8 @@ const RESPONSE_SCHEMA = {
     usage: str("Mode d'emploi ou de conservation, court"),
     rationale: str(),
   },
-  required: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
-  propertyOrdering: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
+  required: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "layout", "motif", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
+  propertyOrdering: ["shapeId", "styleId", "layout", "motif", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
 };
 
 export class GeminiError extends Error {

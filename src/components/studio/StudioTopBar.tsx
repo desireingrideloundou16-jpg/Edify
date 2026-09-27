@@ -19,6 +19,8 @@ interface StudioTopBarProps {
   projects: { id: string; name: string; updated_at: string; counted: boolean }[];
   currentProjectId: string | null;
   onOpenProject: (id: string) => void;
+  /** Extra item before the credits (gamification chip). */
+  extra?: React.ReactNode;
 }
 
 function useDismiss(open: boolean, close: () => void) {
@@ -45,7 +47,7 @@ const EXPORTS: { id: ExportAction; icon: React.ElementType; label: string; hint:
   { id: "share", icon: Link2, label: "Copier le lien de partage", hint: "Le design s'ouvre tel quel chez la personne" },
 ];
 
-export function StudioTopBar({ projectName, onRename, saveState, credits, onCredits, account, busy, onExport, projects, currentProjectId, onOpenProject }: StudioTopBarProps) {
+export function StudioTopBar({ projectName, onRename, saveState, credits, onCredits, account, busy, onExport, projects, currentProjectId, onOpenProject, extra }: StudioTopBarProps) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(projectName);
   const [menu, setMenu] = useState<"export" | "account" | "projects" | null>(null);
@@ -148,6 +150,7 @@ export function StudioTopBar({ projectName, onRename, saveState, credits, onCred
 
       <div className="st-top-actions">
         <ThemeToggle className="st-theme" />
+        {extra}
         <button type="button" className="st-credits" onClick={onCredits} title="Packagings restants dans votre abonnement">
           <Sparkles className="w-4 h-4" />
           {credits === null ? "…" : `${credits} packaging${credits > 1 ? "s" : ""}`}

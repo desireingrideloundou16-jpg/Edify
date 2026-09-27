@@ -49,7 +49,17 @@ SAVOIR-FAIRE DU PACKAGING DESIGNER
 - Fonds perdus 3 mm, zone de sécurité de 3 à 5 mm des plis et des coupes, traits d'au moins 0,25 pt, noir riche pour les grands aplats.
 - Finitions : kraft et papier non couché = naturel ; soft touch = premium ; dorure à chaud = luxe (coûteuse, à réserver au logo) ; vernis sélectif = relief sur la marque.
 
-7. Rédaction
+7. Tendances 2026 (Pentawards, DIELINE Awards) à utiliser avec discernement
+- Design de provenance et culturel : l'origine et le savoir-faire local deviennent le cœur de la marque (terroir camerounais, coopératives, motifs kente, ndop, wax traités de façon contemporaine).
+- Minimalisme avec une vraie personnalité : peu d'éléments, mais une typographie ou une couleur signature.
+- Couleurs « dopamine » dans les catégories challengers (boissons, snacks, enfants) ; retenue et précision pour le nouveau luxe.
+- Accessibilité : textes lisibles, contrastes forts, informations essentielles en gros ; pensez aux personnes âgées et aux malvoyants.
+- « Display drama » : le pack est pensé pour s'aligner en rayon et former un mur de marque ; une gamme partage la même composition et le même motif, seule la couleur d'accent change par variante (code couleur).
+- Durabilité honnête : ne mentionner que ce qui est vrai (recyclable, recharge, papier kraft) ; jamais de greenwashing.
+- Repères chiffrés : décision d'achat en 2,5 secondes ; la marque occupe 25 à 30 % de la face avant, le nom du produit 20 à 25 %, le bénéfice 15 à 20 % ; un pack avec un point focal clair vend nettement plus qu'un pack encombré.
+- Psychologie des couleurs (repères) : vert = naturel et durable, rouge = appétit et énergie, noir = luxe, blanc et bleu = santé et pureté, jaune = joie et énergie, brun et kraft = artisanal.
+
+8. Rédaction
 - Accroche courte orientée bénéfice client, jamais générique ("de qualité" est interdit).
 - Au dos : 1 à 2 phrases d'histoire ou d'origine (terroir, coopérative, savoir-faire), puis les mentions.
 - Ton adapté à la cible : chaleureux pour l'alimentaire artisanal, précis pour la cosmétique, énergique pour les boissons.

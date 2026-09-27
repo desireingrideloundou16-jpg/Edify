@@ -46,6 +46,20 @@ export function DevRenders() {
         const art = renderFlatArtwork(layout, design, k);
         drawDieline(art.getContext("2d")!, layout, k);
         push("dieline", art.toDataURL("image/png"));
+      } else if (mode === "layouts") {
+        // /dev-renders?mode=layouts&i=1 → every front layout with a motif, side by side
+        const [{ LAYOUTS, MOTIFS }, { drawFace, loadDesignFonts }] = await Promise.all([import("@/lib/artwork/compose"), import("@/lib/artwork/draw")]);
+        await loadDesignFonts(design);
+        const c = document.createElement("canvas");
+        const W = 300, Hh = 420;
+        c.width = W * 5;
+        c.height = Hh * 2;
+        const ctx = c.getContext("2d")!;
+        LAYOUTS.forEach((layout, k) => {
+          const motif = MOTIFS[(k + 1) % MOTIFS.length];
+          drawFace(ctx, (k % 5) * W, Math.floor(k / 5) * Hh, W - 8, Hh - 8, { ...design, layout, motif, tagline: design.tagline || "Récolté à la main" }, "front");
+        });
+        push("layouts", c.toDataURL("image/png"));
       } else if (mode === "landing") {
         // Static landing assets: every showcase pack as a transparent WebP.
         const size = Number(q.get("size") ?? 720);

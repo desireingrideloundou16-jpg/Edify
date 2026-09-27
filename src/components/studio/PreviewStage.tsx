@@ -131,9 +131,10 @@ interface PreviewStageProps {
   baseDesign: Omit<PackagingDesign, "logo">;
   logoUrl: string | null;
   onCaptureReady: (capture: () => string) => void;
+  onViewChange?: (view: ViewPreset) => void;
 }
 
-export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, logoUrl, onCaptureReady }: PreviewStageProps) {
+export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, logoUrl, onCaptureReady, onViewChange }: PreviewStageProps) {
   const [zoom, setZoom] = useState(1);
   const [autoRotate, setAutoRotate] = useState(true);
   const [viewKey, setViewKey] = useState(0);
@@ -168,6 +169,7 @@ export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, lo
                 onClick={() => {
                   setAutoRotate(false);
                   setView(v.id);
+                  onViewChange?.(v.id);
                   setViewKey((k) => k + 1);
                 }}
               >
