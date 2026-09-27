@@ -6,7 +6,8 @@ import { creditsFor, isMonths, isPlan } from "@/lib/billing/plans";
 export const runtime = "nodejs";
 
 /** Account actions from the admin board. */
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   const admin = await requireAdmin();
   if (admin instanceof Response) return admin;
   const id = params.id;

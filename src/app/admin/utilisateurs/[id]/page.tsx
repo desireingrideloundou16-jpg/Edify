@@ -9,7 +9,8 @@ import { UserActions } from "@/components/admin/actions";
 
 export const metadata = { title: "Fiche utilisateur" };
 
-export default async function UserPage({ params }: { params: { id: string } }) {
+export default async function UserPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   await requireAdminPage();
   const [d, admin] = await Promise.all([userDetail(params.id), getAdmin()]);
   if (!d) notFound();

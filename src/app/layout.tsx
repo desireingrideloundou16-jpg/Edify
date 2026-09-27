@@ -13,9 +13,9 @@ const KEYWORDS = {
 };
 const OG_LOCALE: Record<string, string> = { fr: "fr_CM", en: "en_CM", es: "es_ES", pt: "pt_PT", de: "de_DE", it: "it_IT", nl: "nl_NL" };
 
-export function generateMetadata(): Metadata {
-  const lang = getLang();
-  const m = { ...serverCopy("meta", lang), keywords: KEYWORDS[lang === "fr" ? "fr" : "en"], locale: OG_LOCALE[lang] };
+export async function generateMetadata(): Promise<Metadata> {
+  const lang = await getLang();
+  const m = { ...(await serverCopy("meta", lang)), keywords: KEYWORDS[lang === "fr" ? "fr" : "en"], locale: OG_LOCALE[lang] };
   return {
     metadataBase: new URL(SITE),
     title: { default: m.title, template: "%s · Edify" },
@@ -35,8 +35,8 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const lang = getLang();
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const lang = await getLang();
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>

@@ -5,7 +5,8 @@ import { Badge, Card, Empty, Filters, PageHead, Pager, PlanBadge, ago, date } fr
 
 export const metadata = { title: "Utilisateurs" };
 
-export default async function UsersPage({ searchParams }: { searchParams: { q?: string; plan?: string; status?: string; page?: string } }) {
+export default async function UsersPage({ searchParams: searchParamsPromise }: { searchParams: Promise<{ q?: string; plan?: string; status?: string; page?: string }> }) {
+  const searchParams = await searchParamsPromise;
   await requireAdminPage();
   const { q = "", plan = "all", status = "all" } = searchParams;
   const res = await listUsers({ q, plan, status, page: Number(searchParams.page) || 1 });

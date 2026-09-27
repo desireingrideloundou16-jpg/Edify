@@ -13,7 +13,8 @@ const TABS = [
   ["all", "Tous"],
 ] as const;
 
-export default async function MessagesPage({ searchParams }: { searchParams: { status?: string } }) {
+export default async function MessagesPage({ searchParams: searchParamsPromise }: { searchParams: Promise<{ status?: string }> }) {
+  const searchParams = await searchParamsPromise;
   await requireAdminPage();
   const status = searchParams.status ?? "new";
   const res = await listMessages(status);

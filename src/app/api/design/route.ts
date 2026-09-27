@@ -176,7 +176,7 @@ export async function POST(req: Request) {
 
   // Signed-in users only. Designing is open (the paywall is at download time) within a daily cap;
   // a packaging counts in the plan when it is first downloaded (api/packaging/claim).
-  const supabase = createSupabase();
+  const supabase = await createSupabase();
   const {
     data: { user },
   } = await supabase.auth.getUser();

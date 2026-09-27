@@ -120,7 +120,7 @@ export function EdifyWorkspace() {
   const [previewMode, setPreviewMode] = useState<PreviewMode>("flat");
   const [isAdOpen, setIsAdOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
-  const toastTimer = useRef<ReturnType<typeof setTimeout>>();
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const captureRef = useRef<(() => string) | null>(null);
 
   const handleCaptureReady = useCallback((fn: () => string) => {

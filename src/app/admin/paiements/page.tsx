@@ -6,7 +6,8 @@ import { PaymentActions } from "@/components/admin/actions";
 
 export const metadata = { title: "Paiements" };
 
-export default async function PaymentsPage({ searchParams }: { searchParams: { status?: string; page?: string } }) {
+export default async function PaymentsPage({ searchParams: searchParamsPromise }: { searchParams: Promise<{ status?: string; page?: string }> }) {
+  const searchParams = await searchParamsPromise;
   await requireAdminPage();
   const status = searchParams.status ?? "all";
   const res = await listPayments({ status, page: Number(searchParams.page) || 1 });

@@ -4,7 +4,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   const admin = await requireAdmin();
   if (admin instanceof Response) return admin;
   const { status } = await req.json().catch(() => ({}));

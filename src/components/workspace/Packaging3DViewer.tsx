@@ -93,7 +93,7 @@ function PackagingObject({ spec, design, logo, onSize }: {
 function CameraRig({ view, size, controls }: {
   view: ViewPreset;
   size: THREE.Vector3 | null;
-  controls: React.RefObject<OrbitControlsImpl>;
+  controls: React.RefObject<OrbitControlsImpl | null>;
 }) {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   const aspect = useThree((s) => s.size.width / Math.max(1, s.size.height));

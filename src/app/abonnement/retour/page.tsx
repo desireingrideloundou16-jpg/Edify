@@ -3,6 +3,7 @@ import { PaymentReturn } from "@/components/billing/PaymentReturn";
 
 export const metadata: Metadata = { title: "Paiement", robots: { index: false } };
 
-export default function Page({ searchParams }: { searchParams: { p?: string } }) {
+export default async function Page({ searchParams: searchParamsPromise }: { searchParams: Promise<{ p?: string }> }) {
+  const searchParams = await searchParamsPromise;
   return <PaymentReturn paymentId={searchParams.p ?? ""} />;
 }

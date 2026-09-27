@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 /** Site-wide banner written from the admin board (Paramètres). Server component. */
 export async function AnnouncementBar() {
   try {
-    const { data } = await createClient().from("app_settings").select("value").eq("key", "announcement").maybeSingle();
+    const { data } = await (await createClient()).from("app_settings").select("value").eq("key", "announcement").maybeSingle();
     const a = data?.value as { enabled?: boolean; text?: string; link?: string; tone?: string } | undefined;
     if (!a?.enabled || !a.text) return null;
     return (

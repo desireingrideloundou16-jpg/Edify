@@ -9,7 +9,7 @@ const PLAN_NAMES = { essentiel: "Essentiel", pro: "Pro", entreprise: "Entreprise
 
 /** Starts a Mobile Money payment: records it, then returns SasPay's hosted checkout URL. */
 export async function POST(req: Request) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

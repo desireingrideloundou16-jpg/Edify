@@ -35,7 +35,7 @@ export async function POST(req: Request) {
   const token = process.env.CLOUDFLARE_API_TOKEN;
   if (!account || !token) return Response.json({ error: "not_configured" }, { status: 503 });
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

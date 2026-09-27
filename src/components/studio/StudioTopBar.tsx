@@ -39,7 +39,7 @@ function useDismiss(open: boolean, close: () => void) {
   return ref;
 }
 
-const EXPORTS: { id: ExportAction; icon: React.ElementType; label: string; hint: string }[] = [
+const EXPORTS: { id: ExportAction; icon: React.ComponentType<{ className?: string }>; label: string; hint: string }[] = [
   { id: "pdf", icon: FileDown, label: "PDF pour l'imprimeur", hint: "Fonds perdus, traits de coupe, tracé de découpe" },
   { id: "ad", icon: Megaphone, label: "Image publicitaire", hint: "Votre produit mis en scène, formats réseaux sociaux" },
   { id: "zip", icon: Archive, label: "Tout le projet (.zip)", hint: "PDF, aperçu 3D, modèle 3D et fiche technique" },

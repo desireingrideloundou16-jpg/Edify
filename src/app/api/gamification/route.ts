@@ -43,7 +43,7 @@ async function load(userId: string): Promise<Row> {
 export async function GET() {
   const {
     data: { user },
-  } = await createClient().auth.getUser();
+  } = await (await createClient()).auth.getUser();
   if (!user) return Response.json({ error: "unauthenticated" }, { status: 401 });
   return Response.json({ state: toState(await load(user.id)) });
 }
@@ -52,7 +52,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const {
     data: { user },
-  } = await createClient().auth.getUser();
+  } = await (await createClient()).auth.getUser();
   if (!user) return Response.json({ error: "unauthenticated" }, { status: 401 });
   const body = await req.json().catch(() => ({}));
   const event = body?.event;

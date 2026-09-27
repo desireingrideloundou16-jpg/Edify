@@ -7,7 +7,8 @@ import { ALL_CATALOG_STYLES } from "@/lib/catalog/styles";
 
 export const metadata = { title: "Projets" };
 
-export default async function ProjectsPage({ searchParams }: { searchParams: { q?: string; page?: string } }) {
+export default async function ProjectsPage({ searchParams: searchParamsPromise }: { searchParams: Promise<{ q?: string; page?: string }> }) {
+  const searchParams = await searchParamsPromise;
   await requireAdminPage();
   const q = searchParams.q ?? "";
   const res = await listProjects({ q, page: Number(searchParams.page) || 1 });

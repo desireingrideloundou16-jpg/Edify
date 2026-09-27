@@ -7,7 +7,8 @@ import { refundEligibility } from "@/lib/admin/data";
 export const runtime = "nodejs";
 
 /** Payment actions: re-check with SasPay, or settle by hand (money received another way). */
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   const admin = await requireAdmin();
   if (admin instanceof Response) return admin;
   const { action } = await req.json().catch(() => ({}));

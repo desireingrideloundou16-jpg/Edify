@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 
 /** Called by /abonnement/retour: re-checks the payment with SasPay and activates the plan. */
 export async function POST(req: Request) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

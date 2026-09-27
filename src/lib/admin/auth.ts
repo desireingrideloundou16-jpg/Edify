@@ -14,7 +14,7 @@ export interface AdminUser {
 export const getAdmin = cache(async function getAdmin(): Promise<AdminUser | null> {
   const {
     data: { user },
-  } = await createClient().auth.getUser();
+  } = await (await createClient()).auth.getUser();
   if (!user) return null;
   const { data } = await createAdminClient().from("profiles").select("role, full_name, suspended").eq("id", user.id).single();
   if (data?.role !== "admin" || data.suspended) return null;

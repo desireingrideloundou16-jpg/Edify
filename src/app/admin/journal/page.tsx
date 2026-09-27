@@ -4,7 +4,8 @@ import { Card, Empty, PageHead, Pager, date } from "@/components/admin/ui";
 
 export const metadata = { title: "Journal d'activité" };
 
-export default async function AuditPage({ searchParams }: { searchParams: { page?: string } }) {
+export default async function AuditPage({ searchParams: searchParamsPromise }: { searchParams: Promise<{ page?: string }> }) {
+  const searchParams = await searchParamsPromise;
   await requireAdminPage();
   const res = await auditLog(Number(searchParams.page) || 1);
   return (

@@ -38,7 +38,7 @@ const SCHEMA = {
 export async function POST(req: Request) {
   const {
     data: { user },
-  } = await createClient().auth.getUser();
+  } = await (await createClient()).auth.getUser();
   if (!user) return Response.json({ error: "unauthenticated" }, { status: 401 });
   const key = process.env.GEMINI_API_KEY;
   if (!key) return Response.json({ error: "not_configured" }, { status: 503 });

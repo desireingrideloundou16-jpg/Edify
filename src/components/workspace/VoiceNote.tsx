@@ -50,7 +50,7 @@ export function VoiceNoteButton({ onAudio, busy, onError }: { onAudio: (wavBase6
   const [seconds, setSeconds] = useState(0);
   const recorder = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
-  const timer = useRef<ReturnType<typeof setInterval>>();
+  const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
   const started = useRef(0);
 
   useEffect(() => () => {
