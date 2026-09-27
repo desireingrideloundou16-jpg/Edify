@@ -1,12 +1,8 @@
-// ─── Supabase Browser Client ──────────────────────────────────────────────────
-// Use this client in Client Components ("use client" files).
-// Reads env vars at runtime in the browser.
+// Supabase client for Client Components ("use client").
+import { createBrowserClient } from "@supabase/ssr";
 
-import { createClient } from '@supabase/supabase-js';
+export function createClient() {
+  return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
+}
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? 'https://placeholder.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? 'placeholder-anon-key';
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-export default supabase;
+export const isSupabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);

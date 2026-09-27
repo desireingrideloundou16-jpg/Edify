@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "../styles/fonts.css";
 @import "../styles/workspace-layout.css";
 @import "../styles/sidebar-left.css";
 @import "../styles/canvas-2d.css";
 @import "../styles/ai-dock.css";
 @import "../styles/sidebar-right.css";
 @import "../styles/modals.css";
+@import "../styles/landing.css";
+@import "../styles/auth.css";
+@import "../styles/studio.css";
 
 @tailwind base;
 @tailwind components;

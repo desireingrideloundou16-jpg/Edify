@@ -1,26 +1,37 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const DESCRIPTION =
+  "Décrivez votre produit, l'IA d'Edify conçoit son packaging : forme, design, textes, maquette 3D et PDF prêt à imprimer, en quelques minutes et sans graphiste.";
+
 export const metadata: Metadata = {
-  title: "Edify Studio — Packaging Design & Mockup 3D IA",
-  description:
-    "Créez, prévisualisez et exportez vos packagings en format Print-Ready CMJN avec des mockups 3D ultra-réalistes générés par IA.",
-  keywords: [
-    "packaging design",
-    "mockup 3D",
-    "CMJN",
-    "print-ready",
-    "dépouille",
-    "étiquette",
-    "dieline",
-    "IA créative",
-  ],
-  authors: [{ name: "Edify Studio" }],
-  openGraph: {
-    title: "Edify Studio — Packaging Design & Mockup 3D IA",
-    description: "SaaS de packaging design print-ready avec aperçu 3D en temps réel",
-    type: "website",
+  metadataBase: new URL(SITE),
+  title: {
+    default: "Edify — Créez votre packaging avec l'IA en quelques minutes",
+    template: "%s · Edify",
   },
+  description: DESCRIPTION,
+  applicationName: "Edify",
+  keywords: [
+    "packaging IA",
+    "créer un packaging",
+    "design d'emballage",
+    "étiquette produit",
+    "maquette 3D packaging",
+    "PDF prêt à imprimer",
+    "générateur de packaging",
+    "Edify",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Edify — Votre packaging conçu par l'IA",
+    description: DESCRIPTION,
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Edify",
+  },
+  twitter: { card: "summary_large_image", title: "Edify — Votre packaging conçu par l'IA", description: DESCRIPTION },
 };
 
 export default function RootLayout({
@@ -35,7 +46,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
       </head>
-      <body className="bg-white text-slate-900 font-sans antialiased selection:bg-purple-100 selection:text-purple-900 overflow-hidden">
+      <body className="bg-white text-slate-900 font-sans antialiased selection:bg-purple-100 selection:text-purple-900">
         {children}
       </body>
     </html>

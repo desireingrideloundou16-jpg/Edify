@@ -1,8 +1,5 @@
-"use client";
-
-import React from "react";
-import { EdifyWorkspace } from "@/components/workspace/EdifyWorkspace";
+import { LandingPage } from "@/components/landing/LandingPage";
 
 export default function HomePage() {
-  return <EdifyWorkspace />;
+  return <LandingPage />;
 }

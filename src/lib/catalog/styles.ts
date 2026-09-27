@@ -1,4 +1,5 @@
-import { VisualStylePreset, StyleFamily, VISUAL_STYLES as LEGACY_STYLES } from "@/components/workspace/Modals";
+import type { VisualStylePreset, StyleFamily } from "@/components/workspace/Modals";
+import { ALL_VISUAL_STYLES as LEGACY_STYLES } from "./legacyStyles";
 
 export const STYLE_FAMILIES: { id: StyleFamily | "all"; label: string }[] = [
   { id: "all",      label: "Toutes les familles" },

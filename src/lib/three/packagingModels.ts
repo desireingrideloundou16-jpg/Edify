@@ -10,16 +10,9 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import type { ShapeModel } from "@/components/workspace/Modals";
 
-export interface PackagingDesign {
-  brandName: string;
-  productName: string;
-  volume: string;
-  /** [background, ink, accent, extra] */
-  palette: string[];
-  fontFamily: string;
-  finishing: string;
-  logo?: HTMLImageElement | null;
-}
+import { drawFace, drawWrap, resolveColors, type FaceKind, type PackagingDesign } from "@/lib/artwork/draw";
+export type { PackagingDesign } from "@/lib/artwork/draw";
+export { resolveColors } from "@/lib/artwork/draw";
 
 export interface PackagingSpec {
   model: ShapeModel;
@@ -29,129 +22,13 @@ export interface PackagingSpec {
   material: string;
 }
 
-// ─── Colour helpers ──────────────────────────────────────────────────────────
-
-function luminance(hex: string): number {
-  const c = new THREE.Color(hex);
-  const lin = (v: number) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
-  // THREE.Color stores linear values when colour management is on; convert back to sRGB first.
-  const srgb = c.clone().convertLinearToSRGB();
-  return 0.2126 * lin(srgb.r) + 0.7152 * lin(srgb.g) + 0.0722 * lin(srgb.b);
-}
-
-function contrast(a: string, b: string): number {
-  const [l1, l2] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-  return (l1 + 0.05) / (l2 + 0.05);
-}
-
-/** Resolve background / ink / accent so text is always readable. */
-export function resolveColors(palette: string[]) {
-  const bg = palette[0] ?? "#ffffff";
-  const candidates = [palette[1], palette[2], palette[3], "#111111", "#ffffff"].filter(Boolean) as string[];
-  const ink = candidates.find((c) => contrast(c, bg) >= 4.5) ?? (luminance(bg) > 0.4 ? "#111111" : "#ffffff");
-  const accent = palette[2] ?? ink;
-  const extra = palette[3] ?? accent;
-  return { bg, ink, accent, extra };
-}
-
-const FONT_STACK: Record<string, string> = {
-  sans: '"Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif',
-  display: 'Outfit, "Plus Jakarta Sans", Arial, sans-serif',
-  serif: 'Georgia, "Times New Roman", serif',
-  mono: '"Courier New", Consolas, monospace',
-  script: '"Segoe Script", "Brush Script MT", cursive',
-};
-
 function roughnessFor(finishing: string): number {
   if (/brillant|holograph|nacr|gloss/i.test(finishing)) return 0.28;
   if (/soft|velours|non couch|recycl|kraft|washi|textur|verg|mat/i.test(finishing)) return 0.82;
   return 0.55;
 }
 
-// ─── 2D artwork (canvas) ─────────────────────────────────────────────────────
-
-function fitText(ctx: CanvasRenderingContext2D, text: string, maxW: number, size: number, weight: string, family: string) {
-  let s = size;
-  do {
-    ctx.font = `${weight} ${s}px ${family}`;
-    if (ctx.measureText(text).width <= maxW) break;
-    s *= 0.92;
-  } while (s > 8);
-  return s;
-}
-
-function paperGrain(ctx: CanvasRenderingContext2D, w: number, h: number, dark: boolean) {
-  const n = Math.min(4000, Math.round((w * h) / 350));
-  ctx.fillStyle = dark ? "rgba(255,255,255,0.035)" : "rgba(0,0,0,0.035)";
-  for (let i = 0; i < n; i++) ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
-}
-
-/** Main front artwork, drawn inside the rectangle (x, y, w, h). */
-function drawFront(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, d: PackagingDesign) {
-  const { ink, accent } = resolveColors(d.palette);
-  const family = FONT_STACK[d.fontFamily] ?? FONT_STACK.sans;
-  const pad = Math.min(w, h) * 0.09;
-  const cx = x + w / 2;
-  const unit = Math.min(w, h * 0.7);
-
-  // Fine frame
-  ctx.strokeStyle = accent;
-  ctx.globalAlpha = 0.55;
-  ctx.lineWidth = Math.max(1.5, unit * 0.006);
-  ctx.strokeRect(x + pad * 0.55, y + pad * 0.55, w - pad * 1.1, h - pad * 1.1);
-  ctx.globalAlpha = 1;
-
-  // Logo or monogram
-  const logoSize = unit * 0.26;
-  let cursor = y + h * 0.2;
-  if (d.logo && d.logo.complete && d.logo.naturalWidth > 0) {
-    const r = d.logo.naturalWidth / d.logo.naturalHeight;
-    const lw = r >= 1 ? logoSize : logoSize * r;
-    const lh = r >= 1 ? logoSize / r : logoSize;
-    ctx.drawImage(d.logo, cx - lw / 2, cursor - lh / 2, lw, lh);
-  } else {
-    ctx.beginPath();
-    ctx.arc(cx, cursor, logoSize * 0.42, 0, Math.PI * 2);
-    ctx.fillStyle = accent;
-    ctx.fill();
-    ctx.fillStyle = resolveColors([accent]).ink;
-    ctx.font = `700 ${logoSize * 0.42}px ${family}`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText((d.brandName || "E").trim().charAt(0).toUpperCase(), cx, cursor + logoSize * 0.02);
-  }
-
-  // Brand
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = ink;
-  cursor = y + h * 0.45;
-  const brand = (d.brandName || "BRAND").toUpperCase();
-  const bs = fitText(ctx, brand, w - pad * 2.4, unit * 0.16, "800", family);
-  ctx.font = `800 ${bs}px ${family}`;
-  ctx.fillText(brand, cx, cursor);
-
-  // Accent rule
-  cursor += bs * 0.85;
-  ctx.fillStyle = accent;
-  ctx.fillRect(cx - unit * 0.08, cursor, unit * 0.16, Math.max(2, unit * 0.012));
-
-  // Product
-  cursor += unit * 0.09;
-  ctx.fillStyle = ink;
-  const ps = fitText(ctx, d.productName || "", w - pad * 2.4, unit * 0.07, "600", family);
-  ctx.font = `600 ${ps}px ${family}`;
-  ctx.fillText(d.productName || "", cx, cursor);
-
-  // Volume
-  if (d.volume) {
-    const vs = unit * 0.055;
-    ctx.font = `600 ${vs}px ${family}`;
-    ctx.globalAlpha = 0.8;
-    ctx.fillText(d.volume, cx, y + h - pad * 1.6);
-    ctx.globalAlpha = 1;
-  }
-}
+// ─── Artwork → textures ──────────────────────────────────────────────────────
 
 function newCanvas(w: number, h: number) {
   const c = document.createElement("canvas");
@@ -174,82 +51,17 @@ function pxFor(wMm: number, hMm: number, maxPx = 1024) {
   return [Math.max(64, wMm * k), Math.max(64, hMm * k)] as const;
 }
 
-type FaceKind = "front" | "back" | "side" | "top" | "plain" | "strip";
-
 function faceTexture(d: PackagingDesign, wMm: number, hMm: number, kind: FaceKind, maxPx = 1024) {
-  const { bg, ink, accent } = resolveColors(d.palette);
-  const [w, h] = pxFor(wMm, hMm, kind === "front" || kind === "top" ? maxPx : maxPx / 2);
+  const [w, h] = pxFor(wMm, hMm, kind === "front" || kind === "top" || kind === "back" ? maxPx : maxPx / 2);
   const c = newCanvas(w, h);
-  const ctx = c.getContext("2d")!;
-  const family = FONT_STACK[d.fontFamily] ?? FONT_STACK.sans;
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, c.width, c.height);
-  paperGrain(ctx, c.width, c.height, luminance(bg) < 0.3);
-
-  if (kind === "front" || kind === "top") {
-    drawFront(ctx, 0, 0, c.width, c.height, d);
-  } else if (kind === "side" || kind === "strip") {
-    ctx.save();
-    ctx.fillStyle = ink;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    const vertical = kind === "side" && c.height > c.width;
-    if (vertical) {
-      ctx.translate(c.width / 2, c.height / 2);
-      ctx.rotate(-Math.PI / 2);
-    } else {
-      ctx.translate(c.width / 2, c.height / 2);
-    }
-    const len = vertical ? c.height : c.width;
-    const thick = vertical ? c.width : c.height;
-    const brand = (d.brandName || "").toUpperCase();
-    const s = fitText(ctx, brand, len * 0.55, thick * 0.2, "800", family);
-    ctx.font = `800 ${s}px ${family}`;
-    ctx.fillText(brand, 0, 0);
-    ctx.restore();
-    ctx.fillStyle = accent;
-    ctx.fillRect(0, c.height - c.height * 0.04, c.width, c.height * 0.04);
-  } else if (kind === "back") {
-    ctx.fillStyle = ink;
-    ctx.globalAlpha = 0.35;
-    const lh = c.height * 0.028;
-    for (let i = 0; i < 9; i++) {
-      const lw = c.width * (0.55 + ((i * 37) % 30) / 100);
-      ctx.fillRect(c.width * 0.12, c.height * 0.18 + i * lh * 2, lw * 0.76, lh);
-    }
-    ctx.globalAlpha = 1;
-    // Barcode
-    const bx = c.width * 0.3, by = c.height * 0.72, bw = c.width * 0.4, bh = c.height * 0.12;
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(bx - 6, by - 6, bw + 12, bh + 12);
-    ctx.fillStyle = "#111111";
-    for (let px = 0; px < bw; ) {
-      const bar = 1 + ((px * 7) % 4);
-      ctx.fillRect(bx + px, by, bar, bh);
-      px += bar + 1 + ((px * 3) % 3);
-    }
-  }
+  drawFace(c.getContext("2d")!, 0, 0, c.width, c.height, d, kind, { grain: true });
   return toTexture(c);
 }
 
-/**
- * Texture for a cylindrical wrap. `arcMm` is the full unrolled width,
- * `frontFraction` the share of it used by the centred front artwork.
- */
 function wrapTexture(d: PackagingDesign, arcMm: number, hMm: number, frontFraction: number, maxPx = 1536) {
-  const { bg, accent } = resolveColors(d.palette);
   const [w, h] = pxFor(arcMm, hMm, maxPx);
   const c = newCanvas(w, h);
-  const ctx = c.getContext("2d")!;
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, c.width, c.height);
-  paperGrain(ctx, c.width, c.height, luminance(bg) < 0.3);
-  // Accent bands top & bottom all around
-  ctx.fillStyle = accent;
-  ctx.fillRect(0, 0, c.width, c.height * 0.035);
-  ctx.fillRect(0, c.height * 0.965, c.width, c.height * 0.035);
-  const fw = c.width * frontFraction;
-  drawFront(ctx, (c.width - fw) / 2, c.height * 0.035, fw, c.height * 0.93, d);
+  drawWrap(c.getContext("2d")!, 0, 0, c.width, c.height, d, frontFraction, { grain: true });
   return toTexture(c);
 }
 
@@ -623,7 +435,8 @@ export function neutralDesign(name: string, material: string): PackagingDesign {
     productName: name,
     volume: "",
     palette: kraft ? ["#c9a57b", "#3a2a1a", "#3a2a1a", "#b38d5f"] : ["#fbfbfa", "#1f2937", "#9ca3af", "#e5e7eb"],
-    fontFamily: "display",
+    headingFont: "Outfit",
+    bodyFont: "Outfit",
     finishing: "Offset mat",
   };
 }

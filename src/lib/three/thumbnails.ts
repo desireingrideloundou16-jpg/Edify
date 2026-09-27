@@ -7,6 +7,7 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { buildPackaging, disposeObject, neutralDesign } from "./packagingModels";
+import { loadDesignFonts, type PackagingDesign } from "@/lib/artwork/draw";
 import type { PackagingShape } from "@/components/workspace/Modals";
 
 const SIZE = 320;
@@ -131,4 +132,35 @@ export function requestThumbnail(shape: PackagingShape, onReady: (url: string) =
   }
   pump();
   return () => set!.delete(onReady);
+}
+
+/**
+ * Render a designed pack (marketing showcase) with the shared renderer.
+ * Transparent PNG so it can float over any background.
+ */
+export async function renderShowcase(shape: PackagingShape, design: PackagingDesign, size = 720, yaw = -0.55): Promise<string | null> {
+  if (!shape.model || !init() || !renderer) return null;
+  await loadDesignFonts(design);
+  const obj = buildPackaging(
+    { model: shape.model, lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material },
+    design
+  );
+  obj.rotation.y = yaw;
+  scene.add(obj);
+  const box = new THREE.Box3().setFromObject(obj);
+  const dims = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  shadow.scale.set(dims.x * 1.7 + 0.1, dims.z * 1.7 + 0.25, 1);
+  shadow.position.set(center.x, 0.001, center.z);
+  const radius = dims.length() / 2;
+  const dist = (radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2))) * 0.95;
+  camera.position.copy(center).addScaledVector(new THREE.Vector3(0, 0.3, 1).normalize(), dist);
+  camera.lookAt(center);
+  renderer.setSize(size, size, false);
+  renderer.render(scene, camera);
+  const url = renderer.domElement.toDataURL("image/png");
+  renderer.setSize(SIZE, SIZE, false);
+  scene.remove(obj);
+  disposeObject(obj);
+  return url;
 }

@@ -6,14 +6,16 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, ContactShadows, Environment, Lightformer } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { buildPackaging, disposeObject, PackagingDesign, PackagingSpec } from "@/lib/three/packagingModels";
+import { loadDesignFonts } from "@/lib/artwork/draw";
 
-export type ViewPreset = "front" | "threeQuarter" | "top";
+export type ViewPreset = "front" | "threeQuarter" | "top" | "bottom";
 export type LightingPreset = "studio" | "soft" | "warm";
 
 const VIEW_DIR: Record<ViewPreset, [number, number, number]> = {
   front: [0, 0.12, 1],
   threeQuarter: [0.75, 0.38, 1],
   top: [0.35, 1.25, 0.7],
+  bottom: [0.3, -1.1, 0.8],
 };
 
 const LIGHTING: Record<LightingPreset, { color: string; top: number; key: number; fill: number; rim: number; sun: number }> = {
@@ -47,13 +49,17 @@ function useImage(url: string | null) {
   return img;
 }
 
-/** Re-render once web fonts are available so canvas artwork uses them. */
-function useFontsReady() {
-  const [ready, setReady] = useState(false);
+/** Bumps when the design fonts finish loading so textures are redrawn with them. */
+function useFontsVersion(heading: string, body: string) {
+  const [version, setVersion] = useState(0);
   useEffect(() => {
-    document.fonts?.ready.then(() => setReady(true));
-  }, []);
-  return ready;
+    let alive = true;
+    loadDesignFonts({ headingFont: heading, bodyFont: body }).then(() => alive && setVersion((v) => v + 1));
+    return () => {
+      alive = false;
+    };
+  }, [heading, body]);
+  return version;
 }
 
 function PackagingObject({ spec, design, logo, onSize }: {
@@ -62,7 +68,7 @@ function PackagingObject({ spec, design, logo, onSize }: {
   logo: HTMLImageElement | null;
   onSize: (size: THREE.Vector3) => void;
 }) {
-  const fonts = useFontsReady();
+  const fonts = useFontsVersion(design.headingFont, design.bodyFont);
   const [debounced, setDebounced] = useState(design);
   useEffect(() => {
     const t = setTimeout(() => setDebounced(design), 120);
@@ -146,6 +152,7 @@ export default function Packaging3DViewer({ spec, design, logoUrl, view, lightin
         <Lightformer form="rect" intensity={L.fill} color="#ffffff" position={[4, 1, 2]} rotation-y={-Math.PI / 2.5} scale={[4, 2.5, 1]} />
         <Lightformer form="rect" intensity={L.rim} color={L.color} position={[0, 1.5, -4]} scale={[6, 1.5, 1]} />
         <Lightformer form="ring" intensity={0.6} color="#ffffff" position={[0, 0.5, 4]} scale={2} />
+        <Lightformer form="rect" intensity={0.3} color="#ffffff" position={[0, -4, 0]} rotation-x={-Math.PI / 2} scale={[6, 6, 1]} />
       </Environment>
 
       <directionalLight position={[2.5, 4, 3]} intensity={L.sun} color={L.color} />
@@ -163,7 +170,7 @@ export default function Packaging3DViewer({ spec, design, logoUrl, view, lightin
         enablePan={false}
         autoRotate={autoRotate}
         autoRotateSpeed={1.4}
-        maxPolarAngle={Math.PI / 2 - 0.04}
+        maxPolarAngle={Math.PI - 0.05}
       />
       <CameraRig view={view} size={size} controls={controls} />
       <CaptureBridge onCaptureReady={onCaptureReady} />
