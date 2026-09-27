@@ -25,8 +25,11 @@ async function call<T>(path: string, init: RequestInit = {}): Promise<T> {
     cache: "no-store",
   });
   const json = await res.json().catch(() => null);
-  if (!res.ok) throw new SasPayError(json?.message || json?.detail || `HTTP ${res.status}`, res.status);
-  return json as T;
+  if (!res.ok || json?.success === false) {
+    throw new SasPayError(json?.message || json?.detail || json?.error?.message || `HTTP ${res.status}`, res.status >= 400 ? res.status : 502);
+  }
+  // The live API wraps every answer in { success, data, code } (the docs show the bare object).
+  return (json && typeof json === "object" && "data" in json && json.data && typeof json.data === "object" ? json.data : json) as T;
 }
 
 export interface CheckoutSession {
