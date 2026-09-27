@@ -1157,3 +1157,22 @@
 .lp-contact-whatsapp { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 0 0 26px !important; color: var(--grey); font-size: 14.5px; }
 .lp-contact-whatsapp .lp-btn { background: #1faa59; color: #fff; }
 .lp-contact-whatsapp .lp-btn:hover { background: #178a47; }
+
+/* ── /exemples ─────────────────────────────────────────────── */
+.lp-examples .lp-sub { max-width: 720px; }
+.lp-examples-kicker { display: inline-flex; align-items: center; gap: 6px; color: var(--m); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+.lp-examples-grid { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 22px; }
+.lp-example { border-radius: 24px; overflow: hidden; background: var(--surface, #fff); border: 1.5px solid var(--line); display: flex; flex-direction: column; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.lp-example:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12); }
+.lp-example-media { position: relative; aspect-ratio: 4 / 5; background: var(--soft, #f3f3f1); }
+.lp-example-media > img:first-child { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lp-example-pack { position: absolute; right: 10px; bottom: 10px; width: 34%; aspect-ratio: 1; border-radius: 16px; background: rgba(255, 255, 255, 0.92); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); object-fit: contain; padding: 4px; }
+.lp-example-body { padding: 16px 18px 18px; display: grid; gap: 6px; }
+.lp-example-label { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); }
+.lp-example-prompt { font-size: 15px; line-height: 1.45; font-weight: 600; }
+.lp-example-brand { font-size: 13px; color: var(--grey); }
+.lp-example-brand strong { color: var(--k); }
+.lp-examples-cta { margin: 56px auto 24px; max-width: 640px; text-align: center; display: grid; gap: 14px; justify-items: center; }
+.lp-examples-cta h2 { font-family: var(--display); font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -0.03em; }
+.lp-examples-cta p { color: var(--grey); }
+.lp-examples-cta small { color: var(--grey); font-size: 12px; }

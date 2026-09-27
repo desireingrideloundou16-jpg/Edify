@@ -17,7 +17,7 @@
   },
   "stats": [
    [
-    "97",
+    "119",
     "Verpackungsformen"
    ],
    [
@@ -116,7 +116,7 @@
    ],
    "numbers": [
     [
-     "97",
+     "119",
      "Verpackungsformen"
     ],
     [
@@ -254,7 +254,7 @@
       "3D-Modell und Werbe-Visual",
       "Druckfertiges PDF mit Beschnitt und Schnittmarken",
       "Zweisprachiger Pflichttext für Etiketten und ein echter EAN-13-Barcode",
-      "97 Behälter, 84 Stile und 58 Schriftarten",
+      "119 Behälter, 84 Stile und 58 Schriftarten",
       "Unbegrenzte Bearbeitungen und Downloads"
      ]
     },
@@ -488,6 +488,18 @@
    "perMonth": " / Monat",
    "cta": "Meinen Tarif wählen",
    "close": "Schließen"
+  },
+  "examples": {
+   "kicker": "Echte Beispiele",
+   "title": "Was die KI von Edify aus wenigen Worten macht",
+   "intro": "Jedes Beispiel beginnt mit dem Briefing eines Unternehmers. Die KI hat Behälter, Layout, Illustration, Farben, Texte und Werbebild selbst gewählt.",
+   "brief": "Das Briefing",
+   "adAlt": "Werbebild",
+   "packAlt": "Verpackung",
+   "ctaTitle": "Jetzt Sie",
+   "ctaText": "Beantworten Sie ein paar Fragen zu Ihrem Produkt: Verpackung, 3D-Mockup und Werbebild sind in einer Minute fertig.",
+   "cta": "Meine Verpackung erstellen",
+   "note": "Fiktive Marken für die Demonstration."
   }
  },
  "wizard": {

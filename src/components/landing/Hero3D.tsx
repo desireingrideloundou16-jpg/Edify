@@ -12,7 +12,7 @@ import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeom
 import { buildPackaging } from "@/lib/three/packagingModels";
 import { loadDesignFonts } from "@/lib/artwork/draw";
 import { ALL_CATALOG_SHAPES } from "@/lib/catalog/shapes";
-import { SHOWCASE } from "./showcase";
+import { SHOWCASE, loadShowcaseArt } from "./showcase";
 import type { LandingTheme } from "./themes";
 
 const CMYK = { c: "#00a0e3", m: "#e6007e", y: "#ffe500", k: "#141414" };
@@ -65,7 +65,7 @@ export function Hero3D({ theme, onReady }: { theme: LandingTheme; onReady: () =>
         if (disposed) return;
         const obj = buildPackaging(
           { model: shape.model, lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material },
-          { ...item.design, logo: null }
+          { ...item.design, logo: null, art: await loadShowcaseArt(item) }
         );
         obj.scale.multiplyScalar(slot.s);
         const g = new THREE.Group();

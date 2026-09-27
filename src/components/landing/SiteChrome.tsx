@@ -4,7 +4,7 @@ import React from "react";
 import { LandingNav } from "./LandingClient";
 import { useCopy } from "@/components/i18n/LangProvider";
 
-const PRODUCT = ["/commencer", "/create", "/#fonctionnalites", "/#exemples", "/#tarifs"];
+const PRODUCT = ["/commencer", "/create", "/#fonctionnalites", "/exemples", "/#tarifs"];
 const RESOURCES = ["/#demo", "/#faq", "/contact"];
 const LEGAL = ["/mentions-legales", "/confidentialite", "/cgu"];
 

@@ -17,7 +17,7 @@
   },
   "stats": [
    [
-    "97",
+    "119",
     "forme di packaging"
    ],
    [
@@ -116,7 +116,7 @@
    ],
    "numbers": [
     [
-     "97",
+     "119",
      "forme di packaging"
     ],
     [
@@ -254,7 +254,7 @@
       "Mockup 3D e visual pubblicitario",
       "PDF pronto per la stampa con abbondaggio e segni di taglio",
       "Testo obbligatorio dell'etichetta bilingue e vero codice a barre EAN-13",
-      "97 contenitori, 84 stili e 58 font",
+      "119 contenitori, 84 stili e 58 font",
       "Modifiche e download illimitati"
      ]
     },
@@ -479,6 +479,18 @@
    "perMonth": " / mese",
    "cta": "Scegli il mio piano",
    "close": "Chiudi"
+  },
+  "examples": {
+   "kicker": "Esempi reali",
+   "title": "Cosa consegna l'IA di Edify con poche parole",
+   "intro": "Ogni esempio parte dal brief scritto da un imprenditore. L'IA ha scelto da sola contenitore, composizione, illustrazione, colori, testi e immagine pubblicitaria.",
+   "brief": "Il brief",
+   "adAlt": "Immagine pubblicitaria",
+   "packAlt": "Packaging",
+   "ctaTitle": "Tocca a te",
+   "ctaText": "Rispondi a qualche domanda sul tuo prodotto: packaging, mockup 3D e immagine pubblicitaria sono pronti in un minuto.",
+   "cta": "Crea il mio packaging",
+   "note": "Marchi fittizi creati per la dimostrazione."
   }
  },
  "wizard": {

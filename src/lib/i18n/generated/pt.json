@@ -17,7 +17,7 @@
   },
   "stats": [
    [
-    "97",
+    "119",
     "formas de embalagem"
    ],
    [
@@ -116,7 +116,7 @@
    ],
    "numbers": [
     [
-     "97",
+     "119",
      "formas de embalagem"
     ],
     [
@@ -254,7 +254,7 @@
       "Maquete 3D e visual publicitário",
       "PDF pronto para impressão com sangria e marcas de corte",
       "Texto obrigatório do rótulo bilingue e código de barras EAN-13 real",
-      "97 recipientes, 84 estilos e 58 fontes",
+      "119 recipientes, 84 estilos e 58 fontes",
       "Edições e descargas ilimitadas"
      ]
     },
@@ -488,6 +488,18 @@
    "perMonth": " / mês",
    "cta": "Escolher meu plano",
    "close": "Fechar"
+  },
+  "examples": {
+   "kicker": "Exemplos reais",
+   "title": "O que a IA da Edify entrega com poucas palavras",
+   "intro": "Cada exemplo parte do brief escrito por um empreendedor. A IA escolheu sozinha a embalagem, a composição, a ilustração, as cores, os textos e a imagem publicitária.",
+   "brief": "O brief",
+   "adAlt": "Imagem publicitária",
+   "packAlt": "Embalagem",
+   "ctaTitle": "A sua vez",
+   "ctaText": "Responda a algumas perguntas sobre o seu produto: a sua embalagem, a maquete 3D e a imagem publicitária ficam prontas num minuto.",
+   "cta": "Criar a minha embalagem",
+   "note": "Marcas fictícias criadas para a demonstração."
   }
  },
  "wizard": {

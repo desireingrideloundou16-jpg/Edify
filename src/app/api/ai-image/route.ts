@@ -65,15 +65,23 @@ export async function POST(req: Request) {
       "Photorealistic, shot on a medium-format camera, 85 mm lens, shallow depth of field, rich textures, premium commercial campaign, high detail. No product, no packaging, no bottle, no box, no text, no people, no logo.";
   }
 
-  try {
+  const run = async (p: string) => {
     const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${account}/ai/run/${MODEL}`, {
       method: "POST",
       signal: AbortSignal.timeout(45_000),
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       // FLUX schnell on Workers AI accepts only prompt and steps (a seed is rejected).
-      body: JSON.stringify({ prompt, steps: 8 }),
+      body: JSON.stringify({ prompt: p, steps: 8 }),
     });
-    const json = await res.json().catch(() => null);
+    return { res, json: await res.json().catch(() => null) };
+  };
+
+  try {
+    let { res, json } = await run(prompt);
+    // The safety filter sometimes flags innocent food words ("juicy", "ripe"…): retry once softened.
+    if (!json?.result?.image && JSON.stringify(json?.errors ?? "").includes("NSFW")) {
+      ({ res, json } = await run(prompt.replace(/(juicy|ripe|luscious|succulent|naked|bare|hot|sexy|lush|moist|creamy|dripping)s*/gi, "")));
+    }
     const image = json?.result?.image;
     await logAiEvent(user.id, "image", "cloudflare", !!(res.ok && image));
     if (!res.ok || !image) {

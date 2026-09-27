@@ -100,7 +100,7 @@ function applyThemeToPage(t: LandingTheme, label: string) {
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
 
-const LINK_HREFS = ["/#comment", "/#fonctionnalites", "/#exemples", "/#tarifs", "/#faq"];
+const LINK_HREFS = ["/#comment", "/#fonctionnalites", "/exemples", "/#tarifs", "/#faq"];
 
 export function LandingNav() {
   const t = useCopy("site").nav;

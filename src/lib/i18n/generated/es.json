@@ -17,7 +17,7 @@
   },
   "stats": [
    [
-    "97",
+    "119",
     "formas de packaging"
    ],
    [
@@ -116,7 +116,7 @@
    ],
    "numbers": [
     [
-     "97",
+     "119",
      "formas de packaging"
     ],
     [
@@ -254,7 +254,7 @@
       "Maqueta 3D y visual publicitario",
       "PDF listo para imprenta con sangrado y marcas de corte",
       "Texto obligatorio bilingüe en la etiqueta y código de barras EAN-13 real",
-      "97 envases, 84 estilos y 58 fuentes",
+      "119 envases, 84 estilos y 58 fuentes",
       "Ediciones y descargas ilimitadas"
      ]
     },
@@ -488,6 +488,18 @@
    "perMonth": " / mes",
    "cta": "Elegir mi plan",
    "close": "Cerrar"
+  },
+  "examples": {
+   "kicker": "Ejemplos reales",
+   "title": "Lo que la IA de Edify entrega con unas pocas palabras",
+   "intro": "Cada ejemplo parte del brief que escribió un emprendedor. La IA eligió sola el envase, la composición, la ilustración, los colores, los textos y la imagen publicitaria.",
+   "brief": "El brief",
+   "adAlt": "Imagen publicitaria",
+   "packAlt": "Packaging",
+   "ctaTitle": "Te toca",
+   "ctaText": "Responde a unas preguntas sobre tu producto: tu packaging, su maqueta 3D y tu imagen publicitaria están listos en un minuto.",
+   "cta": "Crear mi packaging",
+   "note": "Marcas ficticias creadas para la demostración."
   }
  },
  "wizard": {

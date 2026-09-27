@@ -335,8 +335,8 @@ export async function renderAd(opts: AdOptions): Promise<string> {
     const camera = new THREE.PerspectiveCamera(aspect < 1 ? 32 : 26, aspect, 0.01, 100);
     const target = new THREE.Vector3(0, productY + 0.5 * (withCopy && aspect <= 1 ? 0.78 : 0.62), 0);
     const productHeight = size.y * scale;
-    target.y = productY + productHeight * (withCopy && aspect <= 1 ? 0.84 : 0.48);
-    const dist = (aspect < 1 ? 3.6 : 3.0) + (withCopy && aspect <= 1 ? 1.05 : 0);
+    target.y = productY + productHeight * (withCopy && aspect <= 1 ? 0.74 : 0.48);
+    const dist = (aspect < 1 ? 3.6 : 3.0) + (withCopy && aspect <= 1 ? 0.45 : 0);
     const yaw = 0.18 + (rand(11) - 0.5) * 0.25;
     camera.position.set(Math.sin(yaw) * dist, target.y + 0.35, Math.cos(yaw) * dist);
     camera.lookAt(target);

@@ -17,7 +17,7 @@
   },
   "stats": [
    [
-    "97",
+    "119",
     "verpakkingsvormen"
    ],
    [
@@ -116,7 +116,7 @@
    ],
    "numbers": [
     [
-     "97",
+     "119",
      "verpakkingsvormen"
     ],
     [
@@ -254,7 +254,7 @@
       "3D-mockup en advertentievisual",
       "Printklare PDF met afloop en snijtekens",
       "Tweetalige verplichte etiketteksten en een echte EAN-13 streepjescode",
-      "97 containers, 84 stijlen en 58 lettertypen",
+      "119 containers, 84 stijlen en 58 lettertypen",
       "Onbeperkt bewerken en downloaden"
      ]
     },
@@ -488,6 +488,18 @@
    "perMonth": " / maand",
    "cta": "Kies mijn plan",
    "close": "Sluiten"
+  },
+  "examples": {
+   "kicker": "Echte voorbeelden",
+   "title": "Wat de AI van Edify maakt met een paar woorden",
+   "intro": "Elk voorbeeld begint met de briefing van een ondernemer. De AI koos zelf de verpakking, de opmaak, de illustratie, de kleuren, de teksten en het advertentiebeeld.",
+   "brief": "De briefing",
+   "adAlt": "Advertentiebeeld",
+   "packAlt": "Verpakking",
+   "ctaTitle": "Jouw beurt",
+   "ctaText": "Beantwoord een paar vragen over je product: je verpakking, de 3D-mockup en je advertentiebeeld zijn in een minuut klaar.",
+   "cta": "Mijn verpakking maken",
+   "note": "Fictieve merken gemaakt voor de demo."
   }
  },
  "wizard": {

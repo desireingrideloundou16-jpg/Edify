@@ -7,7 +7,7 @@
 //   /dev-renders?mode=ad&i=1&scene=podium → advertising visual
 import React, { useEffect, useState } from "react";
 import { ALL_CATALOG_SHAPES } from "@/lib/catalog/shapes";
-import { SHOWCASE } from "@/components/landing/showcase";
+import { SHOWCASE, loadShowcaseArt } from "@/components/landing/showcase";
 
 export function DevRenders() {
   const [items, setItems] = useState<{ key: string; url: string }[]>([]);
@@ -25,7 +25,7 @@ export function DevRenders() {
       const label = q.has("label")
         ? { ingredients: "Eau, fleurs d'hibiscus 12 %, sucre de canne, menthe / Water, hibiscus flowers 12%, cane sugar, mint", usage: "Bien agiter. Servir frais. / Shake well. Serve chilled.", barcode: "4006381333931", production: "2026-09-26", expiry: "2027-03-26", price: "1 500 FCFA", extra: "Fabriqué à Douala, Cameroun / Made in Douala, Cameroon" }
         : {};
-      const design = { ...item.design, ...label, logo: null };
+      const design = { ...item.design, ...label, logo: null, art: await loadShowcaseArt(item) };
       if (mode === "turntable") {
         const n = Number(q.get("n") ?? 48);
         for (let f = 0; f < n && !cancelled; f++) {
@@ -77,7 +77,7 @@ export function DevRenders() {
           const it = SHOWCASE[i];
           const sh = ALL_CATALOG_SHAPES.find((s) => s.id === it.shapeId);
           if (!sh) continue;
-          const png = await renderShowcase(sh, { ...it.design, logo: null }, size, -0.45);
+          const png = await renderShowcase(sh, { ...it.design, logo: null, art: await loadShowcaseArt(it) }, size, -0.45);
           if (!png) continue;
           const img = new Image();
           img.src = png;
@@ -87,6 +87,10 @@ export function DevRenders() {
           c.getContext("2d")!.drawImage(img, 0, 0);
           push(`pack-${String(i).padStart(2, "0")}`, c.toDataURL("image/webp", 0.86));
         }
+      } else if (mode === "scenes") {
+        const { AD_DECORS } = await import("@/lib/three/adRender");
+        const decor = AD_DECORS.find((x) => x.id === (q.get("decor") ?? "ingredients")) ?? AD_DECORS[0];
+        document.body.dataset.prompts = JSON.stringify(SHOWCASE.map((it) => decor.prompt({ ...it.design, logo: null })));
       } else if (mode === "ad") {
         const { renderAd } = await import("@/lib/three/adRender");
         const url = await renderAd({
@@ -97,14 +101,24 @@ export function DevRenders() {
           withCopy: q.get("copy") !== "0",
           seed: Number(q.get("seed") ?? 2),
           scale: Number(q.get("scale") ?? 0.75),
+          backgroundUrl: q.get("bg"),
         });
-        push("ad", url);
+        if (q.has("webp")) {
+          const img = new Image();
+          img.src = url;
+          await img.decode();
+          const c = document.createElement("canvas");
+          c.width = img.width;
+          c.height = img.height;
+          c.getContext("2d")!.drawImage(img, 0, 0);
+          push("ad", c.toDataURL("image/webp", 0.84));
+        } else push("ad", url);
       } else {
         for (let i = 0; i < SHOWCASE.length && !cancelled; i++) {
           const it = SHOWCASE[i];
           const sh = ALL_CATALOG_SHAPES.find((s) => s.id === it.shapeId);
           if (!sh) continue;
-          const png = await renderShowcase(sh, { ...it.design, logo: null }, 1024, -0.35);
+          const png = await renderShowcase(sh, { ...it.design, logo: null, art: await loadShowcaseArt(it) }, 1024, -0.35);
           if (!png) continue;
           const img = new Image();
           img.src = png;
