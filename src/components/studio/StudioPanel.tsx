@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import type { PackagingShape, VisualStylePreset } from "@/components/workspace/Modals";
 import type { DesignContent } from "@/lib/design/state";
+import { normalizeEan } from "@/lib/print/ean13";
 import { SHAPE_CATEGORIES, searchShapes } from "@/lib/catalog/shapes";
 import { STYLE_FAMILIES, ALL_CATALOG_STYLES } from "@/lib/catalog/styles";
 import { PACKAGING_FONTS, type FontCategory } from "@/lib/catalog/fonts";
@@ -128,7 +129,21 @@ const TABS: { id: PanelTab; n: number; label: string }[] = [
   { id: "text", n: 3, label: "Textes" },
 ];
 
-const TEXT_FIELDS: { key: keyof DesignContent; label: string; placeholder: string }[] = [
+type TextKey = "brandName" | "productName" | "tagline" | "volume" | "details" | "ingredients" | "usage" | "extra" | "expiry" | "production";
+
+const LABEL_AREAS: { key: TextKey; label: string; placeholder: string }[] = [
+  { key: "ingredients", label: "Ingrédients", placeholder: "Par ordre décroissant, allergènes en MAJUSCULES" },
+  { key: "usage", label: "Mode d'emploi", placeholder: "Comment utiliser ou conserver le produit" },
+  { key: "details", label: "Description et fabricant", placeholder: "Origine, conservation, « Fabriqué par … »" },
+  { key: "extra", label: "Autres mentions", placeholder: "Lot, contact, certifications réelles…" },
+];
+
+const LABEL_DATES: { key: TextKey; label: string }[] = [
+  { key: "production", label: "Date de production" },
+  { key: "expiry", label: "Date de péremption" },
+];
+
+const TEXT_FIELDS: { key: TextKey; label: string; placeholder: string }[] = [
   { key: "brandName", label: "Marque", placeholder: "Ex. LUMINA" },
   { key: "productName", label: "Nom du produit", placeholder: "Ex. Sérum éclat" },
   { key: "tagline", label: "Accroche", placeholder: "Ex. Vitamine C pure" },
@@ -270,6 +285,7 @@ function StyleTab({ style, isCustomPalette, headingFont, bodyFont, onSelectStyle
 function TextTab({ content, logo, logoName, onChangeContent, onLogoUpload, onRemoveLogo, onToast }: StudioPanelProps) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
+  const ean = normalizeEan(content.barcode);
   const read = (file: File | undefined) => {
     if (!file) return;
     if (!file.type.startsWith("image/")) return onToast("Choisissez une image : PNG, SVG, JPG ou WebP.");
@@ -317,19 +333,45 @@ function TextTab({ content, logo, logoName, onChangeContent, onLogoUpload, onRem
       {TEXT_FIELDS.map((f) => (
         <label key={f.key} className="block space-y-1.5">
           <span className="st-label">{f.label}</span>
-          <input className="edify-input" value={content[f.key]} placeholder={f.placeholder} maxLength={80} onChange={(e) => onChangeContent({ [f.key]: e.target.value })} />
+          <input className="edify-input" value={content[f.key] ?? ""} placeholder={f.placeholder} maxLength={80} onChange={(e) => onChangeContent({ [f.key]: e.target.value })} />
         </label>
       ))}
-      <label className="block space-y-1.5">
-        <span className="st-label">Dos du packaging</span>
-        <textarea
-          className="edify-input resize-y min-h-[96px]"
-          value={content.details}
-          maxLength={600}
-          placeholder="Description, ingrédients, conseils d'utilisation…"
-          onChange={(e) => onChangeContent({ details: e.target.value })}
-        />
-      </label>
+      <p className="st-group">Mentions du dos · français / anglais</p>
+      {LABEL_AREAS.map((f) => (
+        <label key={f.key} className="block space-y-1.5">
+          <span className="st-label">{f.label}</span>
+          <textarea
+            className="edify-input resize-y min-h-[72px]"
+            value={content[f.key] ?? ""}
+            maxLength={600}
+            placeholder={f.placeholder}
+            onChange={(e) => onChangeContent({ [f.key]: e.target.value })}
+          />
+        </label>
+      ))}
+      <div className="grid grid-cols-2 gap-3">
+        {LABEL_DATES.map((f) => (
+          <label key={f.key} className="block space-y-1.5">
+            <span className="st-label">{f.label}</span>
+            <input type="date" className="edify-input" value={/^\d{4}-\d{2}-\d{2}$/.test(content[f.key] ?? "") ? content[f.key] : ""} onChange={(e) => onChangeContent({ [f.key]: e.target.value })} />
+          </label>
+        ))}
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <label className="block space-y-1.5">
+          <span className="st-label">Code-barres EAN-13</span>
+          <input className="edify-input" inputMode="numeric" value={content.barcode ?? ""} placeholder="13 chiffres" maxLength={20} onChange={(e) => onChangeContent({ barcode: e.target.value.replace(/[^\d\s-]/g, "") })} />
+        </label>
+        <label className="block space-y-1.5">
+          <span className="st-label">Prix (facultatif)</span>
+          <input className="edify-input" value={content.price ?? ""} placeholder="Ex. 2 500 FCFA" maxLength={30} onChange={(e) => onChangeContent({ price: e.target.value })} />
+        </label>
+      </div>
+      {content.barcode?.trim() && (
+        <p className={`st-hint ${ean.ok ? "text-emerald-600" : "text-amber-600"}`}>
+          {ean.ok ? "✓ Code valide, imprimé en vrai code-barres." : ean.reason === "checksum" ? `Code invalide : le dernier chiffre devrait être ${ean.expected}.` : "Un code EAN-13 comporte 13 chiffres (12 pour un UPC)."}
+        </p>
+      )}
     </div>
   );
 }

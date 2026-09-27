@@ -19,6 +19,9 @@ export interface DesignSpec {
   tagline: string;
   volume: string;
   details: string;
+  /** Ingredient list / INCI, and directions: proposed by the AI when the user gave none. */
+  ingredients: string;
+  usage: string;
   rationale: string;
 }
 
@@ -61,6 +64,8 @@ export function sanitizeSpec(spec: DesignSpec, current: CurrentDesign): DesignSp
     tagline: (spec.tagline || "").slice(0, 80),
     volume: (spec.volume || current.volume).slice(0, 40),
     details: (spec.details || "").slice(0, 600),
+    ingredients: (spec.ingredients || "").slice(0, 600),
+    usage: (spec.usage || "").slice(0, 300),
     projectName: (spec.projectName || spec.productName || "Nouveau projet").slice(0, 60),
   };
 }
@@ -228,6 +233,8 @@ export function localDesign(prompt: string, current: CurrentDesign): DesignSpec 
     tagline,
     volume: vol ? `${vol[1]} ${vol[2]}` : intent?.volume ?? current.volume,
     details: intent?.details ?? "",
+    ingredients: "",
+    usage: "",
     rationale: `Contenant et style choisis à partir des mots-clés de votre brief (${[intent?.product, style.label].filter(Boolean).join(", ")}).`,
   };
 }

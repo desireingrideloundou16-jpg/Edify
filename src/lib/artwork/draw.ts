@@ -3,14 +3,24 @@
  * die-line preview and the print PDF so all three always show the same design.
  */
 import { PACKAGING_FONTS } from "@/lib/catalog/fonts";
+import { ean13Modules, isGuardModule, normalizeEan } from "@/lib/print/ean13";
 
 export interface PackagingDesign {
   brandName: string;
   productName: string;
   tagline?: string;
   volume: string;
-  /** Back-panel copy: ingredients, composition, usage… */
+  /** Back-panel copy: description, storage, manufacturer, other mentions. */
   details?: string;
+  /** Label information (drawn on the back with bilingual FR/EN headings, as required in Cameroon). */
+  ingredients?: string;
+  usage?: string;
+  /** EAN-13 / UPC-A digits; drawn as a real barcode when the check digit is valid. */
+  barcode?: string;
+  expiry?: string;
+  production?: string;
+  price?: string;
+  extra?: string;
   /** [background, ink, accent, extra] */
   palette: string[];
   /** CSS font families (installed fonts, see lib/catalog/fonts). */
@@ -116,16 +126,46 @@ function paperGrain(ctx: CanvasRenderingContext2D, x: number, y: number, w: numb
   for (let i = 0; i < n; i++) ctx.fillRect(x + Math.random() * w, y + Math.random() * h, 1.5, 1.5);
 }
 
-function drawBarcode(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(x - w * 0.06, y - h * 0.08, w * 1.12, h * 1.35);
-  ctx.fillStyle = "#111111";
+function drawBarcode(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, code?: string) {
+  const ean = normalizeEan(code);
+  // White box with the GS1 quiet zones (11 modules left, 7 right) so scanners read it on any background.
   const unit = w / 95;
-  for (let i = 0, px = 0; px < w; i++) {
-    const bar = unit * (1 + ((i * 7) % 3));
-    ctx.fillRect(x + px, y, bar, h);
-    px += bar + unit * (1 + ((i * 5) % 2));
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(x - unit * 11, y - h * 0.08, w + unit * 18, h * 1.32);
+  ctx.fillStyle = "#111111";
+  if (!ean.ok) {
+    // Placeholder: evenly spaced thin bars, clearly not a real code.
+    for (let px = 0; px < w; px += unit * 3) ctx.fillRect(x + px, y, unit, h);
+    return;
   }
+  const modules = ean13Modules(ean.digits);
+  const digitsH = h * 0.2;
+  for (let i = 0; i < 95; i++) {
+    if (modules[i] !== "1") continue;
+    ctx.fillRect(x + i * unit, y, unit + 0.15, isGuardModule(i) ? h : h - digitsH);
+  }
+  ctx.font = `500 ${digitsH * 0.95}px Arial, sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "bottom";
+  ctx.fillText(ean.digits[0], x - unit * 6, y + h + digitsH * 0.1);
+  ctx.fillText(ean.digits.slice(1, 7).split("").join(" "), x + unit * 24, y + h + digitsH * 0.1);
+  ctx.fillText(ean.digits.slice(7).split("").join(" "), x + unit * 70, y + h + digitsH * 0.1);
+}
+
+/** "2027-03-01" → "01/03/2027"; anything else is kept as typed. */
+function formatDate(v: string) {
+  const m = v.trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : v.trim();
+}
+
+/** Back-panel sections with bilingual headings (French / English). */
+function backSections(d: PackagingDesign): { label: string; text: string }[] {
+  const rows: { label: string; text: string }[] = [];
+  if (d.ingredients?.trim()) rows.push({ label: "Ingrédients / Ingredients", text: d.ingredients.trim() });
+  if (d.usage?.trim()) rows.push({ label: "Mode d'emploi / Directions", text: d.usage.trim() });
+  if (d.details?.trim()) rows.push({ label: "", text: d.details.trim() });
+  if (d.extra?.trim()) rows.push({ label: "", text: d.extra.trim() });
+  return rows;
 }
 
 /** Main front artwork inside the rectangle (x, y, w, h). */
@@ -209,26 +249,72 @@ export function drawFront(ctx: CanvasRenderingContext2D, x: number, y: number, w
 function drawBack(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, d: PackagingDesign) {
   const { ink, accent } = resolveColors(d.palette);
   const body = fontCss(d.bodyFont);
-  const pad = Math.min(w, h) * 0.1;
-  const size = Math.max(4, Math.min(w, h) * 0.045);
+  const regular = fontWeight(d.bodyFont, 400);
+  const bold = fontWeight(d.bodyFont, 700);
+  const pad = Math.min(w, h) * 0.09;
+  const textW = w - pad * 2;
+  // Barcode at the bottom (right-aligned on wide panels, centred on narrow ones).
+  const bw = Math.min(textW * 0.62, h * 0.4, w * 0.5);
+  const bh = Math.min(h * 0.12, bw * 0.5);
+  const barTop = y + h - pad - bh * 1.2;
+  const barX = w > h * 0.8 ? x + w - pad - bw : x + (w - bw) / 2;
+
+  const sections = backSections(d);
+  const facts: string[] = [];
+  if (d.volume) facts.push(`Contenu net / Net content : ${d.volume}`);
+  if (d.production?.trim()) facts.push(`Fabriqué le / Produced : ${formatDate(d.production)}`);
+  if (d.expiry?.trim()) facts.push(`À consommer avant / Best before : ${formatDate(d.expiry)}`);
+  if (d.price?.trim()) facts.push(`Prix / Price : ${d.price.trim()}`);
+
   ctx.save();
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
+  const titleSize = Math.max(4, Math.min(w, h) * 0.05);
+  const top = y + pad + titleSize * 1.7;
+  const room = barTop - pad * 0.4 - top;
+
+  // Largest size where every section plus the facts block fits above the barcode.
+  let size = Math.max(4, Math.min(w, h) * 0.042);
+  type Line = { text: string; bold: boolean; accent: boolean; gap: number };
+  let lines: Line[] = [];
+  for (let tries = 0; tries < 16; tries++) {
+    lines = [];
+    ctx.font = `${regular} ${size}px ${body}`;
+    for (const sec of sections) {
+      if (sec.label) lines.push({ text: sec.label, bold: true, accent: true, gap: size * 0.3 });
+      wrapLines(ctx, sec.text, textW).forEach((l, i, all) => lines.push({ text: l, bold: false, accent: false, gap: i === all.length - 1 ? size * 0.55 : 0 }));
+    }
+    ctx.font = `${bold} ${size}px ${body}`;
+    facts.forEach((f, i) => wrapLines(ctx, f, textW).forEach((l, k, all) => lines.push({ text: l, bold: true, accent: false, gap: k === all.length - 1 && i === facts.length - 1 ? 0 : 0 })));
+    const needed = lines.reduce((a, l) => a + size * 1.3 + l.gap, 0);
+    if (needed <= room || size < 3) break;
+    size *= 0.9;
+  }
+
   ctx.fillStyle = accent;
-  ctx.font = `${fontWeight(d.bodyFont, 700)} ${size * 1.15}px ${body}`;
-  ctx.fillText((d.productName || "").toUpperCase(), x + pad, y + pad, w - pad * 2);
+  ctx.font = `${bold} ${titleSize}px ${body}`;
+  ctx.fillText((d.productName || "").toUpperCase(), x + pad, y + pad, textW);
+
+  // Sections from the top; facts block sits right above the barcode.
+  const factLines = lines.filter((l) => l.bold && !l.accent);
+  const bodyLines = lines.slice(0, lines.length - factLines.length);
+  let cy = top;
+  for (const l of bodyLines) {
+    ctx.font = `${l.bold ? bold : regular} ${size}px ${body}`;
+    ctx.fillStyle = l.accent ? accent : ink;
+    ctx.fillText(l.text, x + pad, cy, textW);
+    cy += size * 1.3 + l.gap;
+  }
+  let fy = Math.max(cy + size * 0.4, barTop - pad * 0.4 - factLines.length * size * 1.3);
   ctx.fillStyle = ink;
-  ctx.font = `${fontWeight(d.bodyFont, 400)} ${size}px ${body}`;
-  const lines = wrapLines(ctx, d.details || "", w - pad * 2);
-  const maxLines = Math.max(1, Math.floor((h * 0.5) / (size * 1.35)));
-  lines.slice(0, maxLines).forEach((l, i) => ctx.fillText(l, x + pad, y + pad + size * 2 + i * size * 1.35, w - pad * 2));
-  if (d.volume) {
-    ctx.font = `${fontWeight(d.bodyFont, 700)} ${size}px ${body}`;
-    ctx.fillText(d.volume, x + pad, y + h * 0.68, w - pad * 2);
+  ctx.font = `${bold} ${size}px ${body}`;
+  for (const l of factLines) {
+    ctx.fillText(l.text, x + pad, fy, textW);
+    fy += size * 1.3;
   }
   ctx.restore();
-  const bw = Math.min(w * 0.5, h * 0.45);
-  drawBarcode(ctx, x + (w - bw) / 2, y + h * 0.76, bw, Math.min(h * 0.12, bw * 0.45));
+
+  drawBarcode(ctx, barX, barTop, bw, bh, d.barcode);
 }
 
 function drawSide(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, d: PackagingDesign, kind: FaceKind) {

@@ -95,6 +95,8 @@ export interface AdOptions {
   seed: number;
   /** Output scale (1 = full HD format size). */
   scale?: number;
+  /** Photographic backdrop (AI-generated): replaces the studio set, the pack keeps its real shadow. */
+  backgroundUrl?: string | null;
 }
 
 export async function renderAd(opts: AdOptions): Promise<string> {
@@ -131,7 +133,18 @@ export async function renderAd(opts: AdOptions): Promise<string> {
     minimal: ["#fbfbfa", "#e9e9e6"],
     pop: [mix(accent, "#ffffff", 0.45), accent],
   };
-  sceneObj.background = gradientTexture(...backdrop[scene]);
+  const photo = opts.backgroundUrl ? await new THREE.TextureLoader().loadAsync(opts.backgroundUrl).catch(() => null) : null;
+  if (photo) {
+    // "cover" crop of the photo to the ad format
+    photo.colorSpace = THREE.SRGBColorSpace;
+    const img = photo.image as { width: number; height: number };
+    const ia = img.width / img.height, va = fmt.w / fmt.h;
+    if (ia > va) { photo.repeat.set(va / ia, 1); photo.offset.set((1 - va / ia) / 2, 0); }
+    else { photo.repeat.set(1, ia / va); photo.offset.set(0, (1 - ia / va) / 2); }
+    sceneObj.background = photo;
+  } else {
+    sceneObj.background = gradientTexture(...backdrop[scene]);
+  }
 
   // Shadow catcher floor.
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: scene === "luxe" ? 0.55 : 0.28 }));
@@ -143,7 +156,7 @@ export async function renderAd(opts: AdOptions): Promise<string> {
   sceneObj.add(stage);
   let productY = 0;
 
-  if (scene !== "minimal") {
+  if (scene !== "minimal" && !photo) {
     const podMat =
       scene === "luxe" ? new THREE.MeshPhysicalMaterial({ color: "#141414", roughness: 0.25, metalness: 0.2, clearcoat: 1 })
       : scene === "pop" ? new THREE.MeshStandardMaterial({ color: mix(extra, "#ffffff", 0.2), roughness: 0.6 })
@@ -170,7 +183,7 @@ export async function renderAd(opts: AdOptions): Promise<string> {
   }
 
   // Decorative spheres in the brand colours.
-  if (scene === "pop" || scene === "nature" || scene === "podium") {
+  if (!photo && (scene === "pop" || scene === "nature" || scene === "podium")) {
     const colors = scene === "nature" ? ["#9fb08f", "#d8cdb4"] : [accent, extra];
     for (let i = 0; i < 2; i++) {
       const r = 0.07 + rand(i) * 0.06;

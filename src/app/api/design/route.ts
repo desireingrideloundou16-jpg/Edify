@@ -7,6 +7,7 @@ import {
   SHAPE_IDS, STYLE_IDS, FONT_FAMILIES, catalogForPrompt, localDesign, sanitizeSpec,
   type CurrentDesign, type DesignSpec,
 } from "@/lib/ai/designSpec";
+import { PACKAGING_KNOWLEDGE } from "@/lib/ai/packagingKnowledge";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -25,13 +26,15 @@ const DesignSchema = z.object({
   tagline: z.string(),
   volume: z.string(),
   details: z.string(),
+  ingredients: z.string(),
+  usage: z.string(),
   rationale: z.string(),
 });
 
 const { shapes, styles, fonts } = catalogForPrompt();
 
 // Stable prefix (cached): role, method and the full catalog.
-const SYSTEM = `Tu es un directeur artistique et product designer packaging senior (15 ans en agences de design de marque, cosmétique, alimentaire, boissons, luxe). Tu conçois des packagings prêts à imprimer pour des utilisateurs qui n'ont aucune compétence en design : ils décrivent leur produit en quelques mots, toi tu prends toutes les décisions de design.
+const SYSTEM = `Tu es le meilleur directeur artistique et product designer packaging au monde (20 ans en agences de design de marque : alimentaire, boissons, cosmétique, luxe), spécialiste des marchés d'Afrique centrale et de l'Ouest. Tu conçois des packagings prêts à imprimer pour des entrepreneurs, souvent au Cameroun, qui n'ont aucune compétence en design : ils décrivent leur produit, toi tu prends toutes les décisions de design et tu rédiges des mentions conformes.
 
 Méthode :
 1. Comprends le produit, la cible, le canal de vente et le positionnement (prix, valeurs). Si le brief est vague, fais des choix plausibles et assumés.
@@ -39,10 +42,15 @@ Méthode :
 3. Choisis la direction artistique (styleId) la plus proche, puis crée une palette sur mesure : background (fond du pack), ink (texte principal, contraste WCAG ≥ 4,5:1 avec background), accent (filets, monogramme, bandeaux), extra (couleur secondaire). Respecte les codes de la catégorie tout en se différenciant en rayon (ex. café : tons terre/crème ; pharmacie : blanc/bleu ; luxe : sombre + métal ; bio : naturels désaturés ; enfants : saturés).
 4. Typographie : 2 polices maximum parmi la liste. headingFont pour la marque (personnalité), bodyFont pour les textes (lisibilité : sans-serif ou serif de texte, jamais une script ou display pour bodyFont).
 5. Hiérarchie de la face avant : marque → nom du produit (court, 2 à 5 mots) → accroche (bénéfice clé, 3 à 7 mots) → contenance. Pas de phrases longues en façade.
-6. details = texte du dos : 2 à 4 phrases utiles (description, conseil d'utilisation) + mentions attendues pour la catégorie (liste INCI plausible pour un cosmétique, ingrédients et allergènes pour l'alimentaire, mention alcool pour les boissons alcoolisées). N'invente aucune certification ni allégation de santé non demandée.
+6. Textes du dos, en français puis en anglais (ex. « Conserver au sec. / Keep dry. ») :
+   - ingredients : si l'utilisateur les donne, reprends-les fidèlement (corrige seulement l'orthographe, mets les allergènes en MAJUSCULES) et ajoute la traduction anglaise ; sinon propose une liste plausible et prudente pour ce produit (INCI pour un cosmétique).
+   - usage : mode d'emploi ou de conservation, 1 à 2 phrases courtes, bilingue.
+   - details : 1 à 2 phrases d'histoire ou d'origine + conservation + « Fabriqué par … » si le fabricant est connu. Ne répète ni les ingrédients ni le mode d'emploi. N'invente aucune certification ni allégation de santé non demandée.
 7. volume avec unité réglementaire (ml, cl, L, g, kg).
 8. Si l'utilisateur fournit un nom de marque, des couleurs ou un visuel de référence, respecte-les strictement. Un visuel joint est une référence d'ambiance ou une charte : reprends-en les couleurs et l'esprit.
-9. Écris les textes dans la langue du brief (français par défaut). rationale : 1 à 2 phrases en français expliquant tes choix à l'utilisateur.
+9. Face avant dans la langue principale de l'utilisateur (français par défaut) ; mentions du dos bilingues français/anglais. La quantité, les dates, le prix et le code-barres donnés par l'utilisateur sont imprimés automatiquement dans un bloc dédié : ne les écris JAMAIS dans details, ingredients ou usage (pas de doublon). rationale : 1 à 2 phrases dans la langue de l'utilisateur, qui expliquent tes choix comme un directeur artistique (catégorie, cible, couleurs, typographie).
+
+${PACKAGING_KNOWLEDGE}
 
 CATALOGUE DES CONTENANTS (shapeId: nom, dimensions, matériau)
 ${shapes}
@@ -137,10 +145,13 @@ export async function POST(req: Request) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return Response.json({ error: "Connectez-vous pour générer un packaging." }, { status: 401 });
-  const { data: profile } = await supabase.from("profiles").select("credits").eq("id", user.id).single();
+  const { data: profile } = await supabase.from("profiles").select("credits, plan_expires_at").eq("id", user.id).single();
   const available = profile?.credits ?? 0;
+  if (!profile?.plan_expires_at || new Date(profile.plan_expires_at) <= new Date()) {
+    return Response.json({ error: "Un abonnement actif est nécessaire.", reason: "no_plan", credits: available }, { status: 402 });
+  }
   if (available <= 0) {
-    return Response.json({ error: "Vous n'avez plus de crédits IA.", credits: 0 }, { status: 402 });
+    return Response.json({ error: "Vous n'avez plus de crédits IA.", reason: "no_credits", credits: 0 }, { status: 402 });
   }
 
   // Engines in order of quality; each failure falls through to the next one.

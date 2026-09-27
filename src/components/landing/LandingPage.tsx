@@ -1,49 +1,12 @@
 import React from "react";
-import { BriefBox, HeroCluster, LandingNav, PackRender } from "./LandingClient";
+import { ArrowRight, Play, Smartphone } from "lucide-react";
+import type { Lang } from "@/lib/i18n/config";
+import { HeroCluster, LandingNav, PackRender } from "./LandingClient";
 import { HeroParallax, LiveDemo, PackMarquee, ScrollStory } from "./LandingRich";
 import { DemoVideo } from "./DemoVideo";
+import { SiteFooter } from "./SiteChrome";
 import { SHOWCASE } from "./showcase";
-
-const CATEGORIES = ["Cosmétique", "Café", "Bière", "Miel", "Chocolat", "Thé", "Snacks", "Vin", "Bougies", "Compléments", "Épicerie fine", "Boissons"];
-
-const FAQ = [
-  {
-    q: "Faut-il savoir dessiner ou utiliser un logiciel de design ?",
-    a: "Non. Vous décrivez votre produit en une phrase, l'IA choisit le contenant, les couleurs, les polices et rédige les textes. Vous pouvez ensuite tout modifier en quelques clics, sans aucune compétence en design.",
-  },
-  {
-    q: "Quels types de packaging puis-je créer ?",
-    a: "Boîtes pliantes, coffrets, doypacks, sachets, flacons, bouteilles, pots, tubes, canettes, boîtes métal, briques alimentaires… près de 100 formats d'emballage, pour la cosmétique, l'alimentaire, les boissons et l'épicerie fine.",
-  },
-  {
-    q: "Le fichier est-il vraiment prêt pour l'imprimeur ?",
-    a: "Edify génère un PDF avec fonds perdus de 3 mm, traits de coupe et tracé de découpe sur une page séparée. Comme pour tout fichier d'impression, votre imprimeur réalise la conversion CMJN et vous envoie un BAT à valider avant production.",
-  },
-  {
-    q: "Puis-je utiliser mon propre logo ?",
-    a: "Oui. Importez votre logo (PNG, SVG ou JPG) : il est placé automatiquement sur la face avant, dans l'aperçu 3D, le PDF et les visuels publicitaires.",
-  },
-  {
-    q: "Combien ça coûte ?",
-    a: "Vous commencez gratuitement avec 10 crédits. Une génération par l'IA utilise un crédit ; les retouches, l'aperçu 3D et les téléchargements ne consomment pas de crédit.",
-  },
-  {
-    q: "Qui possède les designs créés ?",
-    a: "Vous. Les packagings que vous créez avec Edify vous appartiennent et peuvent être imprimés et commercialisés. Les polices proposées sont sous licence libre, utilisables commercialement.",
-  },
-];
-
-const JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Edify",
-  applicationCategory: "DesignApplication",
-  operatingSystem: "Web",
-  description:
-    "Edify conçoit votre packaging avec l'IA : forme, design, textes, maquette 3D et PDF prêt pour l'impression, en quelques minutes et sans compétence en design.",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "EUR", description: "10 crédits offerts pour commencer" },
-  inLanguage: "fr",
-};
+import { landingCopy, type LandingCopy } from "./copy";
 
 function CropMarks() {
   return (
@@ -67,9 +30,9 @@ function ColorBar() {
   );
 }
 
-function DielineArt() {
+function DielineArt({ t }: { t: LandingCopy }) {
   return (
-    <svg viewBox="0 0 320 220" className="lp-dieline" role="img" aria-label="Tracé de découpe d'une boîte pliante">
+    <svg viewBox="0 0 320 220" className="lp-dieline" role="img" aria-label={t.features.dielineAlt}>
       <g fill="none" strokeLinejoin="round">
         <path
           d="M40 70 L40 40 L46 22 L98 22 L104 40 L104 70 L108 50 L140 50 L148 62 L148 70 L212 70 L216 50 L248 50 L256 62 L256 70 L256 170 L256 178 L248 190 L216 190 L212 170 L212 202 L206 214 L154 214 L148 202 L148 170 L148 178 L140 190 L108 190 L104 170 L40 170 L28 166 L28 74 Z"
@@ -82,39 +45,63 @@ function DielineArt() {
         </g>
       </g>
       <rect x="152" y="80" width="56" height="80" rx="3" fill="var(--m)" opacity="0.12" />
-      <text x="180" y="124" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--k)" fontFamily="Syne, sans-serif">Face</text>
+      <text x="180" y="124" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--k)" fontFamily="Syne, sans-serif">{t.features.face}</text>
     </svg>
   );
 }
 
-export function LandingPage() {
+export function LandingPage({ lang }: { lang: Lang }) {
+  const t = landingCopy(lang);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Edify",
+    applicationCategory: "DesignApplication",
+    operatingSystem: "Web",
+    description: t.jsonLd,
+    offers: t.pricing.plans.map((p) => ({ "@type": "Offer", name: p.name, price: p.price.replace(/\D/g, ""), priceCurrency: "XAF" })),
+    inLanguage: lang,
+  };
   return (
     <div className="lp" id="top">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
-      <a href="#contenu" className="lp-skip">Aller au contenu</a>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <a href="#contenu" className="lp-skip">{t.skip}</a>
       <LandingNav />
 
       <main id="contenu">
         {/* ── Hero ── */}
         <section className="lp-hero">
+          <div className="lp-hero-bg" aria-hidden="true">
+            <span className="lp-blob lp-blob-1" />
+            <span className="lp-blob lp-blob-2" />
+            <span className="lp-blob lp-blob-3" />
+            <span className="lp-hero-grain" />
+          </div>
           <div className="lp-wrap lp-hero-sheet">
             <CropMarks />
             <div className="lp-hero-copy">
               <p className="lp-kicker">
-                <span className="lp-dot" aria-hidden="true" /> Designer de packaging propulsé par l&apos;IA
+                <span className="lp-dot" aria-hidden="true" /> {t.hero.kicker}
                 <span className="lp-theme-chip" data-theme-label aria-live="polite" />
               </p>
               <h1 className="lp-h1">
-                Décrivez votre produit.
+                {t.hero.h1a}
                 <br />
-                Recevez son packaging prêt à imprimer.
+                <span className="lp-h1-accent">{t.hero.h1b}</span>
               </h1>
-              <p className="lp-lead">
-                Edify conçoit votre emballage avec l&apos;IA&nbsp;: la forme, le design, les textes, la maquette 3D et le fichier PDF pour
-                l&apos;imprimeur. En quelques minutes, sans graphiste ni logiciel.
-              </p>
-              <BriefBox />
-              <p className="lp-micro">Gratuit pour commencer, 10 crédits offerts. Aucune carte bancaire.</p>
+              <p className="lp-lead">{t.hero.lead}</p>
+              <div className="lp-hero-ctas">
+                <a href="/commencer" className="lp-btn lp-btn-magenta lp-btn-xl">
+                  {t.hero.cta} <ArrowRight className="w-5 h-5" />
+                </a>
+                <a href="#demo" className="lp-btn lp-btn-ghost lp-btn-xl">
+                  <Play className="w-4 h-4" /> {t.hero.demo}
+                </a>
+              </div>
+              <p className="lp-micro"><Smartphone className="w-4 h-4" aria-hidden="true" /> {t.hero.micro}</p>
+              <ul className="lp-proof">
+                {t.hero.proof.map((p) => <li key={p}>{p}</li>)}
+              </ul>
             </div>
             <HeroParallax>
               <HeroCluster />
@@ -123,10 +110,7 @@ export function LandingPage() {
           <div className="lp-wrap">
             <ColorBar />
             <ul className="lp-stats">
-              <li><strong>97</strong> formes d&apos;emballage</li>
-              <li><strong>84</strong> styles visuels</li>
-              <li><strong>58</strong> polices libres de droits</li>
-              <li><strong>300 dpi</strong> PDF prêt à imprimer</li>
+              {t.stats.map(([n, label]) => <li key={label}><strong>{n}</strong> {label}</li>)}
             </ul>
           </div>
         </section>
@@ -134,8 +118,8 @@ export function LandingPage() {
         {/* ── Demo film ── */}
         <section className="lp-section lp-video-sec" id="demo" aria-labelledby="video-title">
           <div className="lp-wrap">
-            <h2 id="video-title" className="lp-h2">Edify en action, en 34 secondes</h2>
-            <p className="lp-sub">Une phrase, un packaging complet, un fichier prêt pour l&apos;imprimeur et des visuels pour le lancer.</p>
+            <h2 id="video-title" className="lp-h2">{t.video.title}</h2>
+            <p className="lp-sub">{t.video.sub}</p>
             <DemoVideo />
           </div>
         </section>
@@ -143,12 +127,10 @@ export function LandingPage() {
         {/* ── Every category ── */}
         <section className="lp-section lp-cats" aria-labelledby="cats-title">
           <div className="lp-wrap">
-            <h2 id="cats-title" className="lp-h2">Un seul outil pour tous vos emballages</h2>
+            <h2 id="cats-title" className="lp-h2">{t.cats.title}</h2>
             <p className="lp-cats-list">
-              {CATEGORIES.map((c, i) => (
-                <span key={c} className={`lp-cat lp-cat-${i % 4}`}>
-                  {c}
-                </span>
+              {t.cats.list.map((c, i) => (
+                <span key={c} className={`lp-cat lp-cat-${i % 4}`}>{c}</span>
               ))}
             </p>
           </div>
@@ -158,8 +140,8 @@ export function LandingPage() {
         {/* ── Live demo ── */}
         <section className="lp-section lp-demo-sec" aria-labelledby="demo-title">
           <div className="lp-wrap">
-            <h2 id="demo-title" className="lp-h2">Regardez l&apos;IA concevoir un packaging</h2>
-            <p className="lp-sub">Un brief, quelques secondes, et toutes les décisions d&apos;un directeur artistique : contenant, couleurs, typographies, finition.</p>
+            <h2 id="demo-title" className="lp-h2">{t.live.title}</h2>
+            <p className="lp-sub">{t.live.sub}</p>
             <LiveDemo />
           </div>
         </section>
@@ -167,8 +149,8 @@ export function LandingPage() {
         {/* ── Scroll story (a real sequence) ── */}
         <section className="lp-section" id="comment" aria-labelledby="how-title">
           <div className="lp-wrap">
-            <h2 id="how-title" className="lp-h2">De la phrase au fichier d&apos;impression</h2>
-            <p className="lp-sub">Le même produit, suivi pas à pas. Chaque image ci-dessous est produite par Edify.</p>
+            <h2 id="how-title" className="lp-h2">{t.how.title}</h2>
+            <p className="lp-sub">{t.how.sub}</p>
             <ScrollStory />
           </div>
         </section>
@@ -176,17 +158,15 @@ export function LandingPage() {
         {/* ── The real studio ── */}
         <section className="lp-section lp-studio-sec" aria-labelledby="studio-title">
           <div className="lp-wrap">
-            <h2 id="studio-title" className="lp-h2">Un studio pensé pour ceux qui ne sont pas designers</h2>
-            <p className="lp-sub">Choisissez un contenant, un style, une police : tout se met à jour en même temps sur le patron à plat et sur la maquette 3D.</p>
+            <h2 id="studio-title" className="lp-h2">{t.studio.title}</h2>
+            <p className="lp-sub">{t.studio.sub}</p>
             <figure className="lp-browser">
               <div className="lp-browser-bar" aria-hidden="true"><span /><span /><span /><p>Edify · Studio</p></div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/landing/studio.png" alt="Le studio Edify : catalogue de contenants, patron à plat et aperçu 3D" loading="lazy" />
+              <img src="/landing/studio.webp" alt={t.studio.alt} loading="lazy" />
             </figure>
             <ul className="lp-callouts">
-              <li><strong>Trois onglets</strong> Le contenant, le style, puis vos textes et votre logo. Rien de plus.</li>
-              <li><strong>Un grand aperçu</strong> Le patron à plat en direct, et la vue 3D en un clic.</li>
-              <li><strong>Un seul bouton</strong> « Télécharger » : PDF d&apos;impression, visuel publicitaire, 3D, lien de partage.</li>
+              {t.studio.callouts.map(([a, b]) => <li key={a}><strong>{a}</strong> {b}</li>)}
             </ul>
           </div>
         </section>
@@ -194,45 +174,42 @@ export function LandingPage() {
         {/* ── Capabilities (varied tiles, real renders) ── */}
         <section className="lp-section lp-features" id="fonctionnalites" aria-labelledby="feat-title">
           <div className="lp-wrap">
-            <h2 id="feat-title" className="lp-h2">Tout ce qu&apos;un studio de design vous livrerait</h2>
+            <h2 id="feat-title" className="lp-h2">{t.features.title}</h2>
             <div className="lp-bento">
               <article className="lp-tile lp-tile-3d">
                 <div>
-                  <h3>Maquette 3D réaliste</h3>
-                  <p>Tournez votre packaging, changez l&apos;éclairage, regardez-le sous tous les angles, même par-dessous.</p>
+                  <h3>{t.features.t3d[0]}</h3>
+                  <p>{t.features.t3d[1]}</p>
                 </div>
-                <PackRender index={6} size={520} yaw={-0.35} alt="Bouteille de vin en 3D" className="lp-tile-pack" />
+                <PackRender index={6} alt={t.features.packAlt[0]} className="lp-tile-pack" />
               </article>
               <article className="lp-tile lp-tile-print">
-                <h3>PDF prêt pour l&apos;imprimeur</h3>
-                <p>Fonds perdus de 3&nbsp;mm, traits de coupe et tracé de découpe vectoriel sur une page séparée.</p>
-                <DielineArt />
+                <h3>{t.features.print[0]}</h3>
+                <p>{t.features.print[1]}</p>
+                <DielineArt t={t} />
               </article>
               <article className="lp-tile lp-tile-ai">
-                <h3>Un directeur artistique IA</h3>
-                <p>Il respecte les codes de votre catégorie, choisit des couleurs lisibles et rédige les mentions attendues au dos.</p>
+                <h3>{t.features.ai[0]}</h3>
+                <p>{t.features.ai[1]}</p>
                 <dl className="lp-ai-sheet">
-                  <div><dt>Brief</dt><dd>« Café bio en grains, esprit artisanal »</dd></div>
-                  <div><dt>Contenant</dt><dd>Sachet café à valve, 250 g</dd></div>
-                  <div><dt>Couleurs</dt><dd className="lp-ai-swatches"><span style={{ background: "#1E1A17" }} /><span style={{ background: "#F1E6D6" }} /><span style={{ background: "#C47A3D" }} /></dd></div>
-                  <div><dt>Polices</dt><dd>Fraunces et DM Sans</dd></div>
+                  {t.features.aiSheet.slice(0, 2).map(([a, b]) => <div key={a}><dt>{a}</dt><dd>{b}</dd></div>)}
+                  <div><dt>{t.features.colours}</dt><dd className="lp-ai-swatches"><span style={{ background: "#1E1A17" }} /><span style={{ background: "#F1E6D6" }} /><span style={{ background: "#C47A3D" }} /></dd></div>
+                  {t.features.aiSheet.slice(2).map(([a, b]) => <div key={a}><dt>{a}</dt><dd>{b}</dd></div>)}
                 </dl>
               </article>
               <article className="lp-tile lp-tile-ad">
                 <div className="lp-ad-stage">
-                  <PackRender index={0} size={420} yaw={-0.3} alt="Canette mise en scène pour une publicité" />
+                  <PackRender index={0} alt={t.features.packAlt[1]} />
                 </div>
-                <h3>Visuels publicitaires</h3>
-                <p>Votre produit mis en scène en studio, aux formats Instagram, story et bannière.</p>
+                <h3>{t.features.ad[0]}</h3>
+                <p>{t.features.ad[1]}</p>
               </article>
               <article className="lp-tile lp-tile-numbers">
-                <p className="lp-number"><strong>97</strong> formes d&apos;emballage</p>
-                <p className="lp-number"><strong>84</strong> styles visuels</p>
-                <p className="lp-number"><strong>58</strong> polices libres de droits</p>
+                {t.features.numbers.map(([n, l]) => <p key={l} className="lp-number"><strong>{n}</strong> {l}</p>)}
               </article>
               <article className="lp-tile lp-tile-ar">
-                <h3>Réalité augmentée</h3>
-                <p>Posez votre packaging à taille réelle sur votre table, depuis votre téléphone, avant de l&apos;imprimer.</p>
+                <h3>{t.features.ar[0]}</h3>
+                <p>{t.features.ar[1]}</p>
               </article>
             </div>
           </div>
@@ -241,15 +218,32 @@ export function LandingPage() {
         {/* ── Gallery: one sentence, one pack ── */}
         <section className="lp-section" id="exemples" aria-labelledby="ex-title">
           <div className="lp-wrap">
-            <h2 id="ex-title" className="lp-h2">Une phrase, un packaging</h2>
-            <p className="lp-sub">Chaque exemple ci-dessous est rendu en direct par le moteur 3D d&apos;Edify, à partir de la phrase affichée.</p>
+            <h2 id="ex-title" className="lp-h2">{t.gallery.title}</h2>
+            <p className="lp-sub">{t.gallery.sub}</p>
             <div className="lp-gallery">
               {SHOWCASE.slice(0, 8).map((item, i) => (
                 <figure key={item.shapeId} className="lp-card">
                   <div className="lp-card-stage" style={{ background: item.design.palette[3] + "33" }}>
-                    <PackRender index={i} size={420} yaw={-0.5} alt={`Packaging ${item.design.brandName}`} />
+                    <PackRender index={i} alt={t.packAlt(item.design.brandName)} />
                   </div>
-                  <figcaption>« {item.prompt} »</figcaption>
+                  <figcaption>« {lang === "fr" ? item.prompt : item.promptEn} »</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Staged mockups ── */}
+        <section className="lp-section lp-mock-sec" aria-labelledby="mock-title">
+          <div className="lp-wrap">
+            <h2 id="mock-title" className="lp-h2">{t.mockups.title}</h2>
+            <p className="lp-sub">{t.mockups.sub}</p>
+            <div className="lp-mockups">
+              {t.mockups.items.map(([id, label]) => (
+                <figure key={id} className="lp-mockup">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/landing/mockups/${id}.webp`} alt={label} loading="lazy" decoding="async" width={1000} height={1250} />
+                  <figcaption>{label}</figcaption>
                 </figure>
               ))}
             </div>
@@ -259,20 +253,14 @@ export function LandingPage() {
         {/* ── Comparison ── */}
         <section className="lp-section lp-compare-sec" aria-labelledby="cmp-title">
           <div className="lp-wrap">
-            <h2 id="cmp-title" className="lp-h2">Le résultat d&apos;une agence, sans le délai ni le budget</h2>
-            <div className="lp-compare" role="table" aria-label="Comparaison agence et Edify">
+            <h2 id="cmp-title" className="lp-h2">{t.compare.title}</h2>
+            <div className="lp-compare" role="table" aria-label={t.compare.aria}>
               <div className="lp-compare-row lp-compare-head" role="row">
                 <span role="columnheader" />
-                <span role="columnheader">Avec une agence</span>
-                <span role="columnheader">Avec Edify</span>
+                <span role="columnheader">{t.compare.head[0]}</span>
+                <span role="columnheader">{t.compare.head[1]}</span>
               </div>
-              {[
-                ["Délai", "Plusieurs semaines", "Quelques minutes"],
-                ["Budget", "Plusieurs milliers d'euros", "Gratuit pour commencer"],
-                ["Point de départ", "Brief écrit, réunions", "Une phrase"],
-                ["Modifications", "Allers-retours par e-mail", "En direct, autant que vous voulez"],
-                ["Livrables", "En fin de projet", "PDF, 3D et visuels à tout moment"],
-              ].map(([label, a, b]) => (
+              {t.compare.rows.map(([label, a, b]) => (
                 <div key={label} className="lp-compare-row" role="row">
                   <span role="rowheader">{label}</span>
                   <span role="cell">{a}</span>
@@ -283,15 +271,65 @@ export function LandingPage() {
           </div>
         </section>
 
+        {/* ── Export formats ── */}
+        <section className="lp-section lp-formats-sec" aria-labelledby="formats-title">
+          <div className="lp-wrap">
+            <h2 id="formats-title" className="lp-h2">{t.formats.title}</h2>
+            <p className="lp-sub">{t.formats.sub}</p>
+            <ul className="lp-formats">
+              {t.formats.list.map(([ext, title, text]) => (
+                <li key={ext}>
+                  <span className="lp-format-ext">{ext}</span>
+                  <strong>{title}</strong>
+                  <p>{text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ── Pricing ── */}
+        <section className="lp-section" id="tarifs" aria-labelledby="price-title">
+          <div className="lp-wrap">
+            <h2 id="price-title" className="lp-h2">{t.pricing.title}</h2>
+            <p className="lp-sub">{t.pricing.sub}</p>
+            <div className="lp-plans">
+              {t.pricing.plans.map((p) => (
+                <article key={p.id} className={`lp-plan ${p.featured ? "is-featured" : ""}`}>
+                  {p.featured && <span className="lp-plan-badge">{t.pricing.badge}</span>}
+                  <h3>{p.name}</h3>
+                  <p className="lp-price"><strong>{p.price}</strong><span>{t.pricing.perMonth}</span></p>
+                  <p className="lp-plan-desc">{p.desc}</p>
+                  <ul>
+                    {p.features.map((f) => <li key={f}>{f}</li>)}
+                  </ul>
+                  <a href={`/abonnement?plan=${p.id}`} className={`lp-btn ${p.featured ? "lp-btn-magenta" : "lp-btn-ink"}`}>{t.pricing.choose}</a>
+                </article>
+              ))}
+            </div>
+            <p className="lp-plans-note">
+              <span className="lp-momo" aria-hidden="true"><i className="is-mtn">MTN MoMo</i><i className="is-orange">Orange Money</i></span>
+              {t.pricing.note}
+            </p>
+          </div>
+        </section>
+
+        {/* ── Trust ── */}
+        <section className="lp-section lp-trust-sec" aria-labelledby="trust-title">
+          <div className="lp-wrap lp-trust">
+            <h2 id="trust-title" className="lp-h2">{t.trust.title}</h2>
+            <ul>
+              {t.trust.list.map(([a, b]) => <li key={a}><strong>{a}</strong>{b}</li>)}
+            </ul>
+          </div>
+        </section>
+
         {/* ── Audience ── */}
         <section className="lp-section" aria-labelledby="who-title">
           <div className="lp-wrap lp-who">
-            <h2 id="who-title" className="lp-h2">Pensé pour ceux qui lancent des produits</h2>
+            <h2 id="who-title" className="lp-h2">{t.who.title}</h2>
             <ul className="lp-who-list">
-              <li><strong>Créateurs de marque</strong> qui veulent un premier packaging professionnel sans budget d&apos;agence.</li>
-              <li><strong>Artisans et producteurs</strong> qui vendent en épicerie, sur les marchés ou en ligne.</li>
-              <li><strong>PME et e-commerçants</strong> qui déclinent de nouvelles références rapidement.</li>
-              <li><strong>Agences et freelances</strong> qui veulent présenter des pistes créatives en quelques minutes.</li>
+              {t.who.list.map(([a, b]) => <li key={a}><strong>{a}</strong> {b}</li>)}
             </ul>
           </div>
         </section>
@@ -299,12 +337,12 @@ export function LandingPage() {
         {/* ── FAQ ── */}
         <section className="lp-section" id="faq" aria-labelledby="faq-title">
           <div className="lp-wrap lp-faq-wrap">
-            <h2 id="faq-title" className="lp-h2">Questions fréquentes</h2>
+            <h2 id="faq-title" className="lp-h2">{t.faq.title}</h2>
             <div className="lp-faq">
-              {FAQ.map((f) => (
-                <details key={f.q}>
-                  <summary>{f.q}</summary>
-                  <p>{f.a}</p>
+              {t.faq.list.map(([q, a]) => (
+                <details key={q}>
+                  <summary>{q}</summary>
+                  <p>{a}</p>
                 </details>
               ))}
             </div>
@@ -313,28 +351,17 @@ export function LandingPage() {
 
         {/* ── Final CTA ── */}
         <section className="lp-final" aria-labelledby="final-title">
-          <div className="lp-wrap">
-            <h2 id="final-title" className="lp-final-title">Votre prochain packaging commence par une phrase.</h2>
-            <BriefBox variant="final" />
+          <div className="lp-wrap lp-final-inner">
+            <h2 id="final-title" className="lp-final-title">{t.final.title}</h2>
+            <p className="lp-final-sub">{t.final.sub}</p>
+            <a href="/commencer" className="lp-btn lp-btn-light lp-btn-xl">
+              {t.hero.cta} <ArrowRight className="w-5 h-5" />
+            </a>
           </div>
         </section>
       </main>
 
-      <footer className="lp-footer">
-        <div className="lp-wrap lp-footer-inner">
-          <a href="#top" className="lp-logo">
-            <span className="lp-logo-badge">E</span>
-            <span>Edify</span>
-          </a>
-          <nav aria-label="Pied de page" className="lp-footer-links">
-            <a href="/create">Studio</a>
-            <a href="#fonctionnalites">Fonctionnalités</a>
-            <a href="#exemples">Exemples</a>
-            <a href="#faq">Questions</a>
-          </nav>
-          <p className="lp-footer-note">© 2026 Edify. Conçu pour les marques qui impriment.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

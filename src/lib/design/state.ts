@@ -10,7 +10,17 @@ export interface DesignContent {
   tagline: string;
   volume: string;
   details: string;
+  /** Label information, drawn on the back panel with bilingual headings. */
+  ingredients?: string;
+  usage?: string;
+  barcode?: string;
+  expiry?: string;
+  production?: string;
+  price?: string;
+  extra?: string;
 }
+
+export const LABEL_FIELDS = ["ingredients", "usage", "barcode", "expiry", "production", "price", "extra"] as const;
 
 export interface DesignSelection {
   shapeId: string;
@@ -78,6 +88,13 @@ export function toPackagingDesign(content: DesignContent, style: VisualStylePres
     tagline: content.tagline,
     volume: content.volume,
     details: content.details,
+    ingredients: content.ingredients,
+    usage: content.usage,
+    barcode: content.barcode,
+    expiry: content.expiry,
+    production: content.production,
+    price: content.price,
+    extra: content.extra,
     palette: sel.customPalette ?? style.palette,
     headingFont: isInstalledFont(sel.headingFont) ? sel.headingFont : h,
     bodyFont: isInstalledFont(sel.bodyFont) ? sel.bodyFont : b,

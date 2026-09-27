@@ -18,6 +18,8 @@ import type { PackagingSpec } from "@/lib/three/packagingModels";
 import type { DesignSpec } from "@/lib/ai/designSpec";
 import { generatePrintPdf, downloadPrintPdf, slugify } from "@/lib/print/exportPrintPdf";
 import { createClient as createSupabase } from "@/lib/supabase/client";
+import { briefContent, briefToPrompt, clearBrief, loadBrief } from "@/lib/design/brief";
+import { PlanPaywall } from "@/components/billing/PlanPaywall";
 
 interface SavedProject {
   version: 1;
@@ -62,6 +64,11 @@ export function EdifyWorkspace() {
   const [uploadedLogoName, setUploadedLogoName] = useState<string | null>(null);
 
   const [credits, setCredits] = useState<number | null>(null);
+  /** null = not loaded yet; the studio is usable, AI and downloads need an active plan. */
+  const [planActive, setPlanActive] = useState<boolean | null>(null);
+  const [paywall, setPaywall] = useState<null | "generate" | "export" | "credits">(null);
+  /** Answers the user typed in the wizard: never overwritten by the AI. */
+  const keepFields = useRef<Partial<DesignContent>>({});
   const [account, setAccount] = useState<{ name: string; email: string; avatar: string | null } | null>(null);
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const projectId = useRef<string | null>(null);
@@ -109,15 +116,17 @@ export function EdifyWorkspace() {
       } = await supabase.auth.getUser();
       if (!user) return;
       const meta = user.user_metadata ?? {};
-      const { data: profile } = await supabase.from("profiles").select("full_name, avatar_url, credits").eq("id", user.id).single();
+      const { data: profile } = await supabase.from("profiles").select("full_name, avatar_url, credits, plan_expires_at").eq("id", user.id).single();
       setAccount({
         name: profile?.full_name || meta.full_name || meta.name || user.email?.split("@")[0] || "Mon compte",
         email: user.email ?? "",
         avatar: profile?.avatar_url || meta.avatar_url || null,
       });
       setCredits(profile?.credits ?? 0);
+      setPlanActive(!!profile?.plan_expires_at && new Date(profile.plan_expires_at) > new Date());
       // A shared link or a landing brief takes precedence over the last saved project.
-      const fromLink = window.location.hash.includes("d=") || new URLSearchParams(window.location.search).has("prompt");
+      const qs = new URLSearchParams(window.location.search);
+      const fromLink = window.location.hash.includes("d=") || qs.has("prompt") || qs.has("brief");
       const { data: last } = await supabase.from("projects").select("id, data").order("updated_at", { ascending: false }).limit(1).maybeSingle();
       if (last) {
         projectId.current = last.id;
@@ -176,6 +185,13 @@ export function EdifyWorkspace() {
       tagline: shared.tagline ?? "",
       volume: shared.volume ?? "",
       details: shared.details ?? "",
+      ingredients: shared.ingredients ?? "",
+      usage: shared.usage ?? "",
+      barcode: shared.barcode ?? "",
+      expiry: shared.expiry ?? "",
+      production: shared.production ?? "",
+      price: shared.price ?? "",
+      extra: shared.extra ?? "",
     });
     showToast("✓ Design partagé chargé.");
   }, [showToast]);
@@ -185,11 +201,22 @@ export function EdifyWorkspace() {
   useEffect(() => {
     if (autoPrompt.current) return;
     autoPrompt.current = true;
-    const prompt = new URLSearchParams(window.location.search).get("prompt");
+    const qs = new URLSearchParams(window.location.search);
+    const brief = qs.has("brief") ? loadBrief() : null;
+    const prompt = brief ? briefToPrompt(brief) : qs.get("prompt");
     if (!prompt) return;
     window.history.replaceState(null, "", window.location.pathname + window.location.hash);
+    if (brief) {
+      // The user's own answers go on the pack right away and are kept after the AI design.
+      keepFields.current = briefContent(brief);
+      setContent((c) => ({ ...c, ...keepFields.current }));
+      if (brief.logo) {
+        setUploadedLogo(brief.logo);
+        setUploadedLogoName(brief.logoName ?? "logo");
+      }
+    }
     showToast("✨ Conception de votre packaging en cours…", 60000);
-    handleGenerate(prompt, null);
+    handleGenerate(prompt, null).then((ok) => ok && brief && clearBrief());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -229,12 +256,24 @@ export function EdifyWorkspace() {
       tagline: sp.tagline,
       volume: sp.volume,
       details: sp.details,
+      ingredients: sp.ingredients ?? "",
+      usage: sp.usage ?? "",
+      barcode: "",
+      expiry: "",
+      production: "",
+      price: "",
+      extra: "",
+      ...keepFields.current,
     });
   };
 
   const handleGenerate = async (prompt: string, reference: ReferenceFile | null) => {
+    if (planActive === false) {
+      setPaywall("generate");
+      return false;
+    }
     if (credits !== null && credits <= 0) {
-      showToast("Vous n'avez plus de crédits IA. La recharge arrive bientôt.");
+      setPaywall("credits");
       return false;
     }
     setIsGenerating(true);
@@ -255,7 +294,7 @@ export function EdifyWorkspace() {
       }
       if (typeof json.credits === "number") setCredits(json.credits);
       if (res.status === 402) {
-        showToast("Vous n'avez plus de crédits IA. La recharge arrive bientôt.");
+        setPaywall(json.reason === "no_plan" ? "generate" : "credits");
         return false;
       }
       if (!res.ok || !json.spec) throw new Error(json.error || `HTTP ${res.status}`);
@@ -348,11 +387,15 @@ export function EdifyWorkspace() {
   };
 
   const handleAddCredits = () => {
-    showToast(`Il vous reste ${credits ?? 0} crédit${(credits ?? 0) > 1 ? "s" : ""} IA. La recharge arrive bientôt.`);
+    window.location.href = "/abonnement";
   };
 
   const exportBusy: ExportAction | null = isExportingPdf ? "pdf" : isExportingZip ? "zip" : null;
   const handleExport = (a: ExportAction) => {
+    if (a !== "share" && planActive === false) {
+      setPaywall("export");
+      return;
+    }
     if (a === "pdf") handleDownloadPdf();
     else if (a === "zip") handleDownloadZip();
     else if (a === "ad") setIsAdOpen(true);
@@ -425,6 +468,7 @@ export function EdifyWorkspace() {
       </div>
 
       <AdStudioModal isOpen={isAdOpen} onClose={() => setIsAdOpen(false)} spec={spec} design={fullDesign} projectName={content.projectName} onToast={showToast} />
+      <PlanPaywall open={!!paywall} reason={paywall ?? "generate"} onClose={() => setPaywall(null)} />
       <ArModal isOpen={isArOpen} onClose={() => setIsArOpen(false)} spec={spec} design={fullDesign} projectName={content.projectName} onToast={showToast} />
     </div>
   );

@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 /** Routes that need a signed-in user. */
-const PROTECTED = ["/create"];
+const PROTECTED = ["/create", "/abonnement"];
 /** Auth pages a signed-in user doesn't need to see again. */
 const GUEST_ONLY = ["/login", "/signup"];
 
@@ -37,7 +37,8 @@ export async function middleware(request: NextRequest) {
 
   if (!user && PROTECTED.some((p) => pathname.startsWith(p))) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    // New customers choosing a plan most likely have no account yet.
+    url.pathname = pathname.startsWith("/abonnement") ? "/signup" : "/login";
     url.search = "";
     url.searchParams.set("next", pathname + request.nextUrl.search);
     return NextResponse.redirect(url);

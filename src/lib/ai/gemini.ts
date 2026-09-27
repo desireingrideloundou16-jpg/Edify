@@ -30,11 +30,13 @@ const RESPONSE_SCHEMA = {
     productName: str(),
     tagline: str(),
     volume: str(),
-    details: str(),
+    details: str("Texte du dos : histoire/origine, conservation, fabricant, mentions (sans répéter ingrédients ni mode d'emploi)"),
+    ingredients: str("Liste des ingrédients (ou INCI), par ordre décroissant"),
+    usage: str("Mode d'emploi ou de conservation, court"),
     rationale: str(),
   },
-  required: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "rationale"],
-  propertyOrdering: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "rationale"],
+  required: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
+  propertyOrdering: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
 };
 
 export class GeminiError extends Error {

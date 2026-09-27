@@ -1,0 +1,83 @@
+/* ─── Subscription (/abonnement) and payment return pages ─── */
+
+.bl { min-height: 100dvh; background: var(--paper); color: var(--k); }
+.bl-main { padding-block: clamp(20px, 4vw, 44px) 80px; }
+.bl-back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 18px; font-weight: 700; color: var(--grey); }
+.bl-back:hover { color: var(--k); }
+.bl-status { margin-top: 16px; display: inline-block; padding: 10px 16px; border-radius: 12px; background: var(--soft); border: 1px solid var(--line); font-size: 15px; font-weight: 600; color: var(--grey); }
+.bl-status.is-active { color: #0f7a43; background: #eafaf1; border-color: #bfe9cf; }
+:root[data-theme="dark"] .bl-status.is-active { color: #5fe39b; background: #10281c; border-color: #1f4a33; }
+
+.bl-grid { margin-top: 32px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 24px; align-items: start; }
+.bl-plans { display: grid; gap: 14px; }
+.bl-plan {
+  text-align: left; display: grid; gap: 8px; padding: 22px 24px; border-radius: var(--r-lg);
+  border: 2px solid var(--line); background: var(--surface); color: var(--k); cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.bl-plan:hover { transform: translateY(-2px); }
+.bl-plan.is-on { border-color: var(--k); box-shadow: 7px 7px 0 var(--m); }
+.bl-plan-head { display: flex; align-items: center; gap: 10px; }
+.bl-plan-head strong { font-family: var(--display); font-size: 22px; }
+.bl-plan-head em { font-style: normal; font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 999px; background: var(--m); color: #fff; }
+.bl-radio { margin-left: auto; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; }
+.bl-plan.is-on .bl-radio { background: var(--m); border-color: var(--m); color: #fff; }
+.bl-plan-price { font-family: var(--display); font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
+.bl-plan-price small { font-family: var(--body); font-size: 15px; font-weight: 500; color: var(--grey); }
+.bl-plan-desc { color: var(--grey); font-size: 15px; }
+.bl-plan ul { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+.bl-plan li { position: relative; padding-left: 20px; font-size: 14px; }
+.bl-plan li::before { content: ""; position: absolute; left: 0; top: 6px; width: 10px; height: 6px; border-left: 2px solid var(--m); border-bottom: 2px solid var(--m); transform: rotate(-45deg); }
+
+.bl-summary { position: sticky; top: 84px; padding: 24px; border-radius: var(--r-lg); background: var(--surface); border: 2px solid var(--k); box-shadow: 7px 7px 0 var(--c); display: grid; gap: 14px; }
+.bl-label { font-weight: 800; font-size: 14px; }
+.bl-periods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.bl-periods button { display: grid; justify-items: center; gap: 2px; padding: 12px 6px; border-radius: 14px; border: 2px solid var(--line); background: var(--surface); font-weight: 700; font-size: 14.5px; color: var(--k); cursor: pointer; }
+.bl-periods button small { font-size: 12px; font-weight: 800; color: #0f9d58; }
+.bl-periods button.is-on { border-color: var(--k); background: var(--soft); }
+.bl-total { display: grid; gap: 2px; padding-top: 12px; border-top: 1px solid var(--line); }
+.bl-total span { font-size: 14px; color: var(--grey); font-weight: 600; }
+.bl-total strong { font-family: var(--display); font-size: 36px; letter-spacing: -0.03em; }
+.bl-total s { color: var(--grey); font-size: 15px; }
+.bl-includes { font-size: 14.5px; color: var(--grey); }
+.bl-pay { width: 100%; }
+.bl-pay:disabled { opacity: 0.7; }
+.bl-momo { display: flex; justify-content: center; }
+.bl-momo .lp-momo { margin: 0; }
+.bl-secure { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; color: var(--grey); }
+.bl-secure svg { flex-shrink: 0; margin-top: 2px; color: #0f9d58; }
+.bl-message { padding: 12px 14px; border-radius: 12px; background: #fff7e6; color: #8a5300; font-size: 14.5px; font-weight: 600; }
+:root[data-theme="dark"] .bl-message { background: #2b2210; color: #f5c46b; }
+
+.bl-return { min-height: calc(100dvh - 64px); display: grid; place-content: center; justify-items: center; text-align: center; gap: 14px; padding: 40px 20px; }
+.bl-return .lp-sub { max-width: 30em; margin: 0 auto; }
+.bl-return-icon { width: 64px; height: 64px; }
+.bl-return-icon.is-paid { color: #0f9d58; }
+.bl-return-icon.is-pending, .bl-return-icon.is-checking { color: var(--m); }
+.bl-return-icon.is-failed, .bl-return-icon.is-cancelled, .bl-return-icon.is-error { color: #e11d48; }
+
+@media (max-width: 900px) {
+  .bl-grid { grid-template-columns: 1fr; }
+  .bl-summary { position: static; }
+}
+@media (max-width: 560px) {
+  .bl-plan ul { grid-template-columns: 1fr; }
+  .bl-plan { padding: 18px; }
+}
+
+/* Studio paywall */
+.st-paywall-backdrop { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 16px; background: rgba(10, 10, 12, 0.55); backdrop-filter: blur(4px); }
+.st-paywall { position: relative; width: min(620px, 100%); max-height: 92dvh; overflow: auto; padding: 28px; border-radius: 26px; background: var(--paper); color: var(--k); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); display: grid; gap: 14px; }
+.st-paywall h2 { font-family: var(--display); font-size: clamp(1.4rem, 3.4vw, 1.8rem); letter-spacing: -0.03em; line-height: 1.1; padding-right: 36px; }
+.st-paywall > p { color: var(--grey); }
+.st-paywall-close { position: absolute; top: 18px; right: 18px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--line); color: var(--k); }
+.st-paywall-plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.st-paywall-plan { display: grid; gap: 4px; padding: 14px; border-radius: 16px; border: 2px solid var(--line); background: var(--surface); color: var(--k); }
+.st-paywall-plan:hover { border-color: var(--k); }
+.st-paywall-plan.is-featured { border-color: var(--m); }
+.st-paywall-plan strong { font-family: var(--display); font-size: 17px; }
+.st-paywall-plan span { font-weight: 800; font-size: 15px; }
+.st-paywall-plan small { font-weight: 500; color: var(--grey); }
+.st-paywall-plan em { font-style: normal; font-size: 12.5px; color: var(--grey); }
+.st-paywall-cta { width: 100%; }
+@media (max-width: 560px) { .st-paywall-plans { grid-template-columns: 1fr; } .st-paywall { padding: 22px; } }

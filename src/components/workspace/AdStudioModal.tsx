@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { X, Download, RefreshCw, Loader2, Megaphone } from "lucide-react";
+import { X, Download, RefreshCw, Loader2, Megaphone, ImageIcon } from "lucide-react";
 import { AD_FORMATS, AD_SCENES, renderAd, type AdFormat, type AdScene } from "@/lib/three/adRender";
 import type { PackagingSpec } from "@/lib/three/packagingModels";
 import type { PackagingDesign } from "@/lib/artwork/draw";
@@ -16,6 +16,15 @@ interface AdStudioModalProps {
   onToast: (msg: string) => void;
 }
 
+const DECORS = [
+  "Table en bois clair, cuisine lumineuse",
+  "Marché africain coloré, arrière-plan flou",
+  "Marbre blanc et feuilles tropicales",
+  "Tissu wax aux couleurs vives",
+  "Plage et palmiers au coucher du soleil",
+  "Studio béton, lumière douce de fin de journée",
+];
+
 export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onToast }: AdStudioModalProps) {
   const [scene, setScene] = useState<AdScene>("podium");
   const [format, setFormat] = useState<AdFormat>("portrait");
@@ -23,20 +32,47 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
   const [seed, setSeed] = useState(1);
   const [image, setImage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  /** AI photo backdrop (Cloudflare Workers AI · FLUX). */
+  const [decor, setDecor] = useState(DECORS[0]);
+  const [photoBg, setPhotoBg] = useState<string | null>(null);
+  const [decorBusy, setDecorBusy] = useState(false);
+
+  const generateDecor = async () => {
+    setDecorBusy(true);
+    try {
+      const res = await fetch("/api/ai-image", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: decor, format }) });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.image) {
+        setPhotoBg(json.image);
+        return;
+      }
+      onToast(
+        res.status === 503
+          ? "Le décor photo IA s'active dès que Cloudflare Workers AI est configuré."
+          : res.status === 402
+            ? "Un abonnement actif est nécessaire pour le décor photo IA."
+            : "Le décor n'a pas pu être généré. Réessayez."
+      );
+    } catch {
+      onToast("Le décor n'a pas pu être généré. Vérifiez votre connexion.");
+    } finally {
+      setDecorBusy(false);
+    }
+  };
 
   const generate = useCallback(async () => {
     setBusy(true);
     try {
       // Let the spinner paint before the heavy render.
       await new Promise((r) => setTimeout(r, 30));
-      setImage(await renderAd({ spec, design, scene, format, withCopy, seed }));
+      setImage(await renderAd({ spec, design, scene, format, withCopy, seed, backgroundUrl: photoBg }));
     } catch (e) {
       console.error(e);
       onToast("Impossible de générer le visuel sur cet appareil (WebGL indisponible).");
     } finally {
       setBusy(false);
     }
-  }, [spec, design, scene, format, withCopy, seed, onToast]);
+  }, [spec, design, scene, format, withCopy, seed, photoBg, onToast]);
 
   useEffect(() => {
     if (isOpen) generate();
@@ -111,6 +147,22 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
                 <select id="ad-format" value={format} onChange={(e) => setFormat(e.target.value as AdFormat)} className="edify-select">
                   {AD_FORMATS.map((f) => <option key={f.id} value={f.id}>{f.label} — {f.w}×{f.h}</option>)}
                 </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold text-slate-700" htmlFor="ad-decor">Décor photo IA</label>
+                <select id="ad-decor" value={decor} onChange={(e) => setDecor(e.target.value)} className="edify-select">
+                  {DECORS.map((d) => <option key={d} value={d}>{d}</option>)}
+                </select>
+                <div className="flex gap-2">
+                  <button type="button" onClick={generateDecor} disabled={decorBusy || busy} className="edify-secondary-btn flex-1 justify-center">
+                    {decorBusy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ImageIcon className="w-3.5 h-3.5" />} {photoBg ? "Autre décor" : "Générer le décor"}
+                  </button>
+                  {photoBg && (
+                    <button type="button" onClick={() => setPhotoBg(null)} className="edify-secondary-btn justify-center" aria-label="Revenir au studio">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
               </div>
               <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
                 <input type="checkbox" checked={withCopy} onChange={(e) => setWithCopy(e.target.checked)} className="w-4 h-4 accent-slate-900" />
