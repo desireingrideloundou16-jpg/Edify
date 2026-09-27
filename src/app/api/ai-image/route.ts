@@ -45,7 +45,8 @@ export async function POST(req: Request) {
       method: "POST",
       signal: AbortSignal.timeout(45_000),
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt, steps: 8, seed: Math.floor(Math.random() * 1e9) }),
+      // FLUX schnell on Workers AI accepts only prompt and steps (a seed is rejected).
+      body: JSON.stringify({ prompt, steps: 8 }),
     });
     const json = await res.json().catch(() => null);
     const image = json?.result?.image;
