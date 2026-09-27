@@ -96,6 +96,7 @@ export function PaymentStatus({ status }: { status: string }) {
     pending: ["En attente", "amber"],
     failed: ["Échoué", "red"],
     cancelled: ["Annulé", "grey"],
+    refunded: ["Remboursé", "red"],
   };
   const [label, tone] = map[status] ?? [status, "grey"];
   return <Badge tone={tone}>{label}</Badge>;

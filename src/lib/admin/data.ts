@@ -4,6 +4,7 @@
  */
 import { createAdminClient } from "@/lib/supabase/admin";
 import { PLANS, isPlan } from "@/lib/billing/plans";
+import { LEGAL } from "@/lib/legal";
 
 const DAY = 86_400_000;
 export const isoDay = (d: Date | string) => new Date(d).toISOString().slice(0, 10);
@@ -126,6 +127,22 @@ export async function userDetail(id: string) {
   };
 }
 
+/**
+ * "Satisfait ou remboursé": first paid payment of the account, within LEGAL.refundDays of
+ * payment, with fewer than LEGAL.refundMaxDesigns AI designs generated since.
+ */
+export async function refundEligibility(payment: { id: string; user_id: string; status: string; paid_at: string | null; created_at: string }) {
+  if (payment.status !== "paid") return { eligible: false, reason: "Paiement non encaissé" };
+  const db = createAdminClient();
+  const paidAt = payment.paid_at ?? payment.created_at;
+  if (Date.now() - new Date(paidAt).getTime() > LEGAL.refundDays * DAY) return { eligible: false, reason: `Plus de ${LEGAL.refundDays} jours` };
+  const { data: earlier } = await db.from("payments").select("id").eq("user_id", payment.user_id).in("status", ["paid", "refunded"]).lt("created_at", payment.created_at).limit(1);
+  if (earlier?.length) return { eligible: false, reason: "Pas le premier paiement" };
+  const { count } = await db.from("ai_events").select("id", { count: "exact", head: true }).eq("user_id", payment.user_id).eq("kind", "design").eq("success", true).gte("created_at", paidAt);
+  if ((count ?? 0) >= LEGAL.refundMaxDesigns) return { eligible: false, reason: `${count} créations IA utilisées` };
+  return { eligible: true, reason: `${count ?? 0} création(s) IA utilisée(s)` };
+}
+
 export async function listPayments(opts: { status?: string; page?: number }) {
   const db = createAdminClient();
   const size = 30;
@@ -138,11 +155,13 @@ export async function listPayments(opts: { status?: string; page?: number }) {
   const { data: all } = await db.from("payments").select("amount, status");
   const sum = (s: string) => (all ?? []).filter((p) => p.status === s).reduce((a, p) => a + p.amount, 0);
   return {
-    rows: (data ?? []).map((p) => ({ ...p, owner: owners?.find((o) => o.id === p.user_id) ?? null })),
+    rows: await Promise.all(
+      (data ?? []).map(async (p) => ({ ...p, owner: owners?.find((o) => o.id === p.user_id) ?? null, refund: p.status === "paid" ? await refundEligibility(p) : null }))
+    ),
     total: count ?? 0,
     page,
     pages: Math.max(1, Math.ceil((count ?? 0) / size)),
-    totals: { paid: sum("paid"), pending: sum("pending"), failed: sum("failed") + sum("cancelled") },
+    totals: { paid: sum("paid"), pending: sum("pending"), failed: sum("failed") + sum("cancelled"), refunded: sum("refunded") },
   };
 }
 

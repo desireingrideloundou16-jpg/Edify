@@ -1,18 +1,18 @@
 {
  "landing": {
-  "skip": "Naar inhoud gaan",
+  "skip": "Ga naar inhoud",
   "hero": {
-   "kicker": "AI-gestuurde verpakkingsontwerper",
-   "h1a": "Omschrijf uw product.",
-   "h1b": "Ontvang drukklare verpakkingen.",
-   "lead": "Edify ontwerpt uw verpakking met AI: de vorm, het artwork, de verplichte etiketgegevens, de 3D-mock-up en de PDF voor uw drukker. Binnen enkele minuten, zonder ontwerper.",
-   "cta": "Nu starten",
+   "kicker": "AI-aangedreven verpakkingsontwerper",
+   "h1a": "Beschrijf je product.",
+   "h1b": "Ontvang printklare verpakkingen.",
+   "lead": "Edify ontwerpt je verpakking met AI: de vorm, het artwork, de verplichte labelinformatie, de 3D-mockup en de PDF voor je drukker. Binnen enkele minuten, geen ontwerper nodig.",
+   "cta": "Begin nu",
    "demo": "Bekijk de demo",
-   "micro": "Betaal met Mobile Money: MTN MoMo en Orange Money. Vanaf 3.000 FCFA per maand.",
+   "micro": "Betaal met Mobile Money: MTN MoMo en Orange Money. Vanaf 3.000 FCFA per maand, geld-terug-garantie van 7 dagen.",
    "proof": [
-    "FR/EN-etiketten",
+    "FR/EN labels",
     "300 dpi PDF",
-    "3D-mock-up"
+    "3D-mockup"
    ]
   },
   "stats": [
@@ -30,17 +30,17 @@
    ],
    [
     "300 dpi",
-    "drukklare PDF"
+    "printklare PDF"
    ]
   ],
   "video": {
    "title": "Edify in actie, in 24 seconden",
-   "sub": "Eén zin, een complete verpakking, een drukklaar bestand en visuals om te lanceren."
+   "sub": "Eén zin, een complete verpakking, een printklaar bestand en visuals om het te lanceren."
   },
   "cats": {
-   "title": "Eén tool voor al uw verpakkingen",
+   "title": "Eén tool voor al je verpakkingen",
    "list": [
-    "Sappen en dranken",
+    "Sappen en drankjes",
     "Koffie",
     "Cacao en chocolade",
     "Specerijen",
@@ -55,54 +55,54 @@
    ]
   },
   "live": {
-   "title": "Zie hoe de AI een verpakking ontwerpt",
-   "sub": "Een briefing, enkele seconden en elke beslissing die een artdirector zou nemen: verpakking, kleuren, lettertypen, afwerking."
+   "title": "Kijk hoe de AI een verpakking ontwerpt",
+   "sub": "Een briefing, een paar seconden en elke beslissing die een artdirector zou nemen: container, kleuren, lettertypen, afwerking."
   },
   "how": {
-   "title": "Van één zin naar een drukbestand",
-   "sub": "Hetzelfde product, stap voor stap. Elk onderstaand beeld is gemaakt door Edify."
+   "title": "Van één zin naar een printbestand",
+   "sub": "Hetzelfde product, stap voor stap. Elke afbeelding hieronder is geproduceerd door Edify."
   },
   "studio": {
-   "title": "Een studio gebouwd voor niet-ontwerpers",
-   "sub": "Kies een verpakking, een stijl, een lettertype: de vlakke stansvorm en de 3D-mock-up worden direct samen bijgewerkt.",
-   "alt": "De Edify-studio: verpakkingscatalogus, vlakke stansvorm en 3D-voorbeeld",
+   "title": "Een studio gemaakt voor niet-ontwerpers",
+   "sub": "Kies een container, een stijl, een lettertype: de platte stansvorm en de 3D-mockup worden tegelijkertijd bijgewerkt.",
+   "alt": "De Edify-studio: containercatalogus, platte stansvorm en 3D-voorbeeld",
    "callouts": [
     [
      "Drie tabbladen",
-     "De verpakking, de stijl, daarna uw teksten en logo. Niets meer."
+     "De container, de stijl en vervolgens je teksten en logo. Niets meer."
     ],
     [
      "Eén groot voorbeeld",
-     "De live vlakke stansvorm en de 3D-weergave in één klik."
+     "De live platte stansvorm en de 3D-weergave in één klik."
     ],
     [
      "Eén knop",
-     "“Downloaden”: druk-PDF, advertentievisual, 3D, deellink."
+     "“Downloaden”: print-PDF, advertentievisual, 3D, deellink."
     ]
    ]
   },
   "features": {
    "title": "Alles wat een ontwerpbureau zou leveren",
    "t3d": [
-    "Realistische 3D-mock-up",
-    "Draai uw verpakking rond, verander de belichting, bekijk deze vanuit elke hoek, zelfs van onderaf."
+    "Realistische 3D-mockup",
+    "Draai je verpakking, verander de belichting, bekijk hem vanuit elke hoek, zelfs van onderen."
    ],
    "print": [
-    "Drukklaar PDF-bestand",
-    "3 mm afloop, snijtekens en een vectoriële stanslijn op een aparte pagina."
+    "Printklare PDF",
+    "3 mm afloop, snijtekens en een vectorstansvorm op een aparte pagina."
    ],
    "ai": [
     "Een AI-artdirector",
-    "Volgt de conventies van uw categorie, kiest leesbare kleuren en schrijft de verplichte etiketgegevens, in het Frans en Engels."
+    "Deze volgt de codes van je categorie, kiest leesbare kleuren en schrijft de verplichte labeltekst in het Frans en Engels."
    ],
    "aiSheet": [
     [
      "Briefing",
-     "“Arabica uit West-Kameroen, ambachtelijke uitstraling”"
+     "“West-Kameroense arabica, ambachtelijke uitstraling”"
     ],
     [
-     "Verpakking",
-     "Koffiezak met ventiel, 250 g"
+     "Container",
+     "Koffiezakje met ventiel, 250 g"
     ],
     [
      "Lettertypen",
@@ -112,7 +112,7 @@
    "colours": "Kleuren",
    "ad": [
     "Advertentievisuals",
-    "Uw product gepresenteerd in een studio, in Instagram-, WhatsApp-, story- en bannerformaten."
+    "Je product in scène gezet in een studio, in Instagram-, WhatsApp-, story- en bannerformaten."
    ],
    "numbers": [
     [
@@ -130,52 +130,52 @@
    ],
    "ar": [
     "Augmented reality",
-    "Plaats uw verpakking op ware grootte op uw tafel, via uw telefoon, nog voordat u gaat drukken."
+    "Plaats je verpakking op werkelijk formaat op je tafel, vanaf je telefoon, voordat je hem print."
    ],
    "packAlt": [
     "3D-fles",
-    "Blik gepresenteerd voor een advertentie"
+    "Blik in scène gezet voor een advertentie"
    ],
-   "dielineAlt": "Stanslijn van een vouwdoos",
+   "dielineAlt": "Stansvorm van een vouwdoos",
    "face": "Voorkant"
   },
   "gallery": {
    "title": "Eén zin, één verpakking",
-   "sub": "Elk onderstaand voorbeeld is gerenderd door de 3D-engine van Edify op basis van de getoonde zin."
+   "sub": "Elk onderstaand voorbeeld wordt gerenderd door Edify's 3D-engine vanuit de getoonde zin."
   },
   "mockups": {
-   "title": "Realistische mock-ups, klaar om te delen",
-   "sub": "Elke verpakking wordt in een studio geënsceneerd: licht, schaduwen, decor. Perfect voor Instagram, WhatsApp, productpagina's en pitches voor winkeliers.",
+   "title": "Realistische mockups, klaar om te posten",
+   "sub": "Elke verpakking wordt in een studio opgesteld: licht, schaduwen, set. Perfect voor Instagram, WhatsApp, productpagina's en pitches aan retailers.",
    "items": [
     [
      "bissap",
-     "Bruisende bissap · pop set"
+     "Bruisende bissap · popset"
     ],
     [
      "miel",
-     "Witte honing uit Oku · nature set"
+     "Oku witte honing · natuukset"
     ],
     [
      "cafe",
-     "Arabica uit West-Kameroen · nature set"
+     "West-Kameroense arabica · natuukset"
     ],
     [
      "baobab",
-     "Baobab-serum · luxury set"
+     "Baobab serum · luxeset"
     ]
    ]
   },
   "compare": {
-   "title": "Bureaukwaliteit, zonder de wachttijd of het budget",
+   "title": "Bureauresultaten, zonder de wachttijd of het budget",
    "head": [
     "Met een bureau",
     "Met Edify"
    ],
-   "aria": "Vergelijking bureau versus Edify",
+   "aria": "Vergelijking bureau vs Edify",
    "rows": [
     [
      "Doorlooptijd",
-     "Enkele weken",
+     "Meerdere weken",
      "Enkele minuten"
     ],
     [
@@ -185,44 +185,44 @@
     ],
     [
      "Startpunt",
-     "Uitgebreide briefing, vergaderingen",
-     "Een paar vragen beantwoorden"
+     "Geschreven briefing, vergaderingen",
+     "Een paar antwoorden"
     ],
     [
-     "Etiketgegevens",
-     "Zelf controleren",
+     "Labelinformatie",
+     "Controleer het zelf",
      "Geschreven in FR en EN"
     ],
     [
-     "Oplevering",
+     "Leverables",
      "Aan het einde van het project",
-     "Altijd direct PDF, 3D en visuals"
+     "PDF, 3D en visuals op elk moment"
     ]
    ]
   },
   "formats": {
-   "title": "Elk bestand dat u nodig heeft",
-   "sub": "Eén ontwerp en elk gewenst formaat voor uw drukker, webshop, sociale media en pitches.",
+   "title": "Elk bestand dat je nodig hebt",
+   "sub": "Eén ontwerp en elk formaat voor je drukker, je winkel, je social media en je pitches.",
    "list": [
     [
      "PDF",
-     "Drukbestand",
-     "3 mm afloop, snijtekens, vectoriële stanslijn."
+     "Printbestand",
+     "3 mm afloop, snijtekens, vectorstansvorm."
     ],
     [
      "PNG",
      "Advertentievisuals",
-     "Instagram-, WhatsApp-, story- en bannerformaten in hoge resolutie."
+     "Instagram-, WhatsApp-, story- en bannerformaten, in hoge definitie."
     ],
     [
      "GLB",
      "3D-model",
-     "Voor uw website, Android en 3D-software, op ware grootte."
+     "Voor je website, Android en 3D-software, op werkelijk formaat."
     ],
     [
      "USDZ",
      "Augmented reality",
-     "Plaats de verpakking op uw tafel met een iPhone."
+     "Plaats de verpakking op je tafel vanaf een iPhone."
     ],
     [
      "ZIP",
@@ -232,69 +232,69 @@
     [
      "URL",
      "Deellink",
-     "Toon het ontwerp aan een klant of uw drukker."
+     "Toon het ontwerp aan een klant of je drukker."
     ]
    ]
   },
   "pricing": {
-   "title": "Tarieven gemaakt voor Afrikaanse ondernemers",
-   "sub": "Betaal met Mobile Money, geen bankpas en geen automatische incasso: waardeer uw pakket op wanneer u maar wilt.",
+   "title": "Prijzen gemaakt voor Afrikaanse ondernemers",
+   "sub": "Betaal met Mobile Money, geen bankpas en geen automatische afschrijving: waard je abonnement op wanneer je maar wilt.",
    "perMonth": "/ maand",
-   "badge": "Meest gekozen",
-   "choose": "Kies dit pakket",
-   "note": "Bespaar 10% bij betaling per 3 maanden en 20% bij 12 maanden. Veilig betalen met MTN MoMo en Orange Money.",
-   "momo": "Betaling via Mobile Money",
+   "badge": "Meest populair",
+   "choose": "Kies dit abonnement",
+   "note": "Geld-terug-garantie van 7 dagen bij je eerste betaling. Bespaar 10% door voor 3 maanden te betalen en 20% voor 12 maanden. Veilige betaling met MTN MoMo en Orange Money.",
+   "momo": "Mobile Money-betaling",
    "plans": {
     "essentiel": {
-     "name": "Essential",
-     "desc": "Om uw eerste product te lanceren met een professionele verpakking.",
+     "name": "Essentieel",
+     "desc": "Om je eerste product te lanceren met professionele verpakking.",
      "features": [
       "{credits} AI-ontwerpen per maand",
-      "“Nu starten”-assistent met AI-suggesties",
-      "97 verpakkingen, 84 stijlen en 58 lettertypen",
-      "Tweetalige verplichte etiketgegevens en een echte EAN-13-barcode",
-      "Drukklare HD-PDF met afloop en snijtekens",
+      "“Begin nu”-assistent met AI-suggesties",
+      "97 containers, 84 stijlen en 58 lettertypen",
+      "Tweetalige verplichte labeltekst en een echte EAN-13-barcode",
+      "HD printklare PDF met afloop en snijtekens",
       "360° 3D-voorbeeld en advertentievisuals",
       "Onbeperkte projecten en deellink",
-      "Ondersteuning per e-mail binnen 48 uur"
+      "E-mailondersteuning binnen 48 uur"
      ]
     },
     "pro": {
      "name": "Pro",
-     "desc": "Voor merken die elke maand nieuwe producten lanceren of uitbreiden.",
+     "desc": "Voor merken die elke maand producten lanceren en uitbreiden.",
      "features": [
       "{credits} AI-ontwerpen per maand",
-      "Alles uit Essential, plus:",
-      "AI-fotosets voor uw advertentiebeelden",
+      "Alles in Essentieel, plus:",
+      "AI-fotosets voor je advertentievisuals",
       "HD-visuals voor Instagram, WhatsApp, Facebook en TikTok",
       "3D-model en augmented reality",
-      "Compleet ZIP-pakket voor uw drukker",
-      "Controle van etiketgegevens door ons team (1 etiket per maand)",
-      "Voorrangsondersteuning via WhatsApp"
+      "Compleet ZIP-pakket voor je drukker",
+      "Beoordeling van labeltekst door ons team (1 label per maand)",
+      "Prioriteitsondersteuning op WhatsApp"
      ]
     },
     "entreprise": {
-     "name": "Business",
-     "desc": "Voor mkb-bedrijven, coöperaties en bureaus met een compleet assortiment.",
+     "name": "Bedrijf",
+     "desc": "Voor kmo's, coöperaties en bureaus met een volledig productassortiment.",
      "features": [
       "{credits} AI-ontwerpen per maand",
-      "Alles uit Pro, plus:",
-      "Onbeperkt aantal merken en productlijnen",
-      "Nalevingscontrole voor al uw etiketten",
-      "Introductie bij onze aangesloten drukkers",
-      "Onboardingsessie van 1 uur (video of WhatsApp)",
-      "Facturen voor uw boekhouding",
-      "Vaste contactpersoon en vroege toegang tot nieuwe functies"
+      "Alles in Pro, plus:",
+      "Onbeperkte merken en productassortimenten",
+      "Compliance-beoordeling van al je labels",
+      "Introducties bij onze partnerdrukkerijen",
+      "1 uur durende onboardingstsessie (video of WhatsApp)",
+      "Facturen voor je boekhouding",
+      "Toegewijd contactpersoon en vroege toegang tot nieuwe functies"
      ]
     }
    }
   },
   "trust": {
-   "title": "Uw ontwerpen blijven van u",
+   "title": "Je ontwerpen blijven van jou",
    "list": [
     [
      "Eigendom",
-     "De verpakkingen die u maakt zijn van u. Druk ze af en verkoop ze in alle vrijheid."
+     "De verpakkingen die je maakt zijn van jou. Print ze en verkoop ze vrijelijk."
     ],
     [
      "Lokale betaling",
@@ -302,32 +302,32 @@
     ],
     [
      "Veilig inloggen",
-     "E-mail en wachtwoord, of uw Google-account. Uw gegevens worden nooit verkocht."
+     "E-mail en wachtwoord, of je Google-account. Je gegevens worden nooit verkocht."
     ],
     [
      "Rechtenvrije lettertypen",
-     "Alle 58 lettertypen mogen kosteloos commercieel worden gebruikt."
+     "Alle 58 lettertypen kunnen zonder kosten commercieel worden gebruikt."
     ]
    ]
   },
   "who": {
-   "title": "Gebouwd voor makers die producten lanceren",
+   "title": "Gemaakt voor mensen die producten lanceren",
    "list": [
     [
-     "Voedselverwerkers en coöperaties",
-     "die professionele verpakkingen nodig hebben om in supermarkten en internationaal te verkopen."
+     "Voedselproducenten en coöperaties",
+     "die professionele verpakkingen nodig hebben om te verkopen in supermarkten en in het buitenland."
     ],
     [
      "Natuurlijke cosmeticamerken",
-     "karité, oliën, zepen: verpakkingen die vertrouwen uitstralen."
+     "karité, oliën, zepen: verpakkingen die vertrouwen wekken."
     ],
     [
-     "Mkb en retailers",
-     "die snel nieuwe productlijnen op de markt brengen."
+     "Kmo's en retailers",
+     "die snel nieuwe productlijnen lanceren."
     ],
     [
      "Bureaus en ontwerpers",
-     "die binnen enkele minuten creatieve concepten willen presenteren."
+     "die binnen enkele minuten creatieve routes pitchen."
     ]
    ]
   },
@@ -336,43 +336,47 @@
    "list": [
     [
      "Moet ik kunnen tekenen of ontwerpsoftware gebruiken?",
-     "Nee. U beantwoordt een paar vragen over uw product, de AI kiest de verpakking, kleuren en lettertypen en schrijft de teksten. Vervolgens kunt u alles in een paar klikken aanpassen."
+     "Nee. Je beantwoordt een paar vragen over je product, de AI kiest de container, kleuren en lettertypen en schrijft de tekst. Je kunt daarna alles in een paar klikken wijzigen."
     ],
     [
      "Hoe betaal ik?",
-     "Met Mobile Money (MTN MoMo of Orange Money), via de beveiligde SasPay-gateway. Er is geen automatische incasso: u betaalt 1, 3 of 12 maanden vooruit en waardeert op wanneer u wilt."
+     "Met Mobile Money (MTN MoMo of Orange Money), via de beveiligde SasPay-gateway. Er is geen automatische afschrijving: je betaalt 1, 3 of 12 maanden vooraf en waard op wanneer je maar wilt."
     ],
     [
-     "Zijn de verplichte etiketgegevens inbegrepen?",
-     "Ja. Edify verwerkt de productnaam, ingrediënten, nettohoeveelheid, data, partijnummer, fabrikant en gebruiksaanwijzing, in het Frans en Engels zoals vereist op de Kameroense markt. Laat uw definitieve etiket altijd controleren door uw drukker of de bevoegde instantie (ANOR)."
+     "Wat als Edify niet geschikt voor mij is?",
+     "Je eerste betaling wordt geleverd met een geld-terug-garantie van 7 dagen, zolang je minder dan 3 AI-ontwerpen hebt gebruikt. Stuur ons een bericht op WhatsApp of via het contactformulier: de terugbetaling wordt naar je Mobile Money-nummer verzonden."
+    ],
+    [
+     "Is de verplichte labelinformatie inbegrepen?",
+     "Ja. Edify dekt de productnaam, ingrediënten, nettohoeveelheid, data, batch, fabrikant en gebruiksaanwijzing, in het Frans en Engels zoals de Kameroenese markt vereist. Laat je definitieve label altijd controleren door je drukker of de relevante autoriteit (ANOR)."
     ],
     [
      "Is het bestand echt klaar voor de drukker?",
-     "Edify genereert een PDF met 3 mm afloop, snijtekens en een stanslijn op een aparte pagina. Uw drukker zet deze om naar CMYK en stuurt u een proefdruk ter goedkeuring vóór productie."
+     "Edify produceert een PDF met 3 mm afloop, snijtekens en een stansvorm op een aparte pagina. Je drukker converteert deze naar CMYK en stuurt je een proefdruk ter goedkeuring voor de productie."
     ],
     [
      "Kan ik mijn eigen logo en barcode gebruiken?",
-     "Ja. Upload uw logo (PNG, SVG of JPG) en typ uw EAN-13-code: deze wordt op het juiste formaat op de achterkant van de verpakking geplaatst en de AI neemt de kleuren van uw logo over."
+     "Ja. Upload je logo (PNG, SVG of JPG) en typ je EAN-13-code: deze wordt op het juiste formaat op de achterkant van de verpakking getekend en de AI pakt de kleuren van je logo op."
     ],
     [
      "Van wie zijn de ontwerpen?",
-     "Van u. De verpakkingen die u met Edify maakt zijn uw eigendom en mogen gedrukt en verkocht worden."
+     "Van jou. De verpakkingen die je met Edify maakt zijn van jou en kunnen worden geprint en verkocht."
     ]
    ]
   },
   "final": {
-   "title": "Uw volgende verpakking begint hier.",
+   "title": "Je volgende verpakking begint hier.",
    "sub": "Beantwoord een paar vragen, de AI doet de rest."
   },
-  "packAlt": "{brand}-verpakking gegenereerd met Edify",
-  "jsonLd": "Edify ontwerpt uw verpakking met AI: vorm, artwork, verplichte FR/EN-etiketgegevens, 3D-mock-up en drukklaar PDF-bestand, binnen enkele minuten."
+  "packAlt": "{brand} verpakking gegenereerd met Edify",
+  "jsonLd": "Edify ontwerpt je verpakking met AI: vorm, artwork, verplichte labelinformatie, 3D-mockup en printklare PDF, binnen enkele minuten."
  },
  "site": {
   "nav": {
    "home": "Edify, home",
    "nav": "Hoofdnavigatie",
    "login": "Inloggen",
-   "cta": "Nu starten",
+   "cta": "Begin nu",
    "ctaShort": "Start",
    "open": "Menu openen",
    "close": "Menu sluiten",
@@ -381,21 +385,21 @@
     "Hoe het werkt",
     "Functies",
     "Voorbeelden",
-    "Tarieven",
+    "Prijzen",
     "FAQ"
    ]
   },
   "footer": {
-   "tagline": "De AI-gestuurde verpakkingsontwerper voor Afrikaanse ondernemers. Omschrijf uw product, ontvang drukklare verpakkingen.",
+   "tagline": "De AI-aangedreven verpakkingsontwerper gemaakt voor Afrikaanse ondernemers. Beschrijf je product, ontvang printklare verpakkingen.",
    "product": "Product",
    "productLinks": [
     "Aan de slag",
     "Studio",
     "Functies",
     "Voorbeelden",
-    "Tarieven"
+    "Prijzen"
    ],
-   "resources": "Bronnen",
+   "resources": "Bronmateriaal",
    "resourcesLinks": [
     "Demovideo",
     "FAQ",
@@ -408,10 +412,10 @@
     "Gebruiksvoorwaarden"
    ],
    "rights": "Alle rechten voorbehouden.",
-   "pay": "Betaling via Mobile Money: MTN MoMo · Orange Money"
+   "pay": "Mobile Money-betaling: MTN MoMo · Orange Money"
   },
   "toggles": {
-   "language": "Websitetaal",
+   "language": "Taal van de site",
    "theme": {
     "system": "Thema: systeem",
     "light": "Thema: licht",
@@ -421,159 +425,159 @@
   },
   "cluster": {
    "label": "Verpakkingsvoorbeelden ontworpen met Edify",
-   "packAlt": "{brand}-verpakking gegenereerd met Edify"
+   "packAlt": "{brand} verpakking gegenereerd met Edify"
   },
   "universes": {
-   "cafe": "Koffiewereld",
-   "agrumes": "Fruitwereld",
-   "piquant": "Kruidige wereld",
-   "beaute": "Schoonheidswereld",
-   "miel": "Honingwereld",
-   "neon": "Neonwereld"
+   "cafe": "Koffie-universum",
+   "agrumes": "Fruitig universum",
+   "piquant": "Pittig universum",
+   "beaute": "Schoonheidsuniversum",
+   "miel": "Honinguniversum",
+   "neon": "Neon universum"
   },
   "video": {
    "demo": "demo",
-   "soundOff": "Geluid aanzetten",
-   "soundOn": "Geluid aan",
+   "soundOff": "Geluid aan",
+   "soundOn": "Geluid uit",
    "pause": "Pauzeren",
    "play": "Video afspelen",
    "fullscreen": "Volledig scherm",
-   "aria": "Edify-demo: van productbeschrijving tot drukbestand"
+   "aria": "Edify-demo: van productbeschrijving tot printbestand"
   },
   "live": {
-   "aria": "Edify studio-demo",
-   "brief": "Uw briefing",
-   "designing": "Bezig met ontwerpen…",
+   "aria": "Edify-studiodemo",
+   "brief": "Je briefing",
+   "designing": "Ontwerpen…",
    "generate": "Genereren",
-   "container": "Verpakking",
+   "container": "Container",
    "colours": "Kleuren",
    "fonts": "Lettertypen",
    "and": "en",
    "finish": "Afwerking",
-   "packAlt": "Gegenereerde {brand}-verpakking"
+   "packAlt": "Gegenereerde {brand} verpakking"
   },
   "story": {
    "steps": [
     [
-     "Een paar vragen",
-     "U beschrijft het product, uw merk en de details. Dat is alles wat Edify van u vraagt."
+     "Een paar antwoorden",
+     "Je beschrijft het product, je merk en de details daarvan. Dat is alles wat Edify van je vraagt."
     ],
     [
-     "Een vlakke stansvorm, klaar voor productie",
-     "De AI plaatst uw ontwerp op het werkelijke sjabloon: panelen, flappen, plakstrook en afloop."
+     "Een platte stansvorm, klaar om te snijden",
+     "De AI plaatst je ontwerp op het echte sjabloon van de container: panelen, flappen, lijmlip, afloop."
     ],
     [
-     "Een 3D-mock-up",
-     "Hetzelfde ontwerp, gevouwen en belicht in een studio. Draai het product rond, wijzig tekst, alles wordt live bijgewerkt."
+     "Een 3D-mockup",
+     "Hetzelfde ontwerp, gevouwen en belicht in een studio. Draai het product, wijzig de tekst, alles wordt bijgewerkt."
     ],
     [
-     "Een visual om te lanceren",
-     "Met één klik beschikt u over een advertentiebeeld voor Instagram, WhatsApp, productpagina's of beurzen."
+     "Een visual om het te lanceren",
+     "Eén klik geeft je een advertentieafbeelding die klaar is voor Instagram, WhatsApp, productpagina's of beurzen."
     ]
    ],
-   "dielineAlt": "Vlakke stansvorm met snijlijnen",
-   "mockAlt": "3D-mock-up van het theedoosje",
+   "dielineAlt": "Platte stansvorm met snijlijnen",
+   "mockAlt": "3D-mockup van de theedoos",
    "adAlt": "Gegenereerde advertentievisual"
   },
   "marquee": {
    "aria": "Verpakkingsvoorbeelden uit elke categorie"
   },
   "paywall": {
-   "generate": "Activeer uw pakket om de AI te starten",
-   "export": "Deze functie maakt deel uit van een betaald pakket",
-   "credits": "U heeft al uw AI-ontwerpen gebruikt",
-   "upgrade": "Beschikbaar vanaf het Pro-pakket",
-   "sub": "Uw briefing is opgeslagen: deze wordt gegenereerd zodra uw pakket actief is. Betaal met MTN MoMo of Orange Money.",
+   "generate": "Activeer je abonnement om de AI te starten",
+   "export": "Deze functie maakt deel uit van een abonnement",
+   "credits": "Je hebt al je AI-ontwerpen gebruikt",
+   "upgrade": "Beschikbaar vanaf het Pro-abonnement",
+   "sub": "Je briefing is opgeslagen: deze wordt gegenereerd zodra je abonnement actief is. Betaal met MTN MoMo of Orange Money.",
    "perMonth": " / maand",
-   "cta": "Mijn pakket kiezen",
+   "cta": "Kies mijn abonnement",
    "close": "Sluiten"
   }
  },
  "wizard": {
-  "title": "Maak uw verpakking",
+  "title": "Maak je verpakking",
   "close": "Afsluiten",
   "step": "Stap {n} van {total}",
-  "back": "Terug",
+  "back": "Vorige",
   "next": "Volgende",
   "skip": "Overslaan",
-  "finish": "Mijn verpakking maken",
+  "finish": "Maak mijn verpakking",
   "required": "Dit antwoord is vereist om door te gaan.",
   "aiTitle": "AI-suggesties",
   "aiMore": "Meer ideeën",
-  "aiLoading": "De AI denkt na…",
-  "aiHint": "Tik op een suggestie om deze te gebruiken en pas indien nodig aan.",
+  "aiLoading": "De AI is aan het denken…",
+  "aiHint": "Tik op een suggestie om deze te gebruiken en bewerk deze indien nodig.",
   "yes": "Ja, ik heb een logo",
   "no": "Nog niet",
-  "upload": "Mijn logo uploaden",
-  "uploadHint": "PNG, SVG of JPG · u kunt dit ook later toevoegen",
-  "noLogo": "Geen probleem: de AI maakt een elegant monogram op basis van uw merknaam.",
-  "logoColours": "De AI zal de kleuren van uw logo gebruiken.",
+  "upload": "Upload mijn logo",
+  "uploadHint": "PNG, SVG of JPG · je kunt het later ook toevoegen",
+  "noLogo": "Geen probleem: de AI maakt een elegant monogram van je merknaam.",
+  "logoColours": "De AI gebruikt de kleuren van je logo.",
   "remove": "Verwijderen",
-  "barcodeOk": "Geldige code: deze wordt gedrukt als een echte EAN-13-barcode.",
-  "barcodeBad": "Deze code is niet geldig (het laatste cijfer moet {digit} zijn). Controleer dit of laat het veld leeg.",
-  "barcodeFormat": "Een EAN-13-code bestaat uit 13 cijfers (of 12 voor een UPC).",
-  "barcodeNone": "Nog geen barcode? U kunt deze later toevoegen in de studio. Codes worden uitgegeven door GS1 Cameroon.",
+  "barcodeOk": "Geldige code: deze wordt geprint als een echte EAN-13-barcode.",
+  "barcodeBad": "Deze code is niet geldig (het laatste cijfer moet {digit} zijn). Controleer deze of laat leeg.",
+  "barcodeFormat": "Een EAN-13-code heeft 13 cijfers (of 12 voor een UPC).",
+  "barcodeNone": "Nog geen barcode? Je kunt deze later in de studio toevoegen. Codes worden uitgegeven door GS1 Cameroon.",
   "currency": "FCFA",
   "review": "Alles gereed!",
-  "reviewSub": "Controleer uw antwoorden. De AI ontwerpt alles op basis van deze gegevens: verpakking, kleuren, lettertypen, teksten en tweetalige etiketgegevens.",
+  "reviewSub": "Controleer je antwoorden. De AI ontwerpt alles op basis van deze informatie: container, kleuren, lettertypen, tekst en tweetalige labelinformatie.",
   "edit": "Bewerken",
   "empty": "—",
   "saving": "Voorbereiden…",
   "q": {
    "packaging": [
-    "Welke verpakking wilt u maken?",
-    "Omschrijf het product en de vorm. Bijv. “Bissapsap in een 50 cl-fles”."
+    "Welke verpakking wil je maken?",
+    "Beschrijf het product en de container. Bijv. “Bissapsap in een fles van 50 cl”."
    ],
    "brand": [
-    "Wat is uw merknaam?",
-    "Deze wordt groot op de voorkant gedrukt, exact zoals u hem invoert."
+    "Wat is je merknaam?",
+    "Deze wordt groot op de voorkant geprint, precies zoals je hem typt."
    ],
    "logo": [
-    "Heeft u al een logo?",
-    "Upload het en de AI bouwt het ontwerp eromheen op."
+    "Heb je al een logo?",
+    "Upload het en de AI bouwt het ontwerp eromheen."
    ],
    "ingredients": [
-    "Wat zijn de ingrediënten van uw product?",
-    "Van hoogste naar laagste aandeel. Vergeet allergenen niet."
+    "Wat zijn de ingrediënten van je product?",
+    "Van belangrijk naar minst belangrijk. Vergeet allergenen niet."
    ],
    "usage": [
     "Hoe moet het product worden gebruikt?",
-    "Gebruiks- of bewaaradvies voor het product."
+    "Hoe je het product moet gebruiken of bewaren."
    ],
    "quantity": [
     "Wat is het gewicht of volume?",
-    "In grammen, kilo's, milliliters of liters. Bijv. 250 g, 50 cl."
+    "In grammen, kilo's, milliliter of liter. Bijv. 250 g, 50 cl."
    ],
    "barcode": [
-    "Heeft u een barcode?",
-    "Voer de cijfers van uw EAN-13-code in, indien u deze heeft."
+    "Heb je een barcode?",
+    "Typ de cijfers van je EAN-13-code, als je er een hebt."
    ],
    "expiry": [
-    "Wat is de houdbaarheidsdatum?",
-    "De uiterste gebruiksdatum of ten minste houdbaar tot-datum."
+    "Wat is de vervaldatum?",
+    "De uiterste consumptiedatum of houdbaarheidsdatum."
    ],
    "production": [
     "Wat is de productiedatum?",
-    "De productie- of verpakkingsdatum."
+    "De fabricage- of verpakkingsdatum."
    ],
    "price": [
     "Wat is de verkoopprijs?",
-    "Optioneel. Wordt weergegeven op de achterkant van de verpakking."
+    "Optioneel. Deze wordt op de achterkant van de verpakking getoond."
    ],
    "extra": [
-    "Wilt u nog andere informatie toevoegen?",
-    "Herkomst, opslag, contactgegevens, allergenen, certificeringen…"
+    "Nog andere informatie toe te voegen?",
+    "Herkomst, opslag, contact, allergenen, certificeringen…"
    ]
   },
   "placeholder": {
-   "packaging": "Bijv. Gemalen arabicakoffie in een zak van 250 g",
+   "packaging": "Bijv. Gemalen arabica-koffie in een zak van 250 g",
    "brand": "Bijv. TERRA",
-   "ingredients": "Bijv. 100% gebrande arabicakoffie",
-   "usage": "Bijv. Na opening droog bewaren",
+   "ingredients": "Bijv. 100% geroosterde arabica-koffie",
+   "usage": "Bijv. Droog bewaren na opening",
    "quantity": "Bijv. 250 g",
    "barcode": "Bijv. 6 123456 789012",
    "price": "Bijv. 2.500",
-   "extra": "Bijv. Geproduceerd in Bafoussam, Kameroen"
+   "extra": "Bijv. Gemaakt in Bafoussam, Kameroen"
   },
   "labels": {
    "packaging": "Verpakking",
@@ -583,7 +587,7 @@
    "usage": "Gebruiksaanwijzing",
    "quantity": "Hoeveelheid",
    "barcode": "Barcode",
-   "expiry": "Houdbaarheid",
+   "expiry": "Vervaldatum",
    "production": "Productie",
    "price": "Prijs",
    "extra": "Overige info"
@@ -593,36 +597,36 @@
   "modes": {
    "login": [
     "Welkom terug bij Edify",
-    "Log in om uw verpakkingsprojecten te openen.",
+    "Log in om je verpakkingsprojecten terug te vinden.",
     "Inloggen"
    ],
    "signup": [
-    "Maak uw account aan",
-    "Uw antwoorden worden opgeslagen: de AI ontwerpt uw verpakking direct daarna.",
-    "Mijn account aanmaken"
+    "Maak je account aan",
+    "Je antwoorden zijn opgeslagen: de AI ontwerpt je verpakking direct daarna.",
+    "Maak mijn account aan"
    ],
    "forgot": [
     "Wachtwoord vergeten",
-    "Voer uw e-mailadres in en we sturen u een link om een nieuw wachtwoord te kiezen.",
-    "Link versturen"
+    "Voer je e-mailadres in en we sturen je een link om een nieuwe te kiezen.",
+    "Verstuur de link"
    ],
    "reset": [
     "Nieuw wachtwoord",
-    "Kies een wachtwoord van minimaal 8 tekens.",
-    "Wachtwoord opslaan"
+    "Kies een wachtwoord van ten minste 8 tekens.",
+    "Sla het wachtwoord op"
    ]
   },
   "google": "Doorgaan met Google",
-  "or": "of met uw e-mailadres",
-  "name": "Uw naam",
+  "or": "of met je e-mailadres",
+  "name": "Je naam",
   "namePh": "Bijv. Awa Nkoulou",
   "email": "E-mailadres",
-  "emailPh": "uw.naam@voorbeeld.com",
+  "emailPh": "jij@voorbeeld.com",
   "password": "Wachtwoord",
   "newPassword": "Nieuw wachtwoord",
   "forgot": "Wachtwoord vergeten?",
-  "passPh": "Uw wachtwoord",
-  "passNewPh": "Minimaal 8 tekens",
+  "passPh": "Je wachtwoord",
+  "passNewPh": "Ten minste 8 tekens",
   "show": "Wachtwoord tonen",
   "hide": "Wachtwoord verbergen",
   "noAccount": "Nog geen account?",
@@ -630,108 +634,108 @@
   "already": "Al geregistreerd?",
   "login": "Inloggen",
   "back": "Terug naar inloggen",
-  "legal": "Door een account aan te maken gaat u akkoord met de gebruiksvoorwaarden van Edify.",
-  "checkMail": "Controleer uw inbox",
-  "sentSignup": "We hebben een bevestigingslink gestuurd naar {email}. Klik erop om uw account te activeren en de studio te openen.",
-  "sentReset": "Als er een account bestaat voor {email}, ontvangt u een link om een nieuw wachtwoord in te stellen.",
-  "spam": "Na enkele minuten nog niets ontvangen? Controleer uw spambox.",
+  "legal": "Door een account aan te maken, accepteer je de gebruiksvoorwaarden van Edify.",
+  "checkMail": "Controleer je inbox",
+  "sentSignup": "We hebben een bevestigingslink naar {email} gestuurd. Klik hierop om je account te activeren en de studio te openen.",
+  "sentReset": "Als er een account bestaat voor {email}, ontvang je een link om een nieuw wachtwoord te kiezen.",
+  "spam": "Niets ontvangen na een paar minuten? Controleer je spammap.",
   "notConfigured": "Supabase is niet geconfigureerd (zie .env.local).",
-  "short": "Het wachtwoord moet minimaal 8 tekens lang zijn.",
+  "short": "Het wachtwoord moet ten minste 8 tekens lang zijn.",
   "generic": "Er is iets misgegaan.",
   "errors": {
    "credentials": "Onjuist e-mailadres of wachtwoord.",
-   "notConfirmed": "Bevestig eerst uw adres: klik op de link die we u per e-mail hebben gestuurd.",
-   "exists": "Er bestaat al een account met dit e-mailadres. Log in plaats daarvan in.",
-   "weak": "Wachtwoord te zwak: minimaal 8 tekens met letters en cijfers.",
+   "notConfirmed": "Bevestig eerst je adres: klik op de link die we je hebben gemaild.",
+   "exists": "Er bestaat al een account met dit e-mailadres. Log in in plaats daarvan.",
+   "weak": "Wachtwoord te zwak: ten minste 8 tekens, met letters en cijfers.",
    "rate": "Te veel pogingen. Wacht een paar minuten en probeer het opnieuw.",
-   "same": "Het nieuwe wachtwoord moet anders zijn dan het oude wachtwoord.",
-   "network": "Kan geen verbinding maken. Controleer uw internetverbinding.",
+   "same": "Het nieuwe wachtwoord moet verschillen van het oude.",
+   "network": "Kan geen verbinding maken. Controleer je internetverbinding.",
    "suspended": "Dit account is opgeschort. Neem contact met ons op voor meer informatie."
   },
   "side": {
-   "quote": "Omschrijf uw product. Edify regelt de verpakking.",
+   "quote": "Beschrijf je product. Edify zorgt voor de verpakking.",
    "points": [
     "Compleet ontwerp gegenereerd door AI",
-    "Tweetalige etiketgegevens en een echte barcode",
-    "Drukklaar PDF-bestand voor uw drukker"
+    "Tweetalige labeltekst en een echte barcode",
+    "Printklare PDF voor je drukker"
    ]
   }
  },
  "billing": {
   "back": "Terug",
-  "title": "Kies uw pakket",
-  "sub": "Eenmalige betaling via Mobile Money voor de gekozen periode. Geen automatische incasso: waardeer op wanneer u wilt.",
-  "current": "Huidig pakket: {plan}, actief tot {date} · nog {credits} AI-ontwerpen over.",
-  "none": "U heeft nog geen actief pakket.",
-  "duration": "Looptijd",
+  "title": "Kies je abonnement",
+  "sub": "Eenmalige Mobile Money-betaling voor de periode die je kiest. Geen automatische afschrijving: waard op wanneer je maar wilt.",
+  "current": "Huidig abonnement: {plan}, actief tot {date} · nog {credits} AI-ontwerpen over.",
+  "none": "Je hebt nog geen actief abonnement.",
+  "duration": "Duur",
   "month": "1 maand",
   "months": "{n} maanden",
   "save": "−{p}%",
   "total": "Totaal te betalen",
   "includes": "{credits} AI-ontwerpen inbegrepen voor de periode",
-  "pay": "Betalen met Mobile Money",
-  "paying": "Doorsturen naar betaling…",
-  "secure": "Veilige betaling via SasPay. U kiest MTN MoMo of Orange Money en bevestigt vervolgens op uw telefoon.",
-  "unavailable": "Betalen via Mobile Money wordt zeer binnenkort ingeschakeld. Stuur ons een bericht via de contactpagina om uw pakket nu direct te activeren.",
-  "error": "De betaling kon niet worden gestart. Probeer het over een ogenblik opnieuw.",
+  "pay": "Betaal met Mobile Money",
+  "paying": "Doorverwijzen naar betaling…",
+  "secure": "Veilige betaling via SasPay. Je kiest MTN MoMo of Orange Money en bevestigt dit vervolgens op je telefoon.",
+  "unavailable": "Mobile Money-betaling wordt zeer binnenkort ingeschakeld. Stuur ons een bericht via de contactpagina om je abonnement direct te activeren.",
+  "error": "De betaling kan niet worden gestart. Probeer het over een moment opnieuw.",
   "return": {
    "checking": [
-    "Uw betaling controleren…",
-    "We verifiëren uw betaling bij de provider."
+    "Je betaling wordt gecontroleerd…",
+    "We bevestigen je betaling bij de operator."
    ],
    "paid": [
-    "Betaling bevestigd, hartelijk dank!",
-    "Uw pakket is nu actief."
+    "Betaling bevestigd, bedankt!",
+    "Je abonnement is actief."
    ],
    "pending": [
-    "Betaling in behandeling",
-    "Bevestig de betaling op uw telefoon (Mobile Money-pincode). Deze pagina wordt automatisch bijgewerkt."
+    "Betaling in afwachting",
+    "Bevestig de betaling op je telefoon (Mobile Money-pincode). Deze pagina wordt automatisch bijgewerkt."
    ],
    "failed": [
     "De betaling is niet gelukt",
-    "Er is niets in rekening gebracht. U kunt het opnieuw proberen."
+    "Er is niets in rekening gebracht. Je kunt het opnieuw proberen."
    ],
    "cancelled": [
     "Betaling geannuleerd",
     "Er is niets in rekening gebracht."
    ],
    "error": [
-    "We konden de betaling niet verifiëren",
-    "Probeer het zo dadelijk opnieuw of neem contact met ons op."
+    "We konden de betaling niet controleren",
+    "Probeer het over een moment opnieuw of neem contact met ons op."
    ],
-   "studio": "Mijn verpakking maken",
-   "retry": "Betaling opnieuw proberen",
+   "studio": "Maak mijn verpakking",
+   "retry": "Probeer de betaling opnieuw",
    "credits": "{n} AI-ontwerpen beschikbaar",
    "until": "actief tot {date}"
   }
  },
  "meta": {
-  "title": "Edify — Ontwerp uw verpakking met AI in enkele minuten",
-  "short": "Edify — Uw verpakking, ontworpen door AI",
-  "description": "Beantwoord een paar vragen en de AI van Edify ontwerpt uw verpakking: vorm, artwork, tweetalige FR/EN-etiketgegevens, 3D-mock-up en drukklaar PDF-bestand. Betaal met Mobile Money.",
-  "start": "Start uw verpakking",
-  "startDescription": "Beantwoord een paar vragen: Edify's AI ontwerpt uw complete verpakking.",
-  "plans": "Pakketten"
+  "title": "Edify — Ontwerp je verpakking binnen enkele minuten met AI",
+  "short": "Edify — Je verpakking, ontworpen door AI",
+  "description": "Beantwoord een paar vragen en de AI van Edify ontwerpt je verpakking: vorm, artwork, tweetalige FR/EN labelinformatie, 3D-mockup en printklare PDF. Betaal met Mobile Money.",
+  "start": "Start je verpakking",
+  "startDescription": "Beantwoord een paar vragen: de AI van Edify ontwerpt je complete verpakking.",
+  "plans": "Abonnementen"
  },
  "showcase": {
   "prompts": [
-   "Een bruisende bissapfrisdrank in blik, gewaagd en kleurrijk, voor jongvolwassenen van 20–30 jaar",
-   "Arabica-koffiebonen uit West-Kameroen, merk Terra, ambachtelijke uitstraling",
-   "Baobab glow-serum in een druppelflesje, strakke clean beauty-look",
-   "Premium zwarte thee uit de hooglanden, elegant en ingetogen",
-   "Witte honing uit Mount Oku in een pot, vintage etiket",
-   "Bakbanaanchips voor kinderen, een vrolijke en speelse zak",
-   "Ambachtelijke gembersiroop in een glazen fles, klassiek verfijnd etiket",
-   "Herstellende handcrème, zachte tube, farmaceutische look",
-   "Bloemige eau de parfum, luxueuze roze en gouden fles",
-   "Moringapoeder voor sporters, energieke zwarte pot met neongroene accenten",
-   "Geurkaars met vijg en cederhout, warme en knusse sfeer",
-   "Sesambiscuits in een retro cadeaublik",
-   "Puur ananassap, een fris en eenvoudig drankkarton",
-   "Milde karitébotershampoo, natuurlijke groene fles",
-   "Gaming-energiedrank, slank neonblik",
+   "Een bruisende bissapsoda in een blik, opvallend en kleurrijk, voor 20- tot 30-jarigen",
+   "Arabicakoffiebonen uit West-Kameroen, merk Terra, ambachtelijke uitstraling",
+   "Baobab glow serum in een pipetflesje, clean beauty-look",
+   "Premium zwarte hooglandthee, elegant en ingetogen",
+   "Witte honing uit Mount Oku in een pot, vintage label",
+   "Plantaainchips voor kinderen, een leuke en vrolijke zak",
+   "Ambachtelijke gemberstroop in een glazen fles, klassiek verfijnd label",
+   "Herstellende handcrème, zachte tube, apotheeksfeer",
+   "Bloemige eau de parfum, luxe roze en gouden fles",
+   "Moringapoeder voor sporters, energiek zwart en neon groen potje",
+   "Geurkaars met vijg en ceder, gezellige sfeer",
+   "Sesamkoekjes in een retro geschenkblik",
+   "Puur ananassap, een fris en eenvoudig pak",
+   "Zachte karitébotershampoo, natuurlijke groene fles",
+   "Gaming energiedrank, slank neon blik",
    "Luxe horlogedoos, diepzwart en goud",
-   "Ambachtelijke hete saus met Penja-peper, levendig etiket"
+   "Ambachtelijke hete saus met Penjapeper, levendig label"
   ]
  }
 }

@@ -5,13 +5,13 @@
    "kicker": "KI-gestützter Verpackungsdesigner",
    "h1a": "Beschreiben Sie Ihr Produkt.",
    "h1b": "Erhalten Sie druckfertige Verpackungen.",
-   "lead": "Edify gestaltet Ihre Verpackung mit KI: die Form, das Design, die obligatorischen Etiketteninformationen, das 3D-Mockup und die PDF-Datei für Ihre Druckerei. In wenigen Minuten, ganz ohne Designer.",
+   "lead": "Edify entwirft Ihre Verpackung mit KI: die Form, das Design, die Pflichtangaben auf dem Etikett, das 3D-Mockup und das PDF für Ihre Druckerei. In wenigen Minuten, ganz ohne Designer.",
    "cta": "Jetzt starten",
    "demo": "Demo ansehen",
-   "micro": "Bezahlen Sie mit Mobile Money: MTN MoMo und Orange Money. Ab 3.000 FCFA pro Monat.",
+   "micro": "Bezahlen Sie mit Mobile Money: MTN MoMo und Orange Money. Ab 3.000 FCFA pro Monat, 7 Tage Geld-zurück-Garantie.",
    "proof": [
     "FR/EN-Etiketten",
-    "300-DPI-PDF",
+    "300 dpi PDF",
     "3D-Mockup"
    ]
   },
@@ -22,7 +22,7 @@
    ],
    [
     "84",
-    "visuelle Stile"
+    "Visuals-Stile"
    ],
    [
     "58",
@@ -35,7 +35,7 @@
   ],
   "video": {
    "title": "Edify in Aktion, in 24 Sekunden",
-   "sub": "Ein Satz, eine vollständige Verpackung, eine druckfertige Datei und Visuals für die Markteinführung."
+   "sub": "Ein Satz, eine vollständige Verpackung, eine druckfertige Datei und Visuals zur Markteinführung."
   },
   "cats": {
    "title": "Ein Tool für all Ihre Verpackungen",
@@ -56,7 +56,7 @@
   },
   "live": {
    "title": "Sehen Sie zu, wie die KI eine Verpackung entwirft",
-   "sub": "Ein Briefing, wenige Sekunden und jede Entscheidung, die ein Art Director treffen würde: Behälter, Farben, Schriften, Veredelung."
+   "sub": "Ein Briefing, ein paar Sekunden und jede Entscheidung, die ein Artdirektor treffen würde: Behälter, Farben, Schriftarten, Veredelung."
   },
   "how": {
    "title": "Von einem Satz zur Druckdatei",
@@ -64,20 +64,20 @@
   },
   "studio": {
    "title": "Ein Studio für Nicht-Designer",
-   "sub": "Wählen Sie einen Behälter, einen Stil, eine Schriftart: Der flache Stanzschnitt und das 3D-Mockup aktualisieren sich gleichzeitig.",
-   "alt": "Das Edify-Studio: Behälterkatalog, flacher Stanzschnitt und 3D-Vorschau",
+   "sub": "Wählen Sie einen Behälter, einen Stil, eine Schriftart: Der flache Stanzriss und das 3D-Mockup aktualisieren sich gleichzeitig.",
+   "alt": "Das Edify-Studio: Behälterkatalog, flacher Stanzriss und 3D-Vorschau",
    "callouts": [
     [
      "Drei Tabs",
-     "Der Behälter, der Stil, dann Ihre Texte und Ihr Logo. Nichts weiter."
+     "Der Behälter, der Stil, dann Ihre Texte und Ihr Logo. Nichts mehr."
     ],
     [
      "Eine große Vorschau",
-     "Der Live-Stanzschnitt und die 3D-Ansicht mit einem Klick."
+     "Der Live-Stanzriss und die 3D-Ansicht mit einem Klick."
     ],
     [
      "Ein Button",
-     "„Herunterladen“: Druck-PDF, Werbe-Visual, 3D, Link zum Teilen."
+     "„Herunterladen“: Druck-PDF, Werbe-Visual, 3D, Link teilen."
     ]
    ]
   },
@@ -89,20 +89,20 @@
    ],
    "print": [
     "Druckfertiges PDF",
-    "3 mm Beschnitt, Schnittmarken und ein Vektor-Stanzschnitt auf einer separaten Seite."
+    "3 mm Beschnitt, Schnittmarken und ein Vektor-Stanzriss auf einer separaten Seite."
    ],
    "ai": [
-    "Ein KI-Art-Director",
-    "Er folgt den Codes Ihrer Kategorie, wählt lesbare Farben und schreibt die obligatorischen Etikettentexte auf Französisch und Englisch."
+    "Ein KI-Artdirektor",
+    "Er folgt den Codes Ihrer Kategorie, wählt lesbare Farben und schreibt den Pflichttext für das Etikett auf Französisch und Englisch."
    ],
    "aiSheet": [
     [
      "Briefing",
-     "„West-Kamerun-Arabica, handwerkliches Gefühl“"
+     "„West-Kamerun Arabica, handwerkliches Gefühl“"
     ],
     [
      "Behälter",
-     "Kaffeetüte mit Ventil, 250 g"
+     "Kaffebeutel mit Ventil, 250 g"
     ],
     [
      "Schriftarten",
@@ -112,7 +112,7 @@
    "colours": "Farben",
    "ad": [
     "Werbe-Visuals",
-    "Ihr Produkt in einem Studio inszeniert, in den Formaten Instagram, WhatsApp, Story und Banner."
+    "Ihr Produkt in Szene gesetzt im Studio, im Instagram-, WhatsApp-, Story- und Bannerformat."
    ],
    "numbers": [
     [
@@ -121,7 +121,7 @@
     ],
     [
      "84",
-     "visuelle Stile"
+     "Visuals-Stile"
     ],
     [
      "58",
@@ -129,35 +129,35 @@
     ]
    ],
    "ar": [
-    "Erweiterte Realität (AR)",
-    "Platzieren Sie Ihre Verpackung über Ihr Telefon in Originalgröße auf Ihrem Tisch, bevor Sie sie drucken."
+    "Augmented Reality",
+    "Platzieren Sie Ihre Verpackung in Originalgröße auf Ihrem Tisch, direkt von Ihrem Telefon aus, bevor Sie sie drucken."
    ],
    "packAlt": [
     "3D-Flasche",
-    "Dose für eine Werbung inszeniert"
+    "Dose für eine Werbung in Szene gesetzt"
    ],
-   "dielineAlt": "Stanzschnitt einer Faltschachtel",
+   "dielineAlt": "Stanzriss einer Faltschachtel",
    "face": "Vorderseite"
   },
   "gallery": {
    "title": "Ein Satz, eine Verpackung",
-   "sub": "Jedes Beispiel unten wird von Edifys 3D-Engine anhand des gezeigten Satzes gerendert."
+   "sub": "Jedes Beispiel unten wird von Edifys 3D-Engine aus dem angegebenen Satz gerendert."
   },
   "mockups": {
    "title": "Realistische Mockups, bereit zum Posten",
-   "sub": "Jede Verpackung ist in einem Studio inszeniert: Licht, Schatten, Kulisse. Perfekt für Instagram, WhatsApp, Produktseiten und Pitches bei Händlern.",
+   "sub": "Jede Verpackung ist im Studio inszeniert: Licht, Schatten, Set. Perfekt für Instagram, WhatsApp, Produktseiten und Pitches vor Händlern.",
    "items": [
     [
      "bissap",
-     "Sprudelnder bissap · Pop-Set"
+     "Prasselnder Bissap · Pop-Set"
     ],
     [
      "miel",
-     "Oku-Weißhonig · Natur-Set"
+     "Oku weißer Honig · Natur-Set"
     ],
     [
      "cafe",
-     "West-Kamerun-Arabica · Natur-Set"
+     "West-Kamerun Arabica · Natur-Set"
     ],
     [
      "baobab",
@@ -176,7 +176,7 @@
     [
      "Lieferzeit",
      "Mehrere Wochen",
-     "Wenige Minuten"
+     "Ein paar Minuten"
     ],
     [
      "Budget",
@@ -191,7 +191,7 @@
     [
      "Etiketteninformationen",
      "Selbst überprüfen",
-     "Auf Französisch und Englisch verfasst"
+     "In FR und EN verfasst"
     ],
     [
      "Lieferergebnisse",
@@ -201,13 +201,13 @@
    ]
   },
   "formats": {
-   "title": "Jede Datei, die Sie brauchen",
-   "sub": "Ein Design und jedes Format für Ihre Druckerei, Ihr Geschäft, Ihre sozialen Medien und Ihre Pitches.",
+   "title": "Jedes Format, das Sie brauchen",
+   "sub": "Ein Design und jedes Format für Ihre Druckerei, Ihren Laden, Ihre sozialen Medien und Ihre Pitches.",
    "list": [
     [
      "PDF",
      "Druckdatei",
-     "3 mm Beschnitt, Schnittmarken, Vektor-Stanzschnitt."
+     "3 mm Beschnitt, Schnittmarken, Vektor-Stanzriss."
     ],
     [
      "PNG",
@@ -221,28 +221,28 @@
     ],
     [
      "USDZ",
-     "Erweiterte Realität",
+     "Augmented Reality",
      "Platzieren Sie die Verpackung von einem iPhone aus auf Ihrem Tisch."
     ],
     [
      "ZIP",
      "Komplettes Projekt",
-     "PDF, 3D-Vorschau, Modell und Datenblatt mit einem Klick."
+     "PDF, 3D-Vorschau, Modell und Produktdatenblatt mit einem Klick."
     ],
     [
      "URL",
-     "Link zum Teilen",
+     "Link teilen",
      "Zeigen Sie das Design einem Kunden oder Ihrer Druckerei."
     ]
    ]
   },
   "pricing": {
    "title": "Preise für afrikanische Unternehmer",
-   "sub": "Bezahlen Sie mit Mobile Money, ohne Bankkarte und ohne automatisches Lastschriftverfahren: Laden Sie Ihren Tarif auf, wann immer Sie möchten.",
+   "sub": "Bezahlen Sie mit Mobile Money, ohne Bankkarte und ohne automatische Abbuchung: Laden Sie Ihr Guthaben auf, wann immer Sie möchten.",
    "perMonth": "/ Monat",
    "badge": "Am beliebtesten",
    "choose": "Diesen Tarif wählen",
-   "note": "Sparen Sie 10% bei Zahlung für 3 Monate und 20% für 12 Monate. Sichere Zahlung mit MTN MoMo und Orange Money.",
+   "note": "7 Tage Geld-zurück-Garantie bei Ihrer ersten Zahlung. Sparen Sie 10 % bei Zahlung für 3 Monate und 20 % für 12 Monate. Sichere Zahlung mit MTN MoMo und Orange Money.",
    "momo": "Mobile-Money-Zahlung",
    "plans": {
     "essentiel": {
@@ -252,25 +252,25 @@
       "{credits} KI-Designs pro Monat",
       "„Jetzt starten“-Assistent mit KI-Vorschlägen",
       "97 Behälter, 84 Stile und 58 Schriftarten",
-      "Zweisprachige Pflichtangaben auf dem Etikett und echter EAN-13-Barcode",
+      "Zweisprachiger Pflichttext auf dem Etikett und echter EAN-13-Strichcode",
       "HD-druckfertiges PDF mit Beschnitt und Schnittmarken",
       "360°-3D-Vorschau und Werbe-Visuals",
-      "Unbegrenzte Projekte und Link zum Teilen",
+      "Unbegrenzte Projekte und Share-Link",
       "E-Mail-Support innerhalb von 48 Std."
      ]
     },
     "pro": {
      "name": "Pro",
-     "desc": "Für Marken, die jeden Monat Produkte einführen und erweitern.",
+     "desc": "Für Marken, die jeden Monat Produkte auf den Markt bringen und erweitern.",
      "features": [
       "{credits} KI-Designs pro Monat",
       "Alles in Essential, plus:",
-      "KI-Fotokulissen für Ihre Werbe-Visuals",
+      "KI-Fotostudiosets für Ihre Werbe-Visuals",
       "HD-Visuals für Instagram, WhatsApp, Facebook und TikTok",
-      "3D-Modell und Erweiterte Realität",
+      "3D-Modell und Augmented Reality",
       "Komplettes ZIP-Paket für Ihre Druckerei",
-      "Überprüfung der Etikettentexte durch unser Team (1 Etikett pro Monat)",
-      "Prioritäts-Support auf WhatsApp"
+      "Überprüfung des Etikettentextes durch unser Team (1 Etikett pro Monat)",
+      "Prioritärer Support auf WhatsApp"
      ]
     },
     "entreprise": {
@@ -279,12 +279,12 @@
      "features": [
       "{credits} KI-Designs pro Monat",
       "Alles in Pro, plus:",
-      "Unbegrenzte Marken und Produktpaletten",
+      "Unbegrenzte Marken und Produktsortimente",
       "Konformitätsprüfung all Ihrer Etiketten",
-      "Einführungen bei unseren Partnergruppierungen/Druckereien",
-      "1-stündiges Onboarding (Video oder WhatsApp)",
+      "Einführungen bei unseren Partnerdruckereien",
+      "1-stündige Onboarding-Sitzung (Video oder WhatsApp)",
       "Rechnungen für Ihre Buchhaltung",
-      "Dedizierter Ansprechpartner und frühzeitiger Zugriff auf neue Funktionen"
+      "Dedizierter Ansprechpartner und frühes Zugreifen auf neue Funktionen"
      ]
     }
    }
@@ -306,7 +306,7 @@
     ],
     [
      "Lizenzfreie Schriftarten",
-     "Alle 58 Schriftarten können kostenlos kommerziell genutzt werden."
+     "Alle 58 Schriftarten können ohne Kosten kommerziell genutzt werden."
     ]
    ]
   },
@@ -319,15 +319,15 @@
     ],
     [
      "Naturkosmetikmarken",
-     "Karité, Öle, Seifen: Verpackungen, die Vertrauen erwecken."
+     "Shea, Öle, Seifen: Verpackungen, die Vertrauen erwecken."
     ],
     [
      "KMU und Händler",
-     "die schnell neue Produktlinien einführen."
+     "die schnell neue Produktlinien auf den Markt bringen."
     ],
     [
      "Agenturen und Designer",
-     "die in wenigen Minuten kreative Ansätze pitchen."
+     "die kreative Routen in wenigen Minuten pitchen."
     ]
    ]
   },
@@ -335,24 +335,28 @@
    "title": "Häufig gestellte Fragen",
    "list": [
     [
-     "Muss ich zeichnen oder eine Designsoftware bedienen können?",
-     "Nein. Sie beantworten ein paar Fragen zu Ihrem Produkt, die KI wählt den Behälter, die Farben und Schriftarten aus und schreibt den Text. Sie können danach alles mit wenigen Klicks ändern."
+     "Muss ich zeichnen oder Designsoftware verwenden?",
+     "Nein. Sie beantworten ein paar Fragen zu Ihrem Produkt, die KI wählt Behälter, Farben und Schriftarten aus und schreibt den Text. Sie können danach alles mit wenigen Klicks ändern."
     ],
     [
      "Wie bezahle ich?",
-     "Mit Mobile Money (MTN MoMo oder Orange Money) über das sichere SasPay-Gateway. Es gibt kein automatisches Lastschriftverfahren: Sie bezahlen 1, 3 oder 12 Monate im Voraus und laden nach, wann immer Sie möchten."
+     "Mit Mobile Money (MTN MoMo oder Orange Money) über das sichere SasPay-Gateway. Es gibt keine automatische Abbuchung: Sie bezahlen 1, 3 oder 12 Monate im Voraus und laden auf, wann immer Sie möchten."
     ],
     [
-     "Sind die obligatorischen Etiketteninformationen enthalten?",
-     "Ja. Edify deckt den Produktnamen, die Zutaten, die Nettomenge, Daten, Charge, Hersteller und die Gebrauchsanweisung auf Französisch und Englisch ab, wie es der kamerunische Markt verlangt. Lassen Sie Ihr finales Etikett immer von Ihrer Druckerei oder der zuständigen Behörde (ANOR) überprüfen."
+     "Was ist, wenn Edify nicht das Richtige für mich ist?",
+     "Ihre erste Zahlung beinhaltet eine 7-Tage-Geld-zurück-Garantie, sofern Sie weniger als 3 KI-Designs verwendet haben. Schreiben Sie uns auf WhatsApp oder über das Kontaktformular: Die Rückerstattung wird an Ihre Mobile-Money-Nummer gesendet."
+    ],
+    [
+     "Sind die Pflichtangaben auf dem Etikett enthalten?",
+     "Ja. Edify deckt Produktname, Zutaten, Nettomenge, Daten, Chargennummer, Hersteller und Gebrauchsanweisung auf Französisch und Englisch ab, wie es der kamerunische Markt verlangt. Lassen Sie Ihr finales Etikett immer von Ihrer Druckerei oder der zuständigen Behörde (ANOR) überprüfen."
     ],
     [
      "Ist die Datei wirklich druckfertig?",
-     "Edify erstellt ein PDF mit 3 mm Beschnitt, Schnittmarken und einem Stanzschnitt auf einer separaten Seite. Ihre Druckerei konvertiert es in CMYK und sendet Ihnen vor der Produktion einen Korrekturenabzug zur Freigabe."
+     "Edify erstellt ein PDF mit 3 mm Beschnitt, Schnittmarken und einem Stanzriss auf einer separaten Seite. Ihre Druckerei konvertiert es in CMYK und sendet Ihnen vor der Produktion einen Korrekturabzug zur Freigabe."
     ],
     [
      "Kann ich mein eigenes Logo und meinen Barcode verwenden?",
-     "Ja. Laden Sie Ihr Logo hoch (PNG, SVG oder JPG) und geben Sie Ihren EAN-13-Code ein: Er wird in der richtigen Größe auf der Rückseite der Verpackung abgebildet und die KI übernimmt die Farben Ihres Logos."
+     "Ja. Laden Sie Ihr Logo hoch (PNG, SVG oder JPG) und geben Sie Ihren EAN-13-Code ein: Er wird in der richtigen Größe auf der Rückseite der Verpackung gezeichnet und die KI greift die Farben Ihres Logos auf."
     ],
     [
      "Wem gehören die Designs?",
@@ -362,23 +366,23 @@
   },
   "final": {
    "title": "Ihre nächste Verpackung beginnt hier.",
-   "sub": "Beantworten Sie ein paar Fragen, den Rest erledigt die KI."
+   "sub": "Beantworten Sie ein paar Fragen, die KI erledigt den Rest."
   },
   "packAlt": "{brand} Verpackung, generiert mit Edify",
-  "jsonLd": "Edify entwirft Ihre Verpackung mit KI: Form, Design, obligatorische Etiketteninformationen, 3D-Mockup und druckfertiges PDF in wenigen Minuten."
+  "jsonLd": "Edify entwirft Ihre Verpackung mit KI: Form, Design, Pflichtangaben auf dem Etikett, 3D-Mockup und druckfertiges PDF in wenigen Minuten."
  },
  "site": {
   "nav": {
    "home": "Edify, Startseite",
    "nav": "Hauptnavigation",
-   "login": "Anmelden",
+   "login": "Einloggen",
    "cta": "Jetzt starten",
-   "ctaShort": "Starten",
+   "ctaShort": "Start",
    "open": "Menü öffnen",
    "close": "Menü schließen",
-   "prefs": "Sprache und Thema",
+   "prefs": "Sprache und Design",
    "links": [
-    "Wie es funktioniert",
+    "So funktioniert's",
     "Funktionen",
     "Beispiele",
     "Preise",
@@ -397,7 +401,7 @@
    ],
    "resources": "Ressourcen",
    "resourcesLinks": [
-    "Demovideo",
+    "Demo-Video",
     "FAQ",
     "Kontakt"
    ],
@@ -411,25 +415,25 @@
    "pay": "Mobile-Money-Zahlung: MTN MoMo · Orange Money"
   },
   "toggles": {
-   "language": "Sprache der Website",
+   "language": "Websitesprache",
    "theme": {
-    "system": "Thema: System",
-    "light": "Thema: Hell",
-    "dark": "Thema: Dunkel"
+    "system": "Design: System",
+    "light": "Design: Hell",
+    "dark": "Design: Dunkel"
    },
    "change": "Ändern"
   },
   "cluster": {
-   "label": "Verpackungsbeispiele, entworfen mit Edify",
-   "packAlt": "{brand} Verpackung, generiert mit Edify"
+   "label": "Mit Edify gestaltete Verpackungsbeispiele",
+   "packAlt": "Mit Edify erstellte Verpackung für {brand}"
   },
   "universes": {
-   "cafe": "Kaffee-Universum",
-   "agrumes": "Frucht-Universum",
-   "piquant": "Scharfes Universum",
-   "beaute": "Schönheits-Universum",
-   "miel": "Honig-Universum",
-   "neon": "Neon-Universum"
+   "cafe": "Kaffeewelt",
+   "agrumes": "Fruchtwelt",
+   "piquant": "Gewürzwelt",
+   "beaute": "Schönheitswelt",
+   "miel": "Honigwelt",
+   "neon": "Neonwelt"
   },
   "video": {
    "demo": "Demo",
@@ -443,37 +447,37 @@
   "live": {
    "aria": "Edify-Studio-Demo",
    "brief": "Ihr Briefing",
-   "designing": "Wird entworfen…",
+   "designing": "Gestaltung läuft…",
    "generate": "Generieren",
    "container": "Behälter",
    "colours": "Farben",
-   "fonts": "Schriften",
+   "fonts": "Schriftarten",
    "and": "und",
-   "finish": "Veredelung",
-   "packAlt": "Generierte {brand} Verpackung"
+   "finish": "Fertigstellen",
+   "packAlt": "Generierte Verpackung für {brand}"
   },
   "story": {
    "steps": [
     [
      "Ein paar Antworten",
-     "Sie beschreiben das Produkt, Ihre Marke und deren Details. Das ist alles, was Edify von Ihnen verlangt."
+     "Sie beschreiben das Produkt, Ihre Marke und die Details. Mehr verlangt Edify nicht von Ihnen."
     ],
     [
-     "Ein flacher Stanzschnitt, bereit zum Schneiden",
-     "Die KI platziert Ihr Design auf der echten Vorlage des Behälters: Flächen, Laschen, Klebelasche, Beschnitt."
+     "Eine flache Stanzkontur, bereit zum Schneiden",
+     "Die KI platziert Ihr Design auf der echten Vorlage des Behälters: Seitenflächen, Laschen, Klebenaht, Beschnitt."
     ],
     [
      "Ein 3D-Mockup",
-     "Dasselbe Design, im Studio gefaltet und beleuchtet. Drehen Sie das Produkt, ändern Sie den Text, alles aktualisiert sich."
+     "Dasselbe Design, gefaltet und im Studio ausgeleuchtet. Drehen Sie das Produkt, ändern Sie den Text – alles wird sofort aktualisiert."
     ],
     [
-     "Ein Visual für die Markteinführung",
-     "Mit einem Klick erhalten Sie ein Werbebild, bereit für Instagram, WhatsApp, Produktseiten oder Messen."
+     "Ein Bild für den Verkaufsstart",
+     "Mit einem Klick erhalten Sie ein fertiges Werbebild für Instagram, WhatsApp, Produktseiten oder Messen."
     ]
    ],
-   "dielineAlt": "Flacher Stanzschnitt mit Schnittlinien",
+   "dielineAlt": "Flache Stanzkontur mit Schnittlinien",
    "mockAlt": "3D-Mockup der Teeschachtel",
-   "adAlt": "Generiertes Werbe-Visual"
+   "adAlt": "Generiertes Werbebild"
   },
   "marquee": {
    "aria": "Verpackungsbeispiele aus allen Kategorien"
@@ -491,34 +495,34 @@
  },
  "wizard": {
   "title": "Verpackung erstellen",
-  "close": "Beenden",
+  "close": "Schließen",
   "step": "Schritt {n} von {total}",
   "back": "Zurück",
   "next": "Weiter",
   "skip": "Überspringen",
   "finish": "Meine Verpackung erstellen",
-  "required": "Diese Antwort wird benötigt, um fortzufahren.",
+  "required": "Diese Angabe ist erforderlich, um fortzufahren.",
   "aiTitle": "KI-Vorschläge",
   "aiMore": "Weitere Ideen",
   "aiLoading": "Die KI denkt nach…",
   "aiHint": "Tippen Sie auf einen Vorschlag, um ihn zu verwenden, und bearbeiten Sie ihn bei Bedarf.",
   "yes": "Ja, ich habe ein Logo",
   "no": "Noch nicht",
-  "upload": "Mein Logo hochladen",
+  "upload": "Logo hochladen",
   "uploadHint": "PNG, SVG oder JPG · Sie können es auch später hinzufügen",
   "noLogo": "Kein Problem: Die KI erstellt ein elegantes Monogramm aus Ihrem Markennamen.",
   "logoColours": "Die KI verwendet die Farben Ihres Logos.",
   "remove": "Entfernen",
-  "barcodeOk": "Gültiger Code: Er wird als echter EAN-13-Barcode gedruckt.",
-  "barcodeBad": "Dieser Code ist nicht gültig (die letzte Ziffer sollte {digit} sein). Überprüfen Sie ihn oder lassen Sie ihn leer.",
+  "barcodeOk": "Gültiger Code: Er wird als echter EAN-13-Strichcode gedruckt.",
+  "barcodeBad": "Dieser Code ist ungültig (die letzte Ziffer sollte {digit} sein). Überprüfen Sie ihn oder lassen Sie ihn leer.",
   "barcodeFormat": "Ein EAN-13-Code hat 13 Ziffern (oder 12 für einen UPC).",
-  "barcodeNone": "Noch kein Barcode? Sie können ihn später im Studio hinzufügen. Codes werden von GS1 Cameroon ausgestellt.",
+  "barcodeNone": "Noch kein Strichcode? Sie können ihn später im Studio hinzufügen. Codes werden von GS1 Cameroon ausgestellt.",
   "currency": "FCFA",
   "review": "Alles bereit!",
-  "reviewSub": "Überprüfen Sie Ihre Antworten. Die KI entwirft alles anhand dieser Informationen: Behälter, Farben, Schriften, Text und zweisprachige Etiketteninformationen.",
+  "reviewSub": "Überprüfen Sie Ihre Angaben. Die KI entwirft alles basierend auf diesen Informationen: Behälter, Farben, Schriften, Texte und zweisprachige Etiketteninformationen.",
   "edit": "Bearbeiten",
   "empty": "—",
-  "saving": "Vorbereitung…",
+  "saving": "Wird vorbereitet…",
   "q": {
    "packaging": [
     "Welche Verpackung möchten Sie erstellen?",
@@ -526,49 +530,49 @@
    ],
    "brand": [
     "Wie lautet Ihr Markenname?",
-    "Er wird groß auf der Vorderseite gedruckt, genau so, wie Sie ihn eingeben."
+    "Er wird groß auf der Vorderseite gedruckt, genau wie Sie ihn eingeben."
    ],
    "logo": [
     "Haben Sie bereits ein Logo?",
     "Laden Sie es hoch und die KI baut das Design darum herum auf."
    ],
    "ingredients": [
-    "Was sind die Zutaten Ihres Produkts?",
-    "Von den wichtigsten zu den unwichtigsten. Vergessen Sie keine Allergene."
+    "Was sind die Inhaltsstoffe Ihres Produkts?",
+    "Vom wichtigsten zum unwichtigsten. Vergessen Sie Allergene nicht."
    ],
    "usage": [
     "Wie sollte das Produkt verwendet werden?",
-    "Wie das Produkt zu verwenden oder zu lagern ist."
+    "Anwendung oder Aufbewahrung des Produkts."
    ],
    "quantity": [
     "Wie hoch ist das Gewicht oder Volumen?",
     "In Gramm, Kilo, Milliliter oder Liter. Z. B. 250 g, 50 cl."
    ],
    "barcode": [
-    "Haben Sie einen Barcode?",
+    "Haben Sie einen Strichcode?",
     "Geben Sie die Ziffern Ihres EAN-13-Codes ein, falls Sie einen haben."
    ],
    "expiry": [
     "Was ist das Verfallsdatum?",
-    "Das Verfalls- oder Mindesthaltbarkeitsdatum."
+    "Verbrauchsdatum oder Mindesthaltbarkeitsdatum."
    ],
    "production": [
     "Was ist das Produktionsdatum?",
-    "Das Herstellungs- oder Abfülldatum."
+    "Herstellungs- oder Abpackdatum."
    ],
    "price": [
     "Wie hoch ist der Verkaufspreis?",
-    "Optional. Er wird auf der Rückseite der Verpackung angezeigt."
+    "Optional. Er wird auf der Rückseite der Packung angezeigt."
    ],
    "extra": [
     "Gibt es weitere Informationen?",
-    "Herkunft, Lagerung, Kontakt, Allergene, Zertifizierungen…"
+    "Herkunft, Aufbewahrung, Kontakt, Allergene, Zertifizierungen…"
    ]
   },
   "placeholder": {
-   "packaging": "Z. B. Gemahlener Arabica-Kaffee in einer 250-g-Tüte",
+   "packaging": "Z. B. Arabica-Röstkaffee in einer 250-g-Tüte",
    "brand": "Z. B. TERRA",
-   "ingredients": "Z. B. 100% gerösteter Arabica-Kaffee",
+   "ingredients": "Z. B. 100 % Arabica-Röstkaffee",
    "usage": "Z. B. Nach dem Öffnen trocken lagern",
    "quantity": "Z. B. 250 g",
    "barcode": "Z. B. 6 123456 789012",
@@ -580,10 +584,10 @@
    "brand": "Marke",
    "logo": "Logo",
    "ingredients": "Zutaten",
-   "usage": "Gebrauchsanweisung",
+   "usage": "Anwendung",
    "quantity": "Menge",
-   "barcode": "Barcode",
-   "expiry": "Ablauf",
+   "barcode": "Strichcode",
+   "expiry": "Haltbarkeit",
    "production": "Produktion",
    "price": "Preis",
    "extra": "Weitere Infos"
@@ -593,12 +597,12 @@
   "modes": {
    "login": [
     "Willkommen zurück bei Edify",
-    "Melden Sie sich an, um Ihre Verpackungsprojekte wiederzufinden.",
+    "Melden Sie sich an, um Ihre Verpackungsprojekte zu finden.",
     "Anmelden"
    ],
    "signup": [
-    "Erstellen Sie Ihr Konto",
-    "Ihre Antworten sind gespeichert: Die KI entwirft Ihre Verpackung direkt im Anschluss.",
+    "Konto erstellen",
+    "Ihre Antworten sind gespeichert: Die KI gestaltet Ihre Verpackung direkt im Anschluss.",
     "Mein Konto erstellen"
    ],
    "forgot": [
@@ -613,20 +617,20 @@
    ]
   },
   "google": "Mit Google fortfahren",
-  "or": "oder mit Ihrer E-Mail",
+  "or": "oder mit Ihrer E-Mail-Adresse",
   "name": "Ihr Name",
   "namePh": "Z. B. Awa Nkoulou",
   "email": "E-Mail-Adresse",
-  "emailPh": "sie@beispiel.de",
+  "emailPh": "sie@example.com",
   "password": "Passwort",
   "newPassword": "Neues Passwort",
   "forgot": "Passwort vergessen?",
   "passPh": "Ihr Passwort",
   "passNewPh": "Mindestens 8 Zeichen",
   "show": "Passwort anzeigen",
-  "hide": "Passwort verbergen",
+  "hide": "Passwort ausblenden",
   "noAccount": "Noch kein Konto?",
-  "create": "Ein Konto erstellen",
+  "create": "Konto erstellen",
   "already": "Bereits registriert?",
   "login": "Anmelden",
   "back": "Zurück zur Anmeldung",
@@ -639,20 +643,20 @@
   "short": "Das Passwort muss mindestens 8 Zeichen lang sein.",
   "generic": "Etwas ist schiefgelaufen.",
   "errors": {
-   "credentials": "Falsche E-Mail oder falsches Passwort.",
-   "notConfirmed": "Bestätigen Sie zuerst Ihre Adresse: Klicken Sie auf den Link, den wir Ihnen gemailt haben.",
-   "exists": "Mit dieser E-Mail existiert bereits ein Konto. Melden Sie sich stattdessen an.",
-   "weak": "Passwort zu schwach: mindestens 8 Zeichen, mit Buchstaben und Zahlen.",
+   "credentials": "Falsche E-Mail-Adresse oder falsches Passwort.",
+   "notConfirmed": "Bestätigen Sie zuerst Ihre Adresse: Klicken Sie auf den Link, den wir Ihnen per E-Mail gesendet haben.",
+   "exists": "Unter dieser E-Mail-Adresse existiert bereits ein Konto. Melden Sie sich stattdessen an.",
+   "weak": "Passwort zu schwach: Mindestens 8 Zeichen, mit Buchstaben und Zahlen.",
    "rate": "Zu viele Versuche. Warten Sie ein paar Minuten und versuchen Sie es erneut.",
    "same": "Das neue Passwort muss sich vom alten unterscheiden.",
-   "network": "Verbindung nicht möglich. Überprüfen Sie Ihren Internetzugang.",
+   "network": "Verbindung fehlgeschlagen. Überprüfen Sie Ihren Internetzugang.",
    "suspended": "Dieses Konto ist gesperrt. Kontaktieren Sie uns für weitere Informationen."
   },
   "side": {
    "quote": "Beschreiben Sie Ihr Produkt. Edify kümmert sich um die Verpackung.",
    "points": [
     "Vollständiges Design, generiert durch KI",
-    "Zweisprachige Etikettentexte und ein echter Barcode",
+    "Zweisprachiger Etikettentext und ein echter Barcode",
     "Druckfertiges PDF für Ihre Druckerei"
    ]
   }
@@ -660,24 +664,24 @@
  "billing": {
   "back": "Zurück",
   "title": "Wählen Sie Ihren Tarif",
-  "sub": "Einmalige Mobile-Money-Zahlung für den von Ihnen gewählten Zeitraum. Kein automatisches Lastschriftverfahren: Laden Sie auf, wann immer Sie möchten.",
-  "current": "Aktueller Tarif: {plan}, aktiv bis {date} · {credits} KI-Designs übrig.",
+  "sub": "Einmalige Mobile-Money-Zahlung für den von Ihnen gewählten Zeitraum. Keine automatische Abbuchung: Laden Sie Ihr Guthaben auf, wann immer Sie möchten.",
+  "current": "Aktueller Tarif: {plan}, aktiv bis {date} · {credits} verbleibende KI-Designs.",
   "none": "Sie haben noch keinen aktiven Tarif.",
   "duration": "Laufzeit",
   "month": "1 Monat",
   "months": "{n} Monate",
   "save": "−{p}%",
-  "total": "Zu zahlen",
-  "includes": "{credits} KI-Designs für den Zeitraum enthalten",
+  "total": "Gesamtbetrag",
+  "includes": "{credits} KI-Designs für den Zeitraum inklusive",
   "pay": "Mit Mobile Money bezahlen",
   "paying": "Weiterleitung zur Zahlung…",
-  "secure": "Sichere Zahlung über SasPay. Sie wählen MTN MoMo oder Orange Money aus und bestätigen dann auf Ihrem Telefon.",
-  "unavailable": "Die Mobile-Money-Zahlung wird in Kürze freigeschaltet. Schreiben Sie uns über die Kontaktseite, um Ihren Tarif sofort zu aktivieren.",
-  "error": "Die Zahlung konnte nicht gestartet werden. Bitte versuchen Sie es in einem Moment noch einmal.",
+  "secure": "Sichere Zahlung über SasPay. Wählen Sie MTN MoMo oder Orange Money und bestätigen Sie anschließend auf Ihrem Telefon.",
+  "unavailable": "Die Zahlung per Mobile Money wird in Kürze freigeschaltet. Kontaktieren Sie uns über die Kontaktseite, um Ihren Tarif sofort zu aktivieren.",
+  "error": "Die Zahlung konnte nicht gestartet werden. Bitte versuchen Sie es in Kürze erneut.",
   "return": {
    "checking": [
-    "Zahlung wird überprüft…",
-    "Wir bestätigen Ihre Zahlung beim Anbieter."
+    "Zahlung wird geprüft…",
+    "Wir bestätigen Ihre Zahlung mit dem Anbieter."
    ],
    "paid": [
     "Zahlung bestätigt, vielen Dank!",
@@ -685,10 +689,10 @@
    ],
    "pending": [
     "Zahlung ausstehend",
-    "Bestätigen Sie die Zahlung auf Ihrem Telefon (Mobile-Money-PIN). Diese Seite aktualisiert sich von selbst."
+    "Bestätigen Sie die Zahlung auf Ihrem Telefon (Mobile Money PIN). Diese Seite aktualisiert sich automatisch."
    ],
    "failed": [
-    "Die Zahlung ist fehlgeschlagen",
+    "Die Zahlung war nicht erfolgreich",
     "Es wurde nichts abgebucht. Sie können es erneut versuchen."
    ],
    "cancelled": [
@@ -697,41 +701,41 @@
    ],
    "error": [
     "Die Zahlung konnte nicht überprüft werden",
-    "Versuchen Sie es in einem Moment noch einmal oder kontaktieren Sie uns."
+    "Versuchen Sie es in Kürze erneut oder kontaktieren Sie uns."
    ],
-   "studio": "Meine Verpackung erstellen",
+   "studio": "Mein Verpackungsdesign erstellen",
    "retry": "Zahlung erneut versuchen",
    "credits": "{n} KI-Designs verfügbar",
    "until": "aktiv bis {date}"
   }
  },
  "meta": {
-  "title": "Edify — Gestalten Sie Ihre Verpackung in wenigen Minuten mit KI",
-  "short": "Edify — Ihre Verpackung, von KI gestaltet",
-  "description": "Beantworten Sie ein paar Fragen und Edifys KI gestaltet Ihre Verpackung: Form, Design, zweisprachige FR/EN-Etiketteninformationen, 3D-Mockup und druckfertiges PDF. Bezahlen Sie mit Mobile Money.",
-  "start": "Starten Sie Ihre Verpackung",
-  "startDescription": "Beantworten Sie ein paar Fragen: Edifys KI gestaltet Ihre vollständige Verpackung.",
+  "title": "Edify — Designen Sie Ihre Verpackung in Minuten mit KI",
+  "short": "Edify — Ihre Verpackung, entworfen von KI",
+  "description": "Beantworten Sie ein paar Fragen und die KI von Edify entwirft Ihre Verpackung: Form, Design, zweisprachige FR/EN-Etiketteninformationen, 3D-Mockup und druckfertiges PDF. Bezahlen Sie mit Mobile Money.",
+  "start": "Verpackung erstellen",
+  "startDescription": "Beantworten Sie ein paar Fragen: Die KI von Edify entwirft Ihre komplette Verpackung.",
   "plans": "Tarife"
  },
  "showcase": {
   "prompts": [
-   "Ein sprudelndes Bissap-Getränk in einer Dose, auffällig und farbenfroh, für 20- bis 30-Jährige",
-   "Arabica-Kaffeebohnen aus West-Kamerun, Marke Terra, handwerkliches Gefühl",
+   "Eine prickelnde Bissap-Limo in einer Dose, auffällig und farbenfroh, für 20- bis 30-Jährige",
+   "Arabica-Kaffeebohnen aus Westkamerun, Marke TERRA, handwerkliches Gefühl",
    "Baobab Glow Serum in einer Pipettenflasche, Clean-Beauty-Look",
-   "Premium-Hochland-Schwarzer-Tee, elegant und dezent",
-   "Weißer Honig vom Mount Oku in einem Glas, Vintage-Etikett",
-   "Kochbananenchips für Kinder, eine lustige und fröhliche Tüte",
-   "Handwerklicher Ingwersirup in einer Glasflasche, klassisch raffiniertes Etikett",
+   "Erlesener Hochland-Schwarzwaldtee, elegant und dezent",
+   "Weisser Honig vom Mount Oku im Glas, Vintage-Etikett",
+   "Kochbananenchips für Kinder, eine fröhliche und verspielte Tüte",
+   "Handwerklicher Ingwersirup in einer Glasflasche, klassisch-raffiniertes Etikett",
    "Reparierende Handcreme, weiche Tube, Apotheken-Look",
    "Florales Eau de Parfum, luxuriöse rosa-goldene Flasche",
-   "Moringa-Pulver für Sportler, energetischer schwarzer und neongrüner Behälter",
-   "Duftkerze mit Feige und Zedernholz, gemütliche Stimmung",
+   "Moringa-Pulver für Sportler, energiegeladener Behälter in Schwarz und Neongrün",
+   "Duftkerze mit Feige und Zeder, gemütliche Stimmung",
    "Sesamkekse in einer Retro-Geschenkdose",
-   "Reiner Ananassaft, ein frischer und einfacher Karton",
-   "Sanftes Karité-Shampoo, natürliche grüne Flasche",
+   "Reiner Ananassaft, ein frischer und schlichter Karton",
+   "Mildes Shampoo mit karité/shea, natürliche grüne Flasche",
    "Gaming-Energy-Drink, schmale Neon-Dose",
-   "Luxuriöse Uhrenbox, tiefes Schwarz und Gold",
-   "Handwerkliche scharfe Soße mit Penja-Pfeffer, lebendiges Etikett"
+   "Luxus-Uhrenbox, tiefes Schwarz und Gold",
+   "Handgemachte scharfe Sosse mit Penja-Pfeffer, lebendiges Etikett"
   ]
  }
 }

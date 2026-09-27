@@ -2,6 +2,7 @@ import { requireAdmin } from "@/lib/admin/auth";
 import { audit } from "@/lib/admin/log";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { settlePayment, type PaymentRow } from "@/lib/billing/settle";
+import { refundEligibility } from "@/lib/admin/data";
 
 export const runtime = "nodejs";
 
@@ -32,6 +33,19 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     const { data: ok } = await db.rpc("activate_payment", { p_payment: payment.id });
     await audit(admin, "Paiement validé manuellement", target, { activated: ok });
     return Response.json({ ok: true, status: "paid" });
+  }
+  if (action === "refund") {
+    const check = await refundEligibility(payment as PaymentRow & { paid_at: string | null });
+    if (!check.eligible) return Response.json({ error: `Non éligible : ${check.reason}` }, { status: 400 });
+    const { data: pay } = await db.from("payments").select("credits").eq("id", payment.id).single();
+    const { data: prof } = await db.from("profiles").select("credits").eq("id", payment.user_id).single();
+    await db.from("payments").update({ status: "refunded", refunded_at: new Date().toISOString() }).eq("id", payment.id).eq("status", "paid");
+    await db
+      .from("profiles")
+      .update({ plan_expires_at: new Date().toISOString(), credits: Math.max(0, (prof?.credits ?? 0) - (pay?.credits ?? 0)) })
+      .eq("id", payment.user_id);
+    await audit(admin, "Paiement remboursé (satisfait ou remboursé)", target, { raison: check.reason });
+    return Response.json({ ok: true, status: "refunded" });
   }
   if (action === "mark_failed" || action === "mark_cancelled") {
     if (payment.status === "paid") return Response.json({ error: "already_paid" }, { status: 400 });

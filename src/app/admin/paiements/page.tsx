@@ -18,7 +18,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: { s
       <div className="ad-kpis is-3">
         <Kpi label="Encaissé" value={money(res.totals.paid)} tone="m" />
         <Kpi label="En attente" value={money(res.totals.pending)} hint="Clients qui n'ont pas encore confirmé sur leur téléphone" tone="y" />
-        <Kpi label="Échoué ou annulé" value={money(res.totals.failed)} tone="k" />
+        <Kpi label="Échoué, annulé ou remboursé" value={money(res.totals.failed + res.totals.refunded)} hint={res.totals.refunded ? `dont ${money(res.totals.refunded)} remboursés` : undefined} tone="k" />
       </div>
       <Card>
         <Filters>
@@ -28,6 +28,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: { s
             <option value="pending">En attente</option>
             <option value="failed">Échoués</option>
             <option value="cancelled">Annulés</option>
+            <option value="refunded">Remboursés</option>
           </select>
         </Filters>
         {res.rows.length ? (
@@ -56,7 +57,7 @@ export default async function PaymentsPage({ searchParams }: { searchParams: { s
                     <td className="is-num">{money(p.amount)}</td>
                     <td className="is-muted">{p.provider === "manual" ? "Manuel" : "SasPay"}</td>
                     <td><PaymentStatus status={p.status} /></td>
-                    <td><PaymentActions id={p.id} status={p.status} hasSession={!!p.session_id && p.provider !== "manual"} /></td>
+                    <td><PaymentActions id={p.id} status={p.status} hasSession={!!p.session_id && p.provider !== "manual"} refund={p.refund} /></td>
                   </tr>
                 ))}
               </tbody>

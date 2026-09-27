@@ -13,7 +13,7 @@ export const LANDING = {
       lead: "Edify conçoit votre emballage avec l'IA : la forme, le design, les mentions obligatoires, la maquette 3D et le PDF pour l'imprimeur. En quelques minutes, sans graphiste.",
       cta: "Commencez maintenant",
       demo: "Voir la démo",
-      micro: "Paiement par Mobile Money : MTN MoMo et Orange Money. Dès 3 000 FCFA par mois.",
+      micro: "Paiement par Mobile Money : MTN MoMo et Orange Money. Dès 3 000 FCFA par mois, satisfait ou remboursé 7 jours.",
       proof: ["Mentions FR/EN", "PDF 300 dpi", "Maquette 3D"],
     },
     stats: [["97", "formes d'emballage"], ["84", "styles visuels"], ["58", "polices libres de droits"], ["300 dpi", "PDF prêt à imprimer"]],
@@ -67,7 +67,7 @@ export const LANDING = {
       perMonth: "/ mois",
       badge: "Le plus choisi",
       choose: "Choisir ce plan",
-      note: "Économisez 10 % en payant 3 mois et 20 % en payant 12 mois. Paiement sécurisé par MTN MoMo et Orange Money.",
+      note: "Satisfait ou remboursé pendant 7 jours sur votre premier paiement. Économisez 10 % en payant 3 mois et 20 % en payant 12 mois. Paiement sécurisé par MTN MoMo et Orange Money.",
       momo: "Paiement Mobile Money",
       plans: {
         essentiel: {
@@ -127,6 +127,7 @@ export const LANDING = {
       list: [
         ["Faut-il savoir dessiner ou utiliser un logiciel de design ?", "Non. Vous répondez à quelques questions sur votre produit, l'IA choisit le contenant, les couleurs, les polices et rédige les textes. Vous pouvez ensuite tout modifier en quelques clics."],
         ["Comment payer ?", "Par Mobile Money (MTN MoMo ou Orange Money), via la passerelle sécurisée SasPay. Il n'y a pas de prélèvement automatique : vous payez 1, 3 ou 12 mois à l'avance et vous rechargez quand vous voulez."],
+        ["Et si Edify ne me convient pas ?", "Votre premier paiement est satisfait ou remboursé pendant 7 jours, tant que vous avez utilisé moins de 3 créations IA. Écrivez-nous sur WhatsApp ou via le formulaire de contact : le remboursement est versé sur votre numéro Mobile Money."],
         ["Les mentions obligatoires sont-elles incluses ?", "Oui. Edify prévoit la dénomination, les ingrédients, la quantité nette, les dates, le lot, le fabricant et le mode d'emploi, en français et en anglais comme l'exige le marché camerounais. Faites toujours valider votre étiquette finale par votre imprimeur ou l'autorité compétente (ANOR)."],
         ["Le fichier est-il vraiment prêt pour l'imprimeur ?", "Edify génère un PDF avec fonds perdus de 3 mm, traits de coupe et tracé de découpe sur une page séparée. Votre imprimeur réalise la conversion CMJN et vous envoie un BAT à valider avant production."],
         ["Puis-je utiliser mon propre logo et mon code-barres ?", "Oui. Importez votre logo (PNG, SVG ou JPG) et saisissez votre code EAN-13 : il est dessiné au bon format sur le dos du packaging, et l'IA reprend les couleurs de votre logo."],
@@ -146,7 +147,7 @@ export const LANDING = {
       lead: "Edify designs your packaging with AI: the shape, the artwork, the mandatory label information, the 3D mockup and the PDF for your printer. In minutes, no designer needed.",
       cta: "Start now",
       demo: "Watch the demo",
-      micro: "Pay with Mobile Money: MTN MoMo and Orange Money. From 3,000 FCFA a month.",
+      micro: "Pay with Mobile Money: MTN MoMo and Orange Money. From 3,000 FCFA a month, 7-day money-back guarantee.",
       proof: ["FR/EN labels", "300 dpi PDF", "3D mockup"],
     },
     stats: [["97", "packaging shapes"], ["84", "visual styles"], ["58", "royalty-free fonts"], ["300 dpi", "print-ready PDF"]],
@@ -200,7 +201,7 @@ export const LANDING = {
       perMonth: "/ month",
       badge: "Most popular",
       choose: "Choose this plan",
-      note: "Save 10% by paying for 3 months and 20% for 12 months. Secure payment with MTN MoMo and Orange Money.",
+      note: "7-day money-back guarantee on your first payment. Save 10% by paying for 3 months and 20% for 12 months. Secure payment with MTN MoMo and Orange Money.",
       momo: "Mobile Money payment",
       plans: {
         essentiel: {
@@ -260,6 +261,7 @@ export const LANDING = {
       list: [
         ["Do I need to draw or use design software?", "No. You answer a few questions about your product, the AI picks the container, colours and fonts and writes the copy. You can then change anything in a few clicks."],
         ["How do I pay?", "With Mobile Money (MTN MoMo or Orange Money), through the secure SasPay gateway. There is no automatic debit: you pay 1, 3 or 12 months upfront and top up whenever you like."],
+        ["What if Edify isn't right for me?", "Your first payment comes with a 7-day money-back guarantee, as long as you have used fewer than 3 AI designs. Message us on WhatsApp or through the contact form: the refund is sent to your Mobile Money number."],
         ["Is the mandatory label information included?", "Yes. Edify covers the product name, ingredients, net quantity, dates, batch, manufacturer and directions, in French and English as the Cameroonian market requires. Always have your final label checked by your printer or the relevant authority (ANOR)."],
         ["Is the file really ready for the printer?", "Edify produces a PDF with 3 mm bleed, crop marks and a die-line on a separate page. Your printer converts it to CMYK and sends you a proof to approve before production."],
         ["Can I use my own logo and barcode?", "Yes. Upload your logo (PNG, SVG or JPG) and type your EAN-13 code: it is drawn at the right size on the back of the pack, and the AI picks up your logo's colours."],

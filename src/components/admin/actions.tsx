@@ -135,10 +135,26 @@ export function UserActions({ user, isSelf }: { user: { id: string; email: strin
 
 // ─── Payments ────────────────────────────────────────────────────────────────
 
-export function PaymentActions({ id, status, hasSession }: { id: string; status: string; hasSession: boolean }) {
+export function PaymentActions({ id, status, hasSession, refund }: { id: string; status: string; hasSession: boolean; refund?: { eligible: boolean; reason: string } | null }) {
   const { busy, msg, run } = useAction(`/api/admin/payments/${id}`);
   const [confirmPaid, setConfirmPaid] = useState(false);
-  if (status === "paid") return null;
+  const [confirmRefund, setConfirmRefund] = useState(false);
+  if (status === "refunded" || status === "cancelled") return null;
+  if (status === "paid") {
+    if (!refund?.eligible) return refund ? <small className="ad-muted-note" title="Satisfait ou remboursé">{refund.reason}</small> : null;
+    return (
+      <div className="ad-row-actions">
+        {confirmRefund ? (
+          <button type="button" className="is-danger" disabled={!!busy} onClick={() => run("refund", { action: "refund" }, "Remboursé : renvoyez l'argent par Mobile Money.")}>
+            <Spin on={busy === "refund"} /> Confirmer le remboursement
+          </button>
+        ) : (
+          <button type="button" disabled={!!busy} onClick={() => setConfirmRefund(true)} title={refund.reason}>Rembourser</button>
+        )}
+        {msg && <small className={msg.ok ? "is-ok" : "is-err"}>{msg.text}</small>}
+      </div>
+    );
+  }
   return (
     <div className="ad-row-actions">
       {hasSession && (
