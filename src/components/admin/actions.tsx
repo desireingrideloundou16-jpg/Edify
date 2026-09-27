@@ -76,7 +76,7 @@ export function UserActions({ user, isSelf }: { user: { id: string; email: strin
         <h3>Crédits et échéance</h3>
         <div className="ad-form-row">
           <label className="ad-field">
-            <span>Créations IA restantes</span>
+            <span>Packagings restants</span>
             <input inputMode="numeric" value={credits} onChange={(e) => setCredits(e.target.value.replace(/\D/g, ""))} />
           </label>
           <button type="button" className="lp-btn lp-btn-ink" disabled={!!busy} onClick={() => run("credits", { action: "set_credits", credits: Number(credits) }, "Crédits mis à jour.")}>

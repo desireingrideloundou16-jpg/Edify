@@ -32,7 +32,7 @@ export default async function UserPage({ params }: { params: { id: string } }) {
 
       <div className="ad-kpis">
         <Kpi label="Abonnement" value={isActive(p) ? PLAN_LABEL[p.plan] : "Aucun"} hint={isActive(p) ? `jusqu'au ${date(p.plan_expires_at)}` : p.plan_expires_at ? `expiré le ${date(p.plan_expires_at)}` : "jamais abonné"} tone="m" />
-        <Kpi label="Créations IA restantes" value={p.credits} tone="c" />
+        <Kpi label="Packagings restants" value={p.credits} tone="c" />
         <Kpi label="Total payé" value={money(paid.reduce((s, x) => s + x.amount, 0))} hint={`${paid.length} paiement(s)`} tone="y" />
         <Kpi label="Designs IA générés" value={designs} hint={`Dernière connexion : ${ago(d.lastSignIn)}`} tone="k" />
       </div>

@@ -9,6 +9,9 @@ import {
 } from "@/lib/ai/designSpec";
 import { PACKAGING_KNOWLEDGE } from "@/lib/ai/packagingKnowledge";
 import { logAiEvent } from "@/lib/admin/log";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { claimPackaging, resolveProject } from "@/lib/billing/packaging";
+import { AI_REGEN_PER_PACKAGING } from "@/lib/billing/plans";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -146,7 +149,7 @@ function withLogoColors(spec: DesignSpec, colors: string[]): DesignSpec {
 }
 
 export async function POST(req: Request) {
-  let body: { prompt?: string; current?: CurrentDesign; reference?: RefFile | null; fresh?: boolean; logoColors?: string[] };
+  let body: { prompt?: string; current?: CurrentDesign; reference?: RefFile | null; fresh?: boolean; logoColors?: string[]; projectId?: string | null };
   try {
     body = await req.json();
   } catch {
@@ -176,8 +179,21 @@ export async function POST(req: Request) {
   if (!profile?.plan_expires_at || new Date(profile.plan_expires_at) <= new Date()) {
     return Response.json({ error: "Un abonnement actif est nécessaire.", reason: "no_plan", credits: available }, { status: 402 });
   }
-  if (available <= 0) {
-    return Response.json({ error: "Vous n'avez plus de crédits IA.", reason: "no_credits", credits: 0 }, { status: 402 });
+  // Quota by packaging: a new packaging needs one left; an already counted one can be
+  // regenerated up to AI_REGEN_PER_PACKAGING times (fair use).
+  const admin = createAdminClient();
+  if (!body.projectId && available <= 0) {
+    return Response.json({ error: "Vous avez utilisé tous vos packagings.", reason: "no_credits", credits: 0 }, { status: 402 });
+  }
+  const project = await resolveProject(admin, user.id, body.projectId);
+  if (!project.counted && available <= 0) {
+    return Response.json({ error: "Vous avez utilisé tous vos packagings.", reason: "no_credits", credits: 0, projectId: project.id }, { status: 402 });
+  }
+  if (project.counted && project.ai_generations >= AI_REGEN_PER_PACKAGING) {
+    return Response.json(
+      { error: `Limite de ${AI_REGEN_PER_PACKAGING} régénérations IA atteinte pour ce packaging.`, reason: "regen_limit", credits: available, projectId: project.id },
+      { status: 429 }
+    );
   }
 
   // Engines in order of quality; each failure falls through to the next one.
@@ -189,9 +205,16 @@ export async function POST(req: Request) {
   for (const engine of engines) {
     try {
       const spec = await engine.run();
-      const { data: remaining } = await supabase.rpc("consume_credit");
+      const remaining = await claimPackaging(admin, user.id, project.id);
+      await admin.from("projects").update({ ai_generations: project.ai_generations + 1 }).eq("id", project.id);
       await logAiEvent(user.id, "design", engine.name);
-      return Response.json({ spec: sanitizeSpec(spec, current), engine: engine.name, credits: typeof remaining === "number" && remaining >= 0 ? remaining : available - 1 });
+      return Response.json({
+        spec: sanitizeSpec(spec, current),
+        engine: engine.name,
+        credits: remaining >= 0 ? remaining : available,
+        projectId: project.id,
+        counted: true,
+      });
     } catch (error) {
       console.error(`[api/design] ${engine.name}`, error);
       await logAiEvent(user.id, "design", engine.name, false);
@@ -204,6 +227,7 @@ export async function POST(req: Request) {
     spec: sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current),
     engine: "local",
     credits: available,
+    projectId: project.id,
     notice: engines.length
       ? `Designer IA indisponible (${failures.join(" ; ")}) : design généré en mode hors ligne.`
       : "Mode hors ligne : ajoutez GEMINI_API_KEY (gratuit) dans .env.local pour activer le designer IA.",

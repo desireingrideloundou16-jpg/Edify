@@ -37,16 +37,18 @@
 | Prix mensuel | **3 000 FCFA** | **9 750 FCFA** | **29 999 FCFA** |
 | 3 mois (−10 %) | 8 100 FCFA | 26 325 FCFA | 80 997 FCFA |
 | 12 mois (−20 %) | 28 800 FCFA | 93 600 FCFA | 287 990 FCFA |
-| Créations IA / mois | 20 | 80 | 300 |
-| Cible | Premier produit, micro-entrepreneur | Marque qui lance ou décline des produits chaque mois | PME, coopérative, agence, gamme complète |
-| Inclus | Assistant « Commencez maintenant » avec suggestions IA, 97 contenants, 84 styles, 58 polices, mentions bilingues + vrai code-barres EAN-13, PDF HD d'impression, aperçu 3D 360°, visuels publicitaires, projets illimités, support e-mail 48 h | Tout Essentiel + décors photo IA, visuels HD réseaux sociaux, modèle 3D et réalité augmentée, pack ZIP imprimeur, relecture des mentions par l'équipe (1 étiquette/mois), support prioritaire WhatsApp | Tout Pro + marques et gammes illimitées, relecture de conformité de toutes les étiquettes, mise en relation avec des imprimeurs partenaires, prise en main d'1 h, facture, interlocuteur dédié, accès en avant-première |
+| Packagings complets / mois | **1** | **une gamme de 5** | **une gamme de 18** |
+| Prix par packaging | 3 000 FCFA | 1 950 FCFA | 1 667 FCFA |
+| Cible | Premier produit, micro-entrepreneur | Marque qui lance une gamme | PME, coopérative, agence, plusieurs gammes |
+| Inclus (tous les plans) | Design par l'IA à partir des réponses, maquette 3D (mockup), image publicitaire avec décors photo IA, PDF d'impression, modèle 3D / réalité augmentée, pack ZIP, mentions bilingues + code-barres EAN-13, retouches et téléchargements illimités | | |
 
 **Pourquoi ces paliers**
-- **3 000 FCFA**, c'est le prix d'un repas au restaurant ou d'un forfait internet. C'est une décision impulsive, qui fait entrer le client. 20 créations suffisent pour un produit et ses variantes.
-- **9 750 FCFA** est le cœur de revenu. L'écart ×3,25 est justifié par ×4 créations, les décors photo IA et la 3D/AR, dont les entrepreneurs ont besoin chaque semaine pour vendre sur WhatsApp, Facebook et Instagram. C'est le plan « Le plus choisi ».
-- **29 999 FCFA** sert d'ancre haute : le service humain (relecture de conformité, imprimeurs partenaires, prise en main) justifie le prix pour les structures et rend le plan Pro raisonnable par comparaison.
-
-**Services humains promis** (à honorer) : relecture des mentions (Pro : 1 étiquette par mois ; Entreprise : toutes), support WhatsApp prioritaire, mise en relation avec des imprimeurs partenaires, séance de prise en main d'1 h.
+- Le client achète un **résultat concret** : des packagings complets (design, mockup, image publicitaire, fichiers d'impression), pas des « crédits ». C'est facile à comprendre et à comparer au prix d'un graphiste (25 000 FCFA et plus pour une seule étiquette).
+- **3 000 FCFA** pour 1 packaging : décision impulsive, qui fait entrer le client.
+- **9 750 FCFA** pour 5 packagings, soit 1 950 FCFA l'unité : le cœur de revenu, pour lancer une gamme. C'est le plan « Le plus choisi ».
+- **29 999 FCFA** pour 18 packagings, soit 1 667 FCFA l'unité : l'ancre haute pour les structures qui gèrent plusieurs gammes.
+- Toutes les fonctionnalités sont incluses dans les trois plans : seul le nombre de packagings change. Aucun service humain n'est promis.
+- Un packaging est décompté à sa première conception par l'IA ou à son premier téléchargement ; ensuite retouches, exports et jusqu'à 15 régénérations IA sont inclus. Les packagings non utilisés sont reportés tant que l'abonnement est actif.
 
 ## 4. Économie unitaire (ordres de grandeur)
 

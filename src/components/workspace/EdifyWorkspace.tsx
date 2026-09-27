@@ -24,9 +24,19 @@ import { hasProFeatures } from "@/lib/billing/plans";
 import { analyzeLogo } from "@/lib/design/logoColors";
 import { saveBlob } from "@/lib/download";
 
+export interface ProjectItem {
+  id: string;
+  name: string;
+  updated_at: string;
+  counted: boolean;
+}
+
 interface SavedProject {
   version: 1;
   content: DesignContent;
+  /** Uploaded logo (data URL), kept with the packaging. */
+  logo?: string | null;
+  logoName?: string | null;
   shapeId: string;
   styleId: string;
   customPalette: string[] | null;
@@ -76,6 +86,9 @@ export function EdifyWorkspace() {
   const [account, setAccount] = useState<{ name: string; email: string; avatar: string | null; isAdmin?: boolean } | null>(null);
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const projectId = useRef<string | null>(null);
+  /** Whether the current project already counts as one of the plan's packagings. */
+  const [projectCounted, setProjectCounted] = useState(false);
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
   const restored = useRef(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
@@ -142,10 +155,16 @@ export function EdifyWorkspace() {
       // A shared link or a landing brief takes precedence over the last saved project.
       const qs = new URLSearchParams(window.location.search);
       const fromLink = window.location.hash.includes("d=") || qs.has("prompt") || qs.has("brief");
-      const { data: last } = await supabase.from("projects").select("id, data").order("updated_at", { ascending: false }).limit(1).maybeSingle();
-      if (last) {
-        projectId.current = last.id;
-        if (!fromLink) restoreSaved(last.data as SavedProject);
+      const { data: list } = await supabase.from("projects").select("id, name, updated_at, counted").order("updated_at", { ascending: false }).limit(100);
+      setProjects((list ?? []) as ProjectItem[]);
+      // A brief or a shared link is a new packaging: it must never overwrite the last one.
+      if (list?.length && !fromLink) {
+        const { data: last } = await supabase.from("projects").select("id, data, counted").eq("id", list[0].id).single();
+        if (last) {
+          projectId.current = last.id;
+          setProjectCounted(!!last.counted);
+          restoreSaved(last.data as SavedProject);
+        }
       }
       restored.current = true;
     })().catch(console.error);
@@ -162,6 +181,8 @@ export function EdifyWorkspace() {
     setHeadingFont(d.headingFont ?? null);
     setBodyFont(d.bodyFont ?? null);
     setContent({ ...DEFAULT_CONTENT, ...d.content });
+    setUploadedLogo(d.logo ?? null);
+    setUploadedLogoName(d.logoName ?? null);
   };
 
   // Autosave (debounced) to Supabase once the account and last project are loaded.
@@ -170,7 +191,7 @@ export function EdifyWorkspace() {
     setSaveState("saving");
     const t = setTimeout(async () => {
       const supabase = createSupabase();
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, logo: uploadedLogo, logoName: uploadedLogoName };
       const row = { name: content.projectName || "Sans titre", data };
       const res = projectId.current
         ? await supabase.from("projects").update(row).eq("id", projectId.current).select("id").single()
@@ -178,9 +199,51 @@ export function EdifyWorkspace() {
       if (res.error) return setSaveState("error");
       projectId.current = res.data.id;
       setSaveState("saved");
+      setProjects((list) => {
+        const item = { id: res.data.id, name: row.name, updated_at: new Date().toISOString(), counted: list.find((p) => p.id === res.data.id)?.counted ?? projectCounted };
+        return [item, ...list.filter((p) => p.id !== res.data.id)];
+      });
     }, 1200);
     return () => clearTimeout(t);
-  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, uploadedLogo, uploadedLogoName]);
+
+  /** Makes sure the packaging exists in the database (needed before the AI or a download). */
+  const ensureProjectId = async () => {
+    if (projectId.current) return projectId.current;
+    const supabase = createSupabase();
+    const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, logo: uploadedLogo, logoName: uploadedLogoName };
+    const { data: row } = await supabase.from("projects").insert({ name: content.projectName || "Nouveau packaging", data }).select("id").single();
+    projectId.current = row?.id ?? null;
+    return projectId.current;
+  };
+
+  /** A download counts the packaging once (first download or first AI design). */
+  const ensurePackagingClaimed = async () => {
+    if (projectCounted) return true;
+    const id = await ensureProjectId();
+    const res = await fetch("/api/packaging/claim", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ projectId: id }) });
+    const json = await res.json().catch(() => ({}));
+    if (typeof json.credits === "number") setCredits(json.credits);
+    if (res.ok) {
+      setProjectCounted(true);
+      setProjects((list) => list.map((p) => (p.id === id ? { ...p, counted: true } : p)));
+      return true;
+    }
+    if (res.status === 402) setPaywall(json.reason === "no_plan" ? "export" : "credits");
+    else showToast("Impossible de vérifier votre abonnement. Réessayez.");
+    return false;
+  };
+
+  const openProject = async (id: string) => {
+    if (id === projectId.current) return;
+    const { data } = await createSupabase().from("projects").select("id, data, counted").eq("id", id).single();
+    if (!data) return;
+    projectId.current = data.id;
+    setProjectCounted(!!data.counted);
+    restoreSaved(data.data as SavedProject);
+    showToast(`Packaging ouvert : ${(data.data as SavedProject)?.content?.projectName ?? ""}`);
+  };
 
   // ── Restore a shared design from the URL (#d=…) ────────────────────────
   useEffect(() => {
@@ -310,6 +373,7 @@ export function EdifyWorkspace() {
     }
     setIsGenerating(true);
     try {
+      const pid = await ensureProjectId();
       const res = await fetch("/api/design", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -317,6 +381,7 @@ export function EdifyWorkspace() {
           prompt,
           reference: reference ? { name: reference.name, mediaType: reference.mediaType, data: reference.data } : null,
           fresh: opts.fresh ?? false,
+          projectId: pid,
           logoColors: opts.logoColors ?? [],
           current: {
             shapeId: shape.id,
@@ -344,13 +409,22 @@ export function EdifyWorkspace() {
         return false;
       }
       if (typeof json.credits === "number") setCredits(json.credits);
+      if (json.projectId) projectId.current = json.projectId;
       if (res.status === 402) {
         setPaywall(json.reason === "no_plan" ? "generate" : "credits");
         return false;
       }
+      if (res.status === 429) {
+        showToast(json.error ?? "Limite de régénérations atteinte pour ce packaging.", 7000);
+        return false;
+      }
+      if (json.counted) {
+        setProjectCounted(true);
+        setProjects((list) => list.map((p) => (p.id === json.projectId ? { ...p, counted: true } : p)));
+      }
       if (!res.ok || !json.spec) throw new Error(json.error || `HTTP ${res.status}`);
       applySpec(json.spec as DesignSpec);
-      const msg = json.engine === "local" ? `Design généré hors ligne (aucun crédit utilisé). ${json.notice ?? ""}` : `✨ ${json.spec.rationale}`;
+      const msg = json.engine === "local" ? `Design généré hors ligne (aucun packaging décompté). ${json.notice ?? ""}` : `✨ ${json.spec.rationale}`;
       showToast(msg, 7000);
       return true;
     } catch (e) {
@@ -437,7 +511,7 @@ export function EdifyWorkspace() {
   };
 
   const exportBusy: ExportAction | null = isExportingPdf ? "pdf" : isExportingZip ? "zip" : null;
-  const handleExport = (a: ExportAction) => {
+  const handleExport = async (a: ExportAction) => {
     if (a !== "share" && planActive === false) {
       setPaywall("export");
       return;
@@ -447,6 +521,7 @@ export function EdifyWorkspace() {
       setPaywall("upgrade");
       return;
     }
+    if (a !== "share" && !(await ensurePackagingClaimed())) return;
     if (a === "pdf") handleDownloadPdf();
     else if (a === "zip") handleDownloadZip();
     else if (a === "ad") setIsAdOpen(true);
@@ -472,6 +547,9 @@ export function EdifyWorkspace() {
         account={account}
         busy={exportBusy}
         onExport={handleExport}
+        projects={projects}
+        currentProjectId={projectId.current}
+        onOpenProject={openProject}
       />
 
       <div className="st-body">

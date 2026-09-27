@@ -5,11 +5,19 @@
  */
 export type PlanId = "essentiel" | "pro" | "entreprise";
 
-export const PLANS: Record<PlanId, { monthly: number; credits: number }> = {
-  essentiel: { monthly: 3000, credits: 20 },
-  pro: { monthly: 9750, credits: 80 },
-  entreprise: { monthly: 29999, credits: 300 },
+/**
+ * packagings = complete packagings per month (AI design + 3D mockup + ad visual + print files).
+ * A packaging is counted the first time the AI designs it or it is downloaded; after that its
+ * edits, exports and AI regenerations (up to AI_REGEN_PER_PACKAGING) are included.
+ */
+export const PLANS: Record<PlanId, { monthly: number; packagings: number }> = {
+  essentiel: { monthly: 3000, packagings: 1 },
+  pro: { monthly: 9750, packagings: 5 },
+  entreprise: { monthly: 29999, packagings: 18 },
 };
+
+/** Fair use: AI regenerations allowed on one packaging. */
+export const AI_REGEN_PER_PACKAGING = 15;
 
 export const PERIODS = [
   { months: 1, discount: 0 },
@@ -19,9 +27,8 @@ export const PERIODS = [
 
 export type Months = (typeof PERIODS)[number]["months"];
 
-/** Features reserved to Pro and Business (the studio and the API both check it). */
-export const PRO_FEATURES = ["ar", "zip", "aiDecor"] as const;
-export const hasProFeatures = (plan: string | null | undefined) => plan === "pro" || plan === "entreprise";
+/** Every plan includes every feature; plans differ by the number of packagings. */
+export const hasProFeatures = (plan: string | null | undefined) => !!plan && plan !== "none";
 
 export const isPlan = (v: unknown): v is PlanId => typeof v === "string" && v in PLANS;
 export const isMonths = (v: unknown): v is Months => PERIODS.some((p) => p.months === v);
@@ -32,5 +39,5 @@ export function priceFor(plan: PlanId, months: Months) {
   return Math.round(PLANS[plan].monthly * months * (1 - discount));
 }
 
-/** AI designs granted for the whole prepaid period. */
-export const creditsFor = (plan: PlanId, months: Months) => PLANS[plan].credits * months;
+/** Packagings granted for the whole prepaid period (stored in profiles.credits). */
+export const creditsFor = (plan: PlanId, months: Months) => PLANS[plan].packagings * months;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SitePage } from "@/components/landing/SiteChrome";
 import { LEGAL } from "@/lib/legal";
-import { PLANS } from "@/lib/billing/plans";
+import { AI_REGEN_PER_PACKAGING, PLANS } from "@/lib/billing/plans";
 
 export const metadata: Metadata = { title: "Conditions d'utilisation" };
 
@@ -21,11 +21,13 @@ export default function Page() {
       <h2>3. Abonnements</h2>
       <p>Edify ne propose pas d&apos;offre gratuite. Trois abonnements sont disponibles :</p>
       <ul>
-        <li><strong>Essentiel</strong> : {fcfa(PLANS.essentiel.monthly)} par mois, {PLANS.essentiel.credits} créations IA par mois.</li>
-        <li><strong>Pro</strong> : {fcfa(PLANS.pro.monthly)} par mois, {PLANS.pro.credits} créations IA par mois, décors photo IA, modèle 3D et réalité augmentée, pack ZIP, relecture d&apos;une étiquette par mois et support prioritaire sur WhatsApp.</li>
-        <li><strong>Entreprise</strong> : {fcfa(PLANS.entreprise.monthly)} par mois, {PLANS.entreprise.credits} créations IA par mois, relecture de conformité des étiquettes, mise en relation avec des imprimeurs partenaires, prise en main d&apos;une heure et facture.</li>
+        <li><strong>Essentiel</strong> : {fcfa(PLANS.essentiel.monthly)} par mois, {PLANS.essentiel.packagings} packaging complet par mois.</li>
+        <li><strong>Pro</strong> : {fcfa(PLANS.pro.monthly)} par mois, une gamme de {PLANS.pro.packagings} packagings complets par mois.</li>
+        <li><strong>Entreprise</strong> : {fcfa(PLANS.entreprise.monthly)} par mois, une gamme de {PLANS.entreprise.packagings} packagings complets par mois.</li>
       </ul>
-      <p>Une génération par l&apos;IA utilise une création ; les retouches et l&apos;aperçu n&apos;en consomment pas. Les téléchargements nécessitent un abonnement actif. Les créations non utilisées restent disponibles tant que l&apos;abonnement est actif.</p>
+      <p>
+        Un <strong>packaging complet</strong> comprend le design réalisé par l&apos;IA, la maquette 3D (mockup), l&apos;image publicitaire, le PDF d&apos;impression et les fichiers 3D. Un packaging est décompté la première fois que l&apos;IA le conçoit ou qu&apos;il est téléchargé ; ses retouches et téléchargements sont ensuite illimités, et l&apos;IA peut le régénérer jusqu&apos;à {AI_REGEN_PER_PACKAGING} fois. Toutes les fonctionnalités sont incluses dans les trois abonnements. Les packagings non utilisés restent disponibles tant que l&apos;abonnement est actif.
+      </p>
 
       <h2>4. Paiement</h2>
       <p>
@@ -34,7 +36,7 @@ export default function Page() {
 
       <h2>5. Satisfait ou remboursé</h2>
       <p>
-        Pour votre <strong>premier paiement</strong>, si Edify ne vous convient pas, vous pouvez demander le remboursement intégral dans les <strong>{LEGAL.refundDays} jours</strong> qui suivent, à condition d&apos;avoir utilisé <strong>moins de {LEGAL.refundMaxDesigns} créations IA</strong>. Faites la demande via le <a href="/contact">formulaire de contact</a> ou sur WhatsApp au <a href={LEGAL.whatsappUrl}>{LEGAL.phone}</a>. Le remboursement est versé sur le numéro Mobile Money ayant servi au paiement, sous 7 jours ouvrés, et l&apos;abonnement est désactivé. Les renouvellements et les paiements suivants ne sont pas remboursables.
+        Pour votre <strong>premier paiement</strong>, si Edify ne vous convient pas, vous pouvez demander le remboursement intégral dans les <strong>{LEGAL.refundDays} jours</strong> qui suivent, à condition de n&apos;avoir utilisé <strong>qu&apos;un seul packaging</strong>. Faites la demande via le <a href="/contact">formulaire de contact</a> ou sur WhatsApp au <a href={LEGAL.whatsappUrl}>{LEGAL.phone}</a>. Le remboursement est versé sur le numéro Mobile Money ayant servi au paiement, sous 7 jours ouvrés, et l&apos;abonnement est désactivé. Les renouvellements et les paiements suivants ne sont pas remboursables.
       </p>
 
       <h2>6. Vos créations</h2>

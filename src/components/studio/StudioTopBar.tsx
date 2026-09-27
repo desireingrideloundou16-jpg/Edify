@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { ChevronDown, Download, FileDown, Megaphone, Archive, Smartphone, Link2, Loader2, LogOut, Sparkles, Pencil, CreditCard, LayoutDashboard } from "lucide-react";
+import { ChevronDown, Download, FileDown, Megaphone, Archive, Smartphone, Link2, Loader2, LogOut, Sparkles, Pencil, CreditCard, LayoutDashboard, FolderOpen, Package, Plus } from "lucide-react";
 import { ThemeToggle } from "@/components/i18n/SiteToggles";
 
 export type ExportAction = "pdf" | "ad" | "zip" | "ar" | "share";
@@ -15,6 +15,10 @@ interface StudioTopBarProps {
   account: { name: string; email: string; avatar: string | null; isAdmin?: boolean } | null;
   busy: ExportAction | null;
   onExport: (a: ExportAction) => void;
+  /** The user's packagings (projects), newest first. */
+  projects: { id: string; name: string; updated_at: string; counted: boolean }[];
+  currentProjectId: string | null;
+  onOpenProject: (id: string) => void;
 }
 
 function useDismiss(open: boolean, close: () => void) {
@@ -41,10 +45,11 @@ const EXPORTS: { id: ExportAction; icon: React.ElementType; label: string; hint:
   { id: "share", icon: Link2, label: "Copier le lien de partage", hint: "Le design s'ouvre tel quel chez la personne" },
 ];
 
-export function StudioTopBar({ projectName, onRename, saveState, credits, onCredits, account, busy, onExport }: StudioTopBarProps) {
+export function StudioTopBar({ projectName, onRename, saveState, credits, onCredits, account, busy, onExport, projects, currentProjectId, onOpenProject }: StudioTopBarProps) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(projectName);
-  const [menu, setMenu] = useState<"export" | "account" | null>(null);
+  const [menu, setMenu] = useState<"export" | "account" | "projects" | null>(null);
+  const projectsRef = useDismiss(menu === "projects", () => setMenu(null));
   const exportRef = useDismiss(menu === "export", () => setMenu(null));
   const accountRef = useDismiss(menu === "account", () => setMenu(null));
 
@@ -92,6 +97,48 @@ export function StudioTopBar({ projectName, onRename, saveState, credits, onCred
             <Pencil className="w-3.5 h-3.5 flex-shrink-0" />
           </button>
         )}
+        <div className="st-menu-wrap" ref={projectsRef}>
+          <button type="button" className="st-projects-btn" aria-haspopup="menu" aria-expanded={menu === "projects"} onClick={() => setMenu(menu === "projects" ? null : "projects")} title="Mes packagings">
+            <FolderOpen className="w-4 h-4" />
+            <span>Mes packagings</span>
+            <ChevronDown className="w-3.5 h-3.5" />
+          </button>
+          {menu === "projects" && (
+            <div className="st-menu st-menu-projects" role="menu">
+              <a href="/commencer" role="menuitem" className="st-menu-link st-menu-new">
+                <span className="st-menu-icon"><Plus className="w-4 h-4" /></span>
+                <span>
+                  <strong>Nouveau packaging</strong>
+                  <small>Répondez à quelques questions, l&apos;IA le conçoit</small>
+                </span>
+              </a>
+              <div className="st-projects-list">
+                {projects.length === 0 && <p className="st-projects-empty">Aucun packaging enregistré pour l&apos;instant.</p>}
+                {projects.map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    role="menuitem"
+                    className={p.id === currentProjectId ? "is-current" : ""}
+                    onClick={() => {
+                      setMenu(null);
+                      onOpenProject(p.id);
+                    }}
+                  >
+                    <span className="st-menu-icon"><Package className="w-4 h-4" /></span>
+                    <span>
+                      <strong>{p.name || "Sans titre"}</strong>
+                      <small>
+                        {new Date(p.updated_at).toLocaleDateString("fr-FR", { day: "numeric", month: "short" })}
+                        {p.counted ? " · compté dans votre abonnement" : " · brouillon"}
+                      </small>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
         {status && (
           <span className={`st-save ${saveState}`} role="status">
             <span className="st-save-dot" /> {status}
@@ -101,9 +148,9 @@ export function StudioTopBar({ projectName, onRename, saveState, credits, onCred
 
       <div className="st-top-actions">
         <ThemeToggle className="st-theme" />
-        <button type="button" className="st-credits" onClick={onCredits} title="Crédits IA restants">
+        <button type="button" className="st-credits" onClick={onCredits} title="Packagings restants dans votre abonnement">
           <Sparkles className="w-4 h-4" />
-          {credits === null ? "…" : `${credits} crédit${credits > 1 ? "s" : ""}`}
+          {credits === null ? "…" : `${credits} packaging${credits > 1 ? "s" : ""}`}
         </button>
 
         <div className="st-menu-wrap" ref={exportRef}>

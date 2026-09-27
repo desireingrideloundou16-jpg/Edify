@@ -15,5 +15,6 @@ export const LEGAL = {
   email: null as string | null,
   host: "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis (à confirmer à la mise en ligne).",
   refundDays: 7,
-  refundMaxDesigns: 3,
+  /** Refund allowed while at most this many packagings were used since the payment. */
+  refundMaxPackagings: 1,
 };

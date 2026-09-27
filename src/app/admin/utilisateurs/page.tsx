@@ -39,7 +39,7 @@ export default async function UsersPage({ searchParams }: { searchParams: { q?: 
                   <th>Utilisateur</th>
                   <th>Abonnement</th>
                   <th>Fin</th>
-                  <th className="is-num">Crédits</th>
+                  <th className="is-num">Packagings</th>
                   <th>Inscrit</th>
                   <th>Dernière activité IA</th>
                 </tr>

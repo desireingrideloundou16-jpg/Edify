@@ -43,8 +43,8 @@ export const SITE = {
     paywall: {
       generate: "Activez votre abonnement pour lancer l'IA",
       export: "Cette fonction fait partie d'un abonnement",
-      credits: "Vous avez utilisé toutes vos créations IA",
-      upgrade: "Disponible à partir du plan Pro",
+      credits: "Vous avez utilisé tous vos packagings de la période",
+      upgrade: "Passez à un plan avec plus de packagings",
       sub: "Votre brief est gardé : il sera généré dès que votre abonnement est actif. Paiement par MTN MoMo ou Orange Money.",
       perMonth: " / mois",
       cta: "Choisir mon abonnement",
@@ -94,8 +94,8 @@ export const SITE = {
     paywall: {
       generate: "Activate your plan to run the AI",
       export: "This feature is part of a plan",
-      credits: "You've used all your AI designs",
-      upgrade: "Available from the Pro plan",
+      credits: "You've used all the packagings of your period",
+      upgrade: "Move to a plan with more packagings",
       sub: "Your brief is saved: it will be generated as soon as your plan is active. Pay with MTN MoMo or Orange Money.",
       perMonth: " / month",
       cta: "Choose my plan",

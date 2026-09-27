@@ -36,14 +36,14 @@ export default async function SettingsPage() {
           <div className="ad-table-wrap">
             <table className="ad-table">
               <thead>
-                <tr><th>Plan</th>{PERIODS.map((p) => <th key={p.months} className="is-num">{p.months} mois</th>)}<th className="is-num">IA / mois</th></tr>
+                <tr><th>Plan</th>{PERIODS.map((p) => <th key={p.months} className="is-num">{p.months} mois</th>)}<th className="is-num">Packagings / mois</th></tr>
               </thead>
               <tbody>
                 {(Object.keys(PLANS) as PlanId[]).map((id) => (
                   <tr key={id}>
                     <td><strong>{NAMES[id]}</strong></td>
                     {PERIODS.map((p) => <td key={p.months} className="is-num">{money(priceFor(id, p.months))}</td>)}
-                    <td className="is-num">{PLANS[id].credits}</td>
+                    <td className="is-num">{PLANS[id].packagings}</td>
                   </tr>
                 ))}
               </tbody>

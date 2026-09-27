@@ -129,7 +129,7 @@ export async function userDetail(id: string) {
 
 /**
  * "Satisfait ou remboursé": first paid payment of the account, within LEGAL.refundDays of
- * payment, with fewer than LEGAL.refundMaxDesigns AI designs generated since.
+ * payment, with at most LEGAL.refundMaxPackagings packaging(s) used since.
  */
 export async function refundEligibility(payment: { id: string; user_id: string; status: string; paid_at: string | null; created_at: string }) {
   if (payment.status !== "paid") return { eligible: false, reason: "Paiement non encaissé" };
@@ -138,9 +138,9 @@ export async function refundEligibility(payment: { id: string; user_id: string; 
   if (Date.now() - new Date(paidAt).getTime() > LEGAL.refundDays * DAY) return { eligible: false, reason: `Plus de ${LEGAL.refundDays} jours` };
   const { data: earlier } = await db.from("payments").select("id").eq("user_id", payment.user_id).in("status", ["paid", "refunded"]).lt("created_at", payment.created_at).limit(1);
   if (earlier?.length) return { eligible: false, reason: "Pas le premier paiement" };
-  const { count } = await db.from("ai_events").select("id", { count: "exact", head: true }).eq("user_id", payment.user_id).eq("kind", "design").eq("success", true).gte("created_at", paidAt);
-  if ((count ?? 0) >= LEGAL.refundMaxDesigns) return { eligible: false, reason: `${count} créations IA utilisées` };
-  return { eligible: true, reason: `${count ?? 0} création(s) IA utilisée(s)` };
+  const { count } = await db.from("projects").select("id", { count: "exact", head: true }).eq("user_id", payment.user_id).eq("counted", true).gte("counted_at", paidAt);
+  if ((count ?? 0) > LEGAL.refundMaxPackagings) return { eligible: false, reason: `${count} packagings utilisés` };
+  return { eligible: true, reason: `${count ?? 0} packaging(s) utilisé(s)` };
 }
 
 export async function listPayments(opts: { status?: string; page?: number }) {

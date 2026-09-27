@@ -11,7 +11,7 @@ export function landingCopy(lang: Lang, messages?: Messages) {
       id,
       name: p.name,
       desc: p.desc,
-      features: p.features.map((f) => fmt(f, { credits: PLANS[id].credits })),
+      features: p.features.map((f) => fmt(f, { n: PLANS[id].packagings })),
       price: fcfa(PLANS[id].monthly, lang),
       featured: id === "pro",
     };

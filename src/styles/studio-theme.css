@@ -171,3 +171,19 @@
   .st-app .st-mini3d { width: 110px; right: 10px; bottom: 10px; border-radius: 16px; }
   .st-app .st-views button { padding: 0 7px; }
 }
+
+/* "Mes packagings" menu */
+.st-app .st-projects-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; border: 1.5px solid var(--line); font-weight: 700; font-size: 13px; color: var(--k); background: var(--surface); white-space: nowrap; }
+.st-app .st-projects-btn:hover, .st-app .st-projects-btn[aria-expanded="true"] { border-color: var(--k); }
+.st-app .st-menu-projects { left: 0; right: auto; width: 340px; }
+.st-app .st-menu-new { border-bottom: 1px solid var(--line); border-radius: 12px 12px 0 0; margin-bottom: 6px; padding-bottom: 12px; }
+.st-app .st-menu-new .st-menu-icon { background: var(--m); color: #fff; }
+.st-app .st-projects-list { max-height: 360px; overflow-y: auto; display: grid; gap: 2px; }
+.st-app .st-projects-list button.is-current { background: var(--soft); }
+.st-app .st-projects-list button.is-current strong::after { content: " · ouvert"; color: var(--m); font-family: var(--body); font-size: 12px; }
+.st-app .st-projects-empty { padding: 12px; font-size: 13px; color: var(--grey); }
+@media (max-width: 900px) {
+  .st-app .st-projects-btn span { display: none; }
+  .st-app .st-projects-btn { padding: 7px 9px; }
+  .st-app .st-menu-projects { width: min(340px, calc(100vw - 20px)); }
+}
