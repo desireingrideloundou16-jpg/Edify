@@ -481,10 +481,10 @@
   },
   "paywall": {
    "generate": "Aktivieren Sie Ihren Tarif, um die KI zu nutzen",
-   "export": "Diese Funktion ist Teil eines Tarifs",
-   "credits": "Sie haben alle Verpackungen Ihres Zeitraums aufgebraucht",
+   "export": "Ihre Verpackung ist fertig: Wählen Sie einen Tarif, um sie herunterzuladen",
+   "credits": "Sie haben alle Verpackungen Ihres Zeitraums heruntergeladen",
    "upgrade": "Wechseln Sie zu einem Tarif mit mehr Verpackungen",
-   "sub": "Ihr Briefing ist gespeichert: Es wird generiert, sobald Ihr Tarif aktiv ist. Bezahlen Sie mit MTN MoMo oder Orange Money.",
+   "sub": "Ihr Design ist in Ihrem Konto gespeichert. Sobald Ihr Tarif aktiv ist, laden Sie das Druck-PDF, das 3D-Mockup und das Werbebild herunter. Bezahlen Sie mit MTN MoMo oder Orange Money.",
    "perMonth": " / Monat",
    "cta": "Meinen Tarif wählen",
    "close": "Schließen"

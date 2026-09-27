@@ -122,6 +122,14 @@ function solid(color: string, opts: Partial<THREE.MeshPhysicalMaterialParameters
 
 const METAL_SILVER = () => solid("#d7dadd", { metalness: 1, roughness: 0.22 });
 
+/** Product seen through a glass or clear plastic container (juice, honey, oil…). */
+function contentFill(d: PackagingDesign, surface: Surface) {
+  const c = d.contentColor;
+  if (!c || !/^#[0-9a-f]{6}$/i.test(c) || (surface !== "glass" && surface !== "clearplastic")) return null;
+  // Opaque on purpose: three.js shows opaque objects through transmissive glass.
+  return new THREE.MeshPhysicalMaterial({ color: c, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.04, sheen: 0.3, sheenColor: new THREE.Color(c) });
+}
+
 // ─── Geometry helpers ────────────────────────────────────────────────────────
 
 function mesh(geo: THREE.BufferGeometry, mat: THREE.Material | THREE.Material[], y = 0) {
@@ -336,6 +344,8 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       const bodyH = H - lidH * 0.85;
       const bodyMat = surface === "glass" ? glassMaterial(material) : solid(bg, { roughness: 0.3, clearcoat: 0.6 });
       g.add(mesh(lathe([[0, 0], [R * 0.9, 0], [R, R * 0.12], [R, bodyH * 0.92], [R * 0.9, bodyH], [R * 0.88, bodyH + lidH * 0.3], [0, bodyH + lidH * 0.3]]), bodyMat));
+      const jarFill = contentFill(d, surface);
+      if (jarFill) g.add(mesh(lathe([[0, R * 0.05], [R * 0.86, R * 0.05], [R * 0.93, R * 0.14], [R * 0.93, bodyH * 0.86], [0, bodyH * 0.86]]), jarFill));
       g.add(mesh(wrapCylinder(R * 1.004, R * 1.004, bodyH * 0.62, Math.PI * 1.4), printed(wrapTexture(d, R * Math.PI * 1.4, bodyH * 0.62, 0.7), fin, "paper"), bodyH * 0.48));
       const lidMat = /pehd/i.test(material) ? solid("#ffffff", { roughness: 0.35 }) : solid(ink, { roughness: 0.3, metalness: /fer|alu/i.test(material) ? 0.9 : 0.2 });
       g.add(mesh(new THREE.CylinderGeometry(R * 0.96, R * 0.96, lidH, 96), lidMat, H - lidH / 2));
@@ -370,6 +380,11 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
         : surface === "metal" ? METAL_SILVER()
         : solid(bg, { roughness: 0.3, clearcoat: 0.7, clearcoatRoughness: 0.1, side: THREE.DoubleSide });
       g.add(mesh(lathe(profile), bodyMat));
+      const bottleFill = contentFill(d, surface);
+      if (bottleFill) {
+        const fr = R * 0.93;
+        g.add(mesh(lathe([[0, R * 0.06], [fr * 0.94, R * 0.06], [fr, R * 0.14], [fr, shoulder * 0.98], [fr * 0.8, shoulder + (neckStart - shoulder) * 0.35], [0, shoulder + (neckStart - shoulder) * 0.35]]), bottleFill));
+      }
 
       const labelH = shoulder * (m === "dropper" ? 0.72 : 0.62);
       const labelY = shoulder * 0.46;

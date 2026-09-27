@@ -50,14 +50,24 @@ export function DevRenders() {
         // /dev-renders?mode=layouts&i=1 → every front layout with a motif, side by side
         const [{ LAYOUTS, MOTIFS }, { drawFace, loadDesignFonts }] = await Promise.all([import("@/lib/artwork/compose"), import("@/lib/artwork/draw")]);
         await loadDesignFonts(design);
+        // &art=bissap → /dev-art/bissap.jpg, &style=flat, &badge=…, &origin=…
+        let art: HTMLImageElement | null = null;
+        if (q.get("art")) {
+          art = new Image();
+          art.src = `/dev-art/${q.get("art")}.jpg`;
+          await art.decode().catch(() => (art = null));
+        }
+        const extras = { art, artStyle: q.get("style") ?? "flat", badge: q.get("badge") ?? "", origin: q.get("origin") ?? "" };
+        const only = q.get("only")?.split(",");
+        const list = LAYOUTS.filter((l) => !only || only.includes(l));
         const c = document.createElement("canvas");
         const W = 300, Hh = 420;
         c.width = W * 5;
-        c.height = Hh * 2;
+        c.height = Hh * Math.ceil(list.length / 5);
         const ctx = c.getContext("2d")!;
-        LAYOUTS.forEach((layout, k) => {
-          const motif = MOTIFS[(k + 1) % MOTIFS.length];
-          drawFace(ctx, (k % 5) * W, Math.floor(k / 5) * Hh, W - 8, Hh - 8, { ...design, layout, motif, tagline: design.tagline || "Récolté à la main" }, "front");
+        list.forEach((layout, k) => {
+          const motif = q.has("motif") ? (q.get("motif") as typeof MOTIFS[number]) : MOTIFS[(k + 1) % MOTIFS.length];
+          drawFace(ctx, (k % 5) * W, Math.floor(k / 5) * Hh, W - 8, Hh - 8, { ...design, ...extras, layout, motif, tagline: design.tagline || "Récolté à la main" }, "front");
         });
         push("layouts", c.toDataURL("image/png"));
       } else if (mode === "landing") {

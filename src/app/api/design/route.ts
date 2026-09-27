@@ -4,18 +4,22 @@ import { z } from "zod";
 import { geminiDesign, GeminiError } from "@/lib/ai/gemini";
 import { createClient as createSupabase } from "@/lib/supabase/server";
 import {
-  SHAPE_IDS, STYLE_IDS, FONT_FAMILIES, LAYOUT_IDS, MOTIF_IDS, catalogForPrompt, localDesign, sanitizeSpec,
+  SHAPE_IDS, STYLE_IDS, FONT_FAMILIES, LAYOUT_IDS, MOTIF_IDS, ART_STYLES, catalogForPrompt, localDesign, sanitizeSpec,
   type CurrentDesign, type DesignSpec,
 } from "@/lib/ai/designSpec";
 import { PACKAGING_KNOWLEDGE } from "@/lib/ai/packagingKnowledge";
 import { DESIGNER_METHOD, DESIGNER_ROLE } from "@/lib/ai/designerPrompt";
 import { logAiEvent } from "@/lib/admin/log";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { claimPackaging, resolveProject } from "@/lib/billing/packaging";
+import { resolveProject } from "@/lib/billing/packaging";
+import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
 import { AI_REGEN_PER_PACKAGING } from "@/lib/billing/plans";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
+
+/** Daily AI designs (fair use): open to every account, more with a plan. */
+const DESIGNS_PER_DAY = { free: 6, plan: 40 };
 
 const Hex = z.string().describe("Couleur hexadécimale #RRGGBB");
 
@@ -26,6 +30,13 @@ const DesignSchema = z.object({
   bodyFont: z.enum(FONT_FAMILIES as [string, ...string[]]),
   layout: z.enum(LAYOUT_IDS as [string, ...string[]]),
   motif: z.enum(MOTIF_IDS as [string, ...string[]]),
+  artStyle: z.enum(ART_STYLES as unknown as [string, ...string[]]),
+  artSubject: z.string().describe("Sujet de l'illustration, en anglais"),
+  badge: z.string(),
+  origin: z.string(),
+  contentColor: z.string(),
+  adHeadline: z.string(),
+  adCta: z.string(),
   palette: z.object({ background: Hex, ink: Hex, accent: Hex, extra: Hex }),
   projectName: z.string(),
   brandName: z.string(),
@@ -158,7 +169,8 @@ export async function POST(req: Request) {
     logoColors: Array.isArray(body.logoColors) ? body.logoColors.filter((c) => /^#[0-9a-f]{6}$/i.test(c)).slice(0, 4) : [],
   };
 
-  // Signed-in users only; credits are checked here and spent only when an AI engine succeeds.
+  // Signed-in users only. Designing is open (the paywall is at download time) within a daily cap;
+  // a packaging counts in the plan when it is first downloaded (api/packaging/claim).
   const supabase = createSupabase();
   const {
     data: { user },
@@ -167,20 +179,16 @@ export async function POST(req: Request) {
   const { data: profile } = await supabase.from("profiles").select("credits, plan_expires_at, suspended").eq("id", user.id).single();
   if (profile?.suspended) return Response.json({ error: "Compte suspendu.", reason: "suspended" }, { status: 403 });
   const available = profile?.credits ?? 0;
-  if (!profile?.plan_expires_at || new Date(profile.plan_expires_at) <= new Date()) {
-    return Response.json({ error: "Un abonnement actif est nécessaire.", reason: "no_plan", credits: available }, { status: 402 });
-  }
-  // Quota by packaging: a new packaging needs one left; an already counted one can be
-  // regenerated up to AI_REGEN_PER_PACKAGING times (fair use).
   const admin = createAdminClient();
-  if (!body.projectId && available <= 0) {
-    return Response.json({ error: "Vous avez utilisé tous vos packagings.", reason: "no_credits", credits: 0 }, { status: 402 });
+  const cap = hasActivePlan(profile) ? DESIGNS_PER_DAY.plan : DESIGNS_PER_DAY.free;
+  if ((await dailyAiCount(admin, user.id, "design")) >= cap) {
+    return Response.json(
+      { error: `Vous avez atteint la limite de ${cap} designs IA pour aujourd'hui. Revenez demain, ou modifiez votre packaging à la main dans le studio.`, reason: "daily_limit", credits: available },
+      { status: 429 }
+    );
   }
   const project = await resolveProject(admin, user.id, body.projectId);
-  if (!project.counted && available <= 0) {
-    return Response.json({ error: "Vous avez utilisé tous vos packagings.", reason: "no_credits", credits: 0, projectId: project.id }, { status: 402 });
-  }
-  if (project.counted && project.ai_generations >= AI_REGEN_PER_PACKAGING) {
+  if (project.ai_generations >= AI_REGEN_PER_PACKAGING) {
     return Response.json(
       { error: `Limite de ${AI_REGEN_PER_PACKAGING} régénérations IA atteinte pour ce packaging.`, reason: "regen_limit", credits: available, projectId: project.id },
       { status: 429 }
@@ -196,16 +204,9 @@ export async function POST(req: Request) {
   for (const engine of engines) {
     try {
       const spec = await engine.run();
-      const remaining = await claimPackaging(admin, user.id, project.id);
       await admin.from("projects").update({ ai_generations: project.ai_generations + 1 }).eq("id", project.id);
       await logAiEvent(user.id, "design", engine.name);
-      return Response.json({
-        spec: sanitizeSpec(spec, current),
-        engine: engine.name,
-        credits: remaining >= 0 ? remaining : available,
-        projectId: project.id,
-        counted: true,
-      });
+      return Response.json({ spec: sanitizeSpec(spec, current), engine: engine.name, credits: available, projectId: project.id, counted: project.counted });
     } catch (error) {
       console.error(`[api/design] ${engine.name}`, error);
       await logAiEvent(user.id, "design", engine.name, false);

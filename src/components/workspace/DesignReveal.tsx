@@ -72,6 +72,7 @@ export function DesignReveal({
   design,
   projectName,
   rationale,
+  onBeforeDownload,
   onDownloadPdf,
   onOpen3d,
 }: {
@@ -82,6 +83,7 @@ export function DesignReveal({
   design: PackagingDesign;
   projectName: string;
   rationale: string | null;
+  onBeforeDownload: () => Promise<boolean>;
   onDownloadPdf: () => void;
   onOpen3d: () => void;
 }) {
@@ -102,6 +104,17 @@ export function DesignReveal({
       const { renderAd } = await import("@/lib/three/adRender");
       const a = await renderAd({ spec, design, scene: "podium", format: "square", withCopy: true, seed: 3, scale: 0.6 }).catch(() => null);
       if (alive) setAd(a);
+      // Then the real campaign look: a photo set made from the pack's ingredients and colours.
+      const { AD_DECORS } = await import("@/lib/three/adRender");
+      const res = await fetch("/api/ai-image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: "scene", prompt: AD_DECORS[0].prompt(design), format: "square" }),
+      }).catch(() => null);
+      const json = res?.ok ? await res.json().catch(() => null) : null;
+      if (!alive || !json?.image) return;
+      const photo = await renderAd({ spec, design, scene: "podium", format: "square", withCopy: true, seed: 3, scale: 0.6, backgroundUrl: json.image }).catch(() => null);
+      if (alive && photo) setAd(photo);
     })();
     return () => {
       alive = false;
@@ -131,7 +144,7 @@ export function DesignReveal({
             </div>
             <figcaption>
               <strong>Maquette 3D</strong>
-              <button type="button" disabled={!mockup} onClick={() => mockup && saveDataUrl(mockup, `${base}-maquette-3d.png`)}>
+              <button type="button" disabled={!mockup} onClick={async () => mockup && (await onBeforeDownload()) && saveDataUrl(mockup, `${base}-maquette-3d.png`)}>
                 <Download className="w-4 h-4" /> PNG
               </button>
             </figcaption>
@@ -147,7 +160,7 @@ export function DesignReveal({
             </div>
             <figcaption>
               <strong>Image publicitaire</strong>
-              <button type="button" disabled={!ad} onClick={() => ad && saveDataUrl(ad, `${base}-visuel.png`)}>
+              <button type="button" disabled={!ad} onClick={async () => ad && (await onBeforeDownload()) && saveDataUrl(ad, `${base}-visuel.png`)}>
                 <Download className="w-4 h-4" /> PNG
               </button>
             </figcaption>

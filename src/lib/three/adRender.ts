@@ -6,6 +6,103 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { buildPackaging, disposeObject, type PackagingSpec } from "./packagingModels";
 import { fontCss, fontWeight, loadDesignFonts, resolveColors, luminance, type PackagingDesign } from "@/lib/artwork/draw";
+import { colorName } from "@/lib/ai/colorNames";
+
+/**
+ * Photographic sets for the ad visual, written from the pack itself (its hero ingredient, its
+ * colours) like a real campaign: colour-drenched sets, hard sun and palm shadows, ingredients
+ * around the product, Cameroonian nature… (see Behance "product advertising" references).
+ */
+export const AD_DECORS: { id: string; label: string; prompt: (d: PackagingDesign) => string }[] = [
+  {
+    id: "ingredients",
+    label: "Ingrédients en vedette",
+    prompt: (d) => {
+      const { bg } = resolveColors(d.palette);
+      return `table-top scene: ${subjectOf(d)} placed on the left and right of an empty centre spot on a ${colorName(bg)} table, fresh and glistening with droplets, colour-drenched ${colorName(bg)} wall behind, soft directional daylight`;
+    },
+  },
+  {
+    id: "sun",
+    label: "Soleil et ombres de palmes",
+    prompt: (d) => {
+      const { bg, accent } = resolveColors(d.palette);
+      return `sunlit studio set, ${colorName(mixHex(bg, accent, 0.25))} seamless backdrop and a matching cylindrical plinth in the centre, hard afternoon sunlight casting sharp palm leaf shadows, a few ${subjectOf(d)} at the foot of the plinth`;
+    },
+  },
+  {
+    id: "podium",
+    label: "Podium aux couleurs de la marque",
+    prompt: (d) => {
+      const { bg, accent } = resolveColors(d.palette);
+      return `minimal premium studio, ${colorName(accent)} backdrop, stacked ${colorName(bg)} and ${colorName(accent)} geometric plinths with an empty top in the centre, soft shadows, clean composition`;
+    },
+  },
+  { id: "nature", label: "Nature camerounaise", prompt: (d) => `flat volcanic stone slab in the foreground of a lush tropical garden, morning light, green bokeh, mist of Mount Cameroon, ${subjectOf(d)} on the stone` },
+  { id: "kitchen", label: "Cuisine africaine chic", prompt: () => "modern African kitchen counter in warm wood, woven baskets and wax print fabric blurred in the background, morning sunlight through a window" },
+  { id: "luxe", label: "Marbre et lumière dorée", prompt: () => "polished dark marble slab with thin gold veins, deep moody background, warm rim light, luxurious atmosphere" },
+  { id: "beach", label: "Plage au coucher du soleil", prompt: () => "smooth sand in the foreground, palm trees blurred in the background, golden hour sunset light, warm tones" },
+];
+
+function subjectOf(d: PackagingDesign) {
+  return (d.artSubject || `${d.productName} ingredients`).replace(/\.$/, "");
+}
+
+/** "1500" → "1 500 FCFA" (a bare number on an ad reads as a mistake). */
+export function formatPrice(v?: string) {
+  const t = (v ?? "").trim();
+  if (!t) return "";
+  if (/^\d[\d\s.]*$/.test(t)) return `${Number(t.replace(/[\s.]/g, "")).toLocaleString("fr-FR").replace(/\u202f|\u00a0/g, " ")} FCFA`;
+  return t;
+}
+
+function contrastOk(a: string, b: string) {
+  const [l1, l2] = [luminance(a), luminance(b)].sort((p, q) => q - p);
+  return (l1 + 0.05) / (l2 + 0.05) > 2.2;
+}
+
+function mixHex(a: string, b: string, t: number) {
+  return "#" + new THREE.Color(a).lerp(new THREE.Color(b), t).getHexString();
+}
+
+/** Radial "contact shadow" texture: grounds the pack on any photo. */
+function contactShadowTexture() {
+  const c = document.createElement("canvas");
+  c.width = c.height = 256;
+  const ctx = c.getContext("2d")!;
+  const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+  g.addColorStop(0, "rgba(0,0,0,0.75)");
+  g.addColorStop(0.45, "rgba(0,0,0,0.35)");
+  g.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 256, 256);
+  return new THREE.CanvasTexture(c);
+}
+
+/** Average luminance of a region of the rendered frame (to pick the copy colour). */
+function regionLuminance(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+  const data = ctx.getImageData(Math.round(x), Math.round(y), Math.max(1, Math.round(w)), Math.max(1, Math.round(h))).data;
+  let sum = 0, n = 0;
+  for (let i = 0; i < data.length; i += 4 * 16) {
+    sum += (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) / 255;
+    n++;
+  }
+  return n ? sum / n : 1;
+}
+
+/** Photo grade: vignette + fine grain, so the 3D pack and the photo read as one picture. */
+function grade(ctx: CanvasRenderingContext2D, w: number, h: number) {
+  const v = ctx.createRadialGradient(w / 2, h * 0.55, Math.min(w, h) * 0.35, w / 2, h * 0.55, Math.hypot(w, h) * 0.62);
+  v.addColorStop(0, "rgba(0,0,0,0)");
+  v.addColorStop(1, "rgba(0,0,0,0.28)");
+  ctx.fillStyle = v;
+  ctx.fillRect(0, 0, w, h);
+  const n = Math.round((w * h) / 90);
+  for (let i = 0; i < n; i++) {
+    ctx.fillStyle = Math.random() > 0.5 ? "rgba(255,255,255,0.035)" : "rgba(0,0,0,0.045)";
+    ctx.fillRect(Math.random() * w, Math.random() * h, 1.4, 1.4);
+  }
+}
 
 export type AdScene = "podium" | "luxe" | "nature" | "minimal" | "pop";
 export type AdFormat = "square" | "portrait" | "story" | "landscape";
@@ -207,9 +304,17 @@ export async function renderAd(opts: AdOptions): Promise<string> {
     product.position.y = productY;
     product.rotation.y = -0.35 + (rand(7) - 0.5) * 0.5;
     sceneObj.add(product);
+    const foot = Math.max(size.x, size.z) * scale;
+    const contact = new THREE.Mesh(
+      new THREE.PlaneGeometry(foot * 1.9, foot * 1.9),
+      new THREE.MeshBasicMaterial({ map: contactShadowTexture(), transparent: true, depthWrite: false, opacity: photo ? 0.75 : 0.5 })
+    );
+    contact.rotation.x = -Math.PI / 2;
+    contact.position.y = productY + 0.002;
+    sceneObj.add(contact);
 
     // Lights
-    const key = new THREE.DirectionalLight(scene === "luxe" ? "#ffe2bf" : "#ffffff", scene === "luxe" ? 2.4 : 2.2);
+    const key = new THREE.DirectionalLight(scene === "luxe" || photo ? "#ffe9cf" : "#ffffff", scene === "luxe" ? 2.4 : photo ? 2.6 : 2.2);
     key.position.set(-2.2 + rand(9), 3.2, 2.4);
     key.castShadow = true;
     key.shadow.mapSize.set(2048, 2048);
@@ -230,8 +335,8 @@ export async function renderAd(opts: AdOptions): Promise<string> {
     const camera = new THREE.PerspectiveCamera(aspect < 1 ? 32 : 26, aspect, 0.01, 100);
     const target = new THREE.Vector3(0, productY + 0.5 * (withCopy && aspect <= 1 ? 0.78 : 0.62), 0);
     const productHeight = size.y * scale;
-    target.y = productY + productHeight * (withCopy && aspect <= 1 ? 0.62 : 0.48);
-    const dist = (aspect < 1 ? 3.6 : 3.0) + (withCopy && aspect <= 1 ? 0.6 : 0);
+    target.y = productY + productHeight * (withCopy && aspect <= 1 ? 0.84 : 0.48);
+    const dist = (aspect < 1 ? 3.6 : 3.0) + (withCopy && aspect <= 1 ? 1.05 : 0);
     const yaw = 0.18 + (rand(11) - 0.5) * 0.25;
     camera.position.set(Math.sin(yaw) * dist, target.y + 0.35, Math.cos(yaw) * dist);
     camera.lookAt(target);
@@ -245,51 +350,117 @@ export async function renderAd(opts: AdOptions): Promise<string> {
     out.height = fmt.h;
     const ctx = out.getContext("2d")!;
     ctx.drawImage(renderer.domElement, 0, 0);
+    if (photo) grade(ctx, fmt.w, fmt.h);
 
     if (withCopy) {
-      const darkBg = scene === "luxe" || luminance(backdrop[scene][0]) < 0.3;
-      const textColor = darkBg ? "#ffffff" : ink;
-      const head = fontCss(design.headingFont);
-      const body = fontCss(design.bodyFont);
       const landscape = aspect > 1;
       const cx = landscape ? fmt.w * 0.72 : fmt.w / 2;
-      const top = landscape ? fmt.h * 0.36 : fmt.h * 0.085;
-      const maxW = landscape ? fmt.w * 0.42 : fmt.w * 0.84;
+      const top = landscape ? fmt.h * 0.3 : fmt.h * 0.07;
+      const maxW = landscape ? fmt.w * 0.42 : fmt.w * 0.86;
+      // Copy colour from what is really behind it; a soft scrim keeps it readable on photos.
+      const zone = landscape ? [fmt.w * 0.5, 0, fmt.w * 0.5, fmt.h] : [0, 0, fmt.w, fmt.h * 0.3];
+      const lum = regionLuminance(ctx, zone[0], zone[1], zone[2], zone[3]);
+      const darkBg = lum < 0.5;
+      if (photo) {
+        const sg = landscape ? ctx.createLinearGradient(fmt.w * 0.45, 0, fmt.w, 0) : ctx.createLinearGradient(0, 0, 0, fmt.h * 0.42);
+        const tone = darkBg ? "0,0,0" : "255,255,255";
+        sg.addColorStop(landscape ? 0 : 1, `rgba(${tone},0)`);
+        sg.addColorStop(landscape ? 1 : 0, `rgba(${tone},0.45)`);
+        ctx.fillStyle = sg;
+        ctx.fillRect(landscape ? fmt.w * 0.45 : 0, 0, landscape ? fmt.w * 0.55 : fmt.w, landscape ? fmt.h : fmt.h * 0.42);
+      }
+      const textColor = darkBg ? "#ffffff" : luminance(ink) < 0.4 ? ink : "#141414";
+      const head = fontCss(design.headingFont);
+      const body = fontCss(design.bodyFont);
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.fillStyle = textColor;
-      let size = fmt.w * (landscape ? 0.055 : 0.09);
-      const brand = design.brandName || "";
-      do {
+
+      // Brand, small and letter-spaced, like a campaign signature.
+      const bsz = fmt.w * (landscape ? 0.016 : 0.026);
+      ctx.save();
+      ctx.letterSpacing = `${bsz * 0.35}px`;
+      ctx.font = `${fontWeight(design.bodyFont, 700)} ${bsz}px ${body}`;
+      ctx.globalAlpha = 0.9;
+      ctx.fillText((design.brandName || "").toUpperCase(), cx, top, maxW);
+      ctx.restore();
+
+      // Headline written by the AI designer (2 lines max).
+      const headline = design.adHeadline || design.tagline || design.productName || design.brandName;
+      let size = fmt.w * (landscape ? 0.05 : 0.085);
+      const words = headline.split(/\s+/);
+      let lines: string[] = [headline];
+      for (;;) {
         ctx.font = `${fontWeight(design.headingFont, 800)} ${size}px ${head}`;
-        if (ctx.measureText(brand).width <= maxW) break;
+        lines = [];
+        let line = "";
+        for (const w of words) {
+          const t = line ? `${line} ${w}` : w;
+          if (ctx.measureText(t).width > maxW && line) {
+            lines.push(line);
+            line = w;
+          } else line = t;
+        }
+        lines.push(line);
+        if ((lines.length <= 2 && lines.every((l) => ctx.measureText(l).width <= maxW)) || size < 14) break;
         size *= 0.92;
-      } while (size > 12);
-      ctx.fillText(brand, cx, top);
-      let y = top + size * 1.15;
+      }
+      let y = top + bsz * 2.2;
+      for (const l of lines) {
+        ctx.fillText(l, cx, y);
+        y += size * 1.04;
+      }
+      y += size * 0.3;
+      // Product line
+      const s2 = fmt.w * (landscape ? 0.02 : 0.032);
+      ctx.font = `${fontWeight(design.bodyFont, 400)} ${s2}px ${body}`;
       ctx.globalAlpha = 0.92;
-      const sub = design.tagline || design.productName;
-      let s2 = fmt.w * (landscape ? 0.022 : 0.036);
-      do {
-        ctx.font = `${fontWeight(design.bodyFont, 400)} ${s2}px ${body}`;
-        if (ctx.measureText(sub).width <= maxW) break;
-        s2 *= 0.92;
-      } while (s2 > 10);
-      ctx.fillText(sub, cx, y);
+      const sameAsHeadline = (design.productName || "").trim().toLowerCase() === headline.trim().toLowerCase();
+      ctx.fillText([sameAsHeadline ? "" : design.productName, design.volume].filter(Boolean).join(" · "), cx, y, maxW);
       ctx.globalAlpha = 1;
       y += s2 * 1.9;
       // CTA pill
-      const cta = design.productName && sub !== design.productName ? design.productName : "Disponible maintenant";
-      ctx.font = `${fontWeight(design.bodyFont, 700)} ${s2 * 0.8}px ${body}`;
-      const pw = ctx.measureText(cta).width + s2 * 1.8;
-      const ph = s2 * 1.7;
-      ctx.fillStyle = darkBg ? accent : ink;
+      const cta = design.adCta || "Disponible maintenant";
+      ctx.font = `${fontWeight(design.bodyFont, 700)} ${s2 * 0.85}px ${body}`;
+      const pw = ctx.measureText(cta).width + s2 * 1.9;
+      const ph = s2 * 1.75;
+      const pill = contrastOk(accent, darkBg ? "#000000" : "#ffffff") ? accent : darkBg ? "#ffffff" : "#141414";
+      ctx.fillStyle = pill;
       ctx.beginPath();
       ctx.roundRect(cx - pw / 2, y, pw, ph, ph / 2);
       ctx.fill();
-      ctx.fillStyle = resolveColors([darkBg ? accent : ink]).ink;
+      ctx.fillStyle = resolveColors([pill, "#ffffff", "#111111"]).ink;
       ctx.textBaseline = "middle";
       ctx.fillText(cta, cx, y + ph / 2);
+
+      // Price sticker (bottom right) when the user gave a price.
+      const price = formatPrice(design.price);
+      if (price) {
+        const r = fmt.w * (landscape ? 0.055 : 0.085);
+        const px = fmt.w - r * 1.35, py = fmt.h - r * 1.35;
+        ctx.save();
+        ctx.translate(px, py);
+        ctx.rotate(-0.16);
+        ctx.fillStyle = contrastOk(extra, "#ffffff") ? extra : accent;
+        ctx.beginPath();
+        for (let i = 0; i < 28; i++) {
+          const a = (i / 28) * Math.PI * 2, rr = i % 2 ? r : r * 0.9;
+          ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = resolveColors([ctx.fillStyle as string, "#ffffff", "#111111"]).ink;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        let ps = r * 0.42;
+        do {
+          ctx.font = `${fontWeight(design.headingFont, 800)} ${ps}px ${head}`;
+          if (ctx.measureText(price).width <= r * 1.5) break;
+          ps *= 0.9;
+        } while (ps > 8);
+        ctx.fillText(price, 0, 0);
+        ctx.restore();
+      }
     }
 
     return out.toDataURL("image/png");

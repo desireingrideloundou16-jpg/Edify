@@ -26,7 +26,7 @@ export default function Page() {
         <li><strong>Entreprise</strong> : {fcfa(PLANS.entreprise.monthly)} par mois, une gamme de {PLANS.entreprise.packagings} packagings complets par mois.</li>
       </ul>
       <p>
-        Un <strong>packaging complet</strong> comprend le design réalisé par l&apos;IA, la maquette 3D (mockup), l&apos;image publicitaire, le PDF d&apos;impression et les fichiers 3D. Un packaging est décompté la première fois que l&apos;IA le conçoit ou qu&apos;il est téléchargé ; ses retouches et téléchargements sont ensuite illimités, et l&apos;IA peut le régénérer jusqu&apos;à {AI_REGEN_PER_PACKAGING} fois. Toutes les fonctionnalités sont incluses dans les trois abonnements. Les packagings non utilisés restent disponibles tant que l&apos;abonnement est actif.
+        Un <strong>packaging complet</strong> comprend le design réalisé par l&apos;IA, la maquette 3D (mockup), l&apos;image publicitaire, le PDF d&apos;impression et les fichiers 3D. Concevoir un packaging avec l&apos;IA et le visualiser est possible avant tout abonnement (dans une limite quotidienne d&apos;usage raisonnable) ; un abonnement actif est nécessaire pour télécharger. Un packaging est décompté la première fois qu&apos;il est téléchargé (PDF, maquette, image publicitaire ou fichiers 3D) ; ses retouches et téléchargements sont ensuite illimités, et l&apos;IA peut le régénérer jusqu&apos;à {AI_REGEN_PER_PACKAGING} fois. Toutes les fonctionnalités sont incluses dans les trois abonnements. Les packagings non utilisés restent disponibles tant que l&apos;abonnement est actif.
       </p>
 
       <h2>4. Paiement</h2>

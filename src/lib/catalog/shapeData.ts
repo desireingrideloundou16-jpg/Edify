@@ -130,5 +130,29 @@ export const SHAPE_ROWS: ShapeRow[] = [
   ["cookie-tin", "Boîte à biscuits", "tins", "tin", 200, 200, 80, "Fer blanc", "biscuits cadeau"],
   ["mint-tin", "Boîte à pastilles", "tins", "tin", 60, 60, 20, "Fer blanc", "pastilles"],
 
+  // ── Produits d'Afrique centrale et de l'Ouest (contenants réellement utilisés) ──
+  ["juice-bottle-30cl", "Petite bouteille de jus 30 cl", "bottles", "bottle", 58, 58, 165, "PET transparent", "bissap gingembre folere jus local baobab"],
+  ["glass-juice-25cl", "Bouteille verre 25 cl", "bottles", "bottle", 55, 55, 170, "Verre transparent", "jus bissap artisanal limonade"],
+  ["oil-bottle-1l", "Bouteille d'huile 1 L", "bottles", "bottle", 82, 82, 290, "PET transparent", "huile palme arachide soja raffinée"],
+  ["jerrican-5l", "Bidon 5 L", "bottles", "jug", 190, 120, 300, "PEHD", "bidon huile palme vin miel vrac jerrican"],
+  ["big-beer-bottle", "Grande bouteille 65 cl", "bottles", "wine", 72, 72, 290, "Verre ambré", "bière 65 cl boisson gazeuse"],
+  ["drink-yogurt-bottle", "Bouteille de yaourt à boire", "bottles", "bottle", 55, 55, 150, "PEHD blanc", "yaourt à boire lait caillé kossam"],
+  ["cosmetic-oil-bottle", "Flacon huile 100 ml", "bottles", "bottle", 42, 42, 140, "PET ambré", "huile coco ricin cheveux huile corps"],
+  ["roll-on-bottle", "Roll-on parfum", "bottles", "bottle", 22, 22, 85, "Verre transparent", "huile parfumée musc roll-on"],
+  ["hot-sauce-bottle", "Flacon de piment", "bottles", "bottle", 45, 45, 150, "Verre transparent", "piment sauce pimentée huile pimentée"],
+  ["water-sachet", "Sachet d'eau 50 cl", "pouches", "sachet", 150, 5, 210, "Film PE", "eau sachet pure water"],
+  ["gari-bag", "Sac de gari / farine", "pouches", "bag", 180, 70, 280, "Film PE", "gari tapioca couscous manioc farine de maïs"],
+  ["spice-sachet", "Sachet d'épices", "pouches", "flatpouch", 90, 8, 140, "Film métallisé", "épices poivre blanc mélange soya condiments"],
+  ["plantain-chips-bag", "Sachet chips plantain", "pouches", "flatpouch", 160, 15, 230, "Film métallisé", "chips plantain banane manioc"],
+  ["peanut-butter-jar", "Pot de pâte d'arachide", "jars", "jar", 80, 80, 100, "PET transparent", "pâte d'arachide beurre de cacahuète"],
+  ["spice-jar", "Pot à épices", "jars", "jar", 48, 48, 100, "Verre transparent", "poivre de Penja piment épices"],
+  ["shea-butter-jar", "Pot de karité", "jars", "jar", 75, 75, 55, "PP blanc", "beurre de karité baume pommade"],
+  ["hair-cream-tub", "Pot de crème capillaire", "jars", "tub", 90, 90, 70, "PP", "crème capillaire défrisant pommade cheveux"],
+  ["tomato-paste-tin", "Boîte de tomate concentrée", "cans", "tin", 60, 60, 45, "Fer blanc", "tomate concentrée double concentré"],
+  ["milk-powder-tin", "Boîte de lait en poudre", "tins", "tin", 100, 100, 130, "Fer blanc", "lait en poudre bébé nido"],
+  ["bouillon-box", "Étui de cubes d'assaisonnement", "boxes", "box", 60, 30, 50, "Carton couché 300g", "cube bouillon assaisonnement"],
+  ["soap-wrap", "Savon emballé", "boxes", "box", 85, 28, 55, "Papier kraft", "savon noir savon de toilette savon artisanal"],
+  ["chocolate-bar", "Tablette de chocolat", "food", "box", 80, 12, 160, "Carton couché 300g", "tablette chocolat cacao"],
+
 ];
 

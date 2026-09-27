@@ -2,7 +2,7 @@
  * Google Gemini engine (free tier) for the AI packaging designer.
  * Raw REST call with a JSON response schema, so the output always matches DesignSpec.
  */
-import { SHAPE_IDS, STYLE_IDS, FONT_FAMILIES, LAYOUT_IDS, MOTIF_IDS, type DesignSpec } from "./designSpec";
+import { STYLE_IDS, FONT_FAMILIES, LAYOUT_IDS, MOTIF_IDS, ART_STYLES, type DesignSpec } from "./designSpec";
 
 const API = "https://generativelanguage.googleapis.com/v1beta/models";
 // Tried in order: newest fast model first, then the stable "latest" alias. Overridable with GEMINI_MODEL.
@@ -13,15 +13,23 @@ const TOTAL_BUDGET_MS = 60_000;
 const str = (description?: string) => ({ type: "STRING", ...(description ? { description } : {}) });
 const hex = str("Couleur hexadécimale #RRGGBB");
 
-const RESPONSE_SCHEMA = {
+export const RESPONSE_SCHEMA = {
   type: "OBJECT",
   properties: {
-    shapeId: { type: "STRING", enum: SHAPE_IDS },
+    // Free text: an enum of 100+ containers exceeds Gemini's schema limits (sanitizeSpec matches it to the catalogue).
+    shapeId: str("Identifiant exact d'un contenant du CATALOGUE DES CONTENANTS"),
     styleId: { type: "STRING", enum: STYLE_IDS },
     headingFont: { type: "STRING", enum: FONT_FAMILIES },
     bodyFont: { type: "STRING", enum: FONT_FAMILIES },
     layout: { type: "STRING", enum: LAYOUT_IDS, description: "Composition de la face avant" },
     motif: { type: "STRING", enum: MOTIF_IDS, description: "Motif graphique de fond" },
+    artStyle: { type: "STRING", enum: [...ART_STYLES], description: "Style de l'illustration sur mesure" },
+    artSubject: str("Sujet de l'illustration, EN ANGLAIS, concret et visuel (ingrédient héros, origine, mascotte)"),
+    badge: str("Texte du sceau rond, 1 à 3 mots, uniquement un fait du brief, ou vide"),
+    origin: str("Ligne d'origine en petites capitales (ex. Ouest Cameroun), ou vide"),
+    contentColor: str("Couleur #RRGGBB du produit visible à travers un contenant transparent, ou vide"),
+    adHeadline: str("Accroche publicitaire, 2 à 6 mots"),
+    adCta: str("Appel à l'action, 2 à 4 mots"),
     palette: {
       type: "OBJECT",
       properties: { background: hex, ink: hex, accent: hex, extra: hex },
@@ -37,8 +45,8 @@ const RESPONSE_SCHEMA = {
     usage: str("Mode d'emploi ou de conservation, court"),
     rationale: str(),
   },
-  required: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "layout", "motif", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
-  propertyOrdering: ["shapeId", "styleId", "layout", "motif", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
+  required: ["shapeId", "styleId", "headingFont", "bodyFont", "palette", "layout", "motif", "artStyle", "artSubject", "badge", "origin", "contentColor", "adHeadline", "adCta", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "rationale"],
+  propertyOrdering: ["shapeId", "styleId", "layout", "motif", "artStyle", "artSubject", "badge", "origin", "contentColor", "headingFont", "bodyFont", "palette", "projectName", "brandName", "productName", "tagline", "volume", "details", "ingredients", "usage", "adHeadline", "adCta", "rationale"],
 };
 
 export class GeminiError extends Error {

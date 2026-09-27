@@ -472,10 +472,10 @@
   },
   "paywall": {
    "generate": "Attiva il tuo piano per avviare l'IA",
-   "export": "Questa funzionalità fa parte di un piano",
-   "credits": "Hai esaurito tutti i packaging del tuo periodo",
+   "export": "Il tuo packaging è pronto: scegli un piano per scaricarlo",
+   "credits": "Hai scaricato tutti i packaging del tuo periodo",
    "upgrade": "Passa a un piano con più packaging",
-   "sub": "Il tuo brief è salvato: verrà generato non appena il tuo piano sarà attivo. Paga con MTN MoMo o Orange Money.",
+   "sub": "Il tuo design è salvato nel tuo account. Appena il piano è attivo, scarica il PDF di stampa, il mockup 3D e l'immagine pubblicitaria. Paga con MTN MoMo o Orange Money.",
    "perMonth": " / mese",
    "cta": "Scegli il mio piano",
    "close": "Chiudi"

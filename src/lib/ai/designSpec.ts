@@ -17,6 +17,17 @@ export interface DesignSpec {
   /** Front composition and background motif (see lib/artwork/compose). */
   layout: string;
   motif: string;
+  /** Custom illustration: style and subject (in English, for the image model). */
+  artStyle: string;
+  artSubject: string;
+  /** Detail layer: seal text and origin line (facts from the brief only). */
+  badge: string;
+  origin: string;
+  /** Colour of the product seen through glass or clear plastic, "" when opaque. */
+  contentColor: string;
+  /** Advertising copy for the ad visual. */
+  adHeadline: string;
+  adCta: string;
   projectName: string;
   brandName: string;
   productName: string;
@@ -52,16 +63,59 @@ export const STYLE_IDS = ALL_CATALOG_STYLES.map((s) => s.id);
 export const FONT_FAMILIES = PACKAGING_FONTS.map((f) => f.family);
 export const LAYOUT_IDS = [...LAYOUTS];
 export const MOTIF_IDS = [...MOTIFS];
+export const ART_STYLES = ["none", "engraving", "flat", "watercolor", "linocut", "photo", "papercut", "mascot", "lineart"] as const;
+
+/** Illustration subject for the offline designer (English, for the image model). */
+const ART_SUBJECTS: [RegExp, string, string][] = [
+  [/bissap|hibiscus|foler/, "fresh deep red hibiscus flowers and mint leaves", "#8e1b3a"],
+  [/gingembre|ginger/, "fresh ginger roots and lemon slices", "#e8b04a"],
+  [/cafe|coffee|arabica|robusta/, "coffee cherries on a branch and roasted coffee beans", ""],
+  [/cacao|chocolat|cocoa/, "an open cocoa pod with cocoa beans and leaves", ""],
+  [/miel|honey/, "honeycomb, bees and wild flowers", "#d89a1c"],
+  [/poivre|penja|pepper/, "pepper vine with green and black peppercorns", ""],
+  [/piment|chili/, "red chili peppers and leaves", "#b3261e"],
+  [/karite|shea/, "shea nuts and shea tree leaves", ""],
+  [/plantain|banane/, "ripe plantains and banana leaves", ""],
+  [/arachide|peanut|cacahu/, "peanuts in their shells and peanut plant leaves", "#b07a3c"],
+  [/huile de palme|palm oil/, "oil palm fruit bunch and palm leaves", "#c2410c"],
+  [/mangue|mango/, "ripe mangoes and mango leaves", "#f59e0b"],
+  [/ananas|pineapple/, "a pineapple with leaves", "#f2c14e"],
+  [/orange|agrume|citron/, "fresh oranges and lemons with leaves", "#f28c28"],
+  [/the |tea|infusion|kinkeliba|moringa|citronnelle/, "fresh tea leaves and herbs", "#b98a3e"],
+  [/savon|soap/, "botanical herbs, shea butter and flowers", ""],
+  [/jus|juice|smoothie/, "fresh tropical fruits sliced", "#f28c28"],
+  [/vin|wine|biere|beer/, "grape vines and leaves", "#5a1a2b"],
+  [/lait|yaourt|yogurt/, "a milk splash and fresh fruits", "#fbfbf8"],
+];
+
+/** Ad headline for the offline designer, by category. */
+function localHeadline(t: string) {
+  if (/jus|juice|bissap|gingembre|boisson|soda/.test(t)) return "Frais, vrai, d'ici";
+  if (/cafe|coffee/.test(t)) return "Réveillez vos matins";
+  if (/miel|honey/.test(t)) return "La douceur à l'état pur";
+  if (/creme|serum|karite|savon|huile|cosmet|lotion|shampo/.test(t)) return "Votre peau dit merci";
+  if (/chips|snack|biscuit|plantain/.test(t)) return "Impossible de s'arrêter";
+  if (/epice|poivre|piment|sauce/.test(t)) return "Le goût qui réveille";
+  return "Fait avec passion";
+}
+
+export function localArt(text: string): { artStyle: string; artSubject: string; contentColor: string } {
+  const t = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const hit = ART_SUBJECTS.find(([re]) => re.test(t));
+  if (!hit) return { artStyle: "none", artSubject: "", contentColor: "" };
+  const style = /cafe|coffee|miel|honey|poivre|cacao|the |tea|savon/.test(t) ? "engraving" : "flat";
+  return { artStyle: style, artSubject: hit[1], contentColor: hit[2] };
+}
 
 /** Art direction by category, used when the model gives nothing usable and by the offline designer. */
 export function defaultArtDirection(text: string, seed: number): { layout: string; motif: string } {
   const t = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   const pick = <T,>(list: T[]) => list[seed % list.length];
-  if (/miel|honey|epice|poivre|penja|biscuit|chocolat|cacao|vin|rhum|whisky/.test(t)) return { layout: pick(["frame", "emblem", "window"]), motif: pick(["geometric", "wax", "none", "botanical"]) };
-  if (/cafe|coffee|the |tea|infusion|moringa/.test(t)) return { layout: pick(["emblem", "minimal", "window", "split"]), motif: pick(["botanical", "geometric", "none"]) };
-  if (/serum|creme|karite|shea|parfum|cosmet|savon|huile|lotion/.test(t)) return { layout: pick(["minimal", "window", "classic"]), motif: pick(["none", "botanical", "waves"]) };
-  if (/chips|snack|plantain|bonbon|enfant|kids|jus|juice|bissap|soda|canette|energy/.test(t)) return { layout: pick(["pop", "bold", "band", "split"]), motif: pick(["dots", "stripes", "sunburst", "wax"]) };
-  return { layout: pick(["band", "split", "classic", "window", "bold"]), motif: pick(["geometric", "dots", "none", "waves"]) };
+  if (/miel|honey|epice|poivre|penja|biscuit|chocolat|cacao|vin|rhum|whisky/.test(t)) return { layout: pick(["label", "arch", "frame", "illustrated"]), motif: pick(["geometric", "wax", "none", "botanical"]) };
+  if (/cafe|coffee|the |tea|infusion|moringa/.test(t)) return { layout: pick(["illustrated", "label", "poster", "arch"]), motif: pick(["botanical", "geometric", "none"]) };
+  if (/serum|creme|karite|shea|parfum|cosmet|savon|huile|lotion/.test(t)) return { layout: pick(["arch", "minimal", "vertical", "illustrated"]), motif: pick(["none", "botanical", "waves"]) };
+  if (/chips|snack|plantain|bonbon|enfant|kids|jus|juice|bissap|soda|canette|energy/.test(t)) return { layout: pick(["illustrated", "vertical", "poster", "arch"]), motif: pick(["dots", "stripes", "sunburst", "wax"]) };
+  return { layout: pick(["illustrated", "band", "split", "window", "vertical"]), motif: pick(["geometric", "dots", "none", "waves"]) };
 }
 
 /** Compact catalog description given to the model. */
@@ -74,14 +128,35 @@ export function catalogForPrompt() {
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
 
+/** Catalogue id for what the model wrote ("juice-bottle-30cl", "Bouteille de jus 30 cl"…), or null. */
+export function closestShapeId(raw: string | undefined): string | null {
+  if (!raw) return null;
+  if (SHAPE_IDS.includes(raw)) return raw;
+  const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const words = norm(raw).split(/[^a-z0-9]+/).filter((w) => w.length > 1);
+  let best: string | null = null;
+  let score = 0;
+  for (const [id, name, , , , , , , keywords] of SHAPE_ROWS) {
+    const hay = norm(`${id} ${name} ${keywords}`).split(/[^a-z0-9]+/);
+    const s = words.filter((w) => hay.includes(w)).length / Math.max(1, words.length);
+    if (s > score) {
+      score = s;
+      best = id;
+    }
+  }
+  return score >= 0.5 ? best : null;
+}
+
 /** Clamp a spec to known ids and valid colours. */
-export function sanitizeSpec(spec: DesignSpec, current: CurrentDesign): DesignSpec {
+export function sanitizeSpec(raw: DesignSpec, current: CurrentDesign): DesignSpec {
+  // Models sometimes write accents as combining marks ("i" + "̂"): fonts then draw them apart.
+  const spec = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, typeof v === "string" ? v.normalize("NFC") : v])) as unknown as DesignSpec;
   const style = ALL_CATALOG_STYLES.find((s) => s.id === spec.styleId) ?? ALL_CATALOG_STYLES[0];
   const pal = spec.palette ?? ({} as DesignSpec["palette"]);
   const fix = (c: string | undefined, i: number) => (c && HEX.test(c) ? c : style.palette[i]);
   return {
     ...spec,
-    shapeId: SHAPE_IDS.includes(spec.shapeId) ? spec.shapeId : current.shapeId,
+    shapeId: closestShapeId(spec.shapeId) ?? current.shapeId,
     styleId: style.id,
     headingFont: FONT_FAMILIES.includes(spec.headingFont) ? spec.headingFont : "",
     bodyFont: FONT_FAMILIES.includes(spec.bodyFont) ? spec.bodyFont : "",
@@ -90,6 +165,13 @@ export function sanitizeSpec(spec: DesignSpec, current: CurrentDesign): DesignSp
       return { layout: isLayout(spec.layout) ? spec.layout : fallback.layout, motif: isMotif(spec.motif) ? spec.motif : fallback.motif };
     })(),
     palette: { background: fix(pal.background, 0), ink: fix(pal.ink, 1), accent: fix(pal.accent, 2), extra: fix(pal.extra, 3) },
+    artStyle: (ART_STYLES as readonly string[]).includes(spec.artStyle) ? spec.artStyle : "none",
+    artSubject: (spec.artSubject || "").slice(0, 240),
+    badge: (spec.badge || "").slice(0, 26),
+    origin: (spec.origin || "").slice(0, 40),
+    contentColor: spec.contentColor && HEX.test(spec.contentColor) ? spec.contentColor : "",
+    adHeadline: (spec.adHeadline || "").slice(0, 60),
+    adCta: (spec.adCta || "").slice(0, 30),
     brandName: (spec.brandName || current.brandName).slice(0, 40),
     productName: (spec.productName || current.productName).slice(0, 60),
     tagline: (spec.tagline || "").slice(0, 80),
@@ -115,6 +197,18 @@ interface Intent {
 }
 
 const INTENTS: Intent[] = [
+  { words: ["bissap", "foleré", "folere", "hibiscus"], shape: "juice-bottle-30cl", style: "juicy-fruit", product: "Jus de bissap", volume: "30 cl", details: "Boisson à base de fleurs d'hibiscus. À conserver au frais, bien agiter avant de servir." },
+  { words: ["gingembre", "ginger"], shape: "juice-bottle-30cl", style: "juicy-fruit", product: "Jus de gingembre", volume: "30 cl", details: "Boisson au gingembre frais. À conserver au frais, bien agiter avant de servir." },
+  { words: ["huile de palme", "huile rouge"], shape: "oil-bottle-1l", style: "african-wax", product: "Huile de palme", volume: "1 L", details: "Huile de palme rouge non raffinée. À conserver à l'abri de la lumière et de la chaleur." },
+  { words: ["huile d'arachide"], shape: "oil-bottle-1l", style: "farm-fresh", product: "Huile d'arachide", volume: "1 L", details: "Huile d'arachide pressée. À conserver à l'abri de la lumière." },
+  { words: ["pate d'arachide", "arachide", "cacahuete"], shape: "peanut-butter-jar", style: "farm-fresh", product: "Pâte d'arachide", volume: "350 g", details: "Arachides grillées et broyées. Contient : ARACHIDES." },
+  { words: ["gari", "tapioca", "manioc", "couscous"], shape: "gari-bag", style: "kraft-stamp", product: "Gari blanc", volume: "1 kg", details: "Semoule de manioc séchée. À conserver au sec, bien refermer après ouverture." },
+  { words: ["plantain"], shape: "plantain-chips-bag", style: "color-block", product: "Chips de plantain", volume: "100 g", details: "Plantain, huile végétale, sel. À conserver au sec." },
+  { words: ["karite", "shea"], shape: "shea-butter-jar", style: "botanical-natural", product: "Beurre de karité pur", volume: "150 g", details: "Butyrospermum Parkii Butter. Appliquer sur peau et cheveux." },
+  { words: ["savon noir"], shape: "soap-wrap", style: "kraft-stamp", product: "Savon noir", volume: "150 g", details: "Savon traditionnel à base d'huiles végétales et de cendres de plantain." },
+  { words: ["piment"], shape: "hot-sauce-bottle", style: "african-wax", product: "Piment à l'huile", volume: "150 ml", details: "Piments, huile végétale, ail, sel. Bien refermer après usage." },
+  { words: ["poivre", "penja"], shape: "spice-jar", style: "kraft-stamp", product: "Poivre blanc de Penja", volume: "50 g", details: "Poivre blanc de Penja en grains. À conserver au sec, à l'abri de la lumière." },
+  { words: ["tomate"], shape: "tomato-paste-tin", style: "color-block", product: "Double concentré de tomate", volume: "70 g", details: "Tomates, sel. Après ouverture, conserver au frais et consommer rapidement." },
   { words: ["cafe", "coffee", "espresso", "arabica"], shape: "coffee-pouch", style: "coffee-roast", product: "Café en grains", volume: "250 g", details: "100 % arabica, torréfaction artisanale. À conserver au sec, à l'abri de la lumière. Refermer après ouverture." },
   { words: ["the ", "the,", "infusion", "tisane", "matcha"], shape: "tea-box", style: "herbal-apothecary", product: "Thé vert", volume: "20 sachets — 40 g", details: "Infusez 3 minutes dans une eau à 80 °C. Ingrédients : thé vert, plantes aromatiques." },
   { words: ["serum", "huile visage", "elixir"], shape: "dropper-bottle", style: "clean-beauty", product: "Sérum éclat", volume: "30 ml — 1.0 fl oz", details: "Aqua, Glycerin, Sodium Hyaluronate, Ascorbic Acid, Parfum. Appliquer matin et soir sur peau propre." },
@@ -264,7 +358,17 @@ export function localDesign(prompt: string, current: CurrentDesign): DesignSpec 
     tagline,
     volume: vol ? `${vol[1]} ${vol[2]}` : intent?.volume ?? current.volume,
     details: intent?.details ?? "",
-    ...defaultArtDirection(prompt, prompt.length),
+    ...(() => {
+      // With an illustration, always a layout that shows it.
+      const dir = defaultArtDirection(prompt, prompt.length);
+      const art = localArt(prompt);
+      const artLayouts = ["illustrated", "arch", "vertical", "label", "poster"];
+      return { ...dir, ...art, layout: art.artStyle !== "none" && !artLayouts.includes(dir.layout) ? "illustrated" : dir.layout };
+    })(),
+    badge: "",
+    origin: /cameroun|cameroon/.test(text) ? "Fait au Cameroun" : "",
+    adHeadline: tagline || localHeadline(text),
+    adCta: "Disponible maintenant",
     ingredients: "",
     usage: "",
     rationale: `Contenant et style choisis à partir des mots-clés de votre brief (${[intent?.product, style.label].filter(Boolean).join(", ")}).`,

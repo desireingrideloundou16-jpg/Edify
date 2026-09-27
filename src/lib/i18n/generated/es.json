@@ -481,10 +481,10 @@
   },
   "paywall": {
    "generate": "Activa tu plan para ejecutar la IA",
-   "export": "Esta función forma parte de un plan",
-   "credits": "Has utilizado todos los envases de tu período",
+   "export": "Tu packaging está listo: elige un plan para descargarlo",
+   "credits": "Has descargado todos los packagings de tu periodo",
    "upgrade": "Cambia a un plan con más envases",
-   "sub": "Tu resumen está guardado: se generará tan pronto como tu plan esté activo. Paga con MTN MoMo u Orange Money.",
+   "sub": "Tu diseño está guardado en tu cuenta. En cuanto tu plan esté activo, descarga el PDF de impresión, la maqueta 3D y la imagen publicitaria. Paga con MTN MoMo u Orange Money.",
    "perMonth": " / mes",
    "cta": "Elegir mi plan",
    "close": "Cerrar"

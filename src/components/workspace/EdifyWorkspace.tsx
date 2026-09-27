@@ -15,7 +15,8 @@ import { ArModal } from "./ArModal";
 import type { PackagingShape, VisualStylePreset } from "./Modals";
 import { ALL_CATALOG_SHAPES } from "@/lib/catalog/shapes";
 import { ALL_CATALOG_STYLES } from "@/lib/catalog/styles";
-import { toPackagingDesign, encodeShare, decodeShare, type DesignContent } from "@/lib/design/state";
+import { toPackagingDesign, encodeShare, decodeShare, type DesignContent, type DesignExtras } from "@/lib/design/state";
+import { luminance } from "@/lib/artwork/draw";
 import type { PackagingDesign } from "@/lib/artwork/draw";
 import type { PackagingSpec } from "@/lib/three/packagingModels";
 import type { DesignSpec } from "@/lib/ai/designSpec";
@@ -47,6 +48,7 @@ interface SavedProject {
   bodyFont: string | null;
   layout?: string | null;
   motif?: string | null;
+  extras?: DesignExtras | null;
 }
 
 /** Neutral placeholders: the studio never shows a demo product as if it were the user's. */
@@ -80,6 +82,8 @@ export function EdifyWorkspace() {
   const [bodyFont, setBodyFont] = useState<string | null>(null);
   const [layout, setLayout] = useState<string | null>(null);
   const [motif, setMotif] = useState<string | null>(null);
+  const [extras, setExtras] = useState<DesignExtras>({});
+  const [artBusy, setArtBusy] = useState(false);
   const [content, setContent] = useState<DesignContent>(DEFAULT_CONTENT);
   const [uploadedLogo, setUploadedLogo] = useState<string | null>(null);
   const [uploadedLogoName, setUploadedLogoName] = useState<string | null>(null);
@@ -130,13 +134,15 @@ export function EdifyWorkspace() {
   }, []);
 
   // ── Derived design ──────────────────────────────────────────────────────
-  const selection = { shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif };
+  // The illustration is too heavy for a share link: it stays in the saved project.
+  const selection = { shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras: { ...extras, artUrl: null } };
   const baseDesign = useMemo(
-    () => toPackagingDesign(content, style, { shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif }),
-    [content, style, shape.id, customPalette, headingFont, bodyFont, layout, motif]
+    () => toPackagingDesign(content, style, { shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras }),
+    [content, style, shape.id, customPalette, headingFont, bodyFont, layout, motif, extras]
   );
   const logoImg = useImage(uploadedLogo);
-  const fullDesign: PackagingDesign = useMemo(() => ({ ...baseDesign, logo: logoImg }), [baseDesign, logoImg]);
+  const artImg = useImage(extras.artUrl ?? null);
+  const fullDesign: PackagingDesign = useMemo(() => ({ ...baseDesign, logo: logoImg, art: artImg }), [baseDesign, logoImg, artImg]);
   const spec: PackagingSpec = useMemo(
     () => ({ model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material }),
     [shape]
@@ -227,6 +233,7 @@ export function EdifyWorkspace() {
     setBodyFont(d.bodyFont ?? null);
     setLayout(d.layout ?? null);
     setMotif(d.motif ?? null);
+    setExtras(d.extras ?? {});
     setContent({ ...DEFAULT_CONTENT, ...d.content });
     setUploadedLogo(d.logo ?? null);
     setUploadedLogoName(d.logoName ?? null);
@@ -238,7 +245,7 @@ export function EdifyWorkspace() {
     setSaveState("saving");
     const t = setTimeout(async () => {
       const supabase = createSupabase();
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, logo: uploadedLogo, logoName: uploadedLogoName };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName };
       const row = { name: content.projectName || "Sans titre", data };
       const id = projectId.current ?? (await ensureProjectId());
       if (!id) return setSaveState("error");
@@ -253,14 +260,14 @@ export function EdifyWorkspace() {
     }, 1200);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, uploadedLogo, uploadedLogoName]);
+  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, extras, uploadedLogo, uploadedLogoName]);
 
   /** Makes sure the packaging exists in the database (needed before the AI or a download). */
   const ensureProjectId = async () => {
     if (projectId.current) return projectId.current;
     // Single flight: the autosave and the AI may ask at the same time — create one packaging only.
     if (!creatingProject.current) {
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, logo: uploadedLogo, logoName: uploadedLogoName };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName };
       creatingProject.current = (async () => {
         const { data: row } = await createSupabase().from("projects").insert({ name: content.projectName || "Nouveau packaging", data }).select("id").single();
         projectId.current = row?.id ?? null;
@@ -272,7 +279,7 @@ export function EdifyWorkspace() {
     return creatingProject.current;
   };
 
-  /** A download counts the packaging once (first download or first AI design). */
+  /** The first download counts the packaging in the plan (once). */
   const ensurePackagingClaimed = async () => {
     if (projectCounted) return true;
     const id = await ensureProjectId();
@@ -312,6 +319,7 @@ export function EdifyWorkspace() {
     setBodyFont(shared.bodyFont ?? null);
     setLayout(shared.layout ?? null);
     setMotif(shared.motif ?? null);
+    setExtras(shared.extras ?? {});
     setContent({
       projectName: shared.projectName ?? DEFAULT_CONTENT.projectName,
       brandName: shared.brandName ?? "",
@@ -404,6 +412,16 @@ export function EdifyWorkspace() {
     setBodyFont(sp.bodyFont || null);
     setLayout(sp.layout || null);
     setMotif(sp.motif || null);
+    setExtras({
+      artUrl: null,
+      artStyle: sp.artStyle,
+      artSubject: sp.artSubject,
+      badge: sp.badge,
+      origin: sp.origin,
+      contentColor: sp.contentColor,
+      adHeadline: sp.adHeadline,
+      adCta: sp.adCta,
+    });
     setContent({
       projectName: sp.projectName,
       brandName: sp.brandName,
@@ -428,14 +446,7 @@ export function EdifyWorkspace() {
     reference: ReferenceFile | null,
     opts: { fresh?: boolean; fields?: Partial<DesignContent>; logoColors?: string[] } = {}
   ) => {
-    if (planActive === false) {
-      setPaywall("generate");
-      return false;
-    }
-    if (credits !== null && credits <= 0) {
-      setPaywall("credits");
-      return false;
-    }
+    // Designing is free to try: the paywall comes at download time.
     setIsGenerating(true);
     try {
       const pid = await ensureProjectId();
@@ -479,8 +490,8 @@ export function EdifyWorkspace() {
         setPaywall(json.reason === "no_plan" ? "generate" : "credits");
         return false;
       }
-      if (res.status === 429) {
-        showToast(json.error ?? "Limite de régénérations atteinte pour ce packaging.", 7000);
+      if (res.status === 429 || res.status === 403) {
+        showToast(json.error ?? "Limite de designs IA atteinte pour aujourd'hui.", 8000);
         return false;
       }
       if (json.projectId && !projectId.current) projectId.current = json.projectId;
@@ -489,10 +500,15 @@ export function EdifyWorkspace() {
         setProjects((list) => list.map((p) => (p.id === json.projectId ? { ...p, counted: true } : p)));
       }
       if (!res.ok || !json.spec) throw new Error(json.error || `HTTP ${res.status}`);
-      applySpec(json.spec as DesignSpec);
+      const sp = json.spec as DesignSpec;
+      applySpec(sp);
+      // The custom illustration is part of the design: wait for it (the layouts fall back without it).
+      if (sp.artStyle && sp.artStyle !== "none" && sp.artSubject) {
+        await generateArt(sp.artStyle, sp.artSubject, [sp.palette.background, sp.palette.ink, sp.palette.accent, sp.palette.extra]);
+      }
       if (json.engine !== "local") track("ai_design");
       if (opts.fresh) track("new_packaging");
-      const msg = json.engine === "local" ? `Design généré hors ligne (aucun packaging décompté). ${json.notice ?? ""}` : `✨ ${json.spec.rationale}`;
+      const msg = json.engine === "local" ? `Design généré hors ligne. ${json.notice ?? ""}` : `✨ ${json.spec.rationale}`;
       showToast(msg, 7000);
       return true;
     } catch (e) {
@@ -502,6 +518,48 @@ export function EdifyWorkspace() {
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  /** Custom illustration for the pack (FLUX), drawn on white or black so it blends into the label. */
+  const generateArt = async (artStyle: string, subject: string, palette: string[]) => {
+    setArtBusy(true);
+    try {
+      const [bg, ink, accent, extra] = palette;
+      const res = await fetch("/api/ai-image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: "art", style: artStyle, subject, colors: [accent, extra, ink], background: bg, dark: luminance(bg) <= 0.45 }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.image) {
+        setExtras((x) => ({ ...x, artUrl: json.image, artStyle, artSubject: subject }));
+        return true;
+      }
+      if (res.status === 429) showToast("Limite d'illustrations IA atteinte pour aujourd'hui.");
+      return false;
+    } catch {
+      return false;
+    } finally {
+      setArtBusy(false);
+    }
+  };
+
+  const regenerateArt = (artStyle: string) => {
+    const subject = extras.artSubject || `${content.productName}, key natural ingredients`;
+    if (artStyle === "none") {
+      setExtras((x) => ({ ...x, artStyle: "none", artUrl: null }));
+      return;
+    }
+    generateArt(artStyle, subject, baseDesign.palette).then((ok) => ok && showToast("✓ Nouvelle illustration appliquée."));
+  };
+
+  /** Every download goes through here: plan check, then the packaging counts once. */
+  const gateDownload = async () => {
+    if (planActive === false) {
+      setPaywall("export");
+      return false;
+    }
+    return ensurePackagingClaimed();
   };
 
   /** Voice note → AI understanding → studio action (edit the pack or design a new one). */
@@ -635,22 +693,20 @@ export function EdifyWorkspace() {
 
   const exportBusy: ExportAction | null = isExportingPdf ? "pdf" : isExportingZip ? "zip" : null;
   const handleExport = async (a: ExportAction) => {
-    if (a !== "share" && planActive === false) {
-      setPaywall("export");
-      return;
-    }
     // 3D model / AR and the full ZIP pack come with Pro and Business.
     if ((a === "ar" || a === "zip") && planActive && !hasProFeatures(plan)) {
       setPaywall("upgrade");
       return;
     }
-    if (a !== "share" && !(await ensurePackagingClaimed())) return;
-    if (a === "pdf") handleDownloadPdf();
-    else if (a === "zip") handleDownloadZip();
-    else if (a === "ad") {
+    if (a === "ad") {
+      // Creating the ad visual is free; downloading it goes through the paywall.
       setIsAdOpen(true);
       track("ad_visual");
+      return;
     }
+    if (a !== "share" && !(await gateDownload())) return;
+    if (a === "pdf") handleDownloadPdf();
+    else if (a === "zip") handleDownloadZip();
     else if (a === "ar") setIsArOpen(true);
     else handleShare();
   };
@@ -695,6 +751,9 @@ export function EdifyWorkspace() {
             track("change_layout", v);
           }}
           onChangeMotif={(v) => setMotif(v)}
+          artStyle={extras.artUrl ? extras.artStyle ?? "flat" : "none"}
+          artBusy={artBusy}
+          onRegenerateArt={regenerateArt}
           content={content}
           logo={uploadedLogo}
           logoName={uploadedLogoName}
@@ -734,7 +793,7 @@ export function EdifyWorkspace() {
         </main>
       </div>
 
-      <AdStudioModal isOpen={isAdOpen} onClose={() => setIsAdOpen(false)} spec={spec} design={fullDesign} projectName={content.projectName} onToast={showToast} />
+      <AdStudioModal isOpen={isAdOpen} onClose={() => setIsAdOpen(false)} spec={spec} design={fullDesign} projectName={content.projectName} onToast={showToast} onBeforeDownload={gateDownload} />
       <DesignReveal
         open={reveal}
         onClose={() => setReveal(false)}
@@ -743,6 +802,7 @@ export function EdifyWorkspace() {
         design={fullDesign}
         projectName={content.projectName}
         rationale={lastRationale}
+        onBeforeDownload={gateDownload}
         onDownloadPdf={() => {
           setReveal(false);
           handleExport("pdf");

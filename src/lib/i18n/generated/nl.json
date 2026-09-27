@@ -481,10 +481,10 @@
   },
   "paywall": {
    "generate": "Activeer uw abonnement om de AI te starten",
-   "export": "Deze functie maakt deel uit van een abonnement",
-   "credits": "U hebt al de verpakkingen van uw periode verbruikt",
+   "export": "Je verpakking is klaar: kies een abonnement om hem te downloaden",
+   "credits": "Je hebt alle verpakkingen van je periode gedownload",
    "upgrade": "Stap over naar een abonnement met meer verpakkingen",
-   "sub": "Uw briefing is opgeslagen: deze wordt gegenereerd zodra uw abonnement actief is. Betaal met MTN MoMo of Orange Money.",
+   "sub": "Je ontwerp is opgeslagen in je account. Zodra je abonnement actief is, download je de drukklare PDF, de 3D-mockup en de advertentiebeeld. Betaal met MTN MoMo of Orange Money.",
    "perMonth": " / maand",
    "cta": "Kies mijn plan",
    "close": "Sluiten"

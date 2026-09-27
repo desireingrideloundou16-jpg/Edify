@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { X, Download, RefreshCw, Loader2, Megaphone, ImageIcon } from "lucide-react";
-import { AD_FORMATS, AD_SCENES, renderAd, type AdFormat, type AdScene } from "@/lib/three/adRender";
+import { AD_DECORS, AD_FORMATS, AD_SCENES, renderAd, type AdFormat, type AdScene } from "@/lib/three/adRender";
 import type { PackagingSpec } from "@/lib/three/packagingModels";
 import type { PackagingDesign } from "@/lib/artwork/draw";
 import { slugify } from "@/lib/print/exportPrintPdf";
@@ -15,18 +15,11 @@ interface AdStudioModalProps {
   design: PackagingDesign;
   projectName: string;
   onToast: (msg: string) => void;
+  /** Paywall + packaging count before any download (false = blocked). */
+  onBeforeDownload: () => Promise<boolean>;
 }
 
-const DECORS = [
-  "Table en bois clair, cuisine lumineuse",
-  "Marché africain coloré, arrière-plan flou",
-  "Marbre blanc et feuilles tropicales",
-  "Tissu wax aux couleurs vives",
-  "Plage et palmiers au coucher du soleil",
-  "Studio béton, lumière douce de fin de journée",
-];
-
-export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onToast }: AdStudioModalProps) {
+export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onToast, onBeforeDownload }: AdStudioModalProps) {
   const [scene, setScene] = useState<AdScene>("podium");
   const [format, setFormat] = useState<AdFormat>("portrait");
   const [withCopy, setWithCopy] = useState(true);
@@ -36,14 +29,16 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   /** AI photo backdrop (Cloudflare Workers AI · FLUX). */
-  const [decor, setDecor] = useState(DECORS[0]);
+  const [decor, setDecor] = useState(AD_DECORS[0].id);
   const [photoBg, setPhotoBg] = useState<string | null>(null);
   const [decorBusy, setDecorBusy] = useState(false);
+  const autoDecor = React.useRef(false);
 
-  const generateDecor = async () => {
+  const generateDecor = async (id = decor) => {
     setDecorBusy(true);
     try {
-      const res = await fetch("/api/ai-image", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: decor, format }) });
+      const preset = AD_DECORS.find((d) => d.id === id) ?? AD_DECORS[0];
+      const res = await fetch("/api/ai-image", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ mode: "scene", prompt: preset.prompt(design), format }) });
       const json = await res.json().catch(() => ({}));
       if (res.ok && json.image) {
         setPhotoBg(json.image);
@@ -52,10 +47,8 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
       onToast(
         res.status === 503
           ? "Le décor photo IA s'active dès que Cloudflare Workers AI est configuré."
-          : res.status === 402
-            ? "Un abonnement actif est nécessaire pour le décor photo IA."
-            : res.status === 403
-              ? "Les décors photo IA sont inclus à partir du plan Pro."
+          : res.status === 429
+            ? "Limite de décors photo IA atteinte pour aujourd'hui : le studio 3D reste disponible."
             : "Le décor n'a pas pu être généré. Réessayez."
       );
     } catch {
@@ -92,6 +85,18 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
     // Regenerate whenever an option changes while open.
   }, [isOpen, generate]);
 
+  // A real photo set straight away: the pack's own ingredients, in its colours.
+  useEffect(() => {
+    if (!isOpen) {
+      autoDecor.current = false;
+      return;
+    }
+    if (autoDecor.current || photoBg) return;
+    autoDecor.current = true;
+    generateDecor(AD_DECORS[0].id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -105,6 +110,7 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
     if (!image) return;
     setSaving(true);
     try {
+      if (!(await onBeforeDownload())) return;
       await saveDataUrl(image, `${slugify(projectName) || "edify"}-visuel-${format}.png`);
       onToast("✓ Visuel téléchargé (PNG haute définition).");
     } catch (e) {
@@ -154,10 +160,10 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
                   </button>
                 </div>
               )}
-              {busy && (
+              {(busy || decorBusy) && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-slate-600">
                   <Loader2 className="w-6 h-6 animate-spin" />
-                  <span className="text-xs font-semibold">Rendu haute définition…</span>
+                  <span className="text-xs font-semibold">{decorBusy ? "Création du décor photo…" : "Rendu haute définition…"}</span>
                 </div>
               )}
             </div>
@@ -177,11 +183,19 @@ export function AdStudioModal({ isOpen, onClose, spec, design, projectName, onTo
               </div>
               <div className="space-y-1.5">
                 <label className="text-[11px] font-bold text-slate-700" htmlFor="ad-decor">Décor photo IA</label>
-                <select id="ad-decor" value={decor} onChange={(e) => setDecor(e.target.value)} className="edify-select">
-                  {DECORS.map((d) => <option key={d} value={d}>{d}</option>)}
+                <select
+                  id="ad-decor"
+                  value={decor}
+                  onChange={(e) => {
+                    setDecor(e.target.value);
+                    generateDecor(e.target.value);
+                  }}
+                  className="edify-select"
+                >
+                  {AD_DECORS.map((d) => <option key={d.id} value={d.id}>{d.label}</option>)}
                 </select>
                 <div className="flex gap-2">
-                  <button type="button" onClick={generateDecor} disabled={decorBusy || busy} className="edify-secondary-btn flex-1 justify-center">
+                  <button type="button" onClick={() => generateDecor()} disabled={decorBusy || busy} className="edify-secondary-btn flex-1 justify-center">
                     {decorBusy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ImageIcon className="w-3.5 h-3.5" />} {photoBg ? "Autre décor" : "Générer le décor"}
                   </button>
                   {photoBg && (

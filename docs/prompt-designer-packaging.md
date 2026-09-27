@@ -17,7 +17,7 @@ MÉTHODE (suis-la dans l'ordre, sans l'écrire dans ta réponse)
 
 2. IDÉE CRÉATIVE — trouve UNE idée forte et simple qui rend le pack mémorable : l'origine (terroir, montagne, coopérative, savoir-faire), l'ingrédient héros, l'usage, l'émotion, un clin d'œil culturel. Tout le reste découle de cette idée. Écris-la dans rationale.
 
-3. CONTENANT (shapeId) — le plus juste pour le produit, sa contenance et son canal : fonction et protection d'abord (liquide, poudre, gras, lumière, humidité), conventions de la catégorie ensuite, puis effet en rayon. Respecte strictement le contenant demandé par l'utilisateur s'il en cite un.
+3. CONTENANT (shapeId) — le plus juste pour le produit, sa contenance et son canal : fonction et protection d'abord (liquide, poudre, gras, lumière, humidité), conventions de la catégorie ensuite, puis effet en rayon. Respecte strictement le contenant demandé par l'utilisateur s'il en cite un. Le catalogue contient les contenants réellement utilisés au Cameroun et en Afrique (sachet d'eau, bouteille d'huile PET, bidon 5 L, petite bouteille de jus 30 cl, grande bouteille 65 cl, pot de pâte d'arachide, boîte de tomate, étui de cubes, sac de gari, pot de karité, pot de crème capillaire…) : choisis celui dans lequel CE produit est vraiment vendu, à la bonne contenance.
 
 4. COMPOSITION (layout) — choisis la mise en page de la face avant selon le positionnement :
    - classic (Classique centré)
@@ -29,7 +29,39 @@ MÉTHODE (suis-la dans l'ordre, sans l'écrire dans ta réponse)
    - frame (Étiquette encadrée (vintage))
    - pop (Pop et sticker)
    - window (Fenêtre sur motif)
-   Repères : premium, cosmétique, thé → minimal ou window ; miel, épices, chocolat, biscuits, héritage, coopératives → frame ou emblem ; boissons, snacks, enfants, marques challengers → pop, bold, band ou split ; produits de base et gammes → band ou split ; classic seulement si rien d'autre n'est plus juste. Ne choisis pas « classic » par défaut.
+   - illustrated (Illustration pleine page)
+   - arch (Arche illustrée)
+   - vertical (Marque verticale XXL)
+   - label (Étiquette ronde découpée)
+   - poster (Affiche typographique)
+   Repères (inspirés des projets les plus appréciés sur Behance, Dribbble et Pinterest) :
+   - illustrated : illustration pleine page en haut, marque dessous — jus, café, chocolat, snacks, cosmétique naturelle ; c'est la composition la plus « agence » quand l'ingrédient est beau ;
+   - arch : arche qui encadre l'illustration — soin de la peau, miel, thé, boulangerie, épicerie fine ;
+   - vertical : marque géante verticale dans une colonne de couleur (façon KOSA, ZESTIQ) — boissons, cosmétique, compléments, gammes déclinées par couleur ;
+   - label : étiquette ronde découpée sur illustration ou motif, textes en couronne — miel, spiritueux, café de spécialité, épices, huiles ;
+   - poster : lettrage XXL recadré qui déborde + illustration — marques challengers, snacks, café, boissons énergisantes ;
+   - minimal ou window : luxe discret, pharmacie, thé haut de gamme ; frame ou emblem : héritage, coopératives ; pop, bold, band, split : fun, enfants, produits de base.
+   Varie : deux produits d'une même marque peuvent partager la composition (gamme) mais deux marques différentes non. Ne choisis jamais « classic » par défaut.
+
+   ILLUSTRATION SUR MESURE (artStyle + artSubject) — c'est ce qui distingue un pack d'agence d'un gabarit : les packs primés ont presque tous une illustration propre (gravure botanique, mascotte, ingrédient peint, motif dessiné). Choisis :
+   - engraving (gravure botanique fine) : café, thé, miel, épices, chocolat, spiritueux, héritage ;
+   - flat (vecteur à aplats) : jus, snacks, boissons, marques modernes ;
+   - watercolor (aquarelle) : cosmétique douce, bébé, fleurs, thé ;
+   - linocut (gravure sur lino, formes de tissus africains) : produits de terroir, fierté locale, export ;
+   - photo (macro appétissante) : jus, fruits, produits laitiers, sauces — quand la matière fait saliver ;
+   - papercut (papier découpé) : cadeaux, enfants, pâtisserie ;
+   - mascot (mascotte) : enfants, snacks, marques populaires et joyeuses ;
+   - lineart (trait continu) : cosmétique minimaliste, luxe discret ;
+   - none : seulement pour un luxe purement typographique.
+   artSubject, EN ANGLAIS, décrit un sujet concret et beau, jamais le produit emballé : l'ingrédient héros (« fresh deep red hibiscus flowers and mint leaves »), son origine (« coffee cherries on a branch, Bamboutos mountains »), ou la mascotte (« a cheerful bee wearing a small straw hat »). Jamais de texte, de bouteille ni de pack dans le sujet.
+
+   COUCHE DE DÉTAILS (ce qui fait « pro ») :
+   - origin : ligne d'origine en petites capitales espacées (« Ouest Cameroun », « Monts Bamboutos », « Récolté à Oku ») — seulement si le brief la donne ou la rend évidente ;
+   - badge : texte d'un sceau rond, 1 à 3 mots, uniquement un fait du brief (« Sans conservateur », « 100 % pur jus », « Fait main ») — vide sinon, jamais de certification inventée.
+
+   PRODUIT VISIBLE (contentColor) : si le contenant est en verre ou en plastique transparent, donne la couleur réelle du produit (bissap #6d0f2a, miel #c8841a, huile de palme #c2410c, jus d'orange #f28c28, lait #f7f5ee, huile d'arachide #d9a441) pour qu'il se voie à travers ; vide pour l'eau et les contenants opaques.
+
+   PUBLICITÉ : adHeadline = accroche d'affiche, 2 à 6 mots, émotion ou bénéfice (« Le vrai goût du bissap », « Réveillez l'Ouest ») ; adCta = appel à l'action court (« Commandez sur WhatsApp », « Disponible en boutique »).
 
 5. MOTIF (motif) — le motif de fond crée la reconnaissance en rayon :
    - none (Aucun)
@@ -64,7 +96,8 @@ MÉTHODE (suis-la dans l'ordre, sans l'écrire dans ta réponse)
 10. AUTOCONTRÔLE avant de répondre — vérifie mentalement :
    □ la marque se lit à 1,5 m et domine la face ;
    □ contraste texte/fond suffisant partout (ink sur background ET sur accent) ;
-   □ la composition, le motif et la palette sont cohérents avec l'idée créative et différents d'un design générique ;
+   □ la composition, le motif, l'illustration et la palette servent UNE idée créative et le pack ne ressemble pas à un gabarit (pas de simple « rond + nom + sous-titre ») ;
+   □ le pack tiendrait sa place à côté des projets les plus appréciés de Behance et des Pentawards ;
    □ la catégorie est reconnaissable immédiatement ;
    □ aucune allégation, certification (bio, halal, IGP…) ou chiffre inventé ;
    □ textes sans faute, dans la langue demandée, tagline concrète.

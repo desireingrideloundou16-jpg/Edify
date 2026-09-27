@@ -34,6 +34,18 @@ export interface PackagingDesign {
   motif?: MotifId;
   /** Variation seed (angles, motif placement). */
   seed?: number;
+  /** Custom illustration made for this pack by the AI (FLUX), and its style (see compose.drawArt). */
+  art?: HTMLImageElement | null;
+  artStyle?: string;
+  artSubject?: string;
+  /** Short seal text ("100 % naturel") and origin line ("Ouest Cameroun"): the premium detail layer. */
+  badge?: string;
+  origin?: string;
+  /** Colour of the product seen through glass or clear plastic ("" = opaque pack). */
+  contentColor?: string;
+  /** Advertising copy written by the AI designer. */
+  adHeadline?: string;
+  adCta?: string;
 }
 
 export type FaceKind = "front" | "back" | "side" | "top" | "plain" | "strip";
@@ -274,7 +286,7 @@ function drawBack(ctx: CanvasRenderingContext2D, x: number, y: number, w: number
   if (d.volume) facts.push(`Contenu net / Net content : ${d.volume}`);
   if (d.production?.trim()) facts.push(`Fabriqué le / Produced : ${formatDate(d.production)}`);
   if (d.expiry?.trim()) facts.push(`À consommer avant / Best before : ${formatDate(d.expiry)}`);
-  if (d.price?.trim()) facts.push(`Prix / Price : ${d.price.trim()}`);
+  if (d.price?.trim()) facts.push(`Prix / Price : ${/^\d[\d\s.]*$/.test(d.price.trim()) ? `${d.price.trim()} FCFA` : d.price.trim()}`);
 
   ctx.save();
   ctx.textAlign = "left";

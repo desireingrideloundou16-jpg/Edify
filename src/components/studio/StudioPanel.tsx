@@ -169,6 +169,10 @@ interface StudioPanelProps {
   motif: string;
   onChangeLayout: (layout: string) => void;
   onChangeMotif: (motif: string) => void;
+  /** AI illustration of the pack ("none" when there is none). */
+  artStyle: string;
+  artBusy: boolean;
+  onRegenerateArt: (style: string) => void;
   onChangeContent: (patch: Partial<DesignContent>) => void;
   onLogoUpload: (dataUrl: string, name: string) => void;
   onRemoveLogo: () => void;
@@ -238,7 +242,20 @@ function ShapeTab({ shape, onSelectShape }: StudioPanelProps) {
   );
 }
 
-function StyleTab({ style, isCustomPalette, headingFont, bodyFont, onSelectStyle, onChangeFont, layout, motif, onChangeLayout, onChangeMotif }: StudioPanelProps) {
+const ART_STYLE_LABELS: [string, string][] = [
+  ["none", "Aucune"],
+  ["engraving", "Gravure botanique"],
+  ["flat", "Illustration à aplats"],
+  ["watercolor", "Aquarelle"],
+  ["linocut", "Gravure lino (tissu africain)"],
+  ["photo", "Photo appétissante"],
+  ["papercut", "Papier découpé"],
+  ["mascot", "Mascotte"],
+  ["lineart", "Trait continu"],
+];
+
+function StyleTab({ style, isCustomPalette, headingFont, bodyFont, onSelectStyle, onChangeFont, layout, motif, onChangeLayout, onChangeMotif, artStyle, artBusy, onRegenerateArt }: StudioPanelProps) {
+  const [artChoice, setArtChoice] = useState(artStyle === "none" ? "flat" : artStyle);
   return (
     <div className="st-section">
       <label htmlFor="st-style" className="st-label">Style visuel</label>
@@ -276,6 +293,19 @@ function StyleTab({ style, isCustomPalette, headingFont, bodyFont, onSelectStyle
             {MOTIFS.map((m) => <option key={m} value={m}>{MOTIF_LABELS[m]}</option>)}
           </select>
         </label>
+      </div>
+
+      <div className="block space-y-1.5">
+        <span className="st-label">Illustration sur mesure (IA)</span>
+        <div className="flex gap-2">
+          <select className="edify-select flex-1" value={artChoice} onChange={(e) => setArtChoice(e.target.value)} aria-label="Style d'illustration">
+            {ART_STYLE_LABELS.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+          </select>
+          <button type="button" className="edify-secondary-btn justify-center" disabled={artBusy} onClick={() => onRegenerateArt(artChoice)}>
+            {artBusy ? "…" : artChoice === "none" ? "Retirer" : artStyle === "none" ? "Créer" : "Régénérer"}
+          </button>
+        </div>
+        <p className="st-help">Dessinée pour votre produit, elle se fond dans l&apos;étiquette. Idéale avec les mises en page « Illustration », « Arche », « Étiquette ronde » et « Affiche ».</p>
       </div>
 
       {([

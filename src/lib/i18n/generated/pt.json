@@ -481,10 +481,10 @@
   },
   "paywall": {
    "generate": "Ative o seu plano para executar a IA",
-   "export": "Este recurso faz parte de um plano",
-   "credits": "Você usou todas as embalagens do seu período",
+   "export": "A sua embalagem está pronta: escolha um plano para a descarregar",
+   "credits": "Já descarregou todas as embalagens do seu período",
    "upgrade": "Mude para um plano com mais embalagens",
-   "sub": "O seu briefing está salvo: ele será gerado assim que o seu plano estiver ativo. Pague com MTN MoMo ou Orange Money.",
+   "sub": "O seu design está guardado na sua conta. Assim que o plano estiver ativo, descarregue o PDF de impressão, a maquete 3D e a imagem publicitária. Pague com MTN MoMo ou Orange Money.",
    "perMonth": " / mês",
    "cta": "Escolher meu plano",
    "close": "Fechar"

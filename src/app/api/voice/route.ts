@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { logAiEvent } from "@/lib/admin/log";
 import { LAYOUT_IDS, MOTIF_IDS } from "@/lib/ai/designSpec";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -40,6 +42,12 @@ export async function POST(req: Request) {
   if (!user) return Response.json({ error: "unauthenticated" }, { status: 401 });
   const key = process.env.GEMINI_API_KEY;
   if (!key) return Response.json({ error: "not_configured" }, { status: 503 });
+  // Open without a plan (the paywall is at download time), within a daily fair-use cap
+  // shared with the wizard suggestions.
+  const admin = createAdminClient();
+  const { data: profile } = await admin.from("profiles").select("plan_expires_at, suspended").eq("id", user.id).single();
+  if (profile?.suspended) return Response.json({ error: "suspended" }, { status: 403 });
+  if ((await dailyAiCount(admin, user.id, "suggest")) >= (hasActivePlan(profile) ? 120 : 30)) return Response.json({ error: "daily_limit" }, { status: 429 });
 
   const body = await req.json().catch(() => ({}));
   const audio = typeof body?.audio === "string" ? body.audio : "";

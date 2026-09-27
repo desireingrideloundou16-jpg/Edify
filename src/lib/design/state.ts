@@ -33,6 +33,20 @@ export interface DesignSelection {
   /** Front composition and motif (null = classic, no motif). */
   layout?: string | null;
   motif?: string | null;
+  /** Illustration, detail layer, visible product and ad copy chosen by the AI designer. */
+  extras?: DesignExtras | null;
+}
+
+export interface DesignExtras {
+  /** Illustration (JPEG data URL) generated for this pack, with its style and subject. */
+  artUrl?: string | null;
+  artStyle?: string;
+  artSubject?: string;
+  badge?: string;
+  origin?: string;
+  contentColor?: string;
+  adHeadline?: string;
+  adCta?: string;
 }
 
 const BY_KEY: Record<string, [string, string]> = {
@@ -86,7 +100,15 @@ export function isInstalledFont(family: string | null | undefined): family is st
 
 export function toPackagingDesign(content: DesignContent, style: VisualStylePreset, sel: DesignSelection): Omit<PackagingDesign, "logo"> {
   const [h, b] = defaultFonts(style);
+  const x = sel.extras ?? {};
   return {
+    artStyle: x.artStyle,
+    artSubject: x.artSubject,
+    badge: x.badge,
+    origin: x.origin,
+    contentColor: x.contentColor,
+    adHeadline: x.adHeadline,
+    adCta: x.adCta,
     brandName: content.brandName,
     productName: content.productName,
     tagline: content.tagline,

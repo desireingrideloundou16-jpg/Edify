@@ -48,7 +48,8 @@
 - **9 750 FCFA** pour 5 packagings, soit 1 950 FCFA l'unité : le cœur de revenu, pour lancer une gamme. C'est le plan « Le plus choisi ».
 - **29 999 FCFA** pour 18 packagings, soit 1 667 FCFA l'unité : l'ancre haute pour les structures qui gèrent plusieurs gammes.
 - Toutes les fonctionnalités sont incluses dans les trois plans : seul le nombre de packagings change. Aucun service humain n'est promis.
-- Un packaging est décompté à sa première conception par l'IA ou à son premier téléchargement ; ensuite retouches, exports et jusqu'à 15 régénérations IA sont inclus. Les packagings non utilisés sont reportés tant que l'abonnement est actif.
+- Paywall à la toute fin : concevoir et voir son packaging (design IA, maquette 3D, visuel pub) est possible sans abonnement, dans une limite quotidienne (6 designs IA/jour sans abonnement, 40 avec) ; l'abonnement est demandé au moment de télécharger. C'est le moment où l'envie d'acheter est la plus forte.
+- Un packaging est décompté à son premier téléchargement ; ensuite retouches, exports et jusqu'à 15 régénérations IA sont inclus. Les packagings non utilisés sont reportés tant que l'abonnement est actif.
 
 ## 4. Économie unitaire (ordres de grandeur)
 
