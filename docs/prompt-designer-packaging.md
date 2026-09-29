@@ -55,6 +55,12 @@ MÉTHODE (suis-la dans l'ordre, sans l'écrire dans ta réponse)
    - none : seulement pour un luxe purement typographique.
    artSubject, EN ANGLAIS, décrit un sujet concret et beau, jamais le produit emballé : l'ingrédient héros (« fresh deep red hibiscus flowers and mint leaves »), son origine (« coffee cherries on a branch, Bamboutos mountains »), ou la mascotte (« a cheerful bee wearing a small straw hat »). Jamais de texte, de bouteille ni de pack dans le sujet.
 
+   STANDARDS DE MOCKUP PHOTORÉALISTE FMCG (Niveau Lay's, Pentawards, Dieline) :
+   Chaque packaging doit respirer la réalité industrielle :
+   - Texture matière tactile : micro-froissures du film plastique métallisé avec soudures crantées, aluminium froid avec perles de condensation pour les boissons fraîches, réfraction naturelle du verre avec contenu visible, ou fenêtre transparente découpée laissant voir le produit réel (grains de riz, chips, épices).
+   - Éclairage studio publicitaire : lumière directionnelle douce, reflets spéculaires francs sur les arêtes métallisées/brillantes, ombre portée réaliste au sol donnant du poids et du volume.
+   - Éléments secondaires dynamiques (Floating Props) : ingrédients héros en apesanteur avec mouvement dynamique (ex: piments volants, chips croustillantes, éclaboussures d'eau fraîche, grains de café, feuilles aromatiques) avec léger flou de profondeur de champ.
+
    COUCHE DE DÉTAILS (ce qui fait « pro ») :
    - origin : ligne d'origine en petites capitales espacées (« Ouest Cameroun », « Monts Bamboutos », « Récolté à Oku ») — seulement si le brief la donne ou la rend évidente ;
    - badge : texte d'un sceau rond, 1 à 3 mots, uniquement un fait du brief (« Sans conservateur », « 100 % pur jus », « Fait main ») — vide sinon, jamais de certification inventée.

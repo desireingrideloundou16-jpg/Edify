@@ -7,6 +7,8 @@ import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment
 import { buildPackaging, disposeObject, type PackagingSpec } from "./packagingModels";
 import { fontCss, fontWeight, loadDesignFonts, resolveColors, luminance, type PackagingDesign } from "@/lib/artwork/draw";
 import { colorName } from "@/lib/ai/colorNames";
+import { deduceFloatingProps, buildMockupConfigFromDesign, generateMockupPromptFromDesign } from "@/lib/ai/mockupGenerator";
+export { buildMockupConfigFromDesign, generateMockupPromptFromDesign };
 
 /**
  * Photographic sets for the ad visual, written from the pack itself (its hero ingredient, its
@@ -281,9 +283,35 @@ export async function renderAd(opts: AdOptions): Promise<string> {
       stage.add(arch);
     }
 
-    // Decorative spheres in the brand colours.
-    if (!photo && (scene === "pop" || scene === "nature" || scene === "podium")) {
-      const colors = scene === "nature" ? ["#9fb08f", "#d8cdb4"] : [accent, extra];
+    // Dynamic secondary elements & floating props (FMCG commercial mockup standard)
+    if (!photo && (scene === "pop" || scene === "nature" || scene === "podium" || scene === "luxe")) {
+      const colors = scene === "nature" ? ["#9fb08f", "#d8cdb4", "#f2c14e"] : [accent, extra, "#ef4444"];
+      const { props: floatingNames } = deduceFloatingProps(design.productName, design.artSubject);
+      
+      // Floating curved elements (simulating flying chilies, chips, leaves)
+      for (let i = 0; i < 3; i++) {
+        const propScale = 0.12 + rand(i * 3 + 1) * 0.1;
+        const torus = new THREE.Mesh(
+          new THREE.TorusGeometry(propScale, propScale * 0.35, 16, 32, Math.PI * 1.3),
+          new THREE.MeshPhysicalMaterial({
+            color: colors[i % colors.length],
+            roughness: 0.3,
+            metalness: 0.15,
+            clearcoat: 0.5,
+          })
+        );
+        const sign = i % 2 === 0 ? 1 : -1;
+        torus.position.set(
+          sign * (0.8 + rand(i + 7) * 0.5),
+          productY + 0.3 + rand(i + 13) * 0.6,
+          0.3 + rand(i + 17) * 0.4
+        );
+        torus.rotation.set(rand(i + 23) * Math.PI, rand(i + 29) * Math.PI, rand(i + 31) * Math.PI);
+        torus.castShadow = true;
+        stage.add(torus);
+      }
+
+      // Grounding spherical props
       for (let i = 0; i < 2; i++) {
         const r = 0.07 + rand(i) * 0.06;
         const s = new THREE.Mesh(new THREE.SphereGeometry(r, 48, 32), new THREE.MeshPhysicalMaterial({ color: colors[i], roughness: 0.35, clearcoat: 0.6 }));

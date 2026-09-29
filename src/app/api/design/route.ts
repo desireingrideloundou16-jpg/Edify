@@ -14,6 +14,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { resolveProject } from "@/lib/billing/packaging";
 import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
 import { AI_REGEN_PER_PACKAGING } from "@/lib/billing/plans";
+import { generateMockupPromptFromDesign } from "@/lib/ai/mockupGenerator";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -210,8 +211,16 @@ export async function POST(req: Request) {
     try {
       const spec = await engine.run();
       await admin.from("projects").update({ ai_generations: project.ai_generations + 1 }).eq("id", project.id);
-      await logAiEvent(user.id, "design", engine.name);
-      return Response.json({ spec: sanitizeSpec(spec, current), engine: engine.name, credits: available, projectId: project.id, counted: project.counted });
+      const sanitized = sanitizeSpec(spec, current);
+      const mockupPrompt = generateMockupPromptFromDesign(sanitized);
+      return Response.json({
+        spec: sanitized,
+        mockupPrompt,
+        engine: engine.name,
+        credits: available,
+        projectId: project.id,
+        counted: project.counted,
+      });
     } catch (error) {
       console.error(`[api/design] ${engine.name}`, error);
       await logAiEvent(user.id, "design", engine.name, false);
@@ -221,8 +230,11 @@ export async function POST(req: Request) {
   }
 
   await logAiEvent(user.id, "design", "local");
+  const localSpec = sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current);
+  const localMockupPrompt = generateMockupPromptFromDesign(localSpec);
   return Response.json({
-    spec: sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current),
+    spec: localSpec,
+    mockupPrompt: localMockupPrompt,
     engine: "local",
     credits: available,
     projectId: project.id,
