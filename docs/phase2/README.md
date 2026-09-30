@@ -65,3 +65,32 @@ la page d'accueil gardent leur propre éclairage pour l'instant.
   surfaces, réfractions exactes dans le verre), au prix de dizaines de secondes par image sur ce type de GPU.
 - **WebGPU** : indisponible sur la machine de test et encore absent de nombreux navigateurs. Il n'est pas utilisé ;
   WebGL2 reste la base, et la détection est prête.
+
+## 2B — Silhouettes des bouteilles
+
+`src/lib/three/geometry/bottleGeometry.ts` : un seul moteur paramétrique remplace le profil circulaire
+`LatheGeometry`, qui ignorait L ≠ W. Chaîne : famille → configuration → section → profil vertical → géométrie.
+
+- **Section** : cercle, ellipse vraie, rectangle ou carré à coins arrondis (`cornerRadius`), polygone à facettes
+  (`facetCount`). La largeur et la profondeur sont respectées exactement (testé). Tous les anneaux partagent le même
+  échantillonnage, un sommet par direction, donc l'épaule peut transformer la section du corps en section du col
+  sans couture ni NaN.
+- **Profil** : congé de base, corps droit, épaule (`soft`, `rounded`, `sloped`, `sharp`, `none`), col distinct, bague
+  de finition (point d'attache des futures fermetures : `neck.width / depth / y`). Arêtes vives seulement là où elles
+  sont voulues (épaule `sharp` ou `none`).
+- **Base** : `flat`, `slightlyRounded`, `recessed` (piqûre de fond, bouteille de vin).
+- **Étiquette** : `createBottleLabel` suit la section réelle, centrée à l'avant, avec les mêmes UV (gauche → droite,
+  bas → haut) et la même `wrapTexture` qu'avant. Les artworks existants s'appliquent sans modification.
+- **Liquide** (verre et plastique transparent) : même section, légèrement en retrait.
+- **Familles** (`bottleFamily` / `bottlePreset`) : `round`, `beverage` (PET), `oval` (shampoing, VERDANT), `perfume`
+  (flacon rectangulaire, SOLÈNE), `wine` (MAISON LUNE, bière, huile), `dropper`, `pump`, `spray`.
+- Fermetures inchangées ; la bouteille s'arrête là où la fermeture commence, donc la hauteur totale reste celle du
+  catalogue.
+
+Triangles (corps + fond) : 4 032 pour les bouteilles rondes et ovales, 4 752 pour le vin (piqûre), 1 824 pour le
+parfum. S'y ajoutent 20 à 96 triangles d'étiquette.
+
+| Planche | Contenu |
+|---|---|
+| `2B-bouteilles-avant-apres.jpg` | par paires (avant à gauche, après à droite) : LUMINA ¾, MAISON LUNE face / hero / ¾, SOLÈNE face / hero / ¾, VERDANT gros plan / face / hero / ¾, PIMENTO face / ¾ |
+| `2B-catalogue-bouteilles.jpg` | 22 bouteilles du catalogue, plus MAISON LUNE (face, ¾, hero), avec le nouveau moteur |

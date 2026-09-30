@@ -13,6 +13,7 @@ import type { ShapeModel } from "@/components/workspace/Modals";
 import { microSurface, type MicroKind } from "./surfaceDetail";
 import { createPouchGeometry } from "./geometry/pouchGeometry";
 import { createCartonGeometry } from "./geometry/cartonGeometry";
+import { bottleFamily, bottlePreset, createBottleFill, createBottleGeometry, createBottleLabel } from "./geometry/bottleGeometry";
 import { drawFace, drawWrap, resolveColors, type FaceKind, type PackagingDesign } from "@/lib/artwork/draw";
 export type { PackagingDesign } from "@/lib/artwork/draw";
 export { resolveColors } from "@/lib/artwork/draw";
@@ -420,46 +421,52 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       break;
     }
 
-    // Bottles
+    // ── Bottles: parametric silhouette (section × profile), see geometry/bottleGeometry.ts ──
     default: {
       const m = spec.model;
-      const neckR = m === "dropper" || m === "pump" || m === "spray" ? R * 0.42 : m === "wine" ? R * 0.33 : R * 0.38;
-      const shoulder = m === "wine" ? H * 0.58 : m === "dropper" ? H * 0.62 : m === "spray" || m === "pump" ? H * 0.72 : H * 0.66;
-      const capH = m === "dropper" ? H * 0.34 : m === "pump" ? H * 0.2 : m === "spray" ? H * 0.2 : m === "wine" ? H * 0.12 : H * 0.1;
-      const neckTop = H - capH * (m === "wine" ? 0.9 : 0.8);
-      const neckStart = m === "wine" ? H * 0.75 : shoulder + (neckTop - shoulder) * 0.55;
-      const profile: [number, number][] = [
-        [0, 0], [R * 0.92, 0], [R, R * 0.08], [R, shoulder],
-        [R * 0.82, shoulder + (neckStart - shoulder) * 0.45], [neckR * 1.05, neckStart], [neckR, neckStart + 1],
-        [neckR, neckTop], [neckR * 1.12, neckTop], [neckR * 1.12, neckTop + 2], [0, neckTop + 2],
-      ];
+      const isDropper = m === "dropper";
+      const isPump = m === "pump";
+      const isSpray = m === "spray";
+      const isWine = m === "wine";
+      // Closure height (unchanged): the bottle itself stops where the closure starts.
+      const capH = isDropper ? H * 0.34 : isPump ? H * 0.2 : isSpray ? H * 0.2 : isWine ? H * 0.12 : H * 0.1;
+      const glassH = H - capH * (isWine ? 0.9 : 0.8);
+      const preset = bottlePreset(bottleFamily(m, L, W, material), L, W, glassH);
+      const bottle = createBottleGeometry(preset.config);
+
       const bodyMat = surface === "glass" ? glassMaterial(material)
         : surface === "clearplastic" ? new THREE.MeshPhysicalMaterial({ color: "#eef6ff", transmission: 0.95, roughness: 0.08, thickness: 0.3, side: THREE.DoubleSide })
         : surface === "metal" ? METAL_SILVER()
         : solid(bg, { roughness: 0.3, clearcoat: 0.7, clearcoatRoughness: 0.1, side: THREE.DoubleSide });
-      g.add(mesh(lathe(profile), bodyMat));
+      g.add(mesh(bottle.body, bodyMat));
+      g.add(mesh(bottle.bottom, bodyMat));
+
+      // Liquid seen through glass / clear plastic: same section, up to the shoulder.
       const bottleFill = contentFill(d, surface);
-      if (bottleFill) {
-        const fr = R * 0.93;
-        g.add(mesh(lathe([[0, R * 0.06], [fr * 0.94, R * 0.06], [fr, R * 0.14], [fr, shoulder * 0.98], [fr * 0.8, shoulder + (neckStart - shoulder) * 0.35], [0, shoulder + (neckStart - shoulder) * 0.35]]), bottleFill));
-      }
+      if (bottleFill) g.add(mesh(createBottleFill(bottle, bottle.shoulderStartY * 0.98), bottleFill));
 
-      const labelH = shoulder * (m === "dropper" ? 0.72 : 0.62);
-      const labelY = shoulder * 0.46;
-      const theta = m === "wine" ? Math.PI * 1.1 : Math.PI * 1.3;
-      g.add(mesh(wrapCylinder(R * 1.006, R * 1.006, labelH, theta), printed(wrapTexture(d, R * theta, labelH, 0.5), fin, surface === "metal" ? "metal" : "paper"), labelY));
+      // Label on the real section (ellipse, rounded rectangle…), same wrap texture as before.
+      const straight = bottle.shoulderStartY - bottle.bodyBottomY;
+      const labelY = bottle.bodyBottomY + straight * preset.label.from;
+      const labelH = straight * (preset.label.to - preset.label.from);
+      const label = createBottleLabel(bottle.section, { yStart: labelY, height: labelH, fraction: preset.label.fraction });
+      g.add(mesh(label.geometry, printed(wrapTexture(d, label.arcLength, labelH, 0.5), fin, surface === "metal" ? "metal" : "paper")));
 
-      const capMat = solid(m === "wine" ? accent : ink, { roughness: m === "wine" ? 0.35 : 0.25, metalness: m === "wine" ? 0.6 : 0.1, clearcoat: 0.6 });
-      if (m === "dropper") {
+      const neckR = bottle.neckTopRadius;
+      // Closures (unchanged), attached at the neck finish.
+      const neckTop = bottle.neckTopY;
+      const capMat = solid(isWine ? accent : ink, {
+        roughness: isWine ? 0.35 : 0.25, metalness: isWine ? 0.6 : 0.1, clearcoat: 0.6,
+      });
+
+      if (isDropper) {
         g.add(mesh(new THREE.CylinderGeometry(neckR * 1.25, neckR * 1.25, capH * 0.38, 48), capMat, neckTop + capH * 0.19));
-        const bulb = mesh(new THREE.CapsuleGeometry(neckR * 0.85, capH * 0.35, 12, 32), solid(ink, { roughness: 0.55 }), neckTop + capH * 0.38 + capH * 0.34);
-        g.add(bulb);
-      } else if (m === "pump" || m === "spray") {
-        g.add(mesh(new THREE.CylinderGeometry(neckR * 1.3, neckR * 1.3, capH * 0.3, 48), capMat, neckTop + capH * 0.15));
+        g.add(mesh(new THREE.CapsuleGeometry(neckR * 0.85, capH * 0.35, 12, 32), solid(ink, { roughness: 0.55 }), neckTop + capH * 0.38 + capH * 0.34));
+      } else if (isPump || isSpray) {
+        g.add(mesh(new THREE.CylinderGeometry(neckR * 1.3,  neckR * 1.3,  capH * 0.3,  48), capMat, neckTop + capH * 0.15));
         g.add(mesh(new THREE.CylinderGeometry(neckR * 0.35, neckR * 0.35, capH * 0.35, 24), capMat, neckTop + capH * 0.47));
-        const head = mesh(new THREE.CylinderGeometry(neckR * 0.9, neckR * 0.9, capH * 0.3, 48), capMat, neckTop + capH * 0.8);
-        g.add(head);
-        if (m === "pump") {
+        g.add(mesh(new THREE.CylinderGeometry(neckR * 0.9,  neckR * 0.9,  capH * 0.3,  48), capMat, neckTop + capH * 0.8));
+        if (isPump) {
           const nozzle = mesh(new THREE.BoxGeometry(neckR * 1.8, capH * 0.12, neckR * 0.45), capMat, neckTop + capH * 0.86);
           nozzle.position.x = neckR * 1.2;
           g.add(nozzle);

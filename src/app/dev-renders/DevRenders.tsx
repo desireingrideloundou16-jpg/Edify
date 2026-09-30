@@ -21,7 +21,8 @@ export function DevRenders() {
     (async () => {
       const { renderShowcase } = await import("@/lib/three/thumbnails");
       const item = SHOWCASE[index];
-      const shape = ALL_CATALOG_SHAPES.find((s) => s.id === item.shapeId)!;
+      // &shape=<catalog id> renders another container with the same showcase artwork.
+      const shape = ALL_CATALOG_SHAPES.find((s) => s.id === (q.get("shape") ?? item.shapeId))!;
       // &label=1 adds full label information (bilingual back panel, real EAN-13).
       const label = q.has("label")
         ? { ingredients: "Eau, fleurs d'hibiscus 12 %, sucre de canne, menthe / Water, hibiscus flowers 12%, cane sugar, mint", usage: "Bien agiter. Servir frais. / Shake well. Serve chilled.", barcode: "4006381333931", production: "2026-09-26", expiry: "2027-03-26", price: "1 500 FCFA", extra: "Fabriqué à Douala, Cameroun / Made in Douala, Cameroon" }
