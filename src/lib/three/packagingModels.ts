@@ -10,6 +10,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import type { ShapeModel } from "@/components/workspace/Modals";
 
+import { microSurface, type MicroKind } from "./surfaceDetail";
 import { drawFace, drawWrap, resolveColors, type FaceKind, type PackagingDesign } from "@/lib/artwork/draw";
 export type { PackagingDesign } from "@/lib/artwork/draw";
 export { resolveColors } from "@/lib/artwork/draw";
@@ -20,12 +21,6 @@ export interface PackagingSpec {
   widthMm: number;
   heightMm: number;
   material: string;
-}
-
-function roughnessFor(finishing: string): number {
-  if (/brillant|holograph|nacr|gloss/i.test(finishing)) return 0.28;
-  if (/soft|velours|non couch|recycl|kraft|washi|textur|verg|mat/i.test(finishing)) return 0.82;
-  return 0.55;
 }
 
 // ─── Artwork → textures ──────────────────────────────────────────────────────
@@ -55,14 +50,18 @@ function faceTexture(d: PackagingDesign, wMm: number, hMm: number, kind: FaceKin
   const [w, h] = pxFor(wMm, hMm, kind === "front" || kind === "top" || kind === "back" ? maxPx : maxPx / 2);
   const c = newCanvas(w, h);
   drawFace(c.getContext("2d")!, 0, 0, c.width, c.height, d, kind, { grain: true });
-  return toTexture(c);
+  const t = toTexture(c);
+  t.userData.mm = [wMm, hMm];
+  return t;
 }
 
 function wrapTexture(d: PackagingDesign, arcMm: number, hMm: number, frontFraction: number, maxPx = 1536) {
   const [w, h] = pxFor(arcMm, hMm, maxPx);
   const c = newCanvas(w, h);
   drawWrap(c.getContext("2d")!, 0, 0, c.width, c.height, d, frontFraction, { grain: true });
-  return toTexture(c);
+  const t = toTexture(c);
+  t.userData.mm = [arcMm, hMm];
+  return t;
 }
 
 // ─── Materials ───────────────────────────────────────────────────────────────
@@ -98,21 +97,74 @@ function glassMaterial(material: string) {
   });
 }
 
+type Finish = "gloss" | "matte" | "soft" | "uncoated" | "laid" | "satin";
+
+function finishFrom(finishing: string): Finish {
+  if (/verg/i.test(finishing)) return "laid";
+  if (/soft|velours/i.test(finishing)) return "soft";
+  if (/non couch|recycl|kraft|washi|textur/i.test(finishing)) return "uncoated";
+  if (/mat/i.test(finishing)) return "matte";
+  if (/brillant|holograph|nacr|gloss|uv/i.test(finishing)) return "gloss";
+  return "satin";
+}
+
+/** Surface size (mm) carried by artwork textures, so micro-detail keeps a physical scale. */
+function mmOf(map: THREE.Texture | null): [number, number] {
+  const mm = map?.userData.mm as [number, number] | undefined;
+  return mm ?? [100, 100];
+}
+
+function withMicro(kind: MicroKind, map: THREE.Texture | null, normalScale: number) {
+  const [w, h] = mmOf(map);
+  const m = microSurface(kind, w, h);
+  return { normalMap: m.normal, normalScale: new THREE.Vector2(normalScale, normalScale), roughnessMap: m.roughness };
+}
+
 function printed(map: THREE.Texture | null, finishing: string, surface: Surface, color?: string) {
-  const rough = roughnessFor(finishing);
+  const fin = finishFrom(finishing);
   const base = { map, color: color ?? "#ffffff" };
+  const gloss = fin === "gloss";
+  const dull = fin === "matte" || fin === "soft" || fin === "uncoated" || fin === "laid";
   switch (surface) {
     case "metal":
-      return new THREE.MeshPhysicalMaterial({ ...base, metalness: 0.65, roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.15 });
+      // Ink printed on aluminium under a varnish: brushed metal shows through the clear coat.
+      return new THREE.MeshPhysicalMaterial({
+        ...base, ...withMicro("brushed", map, 0.06), metalness: 0.6, roughness: dull ? 0.45 : 0.3,
+        clearcoat: dull ? 0.3 : 1, clearcoatRoughness: dull ? 0.35 : 0.06,
+      });
     case "film":
-      return new THREE.MeshPhysicalMaterial({ ...base, metalness: 0.25, roughness: 0.32, clearcoat: 0.8, clearcoatRoughness: 0.2, side: THREE.DoubleSide });
+      return new THREE.MeshPhysicalMaterial({
+        ...base, ...withMicro("film", map, 0.28), metalness: 0.25, roughness: dull ? 0.5 : 0.3,
+        clearcoat: dull ? 0.2 : 0.9, clearcoatRoughness: dull ? 0.4 : 0.12, side: THREE.DoubleSide,
+      });
     case "plastic":
     case "clearplastic":
-      return new THREE.MeshPhysicalMaterial({ ...base, roughness: 0.3, clearcoat: 0.6, clearcoatRoughness: 0.18 });
+      return new THREE.MeshPhysicalMaterial({
+        ...base, ...withMicro("plastic", map, 0.12), roughness: dull ? 0.55 : 0.3,
+        clearcoat: dull ? 0 : 0.7, clearcoatRoughness: 0.12,
+      });
     case "kraft":
-      return new THREE.MeshStandardMaterial({ ...base, roughness: 0.92 });
+      return new THREE.MeshPhysicalMaterial({
+        ...base, ...withMicro("kraft", map, 0.45), roughness: 0.9, sheen: 0.06, sheenRoughness: 0.9, sheenColor: new THREE.Color("#ffffff"),
+      });
     default:
-      return new THREE.MeshPhysicalMaterial({ ...base, roughness: rough, clearcoat: rough < 0.4 ? 0.5 : 0, clearcoatRoughness: 0.2 });
+      switch (fin) {
+        case "gloss":
+          // Smooth varnish over coated board: sharp reflections, paper texture underneath.
+          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("coated", map, 0.15), roughness: 0.45, clearcoat: 1, clearcoatRoughness: 0.05 });
+        case "soft":
+          return new THREE.MeshPhysicalMaterial({
+            ...base, ...withMicro("softtouch", map, 0.2), roughness: 0.88, sheen: 0.15, sheenRoughness: 0.75, sheenColor: new THREE.Color("#ffffff"),
+          });
+        case "matte":
+          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("coated", map, 0.2), roughness: 0.72, clearcoat: 0.15, clearcoatRoughness: 0.6 });
+        case "uncoated":
+          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("paper", map, 0.35), roughness: 0.92, sheen: 0.08, sheenRoughness: 0.9, sheenColor: new THREE.Color("#ffffff") });
+        case "laid":
+          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("laid", map, 0.18), roughness: 0.9 });
+        default:
+          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("coated", map, 0.15), roughness: gloss ? 0.3 : 0.5, clearcoat: 0.4, clearcoatRoughness: 0.25 });
+      }
   }
 }
 
@@ -120,7 +172,10 @@ function solid(color: string, opts: Partial<THREE.MeshPhysicalMaterialParameters
   return new THREE.MeshPhysicalMaterial({ color, roughness: 0.4, ...opts });
 }
 
-const METAL_SILVER = () => solid("#d7dadd", { metalness: 1, roughness: 0.22 });
+const METAL_SILVER = () => {
+  const m = microSurface("brushed", 200, 200);
+  return solid("#d7dadd", { metalness: 1, roughness: 0.3, normalMap: m.normal, normalScale: new THREE.Vector2(0.12, 0.12), roughnessMap: m.roughness });
+};
 
 /** Product seen through a glass or clear plastic container (juice, honey, oil…). */
 function contentFill(d: PackagingDesign, surface: Surface) {
@@ -435,8 +490,10 @@ export function disposeObject(obj: THREE.Object3D) {
     m.geometry.dispose();
     const mats = Array.isArray(m.material) ? m.material : [m.material];
     for (const mat of mats) {
-      const map = (mat as THREE.MeshStandardMaterial).map;
-      map?.dispose();
+      const std = mat as THREE.MeshStandardMaterial;
+      std.map?.dispose();
+      std.normalMap?.dispose();
+      std.roughnessMap?.dispose();
       mat.dispose();
     }
   });
