@@ -1,16 +1,37 @@
 """
 Edify AI Engine - Self-hosted Packaging Texture Generation
 Stable Diffusion 1.5 + ControlNet Lineart for Dieline-constrained Packaging Textures
+
+EXPERIMENTAL - NOT DEPLOYED. See README.md before running it anywhere.
+Safety locks: refuses to start without EDIFY_AI_ENGINE_TOKEN, listens on localhost only by
+default, CORS closed unless EDIFY_AI_ENGINE_ORIGINS is set, bounded image sizes, generic errors.
 """
 import io
+import os
+import sys
+import hmac
 import base64
 import torch
 import numpy as np
 from PIL import Image, ImageOps
 from typing import Optional
 from pydantic import BaseModel, Field
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+
+# ── Safety locks (no accidental public exposure) ──────────────────────────────
+ENGINE_TOKEN = os.environ.get("EDIFY_AI_ENGINE_TOKEN", "").strip()
+if len(ENGINE_TOKEN) < 32:
+    sys.exit("[x] EDIFY_AI_ENGINE_TOKEN manquant ou trop court (32 caracteres min.) : le moteur refuse de demarrer.")
+ALLOWED_ORIGINS = [o.strip() for o in os.environ.get("EDIFY_AI_ENGINE_ORIGINS", "").split(",") if o.strip()]
+HOST = os.environ.get("EDIFY_AI_ENGINE_HOST", "127.0.0.1")
+
+
+def require_token(authorization: Optional[str] = Header(default=None)) -> None:
+    """Bearer token, compared in constant time."""
+    expected = f"Bearer {ENGINE_TOKEN}"
+    if not authorization or not hmac.compare_digest(authorization.encode(), expected.encode()):
+        raise HTTPException(status_code=401, detail="Non autorise.")
 from diffusers import (
     StableDiffusionControlNetPipeline,
     ControlNetModel,
@@ -23,12 +44,13 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# Server-to-server use only: no browser origin is allowed unless explicitly listed.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=False,
+    allow_methods=["POST", "GET"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -69,6 +91,7 @@ except Exception as e:
 class GenerateTextureRequest(BaseModel):
     prompt: str = Field(
         ...,
+        max_length=1000,
         example="luxury minimalist organic cosmetic box, matte forest green, elegant gold foil typography, clean botanic illustration, 8k product packaging, photorealistic",
     )
     negative_prompt: Optional[str] = Field(
@@ -82,8 +105,8 @@ class GenerateTextureRequest(BaseModel):
     controlnet_conditioning_scale: float = Field(default=1.0, ge=0.0, le=2.0)
     num_inference_steps: int = Field(default=25, ge=15, le=50)
     seed: Optional[int] = Field(default=None)
-    width: int = Field(default=1024)
-    height: int = Field(default=1024)
+    width: int = Field(default=1024, ge=256, le=1024, multiple_of=8)
+    height: int = Field(default=1024, ge=256, le=1024, multiple_of=8)
 
 
 class GenerateTextureResponse(BaseModel):
@@ -120,21 +143,17 @@ def process_dieline_input(dieline_base64: Optional[str], width: int, height: int
             image = ImageOps.invert(image)
         return image.convert("RGB")
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Erreur de dieline: {str(e)}")
+        print(f"[!] dieline invalide: {e}")
+        raise HTTPException(status_code=400, detail="Gabarit de decoupe invalide.")
 
 
 @app.get("/health")
 def health():
-    return {
-        "status": "online" if pipe is not None else "degraded",
-        "device": DEVICE,
-        "vram_allocated_mb": round(torch.cuda.memory_allocated() / (1024**2), 2) if DEVICE == "cuda" else 0,
-        "model": BASE_MODEL_ID,
-        "controlnet": CONTROLNET_MODEL_ID,
-    }
+    # Public liveness only: no machine details.
+    return {"status": "online" if pipe is not None else "degraded"}
 
 
-@app.post("/api/v1/generate-texture", response_model=GenerateTextureResponse)
+@app.post("/api/v1/generate-texture", response_model=GenerateTextureResponse, dependencies=[Depends(require_token)])
 def generate_texture(req: GenerateTextureRequest):
     if pipe is None:
         raise HTTPException(status_code=503, detail="Pipeline IA non initialise sur ce serveur.")
@@ -166,10 +185,13 @@ def generate_texture(req: GenerateTextureRequest):
             height=req.height,
             seed=generator_seed,
         )
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur inference: {str(e)}")
+        print(f"[!] inference: {e}")
+        raise HTTPException(status_code=500, detail="Erreur de generation.")
 
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run("main:app", host=HOST, port=int(os.environ.get("EDIFY_AI_ENGINE_PORT", "8000")), reload=False)

@@ -198,11 +198,14 @@ export function deducePackagingTexture(spec?: PackagingSpec): { texture: string;
 
 import type { DesignSpec } from "@/lib/ai/designSpec";
 
+/** Any design shape the mockup prompt can be built from (palette as array or named colours). */
+export type MockupDesignInput = Partial<PackagingDesign> & { brandName: string; productName: string; palette?: string[] | Record<string, string> };
+
 /**
  * Builds a complete MockupConfig from an Edify PackagingDesign or DesignSpec and optional PackagingSpec.
  */
 export function buildMockupConfigFromDesign(
-  design: PackagingDesign | DesignSpec | (Partial<PackagingDesign> & { brandName: string; productName: string; palette?: any }),
+  design: PackagingDesign | DesignSpec | MockupDesignInput,
   spec?: PackagingSpec
 ): MockupConfig {
   const { props, palette } = deduceFloatingProps(design.productName, design.artSubject);
@@ -260,7 +263,7 @@ export function buildMockupConfigFromDesign(
  * Convenience function to generate the final prompt string directly from a design.
  */
 export function generateMockupPromptFromDesign(
-  design: PackagingDesign | DesignSpec | (Partial<PackagingDesign> & { brandName: string; productName: string; palette?: any }),
+  design: PackagingDesign | DesignSpec | MockupDesignInput,
   spec?: PackagingSpec
 ): string {
   const config = buildMockupConfigFromDesign(design, spec);

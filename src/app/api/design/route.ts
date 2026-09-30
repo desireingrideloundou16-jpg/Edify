@@ -14,7 +14,6 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { resolveProject } from "@/lib/billing/packaging";
 import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
 import { AI_REGEN_PER_PACKAGING } from "@/lib/billing/plans";
-import { generateMockupPromptFromDesign } from "@/lib/ai/mockupGenerator";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -209,13 +208,14 @@ export async function POST(req: Request) {
   const failures: string[] = [];
   for (const engine of engines) {
     try {
-      const spec = await engine.run();
+      const spec = sanitizeSpec(await engine.run(), current);
       await admin.from("projects").update({ ai_generations: project.ai_generations + 1 }).eq("id", project.id);
-      const sanitized = sanitizeSpec(spec, current);
-      const mockupPrompt = generateMockupPromptFromDesign(sanitized);
+      // A successful AI design MUST be logged: the daily fair-use cap (dailyAiCount) and the
+      // admin statistics count exactly these events. Failures (success=false) and the offline
+      // designer (engine "local") are logged too but never counted.
+      await logAiEvent(user.id, "design", engine.name);
       return Response.json({
-        spec: sanitized,
-        mockupPrompt,
+        spec,
         engine: engine.name,
         credits: available,
         projectId: project.id,
@@ -230,11 +230,8 @@ export async function POST(req: Request) {
   }
 
   await logAiEvent(user.id, "design", "local");
-  const localSpec = sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current);
-  const localMockupPrompt = generateMockupPromptFromDesign(localSpec);
   return Response.json({
-    spec: localSpec,
-    mockupPrompt: localMockupPrompt,
+    spec: sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current),
     engine: "local",
     credits: available,
     projectId: project.id,
