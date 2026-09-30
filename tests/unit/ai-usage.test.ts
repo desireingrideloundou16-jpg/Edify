@@ -33,3 +33,21 @@ describe("toRow", () => {
     expect(row.metadata).not.toHaveProperty("nested");
   });
 });
+
+describe("toRow — validation", () => {
+  const base = {
+    userId: null, operation: "design.generate" as const, provider: "gemini", model: "m", status: "timeout" as const,
+    inputTokens: null, outputTokens: null, totalTokens: null, imagesGenerated: 0, estimatedCostUsdMicros: null, latencyMs: 30000,
+    errorCode: "timeout", errorMessage: "trop lent", metadata: {},
+  };
+  it("accepte les 5 statuts, refuse une opération ou un statut inconnu", () => {
+    for (const status of ["success", "error", "timeout", "cancelled", "fallback"] as const) expect(toRow({ ...base, status }).status).toBe(status);
+    expect(() => toRow({ ...base, operation: "hack" as never })).toThrow();
+    expect(() => toRow({ ...base, status: "paid" as never })).toThrow();
+  });
+  it("user_id absent ou invalide → null", () => {
+    expect(toRow(base).user_id).toBeNull();
+    expect(toRow({ ...base, userId: "pas-un-uuid" }).user_id).toBeNull();
+    expect(toRow({ ...base, userId: "8b2a5af3-ec78-4df3-8717-02b63d155006" }).user_id).toBe("8b2a5af3-ec78-4df3-8717-02b63d155006");
+  });
+});

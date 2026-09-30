@@ -64,10 +64,11 @@ Couleurs demandées : convertis-les en #RRGGBB harmonieux (ex. « rouge bissap �
 
 Packaging actuellement ouvert : ${context}`;
 
+  let previous: string | null = null;
   for (const model of ["gemini-flash-latest", "gemini-3.5-flash", "gemini-flash-lite-latest"]) {
     try {
       // Observability only: same requests, same fallbacks, same result.
-      const answer = await trackAiCall({ operation: "voice.generate", provider: "gemini", model, userId: user.id, metadata: { audioBase64Chars: audio.length } }, async (t) => {
+      const answer = await trackAiCall({ operation: "voice.generate", provider: "gemini", model, userId: user.id, fallbackFrom: previous, metadata: { audioBase64Chars: audio.length } }, async (t) => {
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
           signal: AbortSignal.timeout(30_000),
@@ -88,13 +89,17 @@ Packaging actuellement ouvert : ${context}`;
         const text = json?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("");
         return { command: JSON.parse(text) };
       });
-      if (answer === null) continue;
+      if (answer === null) {
+        previous = `gemini:${model}`;
+        continue;
+      }
       const { command } = answer;
       await logAiEvent(user.id, "suggest", `voice:${model}`);
       return Response.json({ command });
     } catch {
       // next model
     }
+    previous = `gemini:${model}`;
   }
   await logAiEvent(user.id, "suggest", "voice", false);
   return Response.json({ error: "analysis_failed" }, { status: 502 });

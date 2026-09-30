@@ -60,7 +60,7 @@ export async function geminiDesign(
   system: string,
   userText: string,
   reference: { mediaType: string; data: string } | null,
-  ctx: { userId?: string | null } = {}
+  ctx: { userId?: string | null; fallbackFrom?: string | null } = {}
 ): Promise<DesignSpec> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw new GeminiError("GEMINI_API_KEY manquante");
@@ -72,6 +72,8 @@ export async function geminiDesign(
   parts.push({ text: userText });
 
   let lastError: GeminiError | null = null;
+  // Previous failed attempt in this request (observability only).
+  let previous: string | null = ctx.fallbackFrom ?? null;
   const started = Date.now();
   // Two passes: free-tier models are often briefly overloaded (503), a short pause usually clears it.
   for (const [pass, model] of [...GEMINI_MODELS.map((m) => [0, m] as const), ...GEMINI_MODELS.slice(0, 2).map((m) => [1, m] as const)]) {
@@ -81,12 +83,13 @@ export async function geminiDesign(
       const timeout = Math.min(PER_CALL_MS, TOTAL_BUDGET_MS - (Date.now() - started));
       // Observability only: the gateway returns/rethrows exactly what callModel does.
       return await trackAiCall(
-        { operation: "design.generate", provider: "gemini", model, userId: ctx.userId, metadata: { pass, reference: !!reference } },
+        { operation: "design.generate", provider: "gemini", model, userId: ctx.userId, fallbackFrom: previous, metadata: { pass, reference: !!reference } },
         (t) => callModel(model, key, system, parts, timeout, t)
       );
     } catch (e) {
       if (!(e instanceof GeminiError)) throw e;
       lastError = e;
+      previous = `gemini:${model}`;
       // Overloaded, unavailable or retired model: try the next one. Bad key or bad request: stop.
       if (![404, 429, 500, 503].includes(e.status ?? 0) && e.status !== undefined) throw e;
     }
@@ -112,6 +115,7 @@ async function callModel(model: string, key: string, system: string, parts: Reco
     }),
   });
   } catch {
+    t?.timedOut();
     throw new GeminiError(`${model} trop lent`, 503);
   }
 

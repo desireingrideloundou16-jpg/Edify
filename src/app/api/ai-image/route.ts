@@ -68,7 +68,7 @@ export async function POST(req: Request) {
 
   // Observability only: each Cloudflare call (including the softened retry) is one ai_usage row.
   const operation = body?.mode === "art" ? "image.illustration" : "image.scene";
-  const run = (p: string, attempt: "initial" | "safety_retry") => trackAiCall({ operation, provider: "cloudflare", model: MODEL, userId: user.id, metadata: { attempt, steps: 8 } }, async (t) => {
+  const run = (p: string, attempt: "initial" | "safety_retry") => trackAiCall({ operation, provider: "cloudflare", model: MODEL, userId: user.id, fallbackFrom: attempt === "safety_retry" ? `cloudflare:${MODEL}` : null, metadata: { attempt, steps: 8 } }, async (t) => {
     const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${account}/ai/run/${MODEL}`, {
       method: "POST",
       signal: AbortSignal.timeout(45_000),

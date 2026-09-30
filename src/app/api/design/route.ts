@@ -10,7 +10,7 @@ import {
 import { PACKAGING_KNOWLEDGE } from "@/lib/ai/packagingKnowledge";
 import { DESIGNER_METHOD, DESIGNER_ROLE } from "@/lib/ai/designerPrompt";
 import { logAiEvent } from "@/lib/admin/log";
-import { trackAiCall } from "@/lib/ai/gateway";
+import { claudeTokens, recordAiFallback, trackAiCall } from "@/lib/ai/gateway";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { resolveProject } from "@/lib/billing/packaging";
 import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
@@ -123,8 +123,8 @@ async function claudeDesign(prompt: string, current: CurrentDesign, reference: R
       messages: [{ role: "user", content }],
     });
     t.model(r.model);
-    const u = r.usage as { input_tokens?: number; output_tokens?: number; cache_read_input_tokens?: number | null; cache_creation_input_tokens?: number | null } | undefined;
-    if (u) t.tokens({ input: (u.input_tokens ?? 0) + (u.cache_read_input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0), output: u.output_tokens ?? 0 });
+    const usage = claudeTokens(r.usage);
+    if (usage) t.tokens(usage);
     return r;
   });
 
@@ -211,7 +211,7 @@ export async function POST(req: Request) {
   // Engines in order of quality; each failure falls through to the next one.
   const engines: { name: "claude" | "gemini"; run: () => Promise<DesignSpec> }[] = [];
   if (hasClaude()) engines.push({ name: "claude", run: () => claudeDesign(prompt, current, reference, msgOpts, user.id) });
-  if (hasGemini()) engines.push({ name: "gemini", run: () => geminiDesign(SYSTEM, userMessage(prompt, current, msgOpts), reference, { userId: user.id }) });
+  if (hasGemini()) engines.push({ name: "gemini", run: () => geminiDesign(SYSTEM, userMessage(prompt, current, msgOpts), reference, { userId: user.id, fallbackFrom: hasClaude() ? "claude:claude-opus-5" : null }) });
 
   const failures: string[] = [];
   for (const engine of engines) {
@@ -238,6 +238,8 @@ export async function POST(req: Request) {
   }
 
   await logAiEvent(user.id, "design", "local");
+  // Observability: the customer gets the deterministic offline designer (no provider call).
+  recordAiFallback({ operation: "design.generate", userId: user.id, reason: engines.length ? "providers_failed" : "not_configured" });
   return Response.json({
     spec: sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current),
     engine: "local",

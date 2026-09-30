@@ -35,3 +35,14 @@ describe("calculateAiCost", () => {
     expect(calculateAiCost({ provider: "cloudflare", model: "@cf/black-forest-labs/flux-1-schnell", imagesGenerated: 0, image: { width: 1024, height: 1024, steps: 8 } }).estimatedCostUsdMicros).toBe(0);
   });
 });
+
+describe("calculateAiCost — cas limites", () => {
+  it("zéro token → coût 0 ; fournisseur inconnu → null", () => {
+    expect(calculateAiCost({ provider: "gemini", model: "gemini-2.5-flash-lite", inputTokens: 0, outputTokens: 0 }).estimatedCostUsdMicros).toBe(0);
+    expect(calculateAiCost({ provider: "openai", model: "x", inputTokens: 10, outputTokens: 10 }).estimatedCostUsdMicros).toBeNull();
+  });
+  it("tokens d'entrée seuls et de sortie seuls", () => {
+    expect(calculateAiCost({ provider: "gemini", model: "gemini-2.5-flash-lite", inputTokens: 1_000_000, outputTokens: 0 }).estimatedCostUsdMicros).toBe(100_000);
+    expect(calculateAiCost({ provider: "gemini", model: "gemini-2.5-flash-lite", inputTokens: 0, outputTokens: 1_000_000 }).estimatedCostUsdMicros).toBe(400_000);
+  });
+});

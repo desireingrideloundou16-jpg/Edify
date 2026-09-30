@@ -1,19 +1,32 @@
 /**
  * AI Usage Service (server only): writes one `ai_usage` row per provider call.
- * Best effort by design — it never throws, never blocks the response (the insert runs after the
- * response when Next's `after()` is available) and never stores prompts, answers, files or secrets.
+ * Reliable but non-blocking: the insert is registered with Next's `after()`, so it runs once the
+ * response has been sent and is awaited by the platform (not lost like a bare fire-and-forget);
+ * outside a request (scripts, tests) it is awaited directly. It never throws, and never stores
+ * prompts, answers, files or secrets. Persistence failures are logged (AI_USAGE_RECORD_FAILED).
  */
 import { after } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { logEvent } from "@/lib/log";
 
 export type AiOperation = "suggest.generate" | "design.generate" | "image.illustration" | "image.scene" | "voice.generate";
+export const AI_OPERATIONS: readonly AiOperation[] = ["suggest.generate", "design.generate", "image.illustration", "image.scene", "voice.generate"];
+
+/**
+ * success   provider call succeeded
+ * error     provider failed (HTTP error, invalid answer…)
+ * timeout   provider did not answer in time
+ * cancelled call aborted (request cancelled)
+ * fallback  the customer got Edify's deterministic fallback (no paid call)
+ */
+export type AiUsageStatus = "success" | "error" | "timeout" | "cancelled" | "fallback";
 
 export interface AiUsageRecord {
   userId: string | null;
   operation: AiOperation;
   provider: string;
   model: string | null;
-  status: "success" | "error";
+  status: AiUsageStatus;
   inputTokens: number | null;
   outputTokens: number | null;
   totalTokens: number | null;
@@ -47,10 +60,13 @@ function safeMetadata(meta: Record<string, unknown>) {
   return out;
 }
 
+/** Validates and normalises a record into a database row (throws on an invalid operation/status). */
 export function toRow(r: AiUsageRecord) {
+  if (!AI_OPERATIONS.includes(r.operation)) throw new Error(`unknown operation ${r.operation}`);
+  if (!["success", "error", "timeout", "cancelled", "fallback"].includes(r.status)) throw new Error(`unknown status ${r.status}`);
   const int = (n: number | null) => (n == null || !Number.isFinite(n) ? null : Math.max(0, Math.round(n)));
   return {
-    user_id: r.userId,
+    user_id: r.userId && /^[0-9a-f-]{36}$/i.test(r.userId) ? r.userId : null,
     operation: r.operation,
     provider: r.provider.slice(0, 40),
     model: r.model ? r.model.slice(0, 120) : null,
@@ -70,18 +86,19 @@ export function toRow(r: AiUsageRecord) {
 async function insert(row: ReturnType<typeof toRow>) {
   try {
     const { error } = await createAdminClient().from("ai_usage").insert(row);
-    if (error) console.warn("[ai-usage] insert", error.message);
+    if (error) logEvent("warn", "AI_USAGE_RECORD_FAILED", { operation: row.operation, provider: row.provider, reason: error.message });
   } catch (e) {
-    console.warn("[ai-usage] insert", e instanceof Error ? e.message : e);
+    logEvent("warn", "AI_USAGE_RECORD_FAILED", { operation: row.operation, provider: row.provider, reason: e instanceof Error ? e.message : String(e) });
   }
 }
 
-/** Never throws. Runs after the response when possible, otherwise in the background. */
+/** Never throws. Runs after the response when possible, otherwise awaited directly. */
 export function recordAiUsage(record: AiUsageRecord): Promise<void> {
   let row: ReturnType<typeof toRow>;
   try {
     row = toRow(record);
-  } catch {
+  } catch (e) {
+    logEvent("warn", "AI_USAGE_RECORD_FAILED", { operation: record.operation, reason: e instanceof Error ? e.message : String(e) });
     return Promise.resolve();
   }
   try {

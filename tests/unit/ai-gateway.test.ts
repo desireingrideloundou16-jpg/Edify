@@ -69,3 +69,53 @@ describe("geminiTokens", () => {
     expect(geminiTokens({})).toBeNull();
   });
 });
+
+describe("trackAiCall — statuts, repli et latence", () => {
+  beforeEach(() => recordAiUsage.mockClear());
+
+  it("délai dépassé (TimeoutError) → statut timeout, erreur d'origine relancée", async () => {
+    const err = Object.assign(new Error("The operation was aborted due to timeout"), { name: "TimeoutError" });
+    await expect(trackAiCall({ operation: "voice.generate", provider: "gemini", model: "m" }, async () => { throw err; })).rejects.toBe(err);
+    expect(lastRecord()).toMatchObject({ status: "timeout", errorCode: "timeout" });
+  });
+
+  it("délai converti en autre erreur par le client (timedOut) → statut timeout", async () => {
+    const err = Object.assign(new Error("trop lent"), { status: 503 });
+    await expect(trackAiCall({ operation: "design.generate", provider: "gemini", model: "m" }, async (t) => { t.timedOut(); throw err; })).rejects.toBe(err);
+    expect(lastRecord()).toMatchObject({ status: "timeout" });
+  });
+
+  it("requête annulée (AbortError) → statut cancelled", async () => {
+    const err = Object.assign(new Error("aborted"), { name: "AbortError" });
+    await expect(trackAiCall({ operation: "design.generate", provider: "gemini", model: "m" }, async () => { throw err; })).rejects.toBe(err);
+    expect(lastRecord()).toMatchObject({ status: "cancelled", errorCode: "aborted" });
+  });
+
+  it("enregistre le fournisseur précédent de la chaîne de repli et une latence mesurée", async () => {
+    await trackAiCall({ operation: "design.generate", provider: "gemini", model: "gemini-flash-latest", fallbackFrom: "gemini:gemini-3.8-flash" }, async () => {
+      await new Promise((r) => setTimeout(r, 15));
+      return "ok";
+    });
+    const rec = lastRecord();
+    expect((rec.metadata as Record<string, unknown>).fallbackFrom).toBe("gemini:gemini-3.8-flash");
+    expect(rec.latencyMs as number).toBeGreaterThanOrEqual(10);
+    expect(rec.userId).toBeNull(); // no user id → null, never a guess
+  });
+});
+
+describe("recordAiFallback", () => {
+  it("trace le repli déterministe d'Edify (sans appel fournisseur, coût 0)", async () => {
+    const { recordAiFallback } = await import("@/lib/ai/gateway");
+    recordAiUsage.mockClear();
+    recordAiFallback({ operation: "design.generate", userId: "u1", reason: "providers_failed" });
+    expect(lastRecord()).toMatchObject({ provider: "edify", status: "fallback", estimatedCostUsdMicros: 0, userId: "u1" });
+  });
+});
+
+describe("claudeTokens", () => {
+  it("additionne les tokens de cache à l'entrée ; usage absent → null", async () => {
+    const { claudeTokens } = await import("@/lib/ai/gateway");
+    expect(claudeTokens({ input_tokens: 100, output_tokens: 40, cache_read_input_tokens: 900, cache_creation_input_tokens: 0 })).toEqual({ input: 1000, output: 40 });
+    expect(claudeTokens(undefined)).toBeNull();
+  });
+});

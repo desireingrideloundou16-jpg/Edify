@@ -282,11 +282,15 @@ export function systemStatus() {
 }
 
 // ─── Observabilité IA (ai_usage, phase 1) ───────────────────────────────────
+// Aggregation is done by the database (public.ai_usage_stats): the server only receives one row
+// per (operation, provider, model, status), never the raw calls.
 
 export interface AiUsageGroup {
   key: string;
   calls: number;
+  successes: number;
   errors: number;
+  fallbacks: number;
   avgLatencyMs: number;
   p95LatencyMs: number;
   inputTokens: number;
@@ -297,65 +301,85 @@ export interface AiUsageGroup {
   unpriced: number;
 }
 
-type UsageRow = {
+interface StatRow {
   operation: string;
   provider: string;
-  model: string | null;
+  model: string;
   status: string;
-  input_tokens: number | null;
-  output_tokens: number | null;
-  images_generated: number;
-  estimated_cost_usd_micros: number | null;
-  latency_ms: number | null;
-  error_code: string | null;
-  error_message: string | null;
-  created_at: string;
-};
-
-function summarize(rows: UsageRow[], keyOf: (r: UsageRow) => string): AiUsageGroup[] {
-  const groups = new Map<string, UsageRow[]>();
-  for (const r of rows) groups.set(keyOf(r), [...(groups.get(keyOf(r)) ?? []), r]);
-  return [...groups.entries()]
-    .map(([key, list]) => {
-      const lat = list.map((r) => r.latency_ms ?? 0).sort((a, b) => a - b);
-      return {
-        key,
-        calls: list.length,
-        errors: list.filter((r) => r.status !== "success").length,
-        avgLatencyMs: lat.length ? Math.round(lat.reduce((a, b) => a + b, 0) / lat.length) : 0,
-        p95LatencyMs: lat.length ? lat[Math.min(lat.length - 1, Math.floor(lat.length * 0.95))] : 0,
-        inputTokens: list.reduce((a, r) => a + (r.input_tokens ?? 0), 0),
-        outputTokens: list.reduce((a, r) => a + (r.output_tokens ?? 0), 0),
-        images: list.reduce((a, r) => a + (r.images_generated ?? 0), 0),
-        costMicros: list.reduce((a, r) => a + (r.estimated_cost_usd_micros ?? 0), 0),
-        unpriced: list.filter((r) => r.status === "success" && r.estimated_cost_usd_micros == null).length,
-      };
-    })
-    .sort((a, b) => b.calls - a.calls);
+  calls: number;
+  input_tokens: number;
+  output_tokens: number;
+  images: number;
+  cost_micros: number;
+  unpriced: number;
+  avg_latency_ms: number;
+  p95_latency_ms: number;
 }
 
-/** Per-call AI observability (estimates at documented list prices, never accounting data). */
+/** Merges database groups under a new key (latency: call-weighted mean, p95: max of groups). */
+function mergeStats(rows: StatRow[], keyOf: (r: StatRow) => string): AiUsageGroup[] {
+  const map = new Map<string, AiUsageGroup & { latencySum: number; latencyCalls: number }>();
+  for (const r of rows) {
+    const key = keyOf(r);
+    const g = map.get(key) ?? {
+      key, calls: 0, successes: 0, errors: 0, fallbacks: 0, avgLatencyMs: 0, p95LatencyMs: 0,
+      inputTokens: 0, outputTokens: 0, images: 0, costMicros: 0, unpriced: 0, latencySum: 0, latencyCalls: 0,
+    };
+    const n = Number(r.calls);
+    g.calls += n;
+    if (r.status === "success") g.successes += n;
+    else if (r.status === "fallback") g.fallbacks += n;
+    else g.errors += n;
+    g.inputTokens += Number(r.input_tokens);
+    g.outputTokens += Number(r.output_tokens);
+    g.images += Number(r.images);
+    g.costMicros += Number(r.cost_micros);
+    g.unpriced += Number(r.unpriced);
+    // Deterministic fallbacks take no time: keep them out of the provider latency.
+    if (r.status !== "fallback") {
+      g.latencySum += Number(r.avg_latency_ms) * n;
+      g.latencyCalls += n;
+      g.p95LatencyMs = Math.max(g.p95LatencyMs, Number(r.p95_latency_ms));
+    }
+    map.set(key, g);
+  }
+  return [...map.values()]
+    .map(({ latencySum, latencyCalls, ...g }) => ({ ...g, avgLatencyMs: latencyCalls ? Math.round(latencySum / latencyCalls) : 0 }))
+    .sort((a, b) => b.costMicros - a.costMicros || b.calls - a.calls);
+}
+
+async function usageStatsSince(ms: number) {
+  const { data, error } = await createAdminClient().rpc("ai_usage_stats", { p_since: new Date(Date.now() - ms).toISOString() });
+  if (error) throw new Error(error.message);
+  return (data ?? []) as StatRow[];
+}
+
+/** Admin-only AI observability (estimates at documented list prices, never accounting data). */
 export async function aiUsageStats() {
   await assertAdmin();
-  const db = createAdminClient();
-  const since30 = new Date(Date.now() - 30 * DAY).toISOString();
-  const { data, error } = await db
-    .from("ai_usage")
-    .select("operation, provider, model, status, input_tokens, output_tokens, images_generated, estimated_cost_usd_micros, latency_ms, error_code, error_message, created_at")
-    .gte("created_at", since30)
-    .order("created_at", { ascending: false })
-    .limit(20000);
-  if (error) return { ready: false as const };
-  const rows = (data ?? []) as UsageRow[];
-  const since24 = Date.now() - DAY;
-  const day = rows.filter((r) => new Date(r.created_at).getTime() >= since24);
-  const total = (list: UsageRow[]) => summarize(list, () => "all")[0] ?? null;
-  return {
-    ready: true as const,
-    day: total(day),
-    month: total(rows),
-    byOperation: summarize(rows, (r) => r.operation),
-    byModel: summarize(rows, (r) => `${r.provider} · ${r.model ?? "?"}`),
-    recentErrors: rows.filter((r) => r.status !== "success").slice(0, 15),
-  };
+  try {
+    const [day, week, month] = await Promise.all([usageStatsSince(DAY), usageStatsSince(7 * DAY), usageStatsSince(30 * DAY)]);
+    const total = (rows: StatRow[]) => mergeStats(rows, () => "all")[0] ?? null;
+    const { data: errors } = await createAdminClient()
+      .from("ai_usage")
+      .select("operation, provider, model, status, error_code, error_message, latency_ms, created_at")
+      .in("status", ["error", "timeout", "cancelled"])
+      .order("created_at", { ascending: false })
+      .limit(15);
+    const rate = Number(process.env.AI_COST_USD_TO_XAF);
+    return {
+      ready: true as const,
+      day: total(day),
+      week: total(week),
+      month: total(month),
+      byOperation: mergeStats(month, (r) => r.operation),
+      byProvider: mergeStats(month, (r) => r.provider),
+      byModel: mergeStats(month, (r) => `${r.provider} · ${r.model}`),
+      recentErrors: (errors ?? []) as { operation: string; provider: string; model: string | null; status: string; error_code: string | null; error_message: string | null; latency_ms: number | null; created_at: string }[],
+      /** FCFA per USD from AI_COST_USD_TO_XAF (display only); null when not configured. */
+      usdToXaf: Number.isFinite(rate) && rate > 0 ? rate : null,
+    };
+  } catch {
+    return { ready: false as const };
+  }
 }

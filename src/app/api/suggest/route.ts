@@ -2,7 +2,7 @@ import { localSuggestions } from "@/lib/ai/suggest";
 import { SUGGEST_STEPS, type StartBrief, type SuggestStep } from "@/lib/design/brief";
 import { isLang, LANG_NAMES, type Lang } from "@/lib/i18n/config";
 import { logAiEvent } from "@/lib/admin/log";
-import { geminiTokens, trackAiCall } from "@/lib/ai/gateway";
+import { geminiTokens, recordAiFallback, trackAiCall } from "@/lib/ai/gateway";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -47,10 +47,11 @@ async function aiSuggestions(step: SuggestStep, brief: Partial<StartBrief>, lang
       ? `Tu es un expert en packaging et en étiquetage pour des PME au Cameroun. Nous sommes le ${today}.\nInformations déjà connues sur le produit :\n${context || "(aucune)"}\n\nPropose 4 à 6 réponses courtes, concrètes et différentes pour : ${QUESTION[step].fr}.\nChaque réponse fait au plus 110 caractères, en français, sans numérotation. N'invente jamais de certification.`
       : `You are a packaging and labelling expert for small businesses in Cameroon. Today is ${today}.\nWhat we already know about the product:\n${context || "(nothing yet)"}\n\nSuggest 4 to 6 short, concrete, different answers for: ${QUESTION[step].en}.\nEach answer is at most 110 characters, written in ${LANG_NAMES[lang]} (language code "${lang}"), no numbering. Never invent a certification.`;
 
+  let previous: string | null = null;
   for (const model of ["gemini-flash-lite-latest", "gemini-flash-latest"]) {
     try {
       // Observability only: same requests, same fallbacks, same result.
-      const list = await trackAiCall({ operation: "suggest.generate", provider: "gemini", model, userId: null, metadata: { step, lang } }, async (t) => {
+      const list = await trackAiCall({ operation: "suggest.generate", provider: "gemini", model, userId: null, fallbackFrom: previous, metadata: { step, lang } }, async (t) => {
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
           signal: AbortSignal.timeout(8000),
@@ -81,6 +82,7 @@ async function aiSuggestions(step: SuggestStep, brief: Partial<StartBrief>, lang
     } catch {
       // try the next model, then fall back to local suggestions
     }
+    previous = `gemini:${model}`;
   }
   return null;
 }
@@ -106,7 +108,10 @@ export async function POST(req: Request) {
   if (step === "production") return Response.json({ suggestions: local, source: "local" });
 
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "local";
-  if (limited(ip)) return Response.json({ suggestions: local, source: "local" });
+  if (limited(ip)) {
+    recordAiFallback({ operation: "suggest.generate", reason: "ip_rate_limited" });
+    return Response.json({ suggestions: local, source: "local" });
+  }
   const since = new Date(Date.now() - 3600_000).toISOString();
   const { count } = await createAdminClient()
     .from("ai_events")
@@ -114,11 +119,17 @@ export async function POST(req: Request) {
     .eq("kind", "suggest")
     .eq("engine", "gemini")
     .gte("created_at", since);
-  if ((count ?? 0) >= GLOBAL_PER_HOUR) return Response.json({ suggestions: local, source: "local" });
+  if ((count ?? 0) >= GLOBAL_PER_HOUR) {
+    recordAiFallback({ operation: "suggest.generate", reason: "global_hourly_cap" });
+    return Response.json({ suggestions: local, source: "local" });
+  }
 
   const ai = await aiSuggestions(step, brief, lang);
   await logAiEvent(null, "suggest", ai ? "gemini" : "local", !!ai);
-  if (!ai) return Response.json({ suggestions: local, source: "local" });
+  if (!ai) {
+    recordAiFallback({ operation: "suggest.generate", reason: process.env.GEMINI_API_KEY ? "providers_failed" : "not_configured" });
+    return Response.json({ suggestions: local, source: "local" });
+  }
   // Keep a date-shaped answer for the expiry step.
   const list = step === "expiry" ? ai.filter((s) => /\d{4}-\d{2}-\d{2}/.test(s)).map((s) => s.match(/\d{4}-\d{2}-\d{2}/)![0]) : ai;
   return Response.json({ suggestions: list.length ? [...new Set(list)] : local, source: list.length ? "ai" : "local" });
