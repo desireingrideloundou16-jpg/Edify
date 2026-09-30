@@ -11,6 +11,8 @@ import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeom
 import type { ShapeModel } from "@/components/workspace/Modals";
 
 import { microSurface, type MicroKind } from "./surfaceDetail";
+import { createPouchGeometry } from "./geometry/pouchGeometry";
+import { createCartonGeometry } from "./geometry/cartonGeometry";
 import { drawFace, drawWrap, resolveColors, type FaceKind, type PackagingDesign } from "@/lib/artwork/draw";
 export type { PackagingDesign } from "@/lib/artwork/draw";
 export { resolveColors } from "@/lib/artwork/draw";
@@ -272,20 +274,30 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
     }
 
     case "carton": {
-      const bodyH = H * 0.8;
-      g.add(printedBox(L, bodyH, W, d, surface, { front: "front", top: "plain" }, 1));
-      const roofH = H * 0.16;
-      const tri = new THREE.Shape();
-      tri.moveTo(-W / 2, 0);
-      tri.lineTo(W / 2, 0);
-      tri.lineTo(0, roofH);
-      tri.closePath();
-      const roof = new THREE.ExtrudeGeometry(tri, { depth: L, bevelEnabled: false });
-      roof.translate(0, 0, -L / 2);
-      roof.rotateY(Math.PI / 2);
-      g.add(mesh(roof, solid(bg, { roughness: 0.6 }), bodyH));
-      g.add(mesh(new THREE.BoxGeometry(L, H * 0.04, 1.2), solid(bg, { roughness: 0.6 }), bodyH + roofH + H * 0.02));
-      g.add(mesh(new THREE.CylinderGeometry(R * 0.22, R * 0.22, H * 0.03, 32), solid(accent), bodyH + roofH * 0.45).translateZ(W * 0.22).rotateX(Math.PI / 2 - 0.5));
+      // ── Parametric gable-top carton (Phase 2B-2) ──────────────────────────
+      const cartonParts = createCartonGeometry({
+        width: L,
+        depth: W,
+        height: H,
+        gableRatio: Math.min(0.22, Math.max(0.13, W / H * 1.1)),
+        edgeChamferRatio: 0.035,
+        strawPatch: true,
+      });
+
+      // Body: full wrap texture covering 4 faces + chamfers
+      const bodyWrapArc = (L * 2 + W * 2);
+      const bodyTex = wrapTexture(d, bodyWrapArc, H * 0.83, L / bodyWrapArc);
+      g.add(mesh(cartonParts.body, printed(bodyTex, fin, surface)));
+
+      // Roof: top face material
+      const roofTex = faceTexture(d, L, W, "top");
+      g.add(mesh(cartonParts.roof, printed(roofTex, fin, surface)));
+
+      // Ridge (fin seal): plain accent colour
+      g.add(mesh(cartonParts.ridge, solid(bg, { roughness: 0.55, clearcoat: 0.2 })));
+
+      // Bottom cap: plain
+      g.add(mesh(cartonParts.bottom, solid(bg, { roughness: 0.7, side: THREE.DoubleSide })));
       break;
     }
 
@@ -321,30 +333,21 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
     case "pouch":
     case "flatpouch":
     case "sachet": {
-      const geo = wrapCylinder(1, 1, H, Math.PI * 2, 60);
-      const half = W / 2;
-      deformY(geo, H, (v, t) => {
-        v.x *= L / 2;
-        let k: number;
-        if (spec.model === "pouch") {
-          // Bottom gusset, tapering to a flat heat seal at the top.
-          k = t < 0.12 ? 1 : 1 - 0.97 * smooth(0.12, 0.9, t);
-        } else {
-          // Pillow pack crimped at both ends.
-          k = Math.pow(Math.sin(Math.PI * Math.min(1, Math.max(0, (t - 0.05) / 0.9))), 0.55) * 0.98 + 0.02;
-        }
-        v.z *= half * k;
+      const isDoypack = spec.model === "pouch";
+      const pouchGeo = createPouchGeometry({
+        width: L,
+        height: H,
+        depth: W,
+        type: isDoypack ? "doypack" : "flatpouch",
+        seed: d.seed ?? 42,
       });
       const wrap = wrapTexture(d, L * 2, H, 0.46);
       const s = surface === "paper" ? "kraft" : surface;
-      g.add(mesh(geo, printed(wrap, fin, s), H / 2));
-      if (spec.model === "pouch") {
-        const bottom = new THREE.CircleGeometry(1, 64);
-        bottom.rotateX(Math.PI / 2);
-        bottom.scale(L / 2, 1, half);
-        g.add(mesh(bottom, solid(bg, { roughness: 0.6, side: THREE.DoubleSide }), 0.2));
-        // Tear notch seal line
-        g.add(mesh(new THREE.BoxGeometry(L * 0.98, H * 0.05, 0.8), solid(bg, { roughness: 0.5 }), H * 0.975));
+      g.add(mesh(pouchGeo, printed(wrap, fin, s), 0));
+
+      if (isDoypack) {
+        // Zip-lock heat seal accent line
+        g.add(mesh(new THREE.BoxGeometry(L * 0.96, H * 0.015, 0.6), solid(bg, { roughness: 0.5 }), H * 0.91));
       }
       break;
     }
