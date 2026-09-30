@@ -10,6 +10,7 @@ import {
 import { PACKAGING_KNOWLEDGE } from "@/lib/ai/packagingKnowledge";
 import { DESIGNER_METHOD, DESIGNER_ROLE } from "@/lib/ai/designerPrompt";
 import { logAiEvent } from "@/lib/admin/log";
+import { trackAiCall } from "@/lib/ai/gateway";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { resolveProject } from "@/lib/billing/packaging";
 import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
@@ -102,22 +103,29 @@ function referenceBlock(ref: RefFile): Anthropic.Beta.BetaContentBlockParam | nu
   return null;
 }
 
-async function claudeDesign(prompt: string, current: CurrentDesign, reference: RefFile | null, opts: Parameters<typeof userMessage>[2]): Promise<DesignSpec> {
+async function claudeDesign(prompt: string, current: CurrentDesign, reference: RefFile | null, opts: Parameters<typeof userMessage>[2], userId: string | null = null): Promise<DesignSpec> {
   const client = new Anthropic();
   const content: Anthropic.Beta.BetaContentBlockParam[] = [];
   const ref = reference ? referenceBlock(reference) : null;
   if (ref) content.push(ref);
   content.push({ type: "text", text: userMessage(prompt, current, opts) });
 
-  const response = await client.beta.messages.parse({
-    model: "claude-opus-5",
-    max_tokens: 16000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    thinking: { type: "adaptive" },
-    output_config: { effort: "high", format: betaZodOutputFormat(DesignSchema) },
-    system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
-    messages: [{ role: "user", content }],
+  // Observability only: the gateway returns/rethrows exactly what the SDK does.
+  const response = await trackAiCall({ operation: "design.generate", provider: "claude", model: "claude-opus-5", userId, metadata: { reference: !!reference } }, async (t) => {
+    const r = await client.beta.messages.parse({
+      model: "claude-opus-5",
+      max_tokens: 16000,
+      betas: ["server-side-fallback-2026-07-01"],
+      fallbacks: "default",
+      thinking: { type: "adaptive" },
+      output_config: { effort: "high", format: betaZodOutputFormat(DesignSchema) },
+      system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
+      messages: [{ role: "user", content }],
+    });
+    t.model(r.model);
+    const u = r.usage as { input_tokens?: number; output_tokens?: number; cache_read_input_tokens?: number | null; cache_creation_input_tokens?: number | null } | undefined;
+    if (u) t.tokens({ input: (u.input_tokens ?? 0) + (u.cache_read_input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0), output: u.output_tokens ?? 0 });
+    return r;
   });
 
   if (response.stop_reason === "refusal") {
@@ -202,8 +210,8 @@ export async function POST(req: Request) {
 
   // Engines in order of quality; each failure falls through to the next one.
   const engines: { name: "claude" | "gemini"; run: () => Promise<DesignSpec> }[] = [];
-  if (hasClaude()) engines.push({ name: "claude", run: () => claudeDesign(prompt, current, reference, msgOpts) });
-  if (hasGemini()) engines.push({ name: "gemini", run: () => geminiDesign(SYSTEM, userMessage(prompt, current, msgOpts), reference) });
+  if (hasClaude()) engines.push({ name: "claude", run: () => claudeDesign(prompt, current, reference, msgOpts, user.id) });
+  if (hasGemini()) engines.push({ name: "gemini", run: () => geminiDesign(SYSTEM, userMessage(prompt, current, msgOpts), reference, { userId: user.id }) });
 
   const failures: string[] = [];
   for (const engine of engines) {

@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { logAiEvent } from "@/lib/admin/log";
+import { trackAiCall } from "@/lib/ai/gateway";
 import { colorName } from "@/lib/ai/colorNames";
 import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
 
@@ -65,7 +66,9 @@ export async function POST(req: Request) {
       "Photorealistic, shot on a medium-format camera, 85 mm lens, shallow depth of field, rich textures, premium commercial campaign, high detail. No product, no packaging, no bottle, no box, no text, no people, no logo.";
   }
 
-  const run = async (p: string) => {
+  // Observability only: each Cloudflare call (including the softened retry) is one ai_usage row.
+  const operation = body?.mode === "art" ? "image.illustration" : "image.scene";
+  const run = (p: string, attempt: "initial" | "safety_retry") => trackAiCall({ operation, provider: "cloudflare", model: MODEL, userId: user.id, metadata: { attempt, steps: 8 } }, async (t) => {
     const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${account}/ai/run/${MODEL}`, {
       method: "POST",
       signal: AbortSignal.timeout(45_000),
@@ -73,14 +76,18 @@ export async function POST(req: Request) {
       // FLUX schnell on Workers AI accepts only prompt and steps (a seed is rejected).
       body: JSON.stringify({ prompt: p, steps: 8 }),
     });
-    return { res, json: await res.json().catch(() => null) };
-  };
+    const json = await res.json().catch(() => null);
+    // FLUX schnell on Workers AI returns 1024×1024 images (size used for the cost estimate).
+    if (res.ok && json?.result?.image) t.images(1, { width: 1024, height: 1024, steps: 8 });
+    else t.fail(res.status, JSON.stringify(json?.errors ?? "").slice(0, 200));
+    return { res, json };
+  });
 
   try {
-    let { res, json } = await run(prompt);
+    let { res, json } = await run(prompt, "initial");
     // The safety filter sometimes flags innocent food words ("juicy", "ripe"…): retry once softened.
     if (!json?.result?.image && JSON.stringify(json?.errors ?? "").includes("NSFW")) {
-      ({ res, json } = await run(prompt.replace(/(juicy|ripe|luscious|succulent|naked|bare|hot|sexy|lush|moist|creamy|dripping)s*/gi, "")));
+      ({ res, json } = await run(prompt.replace(/(juicy|ripe|luscious|succulent|naked|bare|hot|sexy|lush|moist|creamy|dripping)s*/gi, ""), "safety_retry"));
     }
     const image = json?.result?.image;
     await logAiEvent(user.id, "image", "cloudflare", !!(res.ok && image));

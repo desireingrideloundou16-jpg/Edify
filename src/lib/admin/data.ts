@@ -280,3 +280,82 @@ export function systemStatus() {
     { key: "URL du site", ok: has("NEXT_PUBLIC_SITE_URL"), detail: "SEO, retours de paiement, e-mails" },
   ];
 }
+
+// ─── Observabilité IA (ai_usage, phase 1) ───────────────────────────────────
+
+export interface AiUsageGroup {
+  key: string;
+  calls: number;
+  errors: number;
+  avgLatencyMs: number;
+  p95LatencyMs: number;
+  inputTokens: number;
+  outputTokens: number;
+  images: number;
+  /** Sum of the known estimates only (µ$); `unpriced` counts successful calls without a documented rate. */
+  costMicros: number;
+  unpriced: number;
+}
+
+type UsageRow = {
+  operation: string;
+  provider: string;
+  model: string | null;
+  status: string;
+  input_tokens: number | null;
+  output_tokens: number | null;
+  images_generated: number;
+  estimated_cost_usd_micros: number | null;
+  latency_ms: number | null;
+  error_code: string | null;
+  error_message: string | null;
+  created_at: string;
+};
+
+function summarize(rows: UsageRow[], keyOf: (r: UsageRow) => string): AiUsageGroup[] {
+  const groups = new Map<string, UsageRow[]>();
+  for (const r of rows) groups.set(keyOf(r), [...(groups.get(keyOf(r)) ?? []), r]);
+  return [...groups.entries()]
+    .map(([key, list]) => {
+      const lat = list.map((r) => r.latency_ms ?? 0).sort((a, b) => a - b);
+      return {
+        key,
+        calls: list.length,
+        errors: list.filter((r) => r.status !== "success").length,
+        avgLatencyMs: lat.length ? Math.round(lat.reduce((a, b) => a + b, 0) / lat.length) : 0,
+        p95LatencyMs: lat.length ? lat[Math.min(lat.length - 1, Math.floor(lat.length * 0.95))] : 0,
+        inputTokens: list.reduce((a, r) => a + (r.input_tokens ?? 0), 0),
+        outputTokens: list.reduce((a, r) => a + (r.output_tokens ?? 0), 0),
+        images: list.reduce((a, r) => a + (r.images_generated ?? 0), 0),
+        costMicros: list.reduce((a, r) => a + (r.estimated_cost_usd_micros ?? 0), 0),
+        unpriced: list.filter((r) => r.status === "success" && r.estimated_cost_usd_micros == null).length,
+      };
+    })
+    .sort((a, b) => b.calls - a.calls);
+}
+
+/** Per-call AI observability (estimates at documented list prices, never accounting data). */
+export async function aiUsageStats() {
+  await assertAdmin();
+  const db = createAdminClient();
+  const since30 = new Date(Date.now() - 30 * DAY).toISOString();
+  const { data, error } = await db
+    .from("ai_usage")
+    .select("operation, provider, model, status, input_tokens, output_tokens, images_generated, estimated_cost_usd_micros, latency_ms, error_code, error_message, created_at")
+    .gte("created_at", since30)
+    .order("created_at", { ascending: false })
+    .limit(20000);
+  if (error) return { ready: false as const };
+  const rows = (data ?? []) as UsageRow[];
+  const since24 = Date.now() - DAY;
+  const day = rows.filter((r) => new Date(r.created_at).getTime() >= since24);
+  const total = (list: UsageRow[]) => summarize(list, () => "all")[0] ?? null;
+  return {
+    ready: true as const,
+    day: total(day),
+    month: total(rows),
+    byOperation: summarize(rows, (r) => r.operation),
+    byModel: summarize(rows, (r) => `${r.provider} · ${r.model ?? "?"}`),
+    recentErrors: rows.filter((r) => r.status !== "success").slice(0, 15),
+  };
+}

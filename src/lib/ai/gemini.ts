@@ -2,6 +2,7 @@
  * Google Gemini engine (free tier) for the AI packaging designer.
  * Raw REST call with a JSON response schema, so the output always matches DesignSpec.
  */
+import { geminiTokens, trackAiCall, type AiCallTracker } from "./gateway";
 import { STYLE_IDS, FONT_FAMILIES, LAYOUT_IDS, MOTIF_IDS, ART_STYLES, type DesignSpec } from "./designSpec";
 
 const API = "https://generativelanguage.googleapis.com/v1beta/models";
@@ -58,7 +59,8 @@ export class GeminiError extends Error {
 export async function geminiDesign(
   system: string,
   userText: string,
-  reference: { mediaType: string; data: string } | null
+  reference: { mediaType: string; data: string } | null,
+  ctx: { userId?: string | null } = {}
 ): Promise<DesignSpec> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw new GeminiError("GEMINI_API_KEY manquante");
@@ -76,7 +78,12 @@ export async function geminiDesign(
     if (Date.now() - started > TOTAL_BUDGET_MS) break;
     if (pass === 1 && model === GEMINI_MODELS[0]) await new Promise((r) => setTimeout(r, 2000));
     try {
-      return await callModel(model, key, system, parts, Math.min(PER_CALL_MS, TOTAL_BUDGET_MS - (Date.now() - started)));
+      const timeout = Math.min(PER_CALL_MS, TOTAL_BUDGET_MS - (Date.now() - started));
+      // Observability only: the gateway returns/rethrows exactly what callModel does.
+      return await trackAiCall(
+        { operation: "design.generate", provider: "gemini", model, userId: ctx.userId, metadata: { pass, reference: !!reference } },
+        (t) => callModel(model, key, system, parts, timeout, t)
+      );
     } catch (e) {
       if (!(e instanceof GeminiError)) throw e;
       lastError = e;
@@ -87,7 +94,7 @@ export async function geminiDesign(
   throw lastError ?? new GeminiError("Aucun modèle Gemini disponible");
 }
 
-async function callModel(model: string, key: string, system: string, parts: Record<string, unknown>[], timeoutMs: number): Promise<DesignSpec> {
+async function callModel(model: string, key: string, system: string, parts: Record<string, unknown>[], timeoutMs: number, t?: AiCallTracker): Promise<DesignSpec> {
   let res: Response;
   try {
     res = await fetch(`${API}/${model}:generateContent`, {
@@ -109,6 +116,9 @@ async function callModel(model: string, key: string, system: string, parts: Reco
   }
 
   const json = await res.json().catch(() => null);
+  t?.model(json?.modelVersion);
+  const usage = geminiTokens(json);
+  if (usage) t?.tokens(usage);
   if (!res.ok) {
     const msg = json?.error?.message ?? `HTTP ${res.status}`;
     throw new GeminiError(msg, res.status);

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { logAiEvent } from "@/lib/admin/log";
+import { geminiTokens, trackAiCall } from "@/lib/ai/gateway";
 import { LAYOUT_IDS, MOTIF_IDS } from "@/lib/ai/designSpec";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
@@ -65,19 +66,30 @@ Packaging actuellement ouvert : ${context}`;
 
   for (const model of ["gemini-flash-latest", "gemini-3.5-flash", "gemini-flash-lite-latest"]) {
     try {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-        method: "POST",
-        signal: AbortSignal.timeout(30_000),
-        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-        body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ inlineData: { mimeType: "audio/wav", data: audio } }, { text: prompt }] }],
-          generationConfig: { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.2 },
-        }),
+      // Observability only: same requests, same fallbacks, same result.
+      const answer = await trackAiCall({ operation: "voice.generate", provider: "gemini", model, userId: user.id, metadata: { audioBase64Chars: audio.length } }, async (t) => {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+          method: "POST",
+          signal: AbortSignal.timeout(30_000),
+          headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ inlineData: { mimeType: "audio/wav", data: audio } }, { text: prompt }] }],
+            generationConfig: { responseMimeType: "application/json", responseSchema: SCHEMA, temperature: 0.2 },
+          }),
+        });
+        if (!res.ok) {
+          t.fail(res.status);
+          return null;
+        }
+        const json = await res.json();
+        t.model(json?.modelVersion);
+        const usage = geminiTokens(json);
+        if (usage) t.tokens(usage);
+        const text = json?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("");
+        return { command: JSON.parse(text) };
       });
-      if (!res.ok) continue;
-      const json = await res.json();
-      const text = json?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("");
-      const command = JSON.parse(text);
+      if (answer === null) continue;
+      const { command } = answer;
       await logAiEvent(user.id, "suggest", `voice:${model}`);
       return Response.json({ command });
     } catch {
