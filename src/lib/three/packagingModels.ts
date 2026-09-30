@@ -134,7 +134,7 @@ function printed(map: THREE.Texture | null, finishing: string, surface: Surface,
       });
     case "film":
       return new THREE.MeshPhysicalMaterial({
-        ...base, ...withMicro("film", map, 0.28), metalness: 0.25, roughness: dull ? 0.5 : 0.3,
+        ...base, ...withMicro("film", map, 0.2), metalness: 0.25, roughness: dull ? 0.5 : 0.3,
         clearcoat: dull ? 0.2 : 0.9, clearcoatRoughness: dull ? 0.4 : 0.12, side: THREE.DoubleSide,
       });
     case "plastic":

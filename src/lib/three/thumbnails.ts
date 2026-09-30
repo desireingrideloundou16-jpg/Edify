@@ -5,8 +5,9 @@
  * UI never stalls.
  */
 import * as THREE from "three";
-import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { buildPackaging, disposeObject, neutralDesign } from "./packagingModels";
+import { CAMERA_PRESETS, frameShot, resolveCamera, resolveLighting, type CameraPresetId, type CameraShotConfig, type LightingPresetId } from "./scenePresets";
+import { StudioRig } from "./studioRig";
 import { loadDesignFonts, type PackagingDesign } from "@/lib/artwork/draw";
 import type { PackagingShape } from "@/components/workspace/Modals";
 
@@ -23,21 +24,8 @@ const queued = new Set<string>();
 let renderer: THREE.WebGLRenderer | null = null;
 let scene: THREE.Scene;
 let camera: THREE.PerspectiveCamera;
-let shadow: THREE.Mesh;
+let rig: StudioRig;
 let running = false;
-
-function shadowTexture() {
-  const c = document.createElement("canvas");
-  c.width = c.height = 128;
-  const ctx = c.getContext("2d")!;
-  const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-  g.addColorStop(0, "rgba(0,0,0,0.38)");
-  g.addColorStop(0.55, "rgba(0,0,0,0.12)");
-  g.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, 128, 128);
-  return new THREE.CanvasTexture(c);
-}
 
 function init() {
   if (renderer) return true;
@@ -49,28 +37,38 @@ function init() {
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(SIZE, SIZE, false);
-  renderer.toneMapping = THREE.NeutralToneMapping;
-  renderer.toneMappingExposure = 1.05;
   renderer.setClearColor(0x000000, 0);
 
   scene = new THREE.Scene();
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-  pmrem.dispose();
-
-  const key = new THREE.DirectionalLight(0xffffff, 1.4);
-  key.position.set(2, 3, 2.5);
-  scene.add(key);
-
-  shadow = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
-    new THREE.MeshBasicMaterial({ map: shadowTexture(), transparent: true, depthWrite: false })
-  );
-  shadow.rotation.x = -Math.PI / 2;
-  scene.add(shadow);
+  rig = new StudioRig(renderer, resolveLighting("premium"), { shadowMapSize: 1024 });
+  rig.attach(scene, renderer);
 
   camera = new THREE.PerspectiveCamera(28, 1, 0.01, 50);
   return true;
+}
+
+/** Studio lighting preset for the next renders (catalog and showcase share one rig). */
+function applyLighting(id: LightingPresetId) {
+  if (rig.config.id === id) return;
+  rig.detach(scene);
+  rig.dispose();
+  rig = new StudioRig(renderer!, resolveLighting(id), { shadowMapSize: 1024 });
+  rig.attach(scene, renderer!);
+}
+
+/** Adds the pack to the scene, lights and frames it (automatic composition). */
+function stage(obj: THREE.Object3D, shot: CameraShotConfig, aspect = 1) {
+  scene.add(obj);
+  rig.fit(renderer!, scene, obj);
+  const box = new THREE.Box3().setFromObject(obj);
+  const f = frameShot({ min: box.min.toArray(), max: box.max.toArray() }, shot, aspect);
+  camera.fov = f.fov;
+  camera.aspect = aspect;
+  camera.near = f.near;
+  camera.far = f.far;
+  camera.position.set(...f.position);
+  camera.lookAt(...f.target);
+  camera.updateProjectionMatrix();
 }
 
 function renderOne(shape: PackagingShape) {
@@ -79,21 +77,8 @@ function renderOne(shape: PackagingShape) {
     { model: shape.model, lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material },
     current ? current.design : neutralDesign(shape.name, shape.material)
   );
-  obj.rotation.y = -0.55;
-  scene.add(obj);
-
-  const box = new THREE.Box3().setFromObject(obj);
-  const size = box.getSize(new THREE.Vector3());
-  const center = box.getCenter(new THREE.Vector3());
-  shadow.scale.set(size.x * 1.7 + 0.1, size.z * 1.7 + 0.25, 1);
-  shadow.position.set(center.x, 0.001, center.z);
-
-  const radius = size.length() / 2;
-  const dist = radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2)) * 0.98;
-  const dir = new THREE.Vector3(0, 0.38, 1).normalize();
-  camera.position.copy(center).addScaledVector(dir, dist);
-  camera.lookAt(center);
-
+  applyLighting("premium");
+  stage(obj, CAMERA_PRESETS.catalog);
   renderer.render(scene, camera);
   const url = renderer.domElement.toDataURL("image/webp", 0.9);
   scene.remove(obj);
@@ -174,24 +159,23 @@ export async function setThumbnailDesign(design: PackagingDesign | null, priorit
  * Render a designed pack (marketing showcase) with the shared renderer.
  * Transparent PNG so it can float over any background.
  */
-export async function renderShowcase(shape: PackagingShape, design: PackagingDesign, size = 720, yaw = -0.55): Promise<string | null> {
+export async function renderShowcase(
+  shape: PackagingShape,
+  design: PackagingDesign,
+  size = 720,
+  yaw = -0.55,
+  opts: { camera?: CameraPresetId; lighting?: LightingPresetId } = {}
+): Promise<string | null> {
   if (!shape.model || !init() || !renderer) return null;
   await loadDesignFonts(design);
   const obj = buildPackaging(
     { model: shape.model, lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material },
     design
   );
+  // The pack turns (turntables, landing), the camera keeps the preset's height and lens.
   obj.rotation.y = yaw;
-  scene.add(obj);
-  const box = new THREE.Box3().setFromObject(obj);
-  const dims = box.getSize(new THREE.Vector3());
-  const center = box.getCenter(new THREE.Vector3());
-  shadow.scale.set(dims.x * 1.7 + 0.1, dims.z * 1.7 + 0.25, 1);
-  shadow.position.set(center.x, 0.001, center.z);
-  const radius = dims.length() / 2;
-  const dist = (radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2))) * 0.95;
-  camera.position.copy(center).addScaledVector(new THREE.Vector3(0, 0.3, 1).normalize(), dist);
-  camera.lookAt(center);
+  applyLighting(opts.lighting ?? "premium");
+  stage(obj, opts.camera ? resolveCamera(opts.camera) : { ...CAMERA_PRESETS.catalog, azimuth: 0 });
   renderer.setSize(size, size, false);
   renderer.render(scene, camera);
   const url = renderer.domElement.toDataURL("image/png");

@@ -3,27 +3,18 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, ContactShadows, Environment, Lightformer } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { buildPackaging, disposeObject, PackagingDesign, PackagingSpec } from "@/lib/three/packagingModels";
 import { loadDesignFonts } from "@/lib/artwork/draw";
+import { chooseQuality, frameShot, resolveCamera, resolveLighting, type CameraPresetId, type LightingPresetId, type RenderQualityConfig } from "@/lib/three/scenePresets";
+import { detectGraphicsCaps } from "@/lib/three/capabilities";
+import { StudioRig } from "@/lib/three/studioRig";
 
-export type ViewPreset = "front" | "threeQuarter" | "back" | "top" | "bottom";
-export type LightingPreset = "studio" | "soft" | "warm";
-
-const VIEW_DIR: Record<ViewPreset, [number, number, number]> = {
-  front: [0, 0.12, 1],
-  threeQuarter: [0.75, 0.38, 1],
-  back: [-0.35, 0.18, -1],
-  top: [0.35, 1.25, 0.7],
-  bottom: [0.3, -1.1, 0.8],
-};
-
-const LIGHTING: Record<LightingPreset, { color: string; top: number; key: number; fill: number; rim: number; sun: number }> = {
-  studio: { color: "#ffffff", top: 2.2, key: 1.6, fill: 0.7, rim: 1.2, sun: 1.1 },
-  soft:   { color: "#f4f6ff", top: 1.4, key: 0.9, fill: 0.9, rim: 0.6, sun: 0.5 },
-  warm:   { color: "#ffd9a8", top: 1.9, key: 1.7, fill: 0.5, rim: 1.4, sun: 1.2 },
-};
+/** Camera shots and lighting come from the shared presets (src/lib/three/scenePresets.ts). */
+export type ViewPreset = CameraPresetId;
+/** New preset ids, plus the former "studio" / "warm" names (aliases). */
+export type LightingPreset = LightingPresetId | "studio" | "warm";
 
 interface ViewerProps {
   spec: PackagingSpec;
@@ -63,11 +54,11 @@ function useFontsVersion(heading: string, body: string) {
   return version;
 }
 
-function PackagingObject({ spec, design, logo, onSize }: {
+function PackagingObject({ spec, design, logo, onObject }: {
   spec: PackagingSpec;
   design: Omit<PackagingDesign, "logo">;
   logo: HTMLImageElement | null;
-  onSize: (size: THREE.Vector3) => void;
+  onObject: (object: THREE.Object3D) => void;
 }) {
   const fonts = useFontsVersion(design.headingFont, design.bodyFont);
   const [debounced, setDebounced] = useState(design);
@@ -83,38 +74,61 @@ function PackagingObject({ spec, design, logo, onSize }: {
   );
 
   useEffect(() => {
-    onSize(new THREE.Box3().setFromObject(object).getSize(new THREE.Vector3()));
+    onObject(object);
     return () => disposeObject(object);
-  }, [object, onSize]);
+  }, [object, onObject]);
 
   return <primitive object={object} />;
 }
 
-function CameraRig({ view, size, controls }: {
+/** Studio lighting, cast + contact shadows and reflections, shared with every Edify renderer. */
+function StudioStage({ lighting, object, quality }: { lighting: LightingPreset; object: THREE.Object3D | null; quality: RenderQualityConfig }) {
+  const gl = useThree((s) => s.gl);
+  const scene = useThree((s) => s.scene);
+  const invalidate = useThree((s) => s.invalidate);
+  const [rig, setRig] = useState<StudioRig | null>(null);
+  useEffect(() => {
+    const r = new StudioRig(gl, resolveLighting(lighting), quality);
+    r.attach(scene, gl);
+    setRig(r);
+    return () => {
+      r.detach(scene);
+      r.dispose();
+    };
+  }, [gl, scene, lighting, quality]);
+  useEffect(() => {
+    if (!rig || !object || !object.parent) return;
+    rig.fit(gl, scene, object);
+    invalidate();
+  }, [rig, object, gl, scene, invalidate]);
+  return null;
+}
+
+/** Automatic composition from the pack's bounds and the chosen shot. */
+function CameraRig({ view, object, controls }: {
   view: ViewPreset;
-  size: THREE.Vector3 | null;
+  object: THREE.Object3D | null;
   controls: React.RefObject<OrbitControlsImpl | null>;
 }) {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   const aspect = useThree((s) => s.size.width / Math.max(1, s.size.height));
   useEffect(() => {
-    if (!size) return;
-    const target = new THREE.Vector3(0, size.y * 0.44, 0);
-    const radius = size.length() / 2;
-    const vHalf = THREE.MathUtils.degToRad(camera.fov / 2);
-    const hHalf = Math.atan(Math.tan(vHalf) * aspect);
-    const dist = (radius / Math.sin(Math.min(vHalf, hHalf))) * 1.08;
-    const dir = new THREE.Vector3(...VIEW_DIR[view]).normalize();
-    camera.position.copy(target).addScaledVector(dir, dist);
-    camera.lookAt(target);
+    if (!object) return;
+    const box = new THREE.Box3().setFromObject(object);
+    const f = frameShot({ min: box.min.toArray(), max: box.max.toArray() }, resolveCamera(view), aspect);
+    camera.fov = f.fov;
+    camera.near = f.near;
+    camera.far = f.far;
+    camera.position.set(...f.position);
+    camera.lookAt(...f.target);
     camera.updateProjectionMatrix();
     if (controls.current) {
-      controls.current.target.copy(target);
-      controls.current.minDistance = dist * 0.45;
-      controls.current.maxDistance = dist * 2.2;
+      controls.current.target.set(...f.target);
+      controls.current.minDistance = f.distance * 0.4;
+      controls.current.maxDistance = f.distance * 2.2;
       controls.current.update();
     }
-  }, [view, size, camera, controls, aspect]);
+  }, [view, object, camera, controls, aspect]);
   return null;
 }
 
@@ -129,39 +143,34 @@ function CaptureBridge({ onCaptureReady }: { onCaptureReady?: (capture: () => st
   return null;
 }
 
+/** Shown instead of a black canvas when the device has no WebGL. */
+function NoWebGL() {
+  return (
+    <div style={{ display: "grid", placeItems: "center", height: "100%", padding: 24, textAlign: "center", color: "var(--muted, #6b7280)", fontSize: 14 }}>
+      {"L'aperçu 3D n'est pas disponible sur cet appareil. Le patron à plat et les exports restent utilisables."}
+    </div>
+  );
+}
+
 export default function Packaging3DViewer({ spec, design, logoUrl, view, lighting, autoRotate, onCaptureReady }: ViewerProps) {
   const logo = useImage(logoUrl);
   const controls = useRef<OrbitControlsImpl>(null);
-  const [size, setSize] = useState<THREE.Vector3 | null>(null);
-  const onSize = useMemo(() => (s: THREE.Vector3) => setSize((prev) => (prev && prev.equals(s) ? prev : s)), []);
-  const L = LIGHTING[lighting];
+  const [object, setObject] = useState<THREE.Object3D | null>(null);
+  const onObject = useMemo(() => (o: THREE.Object3D) => setObject(o), []);
+  // PREVIEW tier: interactive, lighter on mobile and low-end GPUs.
+  const [quality] = useState(() => chooseQuality("preview", detectGraphicsCaps()));
+  if (!quality) return <NoWebGL />;
 
   return (
     <Canvas
-      dpr={[1, 2]}
-      shadows
+      dpr={[1, quality.maxPixelRatio]}
+      shadows="variance"
       camera={{ fov: 30, near: 0.01, far: 50, position: [0.8, 0.6, 2.2] }}
       gl={{ antialias: true, preserveDrawingBuffer: true, alpha: true }}
-      onCreated={({ gl }) => {
-        gl.toneMapping = THREE.NeutralToneMapping;
-        gl.toneMappingExposure = 1.1;
-      }}
+      fallback={<NoWebGL />}
     >
-      <Environment resolution={256} frames={1} environmentIntensity={1.3}>
-        <Lightformer form="rect" intensity={L.top} color={L.color} position={[0, 4, 0]} rotation-x={Math.PI / 2} scale={[6, 6, 1]} />
-        <Lightformer form="rect" intensity={L.key} color={L.color} position={[-4, 1.5, 2]} rotation-y={Math.PI / 2.5} scale={[4, 2.5, 1]} />
-        <Lightformer form="rect" intensity={L.fill} color="#ffffff" position={[4, 1, 2]} rotation-y={-Math.PI / 2.5} scale={[4, 2.5, 1]} />
-        <Lightformer form="rect" intensity={L.rim} color={L.color} position={[0, 1.5, -4]} scale={[6, 1.5, 1]} />
-        <Lightformer form="ring" intensity={0.6} color="#ffffff" position={[0, 0.5, 4]} scale={2} />
-        <Lightformer form="rect" intensity={0.3} color="#ffffff" position={[0, -4, 0]} rotation-x={-Math.PI / 2} scale={[6, 6, 1]} />
-      </Environment>
-
-      <directionalLight position={[2.5, 4, 3]} intensity={L.sun} color={L.color} />
-      <ambientLight intensity={0.15} />
-
-      <PackagingObject spec={spec} design={design} logo={logo} onSize={onSize} />
-
-      <ContactShadows position={[0, 0.0005, 0]} opacity={0.5} scale={3} blur={2.6} far={1.2} resolution={512} color="#1b1f27" />
+      <StudioStage lighting={lighting} object={object} quality={quality} />
+      <PackagingObject spec={spec} design={design} logo={logo} onObject={onObject} />
 
       <OrbitControls
         ref={controls}
@@ -173,7 +182,7 @@ export default function Packaging3DViewer({ spec, design, logoUrl, view, lightin
         autoRotateSpeed={1.4}
         maxPolarAngle={Math.PI - 0.05}
       />
-      <CameraRig view={view} size={size} controls={controls} />
+      <CameraRig view={view} object={object} controls={controls} />
       <CaptureBridge onCaptureReady={onCaptureReady} />
     </Canvas>
   );

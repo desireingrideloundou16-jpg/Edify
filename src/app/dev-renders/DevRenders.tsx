@@ -10,12 +10,13 @@ import { ALL_CATALOG_SHAPES } from "@/lib/catalog/shapes";
 import { SHOWCASE, loadShowcaseArt } from "@/components/landing/showcase";
 
 export function DevRenders() {
-  const [items, setItems] = useState<{ key: string; url: string }[]>([]);
+  const [items, setItems] = useState<{ key: string; url: string; ms?: number }[]>([]);
+  const [viewer, setViewer] = useState<React.ReactNode>(null);
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     const mode = q.get("mode") ?? "refs";
     const index = Number(q.get("i") ?? 1);
-    const push = (key: string, url: string) => setItems((prev) => (prev.some((p) => p.key === key) ? prev : [...prev, { key, url }]));
+    const push = (key: string, url: string, ms?: number) => setItems((prev) => (prev.some((p) => p.key === key) ? prev : [...prev, { key, url, ms }]));
     let cancelled = false;
     (async () => {
       const { renderShowcase } = await import("@/lib/three/thumbnails");
@@ -91,6 +92,50 @@ export function DevRenders() {
         const { AD_DECORS } = await import("@/lib/three/adRender");
         const decor = AD_DECORS.find((x) => x.id === (q.get("decor") ?? "ingredients")) ?? AD_DECORS[0];
         document.body.dataset.prompts = JSON.stringify(SHOWCASE.map((it) => decor.prompt({ ...it.design, logo: null })));
+      } else if (mode === "hd") {
+        // /dev-renders?mode=hd&i=1&camera=hero&lighting=premium&size=1600&samples=48&bg=preset → HD render + time
+        const { renderHD } = await import("@/lib/three/hdRender");
+        const { loadDesignFonts } = await import("@/lib/artwork/draw");
+        await loadDesignFonts(design);
+        const size = Number(q.get("size") ?? 1600);
+        const t0 = performance.now();
+        const url = await renderHD({
+          spec: { model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material },
+          design,
+          camera: (q.get("camera") ?? "hero") as "hero",
+          lighting: (q.get("lighting") ?? "premium") as "premium",
+          width: size,
+          height: size,
+          samples: q.has("samples") ? Number(q.get("samples")) : undefined,
+          background: q.get("bg") ?? "preset",
+          yaw: Number(q.get("yaw") ?? 0),
+        });
+        if (url) push("hd", url, Math.round(performance.now() - t0));
+      } else if (mode === "viewer") {
+        // /dev-renders?mode=viewer&i=1 → model build time + interactive viewer FPS (body data attributes)
+        const { default: Viewer } = await import("@/components/workspace/Packaging3DViewer");
+        const spec = { model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material };
+        const { buildPackaging, disposeObject } = await import("@/lib/three/packagingModels");
+        const b0 = performance.now();
+        disposeObject(buildPackaging(spec, design));
+        document.body.dataset.buildMs = String(Math.round(performance.now() - b0));
+        setViewer(
+          <div style={{ width: 800, height: 800 }}>
+            <Viewer spec={spec} design={design} logoUrl={null} view="threeQuarter" lighting="studio" autoRotate />
+          </div>
+        );
+        await new Promise<void>((ok) => {
+          const wait = () => (document.querySelector("canvas") ? ok() : requestAnimationFrame(wait));
+          wait();
+        });
+        await new Promise((ok) => setTimeout(ok, 1500));
+        let frames = 0;
+        const start = performance.now();
+        await new Promise<void>((ok) => {
+          const tick = () => (++frames, performance.now() - start < 4000 ? requestAnimationFrame(tick) : ok());
+          requestAnimationFrame(tick);
+        });
+        document.body.dataset.fps = (frames / ((performance.now() - start) / 1000)).toFixed(1);
       } else if (mode === "ad") {
         const { renderAd } = await import("@/lib/three/adRender");
         const url = await renderAd({
@@ -118,7 +163,10 @@ export function DevRenders() {
           const it = SHOWCASE[i];
           const sh = ALL_CATALOG_SHAPES.find((s) => s.id === it.shapeId);
           if (!sh) continue;
-          const png = await renderShowcase(sh, { ...it.design, logo: null, art: await loadShowcaseArt(it) }, 1024, -0.35);
+          const packDesign = { ...it.design, logo: null, art: await loadShowcaseArt(it) };
+          const t0 = performance.now();
+          const png = await renderShowcase(sh, packDesign, 1024, -0.35);
+          const ms = Math.round(performance.now() - t0);
           if (!png) continue;
           const img = new Image();
           img.src = png;
@@ -129,7 +177,7 @@ export function DevRenders() {
           ctx.fillStyle = "#ffffff";
           ctx.fillRect(0, 0, 1024, 1024);
           ctx.drawImage(img, 0, 0);
-          push(`pack-${String(i).padStart(2, "0")}`, c.toDataURL("image/jpeg", 0.95));
+          push(`pack-${String(i).padStart(2, "0")}`, c.toDataURL("image/jpeg", 0.95), ms);
         }
       }
       if (!cancelled) document.body.dataset.done = "1";
@@ -140,9 +188,10 @@ export function DevRenders() {
   }, []);
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+      {viewer}
       {items.map((it) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={it.key} data-key={it.key} src={it.url} alt="" width={160} />
+        <img key={it.key} data-key={it.key} data-ms={it.ms} src={it.url} alt="" width={160} />
       ))}
     </div>
   );
