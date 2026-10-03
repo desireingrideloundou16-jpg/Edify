@@ -94,3 +94,38 @@ parfum. S'y ajoutent 20 à 96 triangles d'étiquette.
 |---|---|
 | `2B-bouteilles-avant-apres.jpg` | par paires (avant à gauche, après à droite) : LUMINA ¾, MAISON LUNE face / hero / ¾, SOLÈNE face / hero / ¾, VERDANT gros plan / face / hero / ¾, PIMENTO face / ¾ |
 | `2B-catalogue-bouteilles.jpg` | 22 bouteilles du catalogue, plus MAISON LUNE (face, ¾, hero), avec le nouveau moteur |
+
+## 2B-4 — Bibliothèque de fermetures
+
+`src/lib/three/geometry/closureLibrary.ts` : `createClosureGeometry(config)` renvoie une fermeture en **pièces
+séparées**, chacune avec un emplacement de matière (`primary`, `secondary`, `metal`, `rubber`, `glass`). La phase
+photoréalisme pourra ainsi donner à chaque pièce sa micro-surface et ses variations de rugosité.
+
+| Type | Pièces | Triangles |
+|---|---|---|
+| `screwCap` (VERDANT, boissons) | bouchon moleté (32 nervures en géométrie) + bague d'inviolabilité | 1 488 + 360 |
+| `ribbedCap` (PIMENTO, bouteilles rondes) | bouchon à 24 nervures larges + bague | 1 296 + 360 |
+| `tamperRing` | bague seule | 480 |
+| `wineCapsule` (MAISON LUNE) | capsule métallique qui dégage la bague du col, légers plis de feuille (seed) | 960 |
+| `pump` | collerette nervurée, tige, poussoir, bec courbé | 2 388 |
+| `spray` (SOLÈNE) | virole métallique, poussoir, buse orientée (`sprayDirection`) | 1 188 |
+| `dropper` (LUMINA) | collerette nervurée, bulbe caoutchouc, pipette en verre dans la bouteille | 2 376 |
+| `canLid` | bord roulé, fraisure, panneau en retrait, rivet, vraie languette (anneau, fente) | 2 306 |
+
+- Origine y = 0 au sommet du col : la jupe des bouchons descend sur la bague du col (`bottle.finish`, exposé par
+  `bottleGeometry.ts`).
+- Montage en deux passes dans `packagingModels.ts` : la bouteille s'arrête là où la fermeture commence, donc la
+  hauteur du catalogue est conservée (testé).
+- Nervures : manchon dense (4 sommets par nervure) entre un bas et un haut peu subdivisés, pour que chaque nervure
+  garde son côté éclairé et son côté ombré sans dépasser le budget.
+- Déterministe : la seule irrégularité (plis de la capsule) vient du `seed`.
+
+| Planche | Contenu |
+|---|---|
+| `2B4-fermetures.jpg` | gros plans : canette (dessus, hero), VERDANT (hero, face), PIMENTO, pompe, LUMINA, MAISON LUNE (hero, face), SOLÈNE (face, ¾) |
+| `2B4-17-packs.jpg` | les 17 packs de démonstration avec les fermetures |
+| `2B4-regression-sachet-brique.jpg` | **régression antérieure à cette phase** : TERRA (sachet) et OKKO (brique), en phase 2A, dans `a1ee833` et aujourd'hui |
+
+**Régression connue, hors périmètre** : depuis les géométries de sachet et de brique (`d8206eb`, `3eacdd4`),
+l'illustration de TERRA n'apparaît plus sur la face avant (sachet noir), et celle d'OKKO est projetée sur le toit et
+les côtés au lieu de la face avant. Ce n'est pas causé par les fermetures : rendu identique avec et sans cette phase.

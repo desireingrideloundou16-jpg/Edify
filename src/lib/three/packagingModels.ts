@@ -14,6 +14,7 @@ import { microSurface, type MicroKind } from "./surfaceDetail";
 import { createPouchGeometry } from "./geometry/pouchGeometry";
 import { createCartonGeometry } from "./geometry/cartonGeometry";
 import { bottleFamily, bottlePreset, createBottleFill, createBottleGeometry, createBottleLabel } from "./geometry/bottleGeometry";
+import { closurePreset, createClosureGeometry, type ClosureMaterialSlot, type ClosureResult } from "./geometry/closureLibrary";
 import { drawFace, drawWrap, resolveColors, type FaceKind, type PackagingDesign } from "@/lib/artwork/draw";
 export type { PackagingDesign } from "@/lib/artwork/draw";
 export { resolveColors } from "@/lib/artwork/draw";
@@ -369,7 +370,13 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
     case "can": {
       const neck = H * 0.08;
       const body = H - neck * 2;
-      g.add(mesh(lathe([[0, 0], [R * 0.75, 0], [R * 0.95, neck * 0.5], [R, neck], [R, H - neck], [R * 0.86, H - neck * 0.2], [R * 0.84, H], [0, H]]), METAL_SILVER()));
+      // Body necked in under the seam; the lid (seam, countersink, panel, rivet, pull tab) closes it.
+      const seamH = neck * 0.32;
+      g.add(mesh(lathe([[0, 0], [R * 0.75, 0], [R * 0.95, neck * 0.5], [R, neck], [R, H - neck], [R * 0.865, H - seamH]]), METAL_SILVER()));
+      const lidMat = METAL_SILVER();
+      addClosure(g, createClosureGeometry({ type: "canLid", width: R * 0.88 * 2, height: seamH, seed: 1 }), H, {
+        primary: lidMat, secondary: lidMat, metal: lidMat, rubber: lidMat, glass: lidMat,
+      });
       const label = mesh(wrapCylinder(R * 1.002, R * 1.002, body, Math.PI * 2), printed(wrapTexture(d, 2 * Math.PI * R, body, 0.3), fin, "metal"), neck + body / 2);
       g.add(label);
       break;
@@ -424,14 +431,18 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
     // ── Bottles: parametric silhouette (section × profile), see geometry/bottleGeometry.ts ──
     default: {
       const m = spec.model;
-      const isDropper = m === "dropper";
-      const isPump = m === "pump";
-      const isSpray = m === "spray";
-      const isWine = m === "wine";
-      // Closure height (unchanged): the bottle itself stops where the closure starts.
-      const capH = isDropper ? H * 0.34 : isPump ? H * 0.2 : isSpray ? H * 0.2 : isWine ? H * 0.12 : H * 0.1;
-      const glassH = H - capH * (isWine ? 0.9 : 0.8);
-      const preset = bottlePreset(bottleFamily(m, L, W, material), L, W, glassH);
+      const family = bottleFamily(m, L, W, material);
+      // Two passes: the closure's height above the neck decides where the bottle stops, so the
+      // pack keeps its catalog height; the second pass fits the closure on the final neck finish.
+      const closureFor = (b: ReturnType<typeof createBottleGeometry>) =>
+        createClosureGeometry(closurePreset(family, H, { width: b.neck.width, finishHeight: b.finish.height, finishScale: b.finish.scale }, b.shoulderStartY));
+      const draft = createBottleGeometry(bottlePreset(family, L, W, H * 0.85).config);
+      const draftClosure = closureFor(draft);
+      const glassH = Math.max(H * 0.5, H - draftClosure.top);
+      for (const p of draftClosure.parts) p.geometry.dispose();
+      draft.body.dispose();
+      draft.bottom.dispose();
+      const preset = bottlePreset(family, L, W, glassH);
       const bottle = createBottleGeometry(preset.config);
 
       const bodyMat = surface === "glass" ? glassMaterial(material)
@@ -452,32 +463,29 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       const label = createBottleLabel(bottle.section, { yStart: labelY, height: labelH, fraction: preset.label.fraction });
       g.add(mesh(label.geometry, printed(wrapTexture(d, label.arcLength, labelH, 0.5), fin, surface === "metal" ? "metal" : "paper")));
 
-      const neckR = bottle.neckTopRadius;
-      // Closures (unchanged), attached at the neck finish.
-      const neckTop = bottle.neckTopY;
-      const capMat = solid(isWine ? accent : ink, {
-        roughness: isWine ? 0.35 : 0.25, metalness: isWine ? 0.6 : 0.1, clearcoat: 0.6,
+      // Closure from the library, one material per part slot (existing materials).
+      const isWine = family === "wine";
+      const closure = closureFor(bottle);
+      addClosure(g, closure, bottle.neckTopY, {
+        primary: solid(ink, { roughness: 0.28, metalness: 0.1, clearcoat: 0.6 }),
+        secondary: solid("#1f1f22", { roughness: 0.5 }),
+        metal: isWine ? solid(accent, { metalness: 0.85, roughness: 0.32, clearcoat: 0.5, clearcoatRoughness: 0.2 }) : METAL_SILVER(),
+        rubber: solid(ink, { roughness: 0.78 }),
+        glass: new THREE.MeshPhysicalMaterial({ color: "#ffffff", transmission: 1, roughness: 0.05, thickness: 0.2, ior: 1.5 }),
       });
-
-      if (isDropper) {
-        g.add(mesh(new THREE.CylinderGeometry(neckR * 1.25, neckR * 1.25, capH * 0.38, 48), capMat, neckTop + capH * 0.19));
-        g.add(mesh(new THREE.CapsuleGeometry(neckR * 0.85, capH * 0.35, 12, 32), solid(ink, { roughness: 0.55 }), neckTop + capH * 0.38 + capH * 0.34));
-      } else if (isPump || isSpray) {
-        g.add(mesh(new THREE.CylinderGeometry(neckR * 1.3,  neckR * 1.3,  capH * 0.3,  48), capMat, neckTop + capH * 0.15));
-        g.add(mesh(new THREE.CylinderGeometry(neckR * 0.35, neckR * 0.35, capH * 0.35, 24), capMat, neckTop + capH * 0.47));
-        g.add(mesh(new THREE.CylinderGeometry(neckR * 0.9,  neckR * 0.9,  capH * 0.3,  48), capMat, neckTop + capH * 0.8));
-        if (isPump) {
-          const nozzle = mesh(new THREE.BoxGeometry(neckR * 1.8, capH * 0.12, neckR * 0.45), capMat, neckTop + capH * 0.86);
-          nozzle.position.x = neckR * 1.2;
-          g.add(nozzle);
-        }
-      } else {
-        g.add(mesh(new THREE.CylinderGeometry(neckR * 1.16, neckR * 1.16, capH, 48), capMat, neckTop + capH / 2));
-      }
       break;
     }
   }
   return g;
+}
+
+/** Adds every part of a closure at height `y`, each with the material of its slot. */
+function addClosure(g: THREE.Group, closure: ClosureResult, y: number, mats: Record<ClosureMaterialSlot, THREE.Material>) {
+  for (const part of closure.parts) {
+    const m = mesh(part.geometry, mats[part.material], y);
+    m.name = part.name;
+    g.add(m);
+  }
 }
 
 /** Build the model, normalised to a 1-unit largest dimension, standing on y = 0. */

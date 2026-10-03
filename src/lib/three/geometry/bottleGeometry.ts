@@ -75,6 +75,8 @@ export interface BottleGeometryResult {
   neckTopY: number;
   neckTopRadius: number;
   neck: { width: number; depth: number; y: number };
+  /** Finish bead at the top of the neck (closures cover it): height (mm) and radial scale. */
+  finish: { height: number; scale: number };
   bodyPerimeter: number;
   triangles: number;
 }
@@ -307,7 +309,7 @@ function stations(cfg: BottleGeometryConfig, minHalf: number, neckMinHalf: numbe
   list.push({ y: H - finishH * 0.75, t: 1, scale: bead });
   list.push({ y: H - finishH * 0.2, t: 1, scale: bead });
   list.push({ y: H, t: 1, scale: 1 });
-  return { list, rb, yShoulder, yNeck, H };
+  return { list, rb, yShoulder, yNeck, H, finishH, bead };
 }
 
 // ─── Buffers ─────────────────────────────────────────────────────────────────
@@ -413,7 +415,7 @@ export function createBottleGeometry(config: BottleGeometryConfig): BottleGeomet
       return [px, pz];
     });
 
-  const { list, rb, yShoulder, yNeck, H } = stations(cfg, minHalf, Math.min(nw, nd));
+  const { list, rb, yShoulder, yNeck, H, finishH, bead } = stations(cfg, minHalf, Math.min(nw, nd));
   const body: Buffers = { pos: [], uv: [], idx: [] };
   const seams: { base: number; rows: number; stride: number }[] = [];
   let rings: P2[][] = [];
@@ -467,6 +469,7 @@ export function createBottleGeometry(config: BottleGeometryConfig): BottleGeomet
     neckTopY: H,
     neckTopRadius: Math.max(nw, nd),
     neck: { width: nw * 2, depth: nd * 2, y: H },
+    finish: { height: finishH, scale: bead },
     bodyPerimeter: section.perimeter,
     triangles: triangleCount(bodyGeo) + triangleCount(bottomGeo),
   };
