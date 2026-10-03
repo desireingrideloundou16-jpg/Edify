@@ -10,10 +10,11 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import type { ShapeModel } from "@/components/workspace/Modals";
 
-import { microSurface, type MicroKind } from "./surfaceDetail";
+import { createPackagingMaterial, type MaterialSurfaceOptions } from "./materials/materialFactory";
+import { finishFromLabel, glassPreset, hashSeed, printedPreset, type MaterialQuality, type MaterialRequest, type PrintSurface } from "./materials/materialPresets";
 import { createPouchGeometry } from "./geometry/pouchGeometry";
 import { createCartonGeometry } from "./geometry/cartonGeometry";
-import { bottleFamily, bottlePreset, createBottleFill, createBottleGeometry, createBottleLabel } from "./geometry/bottleGeometry";
+import { bottleFamily, bottlePreset, bottleSection, createBottleFill, createBottleGeometry, createBottleLabel } from "./geometry/bottleGeometry";
 import { closurePreset, createClosureGeometry, type ClosureMaterialSlot, type ClosureResult } from "./geometry/closureLibrary";
 import { drawFace, drawWrap, resolveColors, type FaceKind, type PackagingDesign } from "@/lib/artwork/draw";
 export type { PackagingDesign } from "@/lib/artwork/draw";
@@ -84,109 +85,49 @@ function surfaceFromMaterial(material: string): Surface {
   return "paper";
 }
 
+/**
+ * Build context, set by buildPackaging (synchronous): render quality and the pack's seed, so
+ * every material of a pack gets its own deterministic micro-variation.
+ */
+const build = { quality: "medium" as MaterialQuality, seed: 0, n: 0 };
+
+/** Label paper thickness (mm): thin enough to hug the container, thick enough for an edge highlight. */
+const LABEL_THICKNESS_MM = 0.15;
+
+/** Every material goes through the factory (src/lib/three/materials). */
+function mat(req: Omit<MaterialRequest, "quality" | "seed">, opts?: MaterialSurfaceOptions) {
+  return createPackagingMaterial({ ...req, quality: build.quality, seed: hashSeed(build.seed, req.preset, build.n++) }, opts);
+}
+
 function glassMaterial(material: string) {
-  const m = material.toLowerCase();
-  const tint = m.includes("ambré") ? "#b8691f" : m.includes("teinté") ? "#2f4f2a" : "#ffffff";
-  return new THREE.MeshPhysicalMaterial({
-    color: tint,
-    transmission: 1,
-    roughness: m.includes("dépoli") ? 0.42 : 0.06,
-    thickness: 0.6,
-    ior: 1.5,
-    attenuationColor: new THREE.Color(tint),
-    attenuationDistance: m.includes("ambré") || m.includes("teinté") ? 0.35 : 4,
-    clearcoat: 1,
-    clearcoatRoughness: 0.05,
-    side: THREE.DoubleSide,
-  });
+  const g = glassPreset(material);
+  return mat({ preset: g.preset, tint: g.tint });
 }
 
-type Finish = "gloss" | "matte" | "soft" | "uncoated" | "laid" | "satin";
-
-function finishFrom(finishing: string): Finish {
-  if (/verg/i.test(finishing)) return "laid";
-  if (/soft|velours/i.test(finishing)) return "soft";
-  if (/non couch|recycl|kraft|washi|textur/i.test(finishing)) return "uncoated";
-  if (/mat/i.test(finishing)) return "matte";
-  if (/brillant|holograph|nacr|gloss|uv/i.test(finishing)) return "gloss";
-  return "satin";
+/** Artwork printed on a surface, with the design's finish (labels get label papers). */
+function printed(map: THREE.Texture | null, finishing: string, surface: Surface, color?: string, label = false) {
+  return mat({ preset: printedPreset(surface as PrintSurface, finishFromLabel(finishing), label), color: color ?? "#ffffff" }, { map });
 }
 
-/** Surface size (mm) carried by artwork textures, so micro-detail keeps a physical scale. */
-function mmOf(map: THREE.Texture | null): [number, number] {
-  const mm = map?.userData.mm as [number, number] | undefined;
-  return mm ?? [100, 100];
-}
-
-function withMicro(kind: MicroKind, map: THREE.Texture | null, normalScale: number) {
-  const [w, h] = mmOf(map);
-  const m = microSurface(kind, w, h);
-  return { normalMap: m.normal, normalScale: new THREE.Vector2(normalScale, normalScale), roughnessMap: m.roughness };
-}
-
-function printed(map: THREE.Texture | null, finishing: string, surface: Surface, color?: string) {
-  const fin = finishFrom(finishing);
-  const base = { map, color: color ?? "#ffffff" };
-  const gloss = fin === "gloss";
-  const dull = fin === "matte" || fin === "soft" || fin === "uncoated" || fin === "laid";
-  switch (surface) {
-    case "metal":
-      // Ink printed on aluminium under a varnish: brushed metal shows through the clear coat.
-      return new THREE.MeshPhysicalMaterial({
-        ...base, ...withMicro("brushed", map, 0.06), metalness: 0.6, roughness: dull ? 0.45 : 0.3,
-        clearcoat: dull ? 0.3 : 1, clearcoatRoughness: dull ? 0.35 : 0.06,
-      });
-    case "film":
-      return new THREE.MeshPhysicalMaterial({
-        ...base, ...withMicro("film", map, 0.2), metalness: 0.25, roughness: dull ? 0.5 : 0.3,
-        clearcoat: dull ? 0.2 : 0.9, clearcoatRoughness: dull ? 0.4 : 0.12, side: THREE.DoubleSide,
-      });
-    case "plastic":
-    case "clearplastic":
-      return new THREE.MeshPhysicalMaterial({
-        ...base, ...withMicro("plastic", map, 0.12), roughness: dull ? 0.55 : 0.3,
-        clearcoat: dull ? 0 : 0.7, clearcoatRoughness: 0.12,
-      });
-    case "kraft":
-      return new THREE.MeshPhysicalMaterial({
-        ...base, ...withMicro("kraft", map, 0.45), roughness: 0.9, sheen: 0.06, sheenRoughness: 0.9, sheenColor: new THREE.Color("#ffffff"),
-      });
-    default:
-      switch (fin) {
-        case "gloss":
-          // Smooth varnish over coated board: sharp reflections, paper texture underneath.
-          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("coated", map, 0.15), roughness: 0.45, clearcoat: 1, clearcoatRoughness: 0.05 });
-        case "soft":
-          return new THREE.MeshPhysicalMaterial({
-            ...base, ...withMicro("softtouch", map, 0.2), roughness: 0.88, sheen: 0.15, sheenRoughness: 0.75, sheenColor: new THREE.Color("#ffffff"),
-          });
-        case "matte":
-          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("coated", map, 0.2), roughness: 0.72, clearcoat: 0.15, clearcoatRoughness: 0.6 });
-        case "uncoated":
-          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("paper", map, 0.35), roughness: 0.92, sheen: 0.08, sheenRoughness: 0.9, sheenColor: new THREE.Color("#ffffff") });
-        case "laid":
-          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("laid", map, 0.18), roughness: 0.9 });
-        default:
-          return new THREE.MeshPhysicalMaterial({ ...base, ...withMicro("coated", map, 0.15), roughness: gloss ? 0.3 : 0.5, clearcoat: 0.4, clearcoatRoughness: 0.25 });
-      }
-  }
-}
-
+/** Plain part (cap, seal, lid, accent): plastic or painted metal from the factory, then overrides. */
 function solid(color: string, opts: Partial<THREE.MeshPhysicalMaterialParameters> = {}) {
-  return new THREE.MeshPhysicalMaterial({ color, roughness: 0.4, ...opts });
+  const { roughness, metalness, ...rest } = opts;
+  const preset = (metalness ?? 0) > 0.5 ? "paintedMetal" : (roughness ?? 0.4) < 0.3 ? "glossyPlastic" : "mattePlastic";
+  const m = mat({ preset, color, roughness: roughness ?? 0.4, metalness });
+  m.setValues(rest);
+  return m;
 }
 
-const METAL_SILVER = () => {
-  const m = microSurface("brushed", 200, 200);
-  return solid("#d7dadd", { metalness: 1, roughness: 0.3, normalMap: m.normal, normalScale: new THREE.Vector2(0.12, 0.12), roughnessMap: m.roughness });
-};
+const METAL_SILVER = () => mat({ preset: "aluminum" });
 
 /** Product seen through a glass or clear plastic container (juice, honey, oil…). */
 function contentFill(d: PackagingDesign, surface: Surface) {
   const c = d.contentColor;
   if (!c || !/^#[0-9a-f]{6}$/i.test(c) || (surface !== "glass" && surface !== "clearplastic")) return null;
   // Opaque on purpose: three.js shows opaque objects through transmissive glass.
-  return new THREE.MeshPhysicalMaterial({ color: c, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.04, sheen: 0.3, sheenColor: new THREE.Color(c) });
+  const liquid = new THREE.MeshPhysicalMaterial({ color: c, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.04, sheen: 0.3, sheenColor: new THREE.Color(c) });
+  liquid.userData.packagingMaterial = "liquid";
+  return liquid;
 }
 
 // ─── Geometry helpers ────────────────────────────────────────────────────────
@@ -412,9 +353,17 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       g.add(mesh(lathe([[0, 0], [R * 0.9, 0], [R, R * 0.12], [R, bodyH * 0.92], [R * 0.9, bodyH], [R * 0.88, bodyH + lidH * 0.3], [0, bodyH + lidH * 0.3]]), bodyMat));
       const jarFill = contentFill(d, surface);
       if (jarFill) g.add(mesh(lathe([[0, R * 0.05], [R * 0.86, R * 0.05], [R * 0.93, R * 0.14], [R * 0.93, bodyH * 0.86], [0, bodyH * 0.86]]), jarFill));
-      g.add(mesh(wrapCylinder(R * 1.004, R * 1.004, bodyH * 0.62, Math.PI * 1.4), printed(wrapTexture(d, R * Math.PI * 1.4, bodyH * 0.62, 0.7), fin, "paper"), bodyH * 0.48));
-      const lidMat = /pehd/i.test(material) ? solid("#ffffff", { roughness: 0.35 }) : solid(ink, { roughness: 0.3, metalness: /fer|alu/i.test(material) ? 0.9 : 0.2 });
-      g.add(mesh(new THREE.CylinderGeometry(R * 0.96, R * 0.96, lidH, 96), lidMat, H - lidH / 2));
+      // Physical label on the jar (same builder as the bottles: round section, 0.7 of the wrap).
+      const jarLabel = createBottleLabel(bottleSection({ width: R * 2, depth: R * 2, bodyShape: "round" }), {
+        yStart: bodyH * 0.48 - bodyH * 0.31, height: bodyH * 0.62, fraction: 0.7, thickness: LABEL_THICKNESS_MM,
+      });
+      g.add(mesh(jarLabel.geometry, [printed(wrapTexture(d, jarLabel.arcLength, bodyH * 0.62, 0.7), fin, "paper", undefined, true), mat({ preset: "labelEdge" })]));
+      // Lid from the closure library: knurled plastic (PEHD) or smooth painted metal, rounded edge.
+      const plasticLid = /pehd/i.test(material);
+      const lidMat = plasticLid ? mat({ preset: "glossyPlastic", color: "#ffffff" }) : mat({ preset: /fer|alu/i.test(material) ? "paintedMetal" : "glossyPlastic", color: ink });
+      addClosure(g, createClosureGeometry({ type: "screwCap", width: R * 1.92, height: lidH, neckWidth: R * 1.76, skirt: 0, ribCount: plasticLid ? 48 : 0 }), H - lidH, {
+        primary: lidMat, secondary: lidMat, metal: lidMat, rubber: lidMat, glass: lidMat,
+      });
       break;
     }
 
@@ -446,9 +395,9 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       const bottle = createBottleGeometry(preset.config);
 
       const bodyMat = surface === "glass" ? glassMaterial(material)
-        : surface === "clearplastic" ? new THREE.MeshPhysicalMaterial({ color: "#eef6ff", transmission: 0.95, roughness: 0.08, thickness: 0.3, side: THREE.DoubleSide })
+        : surface === "clearplastic" ? mat({ preset: "pet" })
         : surface === "metal" ? METAL_SILVER()
-        : solid(bg, { roughness: 0.3, clearcoat: 0.7, clearcoatRoughness: 0.1, side: THREE.DoubleSide });
+        : mat({ preset: /pehd|hdpe/i.test(material) ? "hdpe" : "glossyPlastic", color: bg });
       g.add(mesh(bottle.body, bodyMat));
       g.add(mesh(bottle.bottom, bodyMat));
 
@@ -460,18 +409,19 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       const straight = bottle.shoulderStartY - bottle.bodyBottomY;
       const labelY = bottle.bodyBottomY + straight * preset.label.from;
       const labelH = straight * (preset.label.to - preset.label.from);
-      const label = createBottleLabel(bottle.section, { yStart: labelY, height: labelH, fraction: preset.label.fraction });
-      g.add(mesh(label.geometry, printed(wrapTexture(d, label.arcLength, labelH, 0.5), fin, surface === "metal" ? "metal" : "paper")));
+      // Physical label: 0.15 mm paper shell, printed face + white paper core on the edges and back.
+      const label = createBottleLabel(bottle.section, { yStart: labelY, height: labelH, fraction: preset.label.fraction, thickness: LABEL_THICKNESS_MM });
+      g.add(mesh(label.geometry, [printed(wrapTexture(d, label.arcLength, labelH, 0.5), fin, surface === "metal" ? "metal" : "paper", undefined, true), mat({ preset: "labelEdge" })]));
 
       // Closure from the library, one material per part slot (existing materials).
       const isWine = family === "wine";
       const closure = closureFor(bottle);
       addClosure(g, closure, bottle.neckTopY, {
-        primary: solid(ink, { roughness: 0.28, metalness: 0.1, clearcoat: 0.6 }),
-        secondary: solid("#1f1f22", { roughness: 0.5 }),
-        metal: isWine ? solid(accent, { metalness: 0.85, roughness: 0.32, clearcoat: 0.5, clearcoatRoughness: 0.2 }) : METAL_SILVER(),
-        rubber: solid(ink, { roughness: 0.78 }),
-        glass: new THREE.MeshPhysicalMaterial({ color: "#ffffff", transmission: 1, roughness: 0.05, thickness: 0.2, ior: 1.5 }),
+        primary: mat({ preset: "glossyPlastic", color: ink }),
+        secondary: mat({ preset: "mattePlastic", color: "#1f1f22" }),
+        metal: isWine ? mat({ preset: "foil", color: accent }) : METAL_SILVER(),
+        rubber: mat({ preset: "rubber", color: ink }),
+        glass: mat({ preset: "glass" }),
       });
       break;
     }
@@ -489,7 +439,10 @@ function addClosure(g: THREE.Group, closure: ClosureResult, y: number, mats: Rec
 }
 
 /** Build the model, normalised to a 1-unit largest dimension, standing on y = 0. */
-export function buildPackaging(spec: PackagingSpec, design: PackagingDesign): THREE.Group {
+export function buildPackaging(spec: PackagingSpec, design: PackagingDesign, opts: { quality?: MaterialQuality } = {}): THREE.Group {
+  build.quality = opts.quality ?? "medium";
+  build.seed = hashSeed(design.brandName, design.productName, spec.model, spec.material);
+  build.n = 0;
   const inner = buildModel(spec, design);
   const box = new THREE.Box3().setFromObject(inner);
   const size = box.getSize(new THREE.Vector3());

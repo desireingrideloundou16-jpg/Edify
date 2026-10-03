@@ -3,7 +3,7 @@
  *
  * Generates realistic Tetra-Pak / gable-top carton geometry with:
  * - Rectangular body with chamfered vertical edges
- * - Gable roof with proper trapezoidal fold panels
+ * - Gable roof: front/back panels up to a full-width ridge, triangular side gussets
  * - Welded top ridge (fin seal)
  * - Fin-seal indent on body bottom (cross seal)
  * - Optional straw perforation patch on roof
@@ -45,123 +45,103 @@ export interface CartonGeometryResult {
 
 // ─── Internal helpers ─────────────────────────────────────────────────────────
 
-function chamferedRectProfile(
-  hw: number,
-  hd: number,
-  chamfer: number,
-  segments: number
-): Array<[number, number]> {
-  const pts: Array<[number, number]> = [];
+type V3 = [number, number, number];
+
+/**
+ * Closed chamfered rectangle, back-centre → left → front → right (same convention as the
+ * bottles): on the front face u grows from the viewer's left to right, and the front centre
+ * sits at exactly half the perimeter, where `drawWrap` puts the front artwork.
+ */
+function chamferedRectProfile(hw: number, hd: number, chamfer: number, segments: number): Array<[number, number]> {
+  const c = Math.max(0, Math.min(chamfer, Math.min(hw, hd) * 0.45));
+  const pts: Array<[number, number]> = [[0, -hd]];
+  // corner centre, start angle, end angle (going around back → left → front → right)
   const corners: Array<[number, number, number, number]> = [
-    [-hw + chamfer, -hd + chamfer, Math.PI,        Math.PI * 1.5],
-    [+hw - chamfer, -hd + chamfer, Math.PI * 1.5,  Math.PI * 2  ],
-    [+hw - chamfer, +hd - chamfer, 0,               Math.PI * 0.5],
-    [-hw + chamfer, +hd - chamfer, Math.PI * 0.5,  Math.PI      ],
+    [-hw + c, -hd + c, -Math.PI / 2, -Math.PI],
+    [-hw + c, +hd - c, Math.PI, Math.PI / 2],
+    [+hw - c, +hd - c, Math.PI / 2, 0],
+    [+hw - c, -hd + c, 0, -Math.PI / 2],
   ];
   for (const [cx, cz, a0, a1] of corners) {
     for (let k = 0; k <= segments; k++) {
       const a = a0 + (a1 - a0) * (k / segments);
-      pts.push([cx + chamfer * Math.cos(a), cz + chamfer * Math.sin(a)]);
+      pts.push([cx + c * Math.cos(a), cz + c * Math.sin(a)]);
     }
+    // Mid-points of the left, front and right faces (the front centre is exactly u = 0.5).
+    if (cx < 0 && cz < 0) pts.push([-hw, 0]);
+    if (cx < 0 && cz > 0) pts.push([0, hd]);
+    if (cx > 0 && cz > 0) pts.push([hw, 0]);
   }
-  return pts;
+  // Remove consecutive duplicates (zero chamfer).
+  return pts.filter((p, i) => i === 0 || Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1]) > 1e-9);
 }
 
+/** Perimeter of the closed profile. */
 function perimeterOf(profile: Array<[number, number]>): number {
   let p = 0;
-  for (let i = 0; i < profile.length - 1; i++) {
-    const dx = profile[i + 1][0] - profile[i][0];
-    const dz = profile[i + 1][1] - profile[i][1];
-    p += Math.sqrt(dx * dx + dz * dz);
+  for (let i = 0; i < profile.length; i++) {
+    const [ax, az] = profile[i];
+    const [bx, bz] = profile[(i + 1) % profile.length];
+    p += Math.hypot(bx - ax, bz - az);
   }
   return p;
 }
 
-function extrudeRing(
-  profile: Array<[number, number]>,
-  yBot: number,
-  yTop: number,
-  totalPerim: number
-): THREE.BufferGeometry {
+/** Closed vertical wall; UV seam column duplicated at the back, outward winding. */
+function extrudeRing(profile: Array<[number, number]>, yBot: number, yTop: number, totalPerim: number): THREE.BufferGeometry {
   const positions: number[] = [];
   const uvs: number[] = [];
   const indices: number[] = [];
   const n = profile.length;
-
-  let uAcc = 0;
-  // Bottom ring
-  for (let i = 0; i < n; i++) {
-    const [x, z] = profile[i];
-    positions.push(x, yBot, z);
-    uvs.push(uAcc / totalPerim, 0);
-    if (i < n - 1) {
-      const dx = profile[i + 1][0] - x;
-      const dz = profile[i + 1][1] - z;
-      uAcc += Math.sqrt(dx * dx + dz * dz);
+  for (const [y, v] of [[yBot, 0], [yTop, 1]] as const) {
+    let uAcc = 0;
+    for (let i = 0; i <= n; i++) {
+      const [x, z] = profile[i % n];
+      positions.push(x, y, z);
+      uvs.push(uAcc / totalPerim, v);
+      const [nx, nz] = profile[(i + 1) % n];
+      uAcc += Math.hypot(nx - x, nz - z);
     }
   }
-
-  uAcc = 0;
-  // Top ring
+  const s = n + 1;
   for (let i = 0; i < n; i++) {
-    const [x, z] = profile[i];
-    positions.push(x, yTop, z);
-    uvs.push(uAcc / totalPerim, 1);
-    if (i < n - 1) {
-      const dx = profile[i + 1][0] - x;
-      const dz = profile[i + 1][1] - z;
-      uAcc += Math.sqrt(dx * dx + dz * dz);
-    }
+    const a = i, d = i + 1, b = s + i, c = s + i + 1;
+    indices.push(a, d, b, d, c, b);
   }
-
-  for (let i = 0; i < n - 1; i++) {
-    const b0 = i, b1 = i + 1;
-    const t0 = n + i, t1 = n + i + 1;
-    indices.push(b0, t0, b1);
-    indices.push(b1, t0, t1);
-  }
-
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
-  geo.setAttribute("uv",       new THREE.Float32BufferAttribute(uvs, 2));
+  geo.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
   geo.setIndex(indices);
   geo.computeVertexNormals();
   return geo;
 }
 
-function addQuad(
-  pos: number[], uvArr: number[], idx: number[],
-  a: [number,number,number], b: [number,number,number],
-  c: [number,number,number], d: [number,number,number],
-  uva: [number,number], uvb: [number,number],
-  uvc: [number,number], uvd: [number,number]
-) {
+/** Quad a-b-c-d (counter-clockwise seen from outside). */
+function addQuad(pos: number[], uvArr: number[], idx: number[], a: V3, b: V3, c: V3, d: V3,
+  uva: [number, number], uvb: [number, number], uvc: [number, number], uvd: [number, number]) {
   const base = pos.length / 3;
-  for (const [p, uv] of [[a,uva],[b,uvb],[c,uvc],[d,uvd]] as const) {
+  for (const [p, uv] of [[a, uva], [b, uvb], [c, uvc], [d, uvd]] as const) {
     pos.push(p[0], p[1], p[2]);
     uvArr.push(uv[0], uv[1]);
   }
-  idx.push(base, base+1, base+2);
-  idx.push(base, base+2, base+3);
+  idx.push(base, base + 1, base + 2, base, base + 2, base + 3);
 }
 
-function addTri(
-  pos: number[], uvArr: number[], idx: number[],
-  a: [number,number,number], b: [number,number,number], c: [number,number,number],
-  uva: [number,number], uvb: [number,number], uvc: [number,number]
-) {
+/** Triangle a-b-c (counter-clockwise seen from outside). */
+function addTri(pos: number[], uvArr: number[], idx: number[], a: V3, b: V3, c: V3,
+  uva: [number, number], uvb: [number, number], uvc: [number, number]) {
   const base = pos.length / 3;
-  for (const [p, uv] of [[a,uva],[b,uvb],[c,uvc]] as const) {
+  for (const [p, uv] of [[a, uva], [b, uvb], [c, uvc]] as const) {
     pos.push(p[0], p[1], p[2]);
     uvArr.push(uv[0], uv[1]);
   }
-  idx.push(base, base+1, base+2);
+  idx.push(base, base + 1, base + 2);
 }
 
 function buildGeo(pos: number[], uvArr: number[], idx: number[]): THREE.BufferGeometry {
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
-  geo.setAttribute("uv",       new THREE.Float32BufferAttribute(uvArr, 2));
+  geo.setAttribute("uv", new THREE.Float32BufferAttribute(uvArr, 2));
   geo.setIndex(idx);
   geo.computeVertexNormals();
   return geo;
@@ -174,120 +154,86 @@ export function createCartonGeometry(config: CartonGeometryConfig): CartonGeomet
     width: W,
     depth: D,
     height: H,
-    gableRatio       = 0.17,
+    gableRatio = 0.17,
     edgeChamferRatio = 0.04,
-    chamferSegments  = 5,
-    bottomSealRatio  = 0.025,
-    strawPatch       = true,
+    chamferSegments = 5,
+    bottomSealRatio = 0.025,
+    strawPatch = true,
   } = config;
 
   const hw = W / 2;
   const hd = D / 2;
   const chamfer = Math.min(hw, hd) * edgeChamferRatio;
 
-  const gableH  = H * gableRatio;
-  const ridgeH  = gableH * 0.18;
-  const bodyH   = H - gableH - ridgeH;
-  const sealH   = H * bottomSealRatio;
+  const gableH = H * Math.max(0.05, Math.min(0.4, gableRatio));
+  const ridgeH = gableH * 0.18;
+  const bodyH = H - gableH - ridgeH;
+  const sealH = H * bottomSealRatio;
 
-  // ── Body (chamfered extruded rectangle) ──────────────────────────────────────
+  // ── Body (closed chamfered tube) ─────────────────────────────────────────────
   const profile = chamferedRectProfile(hw, hd, chamfer, chamferSegments);
-  const perim   = perimeterOf(profile);
+  const perim = perimeterOf(profile);
   const bodyGeo = extrudeRing(profile, sealH, bodyH, perim);
 
-  // ── Bottom cap (fan from centre) ─────────────────────────────────────────────
-  const botPos: number[] = [];
-  const botUvs: number[] = [];
+  // ── Bottom (fan from centre, facing down) ────────────────────────────────────
+  const botPos: number[] = [0, sealH, 0];
+  const botUvs: number[] = [0.5, 0.5];
   const botIdx: number[] = [];
-
-  botPos.push(0, sealH, 0);
-  botUvs.push(0.5, 0.5);
-
   for (const [x, z] of profile) {
     botPos.push(x, sealH, z);
     botUvs.push(0.5 + x / W, 0.5 + z / D);
   }
-  for (let i = 1; i < profile.length; i++) {
-    botIdx.push(0, i < profile.length - 1 ? i + 1 : 1, i);
-  }
+  for (let i = 0; i < profile.length; i++) botIdx.push(0, 1 + ((i + 1) % profile.length), 1 + i);
   const botGeo = buildGeo(botPos, botUvs, botIdx);
 
-  // ── Gable roof ───────────────────────────────────────────────────────────────
-  // 4 panels meeting at a ridge line at x = ±ridgeHalfW, y = bodyH + gableH
-  const ridgeHalfW = hw * 0.12;
-  const yRB = bodyH;          // roof base y
-  const yRT = bodyH + gableH; // roof top y (ridge centre)
-
+  // ── Gable roof: front and back panels rise to a full-width ridge, triangular side gussets ──
+  const yRB = bodyH;
+  const yRT = bodyH + gableH;
   const rPos: number[] = [];
   const rUvs: number[] = [];
   const rIdx: number[] = [];
+  // Front panel (faces +z and up). UV: the roof artwork reads upright from the front.
+  addQuad(rPos, rUvs, rIdx, [-hw, yRB, hd], [hw, yRB, hd], [hw, yRT, 0], [-hw, yRT, 0], [0, 0], [1, 0], [1, 1], [0, 1]);
+  // Back panel (faces −z and up).
+  addQuad(rPos, rUvs, rIdx, [hw, yRB, -hd], [-hw, yRB, -hd], [-hw, yRT, 0], [hw, yRT, 0], [0, 0], [1, 0], [1, 1], [0, 1]);
+  // Side gussets (folded triangles).
+  addTri(rPos, rUvs, rIdx, [-hw, yRB, -hd], [-hw, yRB, hd], [-hw, yRT, 0], [0, 0], [1, 0], [0.5, 1]);
+  addTri(rPos, rUvs, rIdx, [hw, yRB, hd], [hw, yRB, -hd], [hw, yRT, 0], [0, 0], [1, 0], [0.5, 1]);
 
-  // Front panel (trapezoid: full width at base, narrow at apex)
-  addQuad(rPos, rUvs, rIdx,
-    [-hw, yRB, -hd], [+hw, yRB, -hd],
-    [+ridgeHalfW, yRT, 0], [-ridgeHalfW, yRT, 0],
-    [0,0],[1,0],[1,1],[0,1]
-  );
-
-  // Back panel
-  addQuad(rPos, rUvs, rIdx,
-    [+hw, yRB, +hd], [-hw, yRB, +hd],
-    [-ridgeHalfW, yRT, 0], [+ridgeHalfW, yRT, 0],
-    [0,0],[1,0],[1,1],[0,1]
-  );
-
-  // Left side panel (triangle)
-  addTri(rPos, rUvs, rIdx,
-    [-hw, yRB, -hd], [-hw, yRB, +hd], [-ridgeHalfW, yRT, 0],
-    [0,0],[1,0],[0.5,1]
-  );
-
-  // Right side panel (triangle)
-  addTri(rPos, rUvs, rIdx,
-    [+hw, yRB, +hd], [+hw, yRB, -hd], [+ridgeHalfW, yRT, 0],
-    [0,0],[1,0],[0.5,1]
-  );
-
-  // Straw patch
+  // Straw patch: small disc on the back panel, slightly proud of it.
   if (strawPatch) {
-    const px  = hw * 0.38;
-    const pz  = -hd * 0.5;
-    const patchY = yRB + gableH * 0.42;
-    const pr  = hw * 0.055;
-    const ns  = 8;
-    const cb  = rPos.length / 3;
-    rPos.push(px, patchY + 0.6, pz);
+    const ns = 12;
+    const f = 0.42; // position up the slope
+    const along = new THREE.Vector3(0, gableH, hd).normalize(); // up the back panel
+    const nrm = new THREE.Vector3(0, hd, -gableH).normalize(); // back panel normal
+    const centre = new THREE.Vector3(hw * 0.38, yRB + gableH * f, -hd * (1 - f)).addScaledVector(nrm, 0.25);
+    const pr = Math.min(hw, gableH) * 0.12;
+    const side = new THREE.Vector3(1, 0, 0);
+    const cb = rPos.length / 3;
+    rPos.push(centre.x, centre.y, centre.z);
     rUvs.push(0.75, 0.8);
     for (let k = 0; k < ns; k++) {
       const a = (k / ns) * Math.PI * 2;
-      rPos.push(px + pr * Math.cos(a), patchY + 0.6, pz + pr * Math.sin(a));
+      const p = centre.clone().addScaledVector(side, pr * Math.cos(a)).addScaledVector(along, pr * Math.sin(a));
+      rPos.push(p.x, p.y, p.z);
       rUvs.push(0.75 + 0.05 * Math.cos(a), 0.8 + 0.05 * Math.sin(a));
     }
-    for (let k = 0; k < ns; k++) {
-      rIdx.push(cb, cb + 1 + k, cb + 1 + (k+1) % ns);
-    }
+    for (let k = 0; k < ns; k++) rIdx.push(cb, cb + 1 + ((k + 1) % ns), cb + 1 + k);
   }
-
   const roofGeo = buildGeo(rPos, rUvs, rIdx);
 
-  // ── Ridge strip (fin seal) ────────────────────────────────────────────────────
+  // ── Ridge (fin seal): a thin solid fin along the top, full width ─────────────
+  const t = Math.max(0.3, Math.min(D * 0.012, ridgeH * 0.25));
+  const y0 = yRT - ridgeH * 0.2;
+  const y1 = yRT + ridgeH;
   const rdPos: number[] = [];
   const rdUvs: number[] = [];
   const rdIdx: number[] = [];
-
-  // Front face of ridge
-  addQuad(rdPos, rdUvs, rdIdx,
-    [-hw, yRT, 0], [+hw, yRT, 0],
-    [+hw, yRT + ridgeH, 0], [-hw, yRT + ridgeH, 0],
-    [0,0],[1,0],[1,1],[0,1]
-  );
-  // Top cap
-  addQuad(rdPos, rdUvs, rdIdx,
-    [-hw, yRT + ridgeH, -ridgeH * 0.5], [+hw, yRT + ridgeH, -ridgeH * 0.5],
-    [+hw, yRT + ridgeH, +ridgeH * 0.5], [-hw, yRT + ridgeH, +ridgeH * 0.5],
-    [0,0],[1,0],[1,1],[0,1]
-  );
-
+  addQuad(rdPos, rdUvs, rdIdx, [-hw, y0, t], [hw, y0, t], [hw, y1, t], [-hw, y1, t], [0, 0], [1, 0], [1, 1], [0, 1]); // front
+  addQuad(rdPos, rdUvs, rdIdx, [hw, y0, -t], [-hw, y0, -t], [-hw, y1, -t], [hw, y1, -t], [0, 0], [1, 0], [1, 1], [0, 1]); // back
+  addQuad(rdPos, rdUvs, rdIdx, [-hw, y1, t], [hw, y1, t], [hw, y1, -t], [-hw, y1, -t], [0, 0], [1, 0], [1, 1], [0, 1]); // top
+  addQuad(rdPos, rdUvs, rdIdx, [hw, y0, t], [hw, y0, -t], [hw, y1, -t], [hw, y1, t], [0, 0], [1, 0], [1, 1], [0, 1]); // right end
+  addQuad(rdPos, rdUvs, rdIdx, [-hw, y0, -t], [-hw, y0, t], [-hw, y1, t], [-hw, y1, -t], [0, 0], [1, 0], [1, 1], [0, 1]); // left end
   const ridgeGeo = buildGeo(rdPos, rdUvs, rdIdx);
 
   return { body: bodyGeo, roof: roofGeo, ridge: ridgeGeo, bottom: botGeo };

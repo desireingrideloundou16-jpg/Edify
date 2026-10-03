@@ -78,52 +78,58 @@ function fibres(h: Float32Array, n: number, count: number, len: number, amp: num
   }
 }
 
-/** Height field of a micro-surface kind (roughly centred on 0). */
-export function heightField(kind: MicroKind, n = MICRO_SIZE): Float32Array {
+/**
+ * Height field of a micro-surface kind (roughly centred on 0). `variant` (0, 1, 2…) gives a
+ * different but statistically identical pattern, so two packs never share the exact grain.
+ */
+export function heightField(kind: MicroKind, n = MICRO_SIZE, variant = 0): Float32Array {
   const h = new Float32Array(n * n);
-  const fine = (s: number, amp: number) => add(h, valueNoise(n, n / 2, n / 2, s), amp);
+  const V = variant * 1009;
+  const vn = (fx: number, fy: number, seed: number) => valueNoise(n, fx, fy, seed + V);
+  const fine = (s: number, amp: number) => add(h, vn(n / 2, n / 2, s), amp);
+  const fib = (count: number, len: number, amp: number, seed: number, spread?: number) => fibres(h, n, count, len, amp, seed + V, spread);
   switch (kind) {
     case "paper":
-      add(h, valueNoise(n, 16, 16, 11), 0.5);
-      fibres(h, n, 900, 18, 0.35, 12);
+      add(h, vn(16, 16, 11), 0.5);
+      fib(900, 18, 0.35, 12);
       fine(13, 0.25);
       break;
     case "laid":
-      add(h, valueNoise(n, 16, 16, 21), 0.4);
-      fibres(h, n, 700, 18, 0.3, 22);
+      add(h, vn(16, 16, 21), 0.4);
+      fib(700, 18, 0.3, 22);
       // Laid lines (dense) and chain lines (sparse), as on vergé paper.
       for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
         h[y * n + x] += 0.12 * Math.sin((2 * Math.PI * y * 48) / n) + 0.2 * Math.max(0, Math.cos((2 * Math.PI * x * 2) / n)) ** 24;
       }
       break;
     case "kraft":
-      add(h, valueNoise(n, 8, 8, 31), 0.9);
-      add(h, valueNoise(n, 32, 32, 32), 0.5);
-      fibres(h, n, 1600, 30, 0.55, 33);
+      add(h, vn(8, 8, 31), 0.9);
+      add(h, vn(32, 32, 32), 0.5);
+      fib(1600, 30, 0.55, 33);
       fine(34, 0.3);
       break;
     case "coated":
-      add(h, valueNoise(n, 24, 24, 41), 0.35);
+      add(h, vn(24, 24, 41), 0.35);
       fine(42, 0.12);
       break;
     case "softtouch":
-      add(h, valueNoise(n, 64, 64, 51), 0.35);
+      add(h, vn(64, 64, 51), 0.35);
       fine(52, 0.35);
       break;
     case "plastic":
       // Orange peel: soft, rounded dimples.
-      add(h, valueNoise(n, 20, 20, 61), 1, (v) => (v - 0.5) ** 3 * 4);
-      add(h, valueNoise(n, 40, 40, 62), 0.2);
+      add(h, vn(20, 20, 61), 1, (v) => (v - 0.5) ** 3 * 4);
+      add(h, vn(40, 40, 62), 0.2);
       break;
     case "brushed":
       // Long horizontal streaks: high frequency across, very low along.
-      add(h, valueNoise(n, 2, n / 2, 71), 0.6);
-      add(h, valueNoise(n, 4, n / 4, 72), 0.4);
+      add(h, vn(2, n / 2, 71), 0.6);
+      add(h, vn(4, n / 4, 72), 0.4);
       break;
     case "film":
       // Crinkles: ridged noise (sharp creases) at two scales.
-      add(h, valueNoise(n, 5, 7, 81), 1.4, (v) => 0.5 - Math.abs(v - 0.5) * 2);
-      add(h, valueNoise(n, 11, 9, 82), 0.6, (v) => 0.5 - Math.abs(v - 0.5) * 2);
+      add(h, vn(5, 7, 81), 1.4, (v) => 0.5 - Math.abs(v - 0.5) * 2);
+      add(h, vn(11, 9, 82), 0.6, (v) => 0.5 - Math.abs(v - 0.5) * 2);
       break;
   }
   return h;
@@ -159,12 +165,67 @@ export function roughnessFromHeight(h: Float32Array, n: number, kind: MicroKind,
   return out;
 }
 
+/**
+ * Calibrated roughness: the map is centred on ROUGH_BASELINE, so a material sets
+ * `roughness = target / ROUGH_BASELINE` and keeps its average roughness, while the map can
+ * go *above* it (scratches and smudges are rougher than the surface) or slightly below.
+ */
+export const ROUGH_BASELINE = 0.6;
+
+/** Fine scratches (thin anti-aliased segments), mostly along `angle` ± spread. Values in [0, 1]. */
+export function scratchField(n: number, seed: number, count: number, angle = 0, spread = Math.PI): Float32Array {
+  const out = new Float32Array(n * n);
+  let st = (seed >>> 0) || 1;
+  const r = () => ((st = (st * 1664525 + 1013904223) >>> 0) / 4294967296);
+  for (let k = 0; k < count; k++) {
+    const x0 = r() * n, y0 = r() * n;
+    const a = angle + (r() - 0.5) * spread;
+    const l = n * (0.04 + r() * 0.18);
+    const w = 0.25 + r() * 0.5;
+    const dx = Math.cos(a), dy = Math.sin(a);
+    for (let t = 0; t < l; t += 0.5) {
+      const x = ((Math.round(x0 + dx * t) % n) + n) % n;
+      const y = ((Math.round(y0 + dy * t) % n) + n) % n;
+      const fade = Math.sin((Math.PI * t) / l);
+      out[y * n + x] = Math.max(out[y * n + x], w * fade);
+    }
+  }
+  return out;
+}
+
+export interface RoughnessOptions {
+  /** Low-frequency variation amplitude (0 = uniform), e.g. 0.06 for glass, 0.15 for paper. */
+  variation: number;
+  /** Scratch strength (0 = none). */
+  scratches: number;
+  /** Smudge / handling-mark strength (0 = none). */
+  smudges: number;
+  seed: number;
+}
+
+export function roughnessField(h: Float32Array, n: number, kind: MicroKind, o: RoughnessOptions): Uint8ClampedArray {
+  const low = valueNoise(n, 4, 4, 91 + kind.length + o.seed * 7);
+  const blot = valueNoise(n, 6, 6, 131 + o.seed * 13);
+  const brushed = kind === "brushed";
+  const scr = o.scratches > 0 ? scratchField(n, 211 + o.seed, brushed ? 140 : 70, 0, brushed ? 0.25 : Math.PI) : null;
+  const out = new Uint8ClampedArray(n * n * 4);
+  for (let i = 0; i < n * n; i++) {
+    let v = ROUGH_BASELINE * (1 + o.variation * (2 * low[i] - 1) + 0.35 * o.variation * h[i]);
+    if (o.smudges > 0) v += o.smudges * 0.35 * Math.max(0, blot[i] - 0.55) / 0.45;
+    if (scr) v += o.scratches * 0.4 * scr[i];
+    v = Math.min(1, Math.max(0.04, v));
+    out[i * 4] = out[i * 4 + 1] = out[i * 4 + 2] = v * 255;
+    out[i * 4 + 3] = 255;
+  }
+  return out;
+}
+
 // ─── Browser side: cached textures ───────────────────────────────────────────
 
 const STRENGTH: Record<MicroKind, number> = { paper: 3, laid: 3, kraft: 4, coated: 2, softtouch: 2, plastic: 2.5, brushed: 2, film: 5 };
 const ROUGH_LO: Record<MicroKind, number> = { paper: 0.8, laid: 0.8, kraft: 0.75, coated: 0.85, softtouch: 0.85, plastic: 0.8, brushed: 0.55, film: 0.7 };
 
-const cache = new Map<MicroKind, { normal: THREE.Texture; roughness: THREE.Texture }>();
+const cache = new Map<string, { normal: THREE.Texture; roughness: THREE.Texture }>();
 
 function toTexture(px: Uint8ClampedArray, n: number) {
   const c = document.createElement("canvas");
@@ -180,25 +241,47 @@ function toTexture(px: Uint8ClampedArray, n: number) {
   return t;
 }
 
+/** Variant of a micro-surface: pattern, calibrated roughness and placement on the surface. */
+export interface MicroSurfaceOptions {
+  /** Pattern variant, 0..MICRO_VARIANTS-1. */
+  variant?: number;
+  /** Calibrated roughness (see ROUGH_BASELINE); omitted = legacy multiplier map. */
+  roughness?: Omit<RoughnessOptions, "seed">;
+  /** Shift of the tile on the surface, [0, 1) each (deterministic per pack). */
+  offset?: [number, number];
+}
+
+export const MICRO_VARIANTS = 4;
+const q = (x: number) => Math.round(x * 100) / 100;
+
 /**
  * Normal + roughness maps for a surface of `wMm × hMm`. The returned textures are
- * clones (own repeat, shared image), so they can be disposed with the material.
+ * clones (own repeat and offset, shared image), so they can be disposed with the material.
+ * Images are generated once per (kind, variant, roughness settings) and cached.
  */
-export function microSurface(kind: MicroKind, wMm = 100, hMm = 100) {
-  let base = cache.get(kind);
+export function microSurface(kind: MicroKind, wMm = 100, hMm = 100, opts: MicroSurfaceOptions = {}) {
+  const variant = Math.max(0, Math.min(MICRO_VARIANTS - 1, Math.floor(opts.variant ?? 0)));
+  const ro = opts.roughness;
+  const key = ro ? `${kind}|${variant}|${q(ro.variation)}|${q(ro.scratches)}|${q(ro.smudges)}` : `${kind}|${variant}`;
+  let base = cache.get(key);
   if (!base) {
-    const h = heightField(kind);
+    const h = heightField(kind, MICRO_SIZE, variant);
+    const rough = ro
+      ? roughnessField(h, MICRO_SIZE, kind, { ...ro, seed: variant })
+      : roughnessFromHeight(h, MICRO_SIZE, kind, ROUGH_LO[kind]);
     base = {
       normal: toTexture(normalsFromHeight(h, MICRO_SIZE, STRENGTH[kind]), MICRO_SIZE),
-      roughness: toTexture(roughnessFromHeight(h, MICRO_SIZE, kind, ROUGH_LO[kind]), MICRO_SIZE),
+      roughness: toTexture(rough, MICRO_SIZE),
     };
-    cache.set(kind, base);
+    cache.set(key, base);
   }
   const rx = Math.max(1, Math.round(wMm / TILE_MM[kind]));
   const ry = Math.max(1, Math.round(hMm / TILE_MM[kind]));
   const normal = base.normal.clone();
   const roughness = base.roughness.clone();
-  normal.repeat.set(rx, ry);
-  roughness.repeat.set(rx, ry);
+  for (const t of [normal, roughness]) {
+    t.repeat.set(rx, ry);
+    if (opts.offset) t.offset.set(opts.offset[0], opts.offset[1]);
+  }
   return { normal, roughness };
 }

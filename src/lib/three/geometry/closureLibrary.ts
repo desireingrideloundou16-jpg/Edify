@@ -260,7 +260,8 @@ function screwCap(c: ClosureConfig, ribbed: boolean): ClosurePart[] {
   const y0 = -skirt;
   const top = c.height - skirt;
   // Screw caps: fine knurl; ribbed caps: fewer, deeper, rounder ribs.
-  const ribs = Math.max(6, Math.round(c.ribCount ?? (ribbed ? 24 : 32)));
+  // ribCount 0 = smooth side (metal lug lids, jar lids).
+  const ribs = c.ribCount === 0 ? 0 : Math.max(6, Math.round(c.ribCount ?? (ribbed ? 24 : 32)));
   const e = Math.min(R * 0.12, c.height * 0.12); // top edge round
   const ch = Math.min(R * 0.05, c.height * 0.06); // bottom chamfer
   const geometry = ribbedShell(

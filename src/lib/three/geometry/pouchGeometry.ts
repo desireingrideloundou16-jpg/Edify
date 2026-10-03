@@ -246,9 +246,9 @@ export function createPouchGeometry(config: PouchGeometryConfig): THREE.BufferGe
       const c = (i + 1) * (nx + 1) + (j + 1);
       const d = i * (nx + 1) + (j + 1);
 
-      // Two triangles per quad
-      indices.push(a, b, d);
-      indices.push(b, c, d);
+      // Two triangles per quad, wound so the faces point outward (s runs back → left → front → right)
+      indices.push(a, d, b);
+      indices.push(b, d, c);
     }
   }
 

@@ -496,46 +496,94 @@ function sampleArc(sec: BottleSection, s: number): { p: P2; n: P2 } {
  * Wrap label that follows the body's real section (ellipse, rounded rectangle…), centred on
  * the front. u runs left → right across the label, v bottom → top: the same mapping as the
  * former cylindrical labels, so `wrapTexture(design, arcLength, height, 0.5)` is unchanged.
+ *
+ * With `thickness` (mm, e.g. 0.15) the label is a thin physical shell: group 0 = printed face,
+ * group 1 = paper edges and back (the white core seen on the cut edges and through clear glass).
  */
 export function createBottleLabel(
   section: BottleSection,
-  opts: { yStart: number; height: number; fraction: number; gap?: number }
+  opts: { yStart: number; height: number; fraction: number; gap?: number; thickness?: number }
 ): { geometry: THREE.BufferGeometry; arcLength: number } {
   const L = Math.max(0.05, Math.min(1, opts.fraction)) * section.perimeter;
-  const gap = opts.gap ?? Math.max(0.25, section.perimeter * 0.0015);
+  const thick = Math.max(0, opts.thickness ?? 0);
+  const gap = opts.gap ?? (thick > 0 ? Math.max(0.08, section.perimeter * 0.0004) : Math.max(0.25, section.perimeter * 0.0015));
   const s0 = section.perimeter / 2 - L / 2;
   // Every section vertex inside the window, plus both window edges: exact on corners.
   const cuts = [s0, s0 + L];
-  for (const a of section.arc) {
+  for (const arc of section.arc) {
     for (const k of [0, 1]) {
-      const s = a + k * section.perimeter;
-      if (s > s0 + 1e-6 && s < s0 + L - 1e-6) cuts.push(s);
+      const x = arc + k * section.perimeter;
+      if (x > s0 + 1e-6 && x < s0 + L - 1e-6) cuts.push(x);
     }
   }
-  cuts.sort((a, b) => a - b);
+  cuts.sort((p, q) => p - q);
+  const samples = cuts.map((x) => sampleArc(section, x));
+  const rows = [opts.yStart, opts.yStart + opts.height];
+
   const pos: number[] = [];
   const uv: number[] = [];
   const nrm: number[] = [];
-  const rows = [opts.yStart, opts.yStart + opts.height];
-  for (let r = 0; r < 2; r++) {
-    for (const s of cuts) {
-      const { p, n } = sampleArc(section, s);
-      pos.push(p[0] + n[0] * gap, rows[r], p[1] + n[1] * gap);
-      nrm.push(n[0], 0, n[1]);
-      uv.push((s - s0) / L, r);
+  const face: number[] = [];
+  const core: number[] = [];
+  const vert = (x: number, y: number, z: number, n: [number, number, number], u: number, v: number) => {
+    pos.push(x, y, z);
+    nrm.push(...n);
+    uv.push(u, v);
+    return pos.length / 3 - 1;
+  };
+  /** Triangle wound so its face normal agrees with the intended normal `n`. */
+  const tri = (list: number[], i: number, j: number, k: number, n: [number, number, number]) => {
+    const P = (q: number) => new THREE.Vector3(pos[q * 3], pos[q * 3 + 1], pos[q * 3 + 2]);
+    const fn = P(j).sub(P(i)).cross(P(k).sub(P(i)));
+    if (fn.x * n[0] + fn.y * n[1] + fn.z * n[2] >= 0) list.push(i, j, k);
+    else list.push(i, k, j);
+  };
+  /** Grid of the label surface at an offset; returns the vertex indices [row][column]. */
+  const sheet = (offset: number, inward: boolean) =>
+    rows.map((y, r) => samples.map(({ p, n }, c) =>
+      vert(p[0] + n[0] * offset, y, p[1] + n[1] * offset, inward ? [-n[0], 0, -n[1]] : [n[0], 0, n[1]], (cuts[c] - s0) / L, r)));
+  const quads = (list: number[], g: number[][], inward: boolean) => {
+    for (let c = 0; c < cuts.length - 1; c++) {
+      const n = samples[c].n;
+      const want: [number, number, number] = inward ? [-n[0], 0, -n[1]] : [n[0], 0, n[1]];
+      tri(list, g[0][c], g[0][c + 1], g[1][c], want);
+      tri(list, g[0][c + 1], g[1][c + 1], g[1][c], want);
+    }
+  };
+
+  const outer = sheet(gap + thick, false);
+  quads(face, outer, false);
+  if (thick > 0) {
+    const inner = sheet(gap, true);
+    quads(core, inner, true);
+    // Top and bottom cut edges.
+    for (const [r, ny] of [[1, 1], [0, -1]] as const) {
+      const up: [number, number, number] = [0, ny, 0];
+      const o = samples.map(({ p, n }, c) => vert(p[0] + n[0] * (gap + thick), rows[r], p[1] + n[1] * (gap + thick), up, (cuts[c] - s0) / L, r));
+      const i = samples.map(({ p, n }, c) => vert(p[0] + n[0] * gap, rows[r], p[1] + n[1] * gap, up, (cuts[c] - s0) / L, r));
+      for (let c = 0; c < cuts.length - 1; c++) {
+        tri(core, o[c], o[c + 1], i[c], up);
+        tri(core, o[c + 1], i[c + 1], i[c], up);
+      }
+    }
+    // Left and right ends, facing along the section.
+    for (const [c, sign] of [[0, -1], [cuts.length - 1, 1]] as const) {
+      const { p, n } = samples[c];
+      // Tangent of the path (direction of increasing arc length is (n.z, −n.x)), pointing out.
+      const t: [number, number, number] = [n[1] * sign, 0, -n[0] * sign];
+      const q = [0, 1].flatMap((r) => [gap, gap + thick].map((off) => vert(p[0] + n[0] * off, rows[r], p[1] + n[1] * off, t, c / (cuts.length - 1), r)));
+      tri(core, q[0], q[1], q[2], t);
+      tri(core, q[1], q[3], q[2], t);
     }
   }
-  const idx: number[] = [];
-  const m = cuts.length;
-  for (let i = 0; i < m - 1; i++) {
-    const a = i, d = i + 1, b = m + i, c = m + i + 1;
-    idx.push(a, d, b, d, c, b);
-  }
+
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
   geometry.setAttribute("normal", new THREE.Float32BufferAttribute(nrm, 3));
   geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
-  geometry.setIndex(idx);
+  geometry.setIndex([...face, ...core]);
+  geometry.addGroup(0, face.length, 0);
+  if (core.length) geometry.addGroup(face.length, core.length, 1);
   return { geometry, arcLength: L };
 }
 

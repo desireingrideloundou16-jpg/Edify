@@ -16,15 +16,17 @@ export function studioScene(env: EnvConfig): THREE.Scene {
   const tint = new THREE.Color(env.tint);
   const scene = new THREE.Scene();
 
-  // Cyclorama: walls fading into the floor (vertex colours along y).
-  const room = new THREE.BoxGeometry(14, 9, 14);
+  // Cyclorama: the floor sweeps smoothly up into the walls (vertex colours along y), so
+  // glossy surfaces reflect a soft horizon instead of a hard floor/wall line.
+  const room = new THREE.BoxGeometry(14, 9, 14, 1, 18, 1);
   room.translate(0, 3.5, 0);
   const pos = room.attributes.position as THREE.BufferAttribute;
   const colors = new Float32Array(pos.count * 3);
   const wall = tint.clone().multiplyScalar(env.wall);
   const floor = tint.clone().multiplyScalar(env.floor);
   for (let i = 0; i < pos.count; i++) {
-    const c = pos.getY(i) < -0.5 ? floor : wall;
+    const t = Math.min(1, Math.max(0, (pos.getY(i) + 1) / 3.2));
+    const c = floor.clone().lerp(wall, t * t * (3 - 2 * t));
     colors.set([c.r, c.g, c.b], i * 3);
   }
   room.setAttribute("color", new THREE.BufferAttribute(colors, 3));

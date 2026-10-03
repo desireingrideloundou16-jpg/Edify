@@ -57,14 +57,14 @@ class ContactShadow {
   }
 
   /** Re-render for a new pack (the pack is static, so once per build is enough). */
-  update(renderer: THREE.WebGLRenderer, scene: THREE.Scene, bounds: THREE.Box3, opacity: number, blur: number) {
+  update(renderer: THREE.WebGLRenderer, scene: THREE.Scene, bounds: THREE.Box3, opacity: number, blur: number, reach = 0.55, spread = 1.9, lift = 0.0006) {
     const size = bounds.getSize(new THREE.Vector3());
     const center = bounds.getCenter(new THREE.Vector3());
-    const w = Math.max(size.x, size.z) * 1.9 + 0.15;
-    this.mesh.position.set(center.x, bounds.min.y + 0.0006, center.z);
+    const w = Math.max(size.x, size.z) * spread + 0.15;
+    this.mesh.position.set(center.x, bounds.min.y + lift, center.z);
     this.mesh.scale.set(w, -w, 1);
     (this.mesh.material as THREE.MeshBasicMaterial).opacity = opacity;
-    Object.assign(this.camera, { left: -w / 2, right: w / 2, top: w / 2, bottom: -w / 2, near: 0, far: Math.max(0.2, size.y * 0.55) });
+    Object.assign(this.camera, { left: -w / 2, right: w / 2, top: w / 2, bottom: -w / 2, near: 0, far: Math.max(0.02, size.y * reach) });
     this.camera.position.set(center.x, bounds.min.y, center.z);
     this.camera.updateProjectionMatrix();
     this.camera.updateMatrixWorld();
@@ -128,6 +128,8 @@ export class StudioRig {
   private lights: THREE.DirectionalLight[] = [];
   private ground: THREE.Mesh;
   private contact: ContactShadow;
+  /** Tight, darker occlusion right where the pack touches the floor (contact hardening). */
+  private contactTight: ContactShadow;
   private center = new THREE.Vector3(0, 0.5, 0);
   private lightDistance = 5;
 
@@ -162,6 +164,8 @@ export class StudioRig {
 
     this.contact = new ContactShadow();
     this.group.add(this.contact.mesh);
+    this.contactTight = new ContactShadow(256);
+    this.group.add(this.contactTight.mesh);
   }
 
   /** Installs the environment on a scene (restored by `detach`). */
@@ -201,6 +205,8 @@ export class StudioRig {
     cam.updateProjectionMatrix();
     this.placeLights();
     this.contact.update(renderer, scene, bounds, this.config.shadow.contactOpacity, this.config.shadow.contactBlur);
+    // Only what is within a few millimetres of the floor darkens, barely blurred.
+    this.contactTight.update(renderer, scene, bounds, Math.min(0.85, this.config.shadow.contactOpacity * 1.1), this.config.shadow.contactBlur * 0.3, 0.05, 1.4, 0.0009);
   }
 
   /** HD: moves the key light across its apparent size, so accumulated frames give soft shadows. */
@@ -234,5 +240,6 @@ export class StudioRig {
     this.ground.geometry.dispose();
     (this.ground.material as THREE.Material).dispose();
     this.contact.dispose();
+    this.contactTight.dispose();
   }
 }

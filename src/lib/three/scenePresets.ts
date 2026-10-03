@@ -317,11 +317,13 @@ export interface RenderQualityConfig {
   samples: number;
   /** HD: largest output side in pixels. */
   maxSize: number;
+  /** Material detail level (materials/materialPresets.ts): LOW keeps glass without the transmission pass. */
+  materialQuality: "low" | "medium" | "high" | "ultra";
 }
 
 const QUALITY: Record<QualityTier, RenderQualityConfig> = {
-  preview: { tier: "preview", maxPixelRatio: 2, shadowMapSize: 1024, samples: 1, maxSize: 2048 },
-  hd: { tier: "hd", maxPixelRatio: 1, shadowMapSize: 2048, samples: 48, maxSize: 3072 },
+  preview: { tier: "preview", maxPixelRatio: 2, shadowMapSize: 1024, samples: 1, maxSize: 2048, materialQuality: "medium" },
+  hd: { tier: "hd", maxPixelRatio: 1, shadowMapSize: 2048, samples: 48, maxSize: 3072, materialQuality: "high" },
 };
 
 /** Quality for this device, or null when no WebGL at all (the UI shows its 2D fallback). */
@@ -332,6 +334,7 @@ export function chooseQuality(tier: QualityTier, caps: GraphicsCaps): RenderQual
   if (tier === "preview" && weak) {
     q.maxPixelRatio = 1.5;
     q.shadowMapSize = 512;
+    q.materialQuality = "low";
   }
   if (tier === "hd" && weak) {
     q.samples = 20;

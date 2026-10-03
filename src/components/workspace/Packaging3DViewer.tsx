@@ -54,11 +54,12 @@ function useFontsVersion(heading: string, body: string) {
   return version;
 }
 
-function PackagingObject({ spec, design, logo, onObject }: {
+function PackagingObject({ spec, design, logo, onObject, materialQuality }: {
   spec: PackagingSpec;
   design: Omit<PackagingDesign, "logo">;
   logo: HTMLImageElement | null;
   onObject: (object: THREE.Object3D) => void;
+  materialQuality: RenderQualityConfig["materialQuality"];
 }) {
   const fonts = useFontsVersion(design.headingFont, design.bodyFont);
   const [debounced, setDebounced] = useState(design);
@@ -68,9 +69,9 @@ function PackagingObject({ spec, design, logo, onObject }: {
   }, [design]);
 
   const object = useMemo(
-    () => buildPackaging(spec, { ...debounced, logo }),
+    () => buildPackaging(spec, { ...debounced, logo }, { quality: materialQuality }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [spec.model, spec.lengthMm, spec.widthMm, spec.heightMm, spec.material, debounced, logo, fonts]
+    [spec.model, spec.lengthMm, spec.widthMm, spec.heightMm, spec.material, debounced, logo, fonts, materialQuality]
   );
 
   useEffect(() => {
@@ -170,7 +171,7 @@ export default function Packaging3DViewer({ spec, design, logoUrl, view, lightin
       fallback={<NoWebGL />}
     >
       <StudioStage lighting={lighting} object={object} quality={quality} />
-      <PackagingObject spec={spec} design={design} logo={logo} onObject={onObject} />
+      <PackagingObject spec={spec} design={design} logo={logo} onObject={onObject} materialQuality={quality.materialQuality} />
 
       <OrbitControls
         ref={controls}

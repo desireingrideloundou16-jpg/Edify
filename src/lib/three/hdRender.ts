@@ -78,7 +78,7 @@ export async function renderHD(opts: HdRenderOptions): Promise<string | null> {
   const bg = opts.background ?? "transparent";
   if (bg !== "transparent") scene.background = new THREE.Color(bg === "preset" ? lighting.background : bg);
 
-  const object = buildPackaging(opts.spec, opts.design);
+  const object = buildPackaging(opts.spec, opts.design, { quality: quality.materialQuality });
   object.rotation.y = opts.yaw ?? 0;
   scene.add(object);
   rig.fit(renderer, scene, object);
@@ -90,8 +90,16 @@ export async function renderHD(opts: HdRenderOptions): Promise<string | null> {
   const target = new THREE.Vector3(...f.target);
   camera.position.copy(eye);
   camera.lookAt(target);
+  camera.updateMatrixWorld();
   const right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0);
   const up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
+  const forward = target.clone().sub(eye).normalize();
+  // Depth of field focuses on the front of the pack (its nearest face to the lens), not its
+  // axis: the label is sharp, the far side and the background fall off.
+  const nearest = Math.min(...[box.min.x, box.max.x].flatMap((x) => [box.min.y, box.max.y].flatMap((y) => [box.min.z, box.max.z].map((z) =>
+    new THREE.Vector3(x, y, z).sub(eye).dot(forward)))));
+  const focusDist = Math.max(f.near * 2, (nearest + target.clone().sub(eye).dot(forward)) / 2);
+  const focalPx = h / (2 * Math.tan(THREE.MathUtils.degToRad(f.fov) / 2));
 
   const rt = () => new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, depthBuffer: true });
   const frame = rt();
@@ -124,13 +132,17 @@ export async function renderHD(opts: HdRenderOptions): Promise<string | null> {
 
   try {
     for (let i = 0; i < samples; i++) {
-      camera.setViewOffset(w, h, halton(i, 2) - 0.5, halton(i, 3) - 0.5, w, h);
+      let sx = 0, sy = 0;
       if (shot.aperture > 0) {
+        // Thin lens: move the eye across the aperture without turning the camera, and shear the
+        // frustum so the focus plane stays still on screen (off-axis projection).
         const [lx, ly] = disc(halton(i, 5), halton(i, 7));
         const a = shot.aperture * f.distance;
         camera.position.copy(eye).addScaledVector(right, lx * a).addScaledVector(up, ly * a);
-        camera.lookAt(target);
+        sx = (-lx * a * focalPx) / focusDist;
+        sy = (ly * a * focalPx) / focusDist;
       }
+      camera.setViewOffset(w, h, halton(i, 2) - 0.5 + sx, halton(i, 3) - 0.5 + sy, w, h);
       const [kx, ky] = disc(halton(i, 11), halton(i, 13));
       rig.jitterKey(kx, ky);
 

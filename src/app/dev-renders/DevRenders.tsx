@@ -93,6 +93,41 @@ export function DevRenders() {
         const { AD_DECORS } = await import("@/lib/three/adRender");
         const decor = AD_DECORS.find((x) => x.id === (q.get("decor") ?? "ingredients")) ?? AD_DECORS[0];
         document.body.dataset.prompts = JSON.stringify(SHOWCASE.map((it) => decor.prompt({ ...it.design, logo: null })));
+      } else if (mode === "materials") {
+        // /dev-renders?mode=materials&lighting=premium&quality=high → one swatch per material preset
+        const THREE = await import("three");
+        const [{ MATERIAL_PRESET_IDS }, { createPackagingMaterial }, { StudioRig }, { resolveLighting, chooseQuality }, { detectGraphicsCaps }] = await Promise.all([
+          import("@/lib/three/materials/materialPresets"), import("@/lib/three/materials/materialFactory"),
+          import("@/lib/three/studioRig"), import("@/lib/three/scenePresets"), import("@/lib/three/capabilities"),
+        ]);
+        const colors: Record<string, string> = { kraft: "#b58a5c", mattePlastic: "#151515", glossyPlastic: "#f3f3f1", hdpe: "#f6f6f4", softTouch: "#2b2b2e", paintedMetal: "#1f3a5f", printedMetal: "#c4122f", foil: "#7a1020", rubber: "#3a2a22" };
+        const W = 1400, Hh = 820, cols = 7;
+        const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+        renderer.setSize(W, Hh, false);
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color("#eceae6");
+        const rig = new StudioRig(renderer, resolveLighting(q.get("lighting") ?? "premium"), chooseQuality("hd", detectGraphicsCaps())!);
+        rig.attach(scene, renderer);
+        const group = new THREE.Group();
+        const r = 0.32, h = 0.9;
+        const profile = [[0, 0], [r * 0.85, 0], [r, r * 0.15], [r, h - r * 0.15], [r * 0.85, h], [0, h]].map(([x, y]) => new THREE.Vector2(x, y));
+        const geo = new THREE.LatheGeometry(profile, 64);
+        MATERIAL_PRESET_IDS.forEach((id, k) => {
+          const m = new THREE.Mesh(geo, createPackagingMaterial({ preset: id, color: colors[id] ?? "#ffffff", seed: k, quality: (q.get("quality") ?? "high") as "high" }, { mm: [60, 90] }));
+          m.position.set((k % cols) * 0.95, 0, Math.floor(k / cols) * 1.1);
+          m.castShadow = true;
+          m.name = id;
+          group.add(m);
+        });
+        group.position.set(-((cols - 1) * 0.95) / 2, 0, -1.6);
+        scene.add(group);
+        rig.fit(renderer, scene, group);
+        const camera = new THREE.PerspectiveCamera(30, W / Hh, 0.1, 50);
+        camera.position.set(0, 4.2, 6.2);
+        camera.lookAt(0, 0.2, 0);
+        renderer.render(scene, camera);
+        push("materials", renderer.domElement.toDataURL("image/png"));
+        document.body.dataset.order = MATERIAL_PRESET_IDS.join(",");
       } else if (mode === "hd") {
         // /dev-renders?mode=hd&i=1&camera=hero&lighting=premium&size=1600&samples=48&bg=preset → HD render + time
         const { renderHD } = await import("@/lib/three/hdRender");

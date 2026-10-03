@@ -129,3 +129,24 @@ photoréalisme pourra ainsi donner à chaque pièce sa micro-surface et ses vari
 **Régression connue, hors périmètre** : depuis les géométries de sachet et de brique (`d8206eb`, `3eacdd4`),
 l'illustration de TERRA n'apparaît plus sur la face avant (sachet noir), et celle d'OKKO est projetée sur le toit et
 les côtés au lieu de la face avant. Ce n'est pas causé par les fermetures : rendu identique avec et sans cette phase.
+
+## 2B-5 — Visual Fidelity / photoréalisme
+
+Détails techniques : [visual-fidelity.md](visual-fidelity.md).
+
+- Source unique des matières : `src/lib/three/materials/` (27 presets, finitions, qualité LOW / MEDIUM / HIGH / ULTRA,
+  graine déterministe par pack).
+- Micro-surface en variantes, rugosité calibrée avec micro-rayures et traces (HD), aluminium anisotrope, verre
+  physique (épaisseur, IOR, absorption, dispersion en HD), PEHD et PET distincts.
+- Étiquettes physiques de 0,15 mm (face imprimée + chants et dos en papier), sur les bouteilles et les pots.
+- Cyclorama en dégradé, ombre de contact serrée, profondeur de champ HD avec mise au point sur la face avant.
+- Régressions corrigées : sachet TERRA (faces inversées), brique OKKO (contour, toit, crête).
+
+| Planche | Contenu |
+|---|---|
+| `2B5-matrice-matieres.png` | les 27 matières sous l'éclairage premium (calibration des couleurs) |
+| `2B5-avant-apres-hd.jpg` | SOLAR, TERRA, VERDANT, CROUNCH, MAISON LUNE, SOLÈNE : avant / après en gros plan, face, hero et ¾ |
+| `2B5-gros-plans.jpg` | gros plans avant / après (brossé de la canette, papier, chant d'étiquette) |
+| `2B5-verre.jpg` | PIMENTO (clair), LUMINA (ambré), MAISON LUNE (vert), SOLÈNE (parfum) |
+| `2B5-17-packs-avant.jpg` / `2B5-17-packs-apres.jpg` | les 17 packs |
+| `2B5-sachet-brique-repares.jpg` | TERRA, OKKO et CROUNCH après correction |
