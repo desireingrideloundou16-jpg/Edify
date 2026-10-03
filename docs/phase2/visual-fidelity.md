@@ -24,7 +24,7 @@ la fabrique.
 | Plastique | `mattePlastic`, `glossyPlastic`, `hdpe`, `pet`, `translucentPlastic`, `plasticFilm`, `metallizedFilm` |
 | Verre | `glass`, `tintedGlass`, `perfumeGlass`, `frostedGlass` |
 | Métal | `aluminum`, `brushedMetal`, `paintedMetal`, `printedMetal`, `foil` |
-| Autres | `rubber`, `labelMatte`, `labelGlossy`, `labelEdge` |
+| Autres | `rubber`, `labelMatte`, `labelGlossy`, `labelEdge`, `labelFilm`, `labelFilmMatte` |
 
 Planche de calibration : `/dev-renders?mode=materials&lighting=premium&quality=high` (`2B5-matrice-matieres.png`).
 Elle sert à contrôler les blancs (papier, PEHD), les noirs (plastique noir), le kraft, le rouge (capsule), le verre
@@ -88,7 +88,8 @@ Un rendu exact (verre épais de parfum, caustiques) relève du futur mode ULTRA 
 réelle (cercle, ellipse, rectangle arrondi) :
 
 - groupe 0 : face imprimée (`labelMatte` ou `labelGlossy` selon la finition), UV inchangés ;
-- groupe 1 : chants et dos en papier blanc (`labelEdge`). Le chant donne le liseré de lumière sur les bords, et le dos
+- groupe 1 : chants et dos (`labelEdge` pour le papier, `labelFilmMatte` pour le film).
+- Sur les contenants en plastique (PEHD, PET), l'étiquette est un **film** (BOPP, `labelFilm` ou `labelFilmMatte` selon la finition) ; sur le verre et le reste, du papier. Le chant donne le liseré de lumière sur les bords, et le dos
   se voit à travers le verre transparent.
 
 Elle est posée à 0,08 mm du contenant : pas de z-fighting, pas d'étiquette qui flotte. Les pots utilisent la même
@@ -114,7 +115,27 @@ Elle est posée à 0,08 mm du contenant : pas de z-fighting, pas d'étiquette qu
   centre de la texture, toit à pignon, crête pleine.
 - **Pots** : couvercle de la bibliothèque de fermetures (bord arrondi, moletage pour le PEHD, métal lisse sinon).
 
-## 7. Performance (Intel UHD P630, Chrome, WebGL2)
+## 7. Coût par pack (mesuré, `/dev-renders?mode=viewer`)
+
+Triangles, appels de dessin (un par maillage et par groupe de matière), matières et textures du pack, sur les 17 packs :
+
+| Pack | Triangles | Appels | Matières | Textures | FPS (P630) |
+|---|---|---|---|---|---|
+| SOLAR (canette) | 3 458 | 5 | 3 | 5 | 60 |
+| TERRA (sachet) | 6 156 | 2 | 2 | 5 | 60 |
+| LUMINA (pipette, verre) | 7 068 | 8 | 7 | 11 | 55 |
+| NOCTA (étui) | 588 | 6 | 6 | 12 | 60 |
+| CROUNCH (sachet plat) | 5 376 | 1 | 1 | 3 | 60 |
+| MAISON LUNE (vin) | 6 324 | 6 | 5 | 7 | 54 |
+| SOLÈNE (parfum) | 3 288 | 8 | 6 | 9 | 51 |
+| OKKO (brique) | 112 | 5 | 5 | 10 | 60 |
+| VERDANT (shampoing) | 6 172 | 6 | 4 | 9 | 60 |
+| PIMENTO (sauce) | 6 348 | 7 | 5 | 7 | 55 |
+| AURELLE (coffret) | 1 176 | 12 | 12 | 20 | 60 |
+
+Le passage aux étiquettes film et au toit en deux matières ajoute un appel de dessin (OKKO) et deux textures (VERDANT), sans effet mesurable sur le FPS.
+
+## 8. Performance (Intel UHD P630, Chrome, WebGL2)
 
 | Mesure | Avant | Après |
 |---|---|---|
@@ -125,7 +146,7 @@ Elle est posée à 0,08 mm du contenant : pas de z-fighting, pas d'étiquette qu
 
 Les textures de détail sont générées une fois par combinaison (type, variante, réglages) et partagées.
 
-## 8. Vers le mode ULTRA
+## 9. Vers le mode ULTRA
 
 `MaterialQuality` prévoit déjà `ultra`, et `resolveMaterial()` produit des paramètres physiques complets (IOR,
 épaisseur, absorption, anisotropie, dispersion) directement utilisables par un path tracer. `three-gpu-pathtracer`

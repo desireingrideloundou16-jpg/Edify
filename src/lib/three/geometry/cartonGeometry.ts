@@ -35,7 +35,7 @@ export interface CartonGeometryConfig {
 export interface CartonGeometryResult {
   /** Wrap-mapped body geometry */
   body: THREE.BufferGeometry;
-  /** Gable roof panels geometry */
+  /** Gable roof: group 0 = printed front/back panels, group 1 = plain side gussets + straw patch */
   roof: THREE.BufferGeometry;
   /** Fin-seal ridge strip geometry */
   ridge: THREE.BufferGeometry;
@@ -221,6 +221,9 @@ export function createCartonGeometry(config: CartonGeometryConfig): CartonGeomet
     for (let k = 0; k < ns; k++) rIdx.push(cb, cb + 1 + ((k + 1) % ns), cb + 1 + k);
   }
   const roofGeo = buildGeo(rPos, rUvs, rIdx);
+  // Group 0: front and back panels (printed). Group 1: folded side gussets and straw patch (plain).
+  roofGeo.addGroup(0, 12, 0);
+  roofGeo.addGroup(12, rIdx.length - 12, 1);
 
   // ── Ridge (fin seal): a thin solid fin along the top, full width ─────────────
   const t = Math.max(0.3, Math.min(D * 0.012, ridgeH * 0.25));

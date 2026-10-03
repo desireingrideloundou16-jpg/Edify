@@ -27,7 +27,7 @@ export const MATERIAL_PRESET_IDS = [
   "mattePlastic", "glossyPlastic", "hdpe", "pet", "translucentPlastic", "plasticFilm", "metallizedFilm",
   "glass", "tintedGlass", "perfumeGlass", "frostedGlass",
   "aluminum", "brushedMetal", "paintedMetal", "printedMetal", "foil",
-  "rubber", "labelMatte", "labelGlossy", "labelEdge",
+  "rubber", "labelMatte", "labelGlossy", "labelEdge", "labelFilm", "labelFilmMatte",
 ] as const;
 export type MaterialPresetId = (typeof MATERIAL_PRESET_IDS)[number];
 
@@ -120,6 +120,9 @@ export const MATERIAL_PRESETS: Record<MaterialPresetId, MaterialPreset> = {
   labelMatte: p({ family: "paper", roughness: 0.82, sheen: 0.06, specularIntensity: 0.7, micro: micro("paper", 0.25, 0.12, 0, 0.15), colorJitter: 0.006 }),
   labelGlossy: p({ family: "paper", roughness: 0.4, clearcoat: 0.9, clearcoatRoughness: 0.07, micro: micro("coated", 0.12, 0.08, 0.12, 0.25), colorJitter: 0.004 }),
   labelEdge: p({ family: "paper", color: "#f4f1ea", roughness: 0.92, specularIntensity: 0.5, colorJitter: 0.01 }),
+  // Film labels (BOPP / PE) on plastic bottles: smooth, reverse-printed under a clear layer.
+  labelFilm: p({ roughness: 0.2, clearcoat: 0.8, clearcoatRoughness: 0.06, micro: micro("plastic", 0.04, 0.06, 0.1, 0.15), colorJitter: 0.003 }),
+  labelFilmMatte: p({ roughness: 0.55, clearcoat: 0.15, clearcoatRoughness: 0.4, specularIntensity: 0.8, micro: micro("plastic", 0.05, 0.08, 0.05, 0.15), colorJitter: 0.003 }),
 };
 
 // ─── Finishes ────────────────────────────────────────────────────────────────
@@ -160,7 +163,9 @@ export function printedPreset(surface: PrintSurface, finish: FinishId, label = f
   const f = FINISH_FALLBACK[finish];
   switch (surface) {
     case "metal": return "printedMetal";
-    case "film": return f === "metallic" ? "metallizedFilm" : "plasticFilm";
+    case "film":
+      if (label) return f === "matte" || f === "softTouch" || f === "uncoated" ? "labelFilmMatte" : "labelFilm";
+      return f === "metallic" ? "metallizedFilm" : "plasticFilm";
     case "plastic":
     case "clearplastic":
       return f === "softTouch" ? "softTouch" : f === "matte" || f === "uncoated" ? "mattePlastic" : "glossyPlastic";

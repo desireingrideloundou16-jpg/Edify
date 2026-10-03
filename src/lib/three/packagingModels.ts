@@ -234,7 +234,7 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
 
       // Roof: top face material
       const roofTex = faceTexture(d, L, W, "top");
-      g.add(mesh(cartonParts.roof, printed(roofTex, fin, surface)));
+      g.add(mesh(cartonParts.roof, [printed(roofTex, fin, surface), solid(bg, { roughness: 0.6 })]));
 
       // Ridge (fin seal): plain accent colour
       g.add(mesh(cartonParts.ridge, solid(bg, { roughness: 0.55, clearcoat: 0.2 })));
@@ -411,7 +411,12 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       const labelH = straight * (preset.label.to - preset.label.from);
       // Physical label: 0.15 mm paper shell, printed face + white paper core on the edges and back.
       const label = createBottleLabel(bottle.section, { yStart: labelY, height: labelH, fraction: preset.label.fraction, thickness: LABEL_THICKNESS_MM });
-      g.add(mesh(label.geometry, [printed(wrapTexture(d, label.arcLength, labelH, 0.5), fin, surface === "metal" ? "metal" : "paper", undefined, true), mat({ preset: "labelEdge" })]));
+      // Plastic containers carry film labels (BOPP), glass and the rest paper labels.
+      const filmLabel = surface === "plastic" || surface === "clearplastic";
+      g.add(mesh(label.geometry, [
+        printed(wrapTexture(d, label.arcLength, labelH, 0.5), fin, surface === "metal" ? "metal" : filmLabel ? "film" : "paper", undefined, true),
+        mat({ preset: filmLabel ? "labelFilmMatte" : "labelEdge", color: filmLabel ? "#f7f7f5" : undefined }),
+      ]));
 
       // Closure from the library, one material per part slot (existing materials).
       const isWine = family === "wine";

@@ -153,8 +153,25 @@ export function DevRenders() {
         const spec = { model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material };
         const { buildPackaging, disposeObject } = await import("@/lib/three/packagingModels");
         const b0 = performance.now();
-        disposeObject(buildPackaging(spec, design));
+        const built = buildPackaging(spec, design);
         document.body.dataset.buildMs = String(Math.round(performance.now() - b0));
+        // Static cost of the pack: triangles, draw calls (one per mesh × material group), materials, textures.
+        let tris = 0, draws = 0;
+        const mats = new Set<unknown>(), texs = new Set<unknown>();
+        built.traverse((o) => {
+          const m = o as import("three").Mesh;
+          if (!m.isMesh) return;
+          const g = m.geometry;
+          tris += (g.index ? g.index.count : g.attributes.position.count) / 3;
+          const list = Array.isArray(m.material) ? m.material : [m.material];
+          draws += Array.isArray(m.material) ? Math.max(1, g.groups.length) : 1;
+          for (const mt of list) {
+            mats.add(mt);
+            for (const v of Object.values(mt)) if (v && (v as { isTexture?: boolean }).isTexture) texs.add((v as { source: unknown }).source);
+          }
+        });
+        document.body.dataset.stats = JSON.stringify({ tris: Math.round(tris), draws, materials: mats.size, textures: texs.size });
+        disposeObject(built);
         setViewer(
           <div style={{ width: 800, height: 800 }}>
             <Viewer spec={spec} design={design} logoUrl={null} view="threeQuarter" lighting="studio" autoRotate />

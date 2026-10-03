@@ -207,6 +207,28 @@ describe("fabrique de matières et non-régression de tous les packagings", () =
     expect(offsetOf(buildPackaging(spec, { ...(design as object), brandName: "Autre" } as never))).not.toBe(a);
   });
 
+  it("étiquettes : film sur flacon plastique (VERDANT), papier sur verre ; toit de brique en deux matières", async () => {
+    const { buildPackaging } = await import("@/lib/three/packagingModels");
+    const labelOf = (o: THREE.Object3D) => {
+      let found: THREE.Material[] | null = null;
+      o.traverse((x) => {
+        const m = x as THREE.Mesh;
+        if (m.isMesh && Array.isArray(m.material) && m.material.length === 2 && m.geometry.groups.length === 2 && !found) found = m.material;
+      });
+      return found as THREE.Material[] | null;
+    };
+    const film = labelOf(buildPackaging({ model: "bottle" as never, lengthMm: 60, widthMm: 40, heightMm: 200, material: "PEHD" }, design))!;
+    expect(String(film[0].userData.packagingMaterial)).toMatch(/^labelFilm/);
+    const paper = labelOf(buildPackaging({ model: "wine" as never, lengthMm: 75, widthMm: 75, heightMm: 300, material: "Verre teinté" }, design))!;
+    expect(String(paper[0].userData.packagingMaterial)).toMatch(/^label(Matte|Glossy)$/);
+    expect(paper[1].userData.packagingMaterial).toBe("labelEdge");
+    expect(printedPreset("film", "matte", true)).toBe("labelFilmMatte");
+    const { createCartonGeometry } = await import("@/lib/three/geometry/cartonGeometry");
+    const roof = createCartonGeometry({ width: 70, depth: 70, height: 190 }).roof;
+    expect(roof.groups.map((g) => g.materialIndex)).toEqual([0, 1]);
+    expect(roof.groups[0].count + roof.groups[1].count).toBe(roof.index!.count);
+  });
+
   it("étiquette physique : face imprimée + chants et dos en papier (deux matières)", async () => {
     const { buildPackaging } = await import("@/lib/three/packagingModels");
     const obj = buildPackaging({ model: "bottle" as never, lengthMm: 55, widthMm: 55, heightMm: 180, material: "Verre transparent" }, design);

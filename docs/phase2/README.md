@@ -150,3 +150,14 @@ Détails techniques : [visual-fidelity.md](visual-fidelity.md).
 | `2B5-verre.jpg` | PIMENTO (clair), LUMINA (ambré), MAISON LUNE (vert), SOLÈNE (parfum) |
 | `2B5-17-packs-avant.jpg` / `2B5-17-packs-apres.jpg` | les 17 packs |
 | `2B5-sachet-brique-repares.jpg` | TERRA, OKKO et CROUNCH après correction |
+
+### 2B-5, complément
+
+- Étiquettes **film** (BOPP) sur les contenants en plastique, papier sur le verre.
+- Brique : les côtés du toit sont un aplat (plus de fragments d'illustration).
+- Banc d'essai : triangles, appels de dessin, matières et textures par pack (`/dev-renders?mode=viewer`).
+
+| Planche | Contenu |
+|---|---|
+| `2B5-validation-11-produits.jpg` | SOLAR, TERRA, OKKO, VERDANT (hero, gros plan), PIMENTO, LUMINA, NOCTA, Ruchers d'Oku, CROUNCH, MAISON LUNE, SOLÈNE en HD |
+| `2B5-toit-brique-avant-apres.jpg` | toit d'OKKO avant / après |
