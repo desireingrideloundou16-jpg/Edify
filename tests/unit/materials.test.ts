@@ -191,6 +191,18 @@ describe("fabrique de matières et non-régression de tous les packagings", () =
     }
   });
 
+  it("buildPackaging expose le facteur exact mm par unité (taille réelle)", async () => {
+    const { buildPackaging } = await import("@/lib/three/packagingModels");
+    for (const [model, L, W, H, material] of MODELS) {
+      const obj = buildPackaging({ model: model as never, lengthMm: L, widthMm: W, heightMm: H, material }, design);
+      const mmPerUnit = obj.userData.mmPerUnit as number;
+      expect(Number.isFinite(mmPerUnit) && mmPerUnit > 0).toBe(true);
+      const size = new THREE.Box3().setFromObject(obj).getSize(new THREE.Vector3());
+      // largest side in scene units × mmPerUnit = largest real side of the built model, mm
+      expect(Math.max(size.x, size.y, size.z) * mmPerUnit).toBeGreaterThanOrEqual(Math.max(L, W, H) * 0.9);
+    }
+  });
+
   it("même pack → mêmes matières ; deux packs → variations légères", async () => {
     const { buildPackaging } = await import("@/lib/three/packagingModels");
     const spec = { model: "pouch" as never, lengthMm: 140, widthMm: 80, heightMm: 220, material: "Kraft + PE" };
@@ -225,8 +237,8 @@ describe("fabrique de matières et non-régression de tous les packagings", () =
     expect(printedPreset("film", "matte", true)).toBe("labelFilmMatte");
     const { createCartonGeometry } = await import("@/lib/three/geometry/cartonGeometry");
     const roof = createCartonGeometry({ width: 70, depth: 70, height: 190 }).roof;
-    expect(roof.groups.map((g) => g.materialIndex)).toEqual([0, 1]);
-    expect(roof.groups[0].count + roof.groups[1].count).toBe(roof.index!.count);
+    expect(roof.groups.map((g) => g.materialIndex)).toEqual([0, 1, 2]); // roof-front, roof-back, plain gussets
+    expect(roof.groups.reduce((n, g) => n + g.count, 0)).toBe(roof.index!.count);
   });
 
   it("étiquette physique : face imprimée + chants et dos en papier (deux matières)", async () => {

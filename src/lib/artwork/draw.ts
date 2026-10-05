@@ -5,6 +5,7 @@
 import { PACKAGING_FONTS } from "@/lib/catalog/fonts";
 import { ean13Modules, isGuardModule, normalizeEan } from "@/lib/print/ean13";
 import { drawLayout, drawMotif, type LayoutId, type MotifId } from "./compose";
+import { ASPECT_TOLERANCE, placeElement, textBox, withPlacementSession, type RecordedElement, type WrapPlacement } from "./placement";
 
 export interface PackagingDesign {
   brandName: string;
@@ -46,6 +47,8 @@ export interface PackagingDesign {
   /** Advertising copy written by the AI designer. */
   adHeadline?: string;
   adCta?: string;
+  /** Smart layout applied to the wrap (phase 2C-4F-3): offsets of the moved elements (see artwork/placement.ts). */
+  wrapPlacement?: WrapPlacement;
 }
 
 export type FaceKind = "front" | "back" | "side" | "top" | "plain" | "strip";
@@ -215,19 +218,23 @@ export function drawFront(ctx: CanvasRenderingContext2D, x: number, y: number, w
   // Logo or monogram
   const logoSize = unit * 0.26;
   let cursor = y + h * 0.2;
-  if (d.logo && d.logo.complete && d.logo.naturalWidth > 0) {
-    const r = d.logo.naturalWidth / d.logo.naturalHeight;
+  const logo = d.logo;
+  if (logo && logo.complete && logo.naturalWidth > 0) {
+    const r = logo.naturalWidth / logo.naturalHeight;
     const lw = r >= 1 ? logoSize : logoSize * r;
     const lh = r >= 1 ? logoSize / r : logoSize;
-    ctx.drawImage(d.logo, cx - lw / 2, cursor - lh / 2, lw, lh);
+    placeElement(ctx, "logo", () => [cx - lw / 2, cursor - lh / 2, lw, lh], () => ctx.drawImage(logo, cx - lw / 2, cursor - lh / 2, lw, lh));
   } else {
-    ctx.beginPath();
-    ctx.arc(cx, cursor, logoSize * 0.42, 0, Math.PI * 2);
-    ctx.fillStyle = accent;
-    ctx.fill();
-    ctx.fillStyle = resolveColors([accent]).ink;
-    ctx.font = `${hw} ${logoSize * 0.42}px ${head}`;
-    ctx.fillText((d.brandName || "E").trim().charAt(0).toUpperCase(), cx, cursor + logoSize * 0.02);
+    const lr = logoSize * 0.42;
+    placeElement(ctx, "logo", () => [cx - lr, cursor - lr, lr * 2, lr * 2], () => {
+      ctx.beginPath();
+      ctx.arc(cx, cursor, logoSize * 0.42, 0, Math.PI * 2);
+      ctx.fillStyle = accent;
+      ctx.fill();
+      ctx.fillStyle = resolveColors([accent]).ink;
+      ctx.font = `${hw} ${logoSize * 0.42}px ${head}`;
+      ctx.fillText((d.brandName || "E").trim().charAt(0).toUpperCase(), cx, cursor + logoSize * 0.02);
+    });
   }
 
   // Brand
@@ -235,34 +242,37 @@ export function drawFront(ctx: CanvasRenderingContext2D, x: number, y: number, w
   cursor = y + h * 0.45;
   const brand = isScript(d.headingFont) ? d.brandName || "Brand" : (d.brandName || "BRAND").toUpperCase();
   const bs = fitText(ctx, brand, maxText, unit * 0.17, (s) => `${hw} ${s}px ${head}`);
-  ctx.fillText(brand, cx, cursor);
+  placeElement(ctx, "brand", () => textBox(ctx, brand, cx, cursor, bs, "center", "middle"), () => ctx.fillText(brand, cx, cursor));
 
   // Accent rule
   cursor += bs * 0.8;
   ctx.fillStyle = accent;
-  ctx.fillRect(cx - unit * 0.08, cursor, unit * 0.16, Math.max(1.5, unit * 0.012));
+  const rule = Math.max(1.5, unit * 0.012);
+  placeElement(ctx, "decorative", () => [cx - unit * 0.08, cursor, unit * 0.16, rule], () => ctx.fillRect(cx - unit * 0.08, cursor, unit * 0.16, rule));
 
   // Product name
   cursor += unit * 0.085;
   ctx.fillStyle = ink;
   const pw = fontWeight(d.bodyFont, 700);
-  fitText(ctx, d.productName || "", maxText, unit * 0.075, (s) => `${pw} ${s}px ${body}`);
-  ctx.fillText(d.productName || "", cx, cursor);
+  const ps = fitText(ctx, d.productName || "", maxText, unit * 0.075, (s) => `${pw} ${s}px ${body}`);
+  placeElement(ctx, "productName", () => (d.productName ? textBox(ctx, d.productName, cx, cursor, ps, "center", "middle") : null), () => ctx.fillText(d.productName || "", cx, cursor));
 
   // Tagline
   if (d.tagline) {
     cursor += unit * 0.075;
     ctx.globalAlpha = 0.85;
-    fitText(ctx, d.tagline, maxText, unit * 0.05, (s) => `${fontWeight(d.bodyFont, 400)} ${s}px ${body}`);
-    ctx.fillText(d.tagline, cx, cursor);
+    const tagline = d.tagline;
+    const ts = fitText(ctx, tagline, maxText, unit * 0.05, (s) => `${fontWeight(d.bodyFont, 400)} ${s}px ${body}`);
+    placeElement(ctx, "subtitle", () => textBox(ctx, tagline, cx, cursor, ts, "center", "middle"), () => ctx.fillText(tagline, cx, cursor));
     ctx.globalAlpha = 1;
   }
 
   // Volume
   if (d.volume) {
     ctx.globalAlpha = 0.85;
-    fitText(ctx, d.volume, maxText, unit * 0.055, (s) => `${fontWeight(d.bodyFont, 700)} ${s}px ${body}`);
-    ctx.fillText(d.volume, cx, y + h - pad * 1.6);
+    const volume = d.volume;
+    const vs = fitText(ctx, volume, maxText, unit * 0.055, (s) => `${fontWeight(d.bodyFont, 700)} ${s}px ${body}`);
+    placeElement(ctx, "netContent", () => textBox(ctx, volume, cx, y + h - pad * 1.6, vs, "center", "middle"), () => ctx.fillText(volume, cx, y + h - pad * 1.6));
     ctx.globalAlpha = 1;
   }
   ctx.restore();
@@ -315,28 +325,48 @@ function drawBack(ctx: CanvasRenderingContext2D, x: number, y: number, w: number
 
   ctx.fillStyle = accent;
   ctx.font = `${bold} ${titleSize}px ${body}`;
-  ctx.fillText((d.productName || "").toUpperCase(), x + pad, y + pad, textW);
+  const title = (d.productName || "").toUpperCase();
+  placeElement(ctx, "secondary", () => (title ? textBox(ctx, title, x + pad, y + pad, titleSize, "left", "top", textW) : null), () => ctx.fillText(title, x + pad, y + pad, textW));
 
   // Sections from the top; facts block sits right above the barcode.
   const factLines = lines.filter((l) => l.bold && !l.accent);
   const bodyLines = lines.slice(0, lines.length - factLines.length);
+  // Label copy (one block), then the facts block (net content, dates, price), then the barcode.
+  const blockBox = (rows: { text: string; bold: boolean }[], y0: number, y1: number): [number, number, number, number] | null => {
+    if (!rows.length) return null;
+    let wMax = 0;
+    for (const l of rows) {
+      ctx.font = `${l.bold ? bold : regular} ${size}px ${body}`;
+      wMax = Math.max(wMax, Math.min(ctx.measureText(l.text).width, textW));
+    }
+    return [x + pad, y0, wMax, y1 - y0];
+  };
   let cy = top;
-  for (const l of bodyLines) {
-    ctx.font = `${l.bold ? bold : regular} ${size}px ${body}`;
-    ctx.fillStyle = l.accent ? accent : ink;
-    ctx.fillText(l.text, x + pad, cy, textW);
-    cy += size * 1.3 + l.gap;
-  }
+  const bodyEnd = top + bodyLines.reduce((a, l) => a + size * 1.3 + l.gap, 0);
+  placeElement(ctx, "regulatory", () => blockBox(bodyLines, top, bodyEnd - size * 0.3), () => {
+    for (const l of bodyLines) {
+      ctx.font = `${l.bold ? bold : regular} ${size}px ${body}`;
+      ctx.fillStyle = l.accent ? accent : ink;
+      ctx.fillText(l.text, x + pad, cy, textW);
+      cy += size * 1.3 + l.gap;
+    }
+  });
+  cy = bodyEnd;
   let fy = Math.max(cy + size * 0.4, barTop - pad * 0.4 - factLines.length * size * 1.3);
-  ctx.fillStyle = ink;
-  ctx.font = `${bold} ${size}px ${body}`;
-  for (const l of factLines) {
-    ctx.fillText(l.text, x + pad, fy, textW);
-    fy += size * 1.3;
-  }
+  const fy0 = fy;
+  placeElement(ctx, d.volume ? "netContent" : "regulatory", () => blockBox(factLines, fy0, fy0 + factLines.length * size * 1.3 - size * 0.3), () => {
+    ctx.fillStyle = ink;
+    ctx.font = `${bold} ${size}px ${body}`;
+    for (const l of factLines) {
+      ctx.fillText(l.text, x + pad, fy, textW);
+      fy += size * 1.3;
+    }
+  });
   ctx.restore();
 
-  drawBarcode(ctx, barX, barTop, bw, bh, d.barcode);
+  // The barcode's box includes its white plate with the GS1 quiet zones (see drawBarcode).
+  const qz = bw / 95;
+  placeElement(ctx, "barcode", () => [barX - qz * 11, barTop - bh * 0.08, bw + qz * 18, bh * 1.32], () => drawBarcode(ctx, barX, barTop, bw, bh, d.barcode));
 }
 
 function drawSide(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, d: PackagingDesign, kind: FaceKind) {
@@ -378,10 +408,28 @@ export function drawFace(
   else if (kind === "back") drawBack(ctx, x, y, w, h, d);
 }
 
-/** Cylindrical wrap label: front artwork centred on `frontFraction` of the width. */
+/**
+ * Cylindrical wrap label: front artwork centred on `frontFraction` of the width. With `record`, the
+ * drawn elements are reported (smart layout, artwork/smartLayout.ts); with a design's wrapPlacement,
+ * the moved elements are drawn at their planned position (artwork/placement.ts). Otherwise unchanged.
+ */
 export function drawWrap(
   ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number,
-  d: PackagingDesign, frontFraction: number, opts: { grain?: boolean } = {}
+  d: PackagingDesign, frontFraction: number, opts: { grain?: boolean; record?: (elements: RecordedElement[]) => void } = {}
+) {
+  const plan = d.wrapPlacement;
+  const placed = !!plan && Math.abs(w / h / plan.aspect - 1) <= ASPECT_TOLERANCE;
+  if (opts.record || placed) {
+    const recorded = withPlacementSession(ctx, { mode: opts.record ? "record" : "apply", frame: { x, y, w, h }, design: d, offsets: plan?.offsets }, () => paintWrap(ctx, x, y, w, h, d, frontFraction, opts));
+    opts.record?.(recorded);
+    return;
+  }
+  paintWrap(ctx, x, y, w, h, d, frontFraction, opts);
+}
+
+function paintWrap(
+  ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number,
+  d: PackagingDesign, frontFraction: number, opts: { grain?: boolean }
 ) {
   const { bg, accent } = resolveColors(d.palette);
   ctx.fillStyle = bg;

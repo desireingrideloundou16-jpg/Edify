@@ -7,10 +7,10 @@ export type ShapeCategory =
 
 /** 3D model family used by the WebGL renderer (see lib/three/packagingModels). */
 export type ShapeModel =
-  | "box" | "mailer" | "rigid" | "pillow" | "tray"
+  | "box" | "mailer" | "rigid" | "pillow" | "tray" | "pizza" | "clamshell" | "display" | "moulded"
   | "bottle" | "wine" | "dropper" | "pump" | "spray" | "jug"
-  | "jar" | "tin" | "tub"
-  | "pouch" | "flatpouch" | "sachet" | "bag" | "shopper"
+  | "jar" | "tin" | "tub" | "papertub"
+  | "pouch" | "flatpouch" | "sachet" | "bag" | "paperbag" | "shopper"
   | "tube" | "papertube" | "can" | "cup" | "carton";
 
 export interface PackagingShape {

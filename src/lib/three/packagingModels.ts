@@ -14,9 +14,11 @@ import { createPackagingMaterial, type MaterialSurfaceOptions } from "./material
 import { finishFromLabel, glassPreset, hashSeed, printedPreset, type MaterialQuality, type MaterialRequest, type PrintSurface } from "./materials/materialPresets";
 import { createPouchGeometry } from "./geometry/pouchGeometry";
 import { createCartonGeometry } from "./geometry/cartonGeometry";
-import { bottleFamily, bottlePreset, bottleSection, createBottleFill, createBottleGeometry, createBottleLabel } from "./geometry/bottleGeometry";
+import { bottleSection, createBottleFill, createBottleGeometry, createBottleLabel } from "./geometry/bottleGeometry";
+import { bagShape, bottleLabel, boxParts, cartonConfigFor, coneToSurface, cylinderWrap, jarLabel, resolveStructure, tubWall, type BottleModel, type BoxModel, type BoxPart, type FilmPanel, type FrustumWall, type PrintSurface as StructSurface } from "@/lib/structure";
+import { drawSurface } from "@/lib/artwork/surface";
 import { closurePreset, createClosureGeometry, type ClosureMaterialSlot, type ClosureResult } from "./geometry/closureLibrary";
-import { drawFace, drawWrap, resolveColors, type FaceKind, type PackagingDesign } from "@/lib/artwork/draw";
+import { resolveColors, type PackagingDesign } from "@/lib/artwork/draw";
 export type { PackagingDesign } from "@/lib/artwork/draw";
 export { resolveColors } from "@/lib/artwork/draw";
 
@@ -51,21 +53,18 @@ function pxFor(wMm: number, hMm: number, maxPx = 1024) {
   return [Math.max(64, wMm * k), Math.max(64, hMm * k)] as const;
 }
 
-function faceTexture(d: PackagingDesign, wMm: number, hMm: number, kind: FaceKind, maxPx = 1024) {
-  const [w, h] = pxFor(wMm, hMm, kind === "front" || kind === "top" || kind === "back" ? maxPx : maxPx / 2);
+/**
+ * Texture of a shared print surface (lib/structure): drawn by artwork/surface.ts, exactly like the
+ * print sheet, at the surface's physical size. Same canvas sizes as the former face / wrap textures.
+ */
+function surfaceTexture(d: PackagingDesign, s: StructSurface) {
+  const k = s.draw.kind;
+  const [w, h] = pxFor(s.wMm, s.hMm, k === "wrap" ? 1536 : k === "front" || k === "top" || k === "back" ? 1024 : 512);
   const c = newCanvas(w, h);
-  drawFace(c.getContext("2d")!, 0, 0, c.width, c.height, d, kind, { grain: true });
+  drawSurface(c.getContext("2d")!, 0, 0, c.width, c.height, d, s, { grain: true });
   const t = toTexture(c);
-  t.userData.mm = [wMm, hMm];
-  return t;
-}
-
-function wrapTexture(d: PackagingDesign, arcMm: number, hMm: number, frontFraction: number, maxPx = 1536) {
-  const [w, h] = pxFor(arcMm, hMm, maxPx);
-  const c = newCanvas(w, h);
-  drawWrap(c.getContext("2d")!, 0, 0, c.width, c.height, d, frontFraction, { grain: true });
-  const t = toTexture(c);
-  t.userData.mm = [arcMm, hMm];
+  t.userData.mm = [s.wMm, s.hMm];
+  t.userData.surfaceId = s.id;
   return t;
 }
 
@@ -106,7 +105,10 @@ function glassMaterial(material: string) {
 
 /** Artwork printed on a surface, with the design's finish (labels get label papers). */
 function printed(map: THREE.Texture | null, finishing: string, surface: Surface, color?: string, label = false) {
-  return mat({ preset: printedPreset(surface as PrintSurface, finishFromLabel(finishing), label), color: color ?? "#ffffff" }, { map });
+  const m = mat({ preset: printedPreset(surface as PrintSurface, finishFromLabel(finishing), label), color: color ?? "#ffffff" }, { map });
+  // Which shared print surface this material shows (lib/structure), for the 3D ↔ print mapping.
+  if (map?.userData.surfaceId) m.userData.surfaceId = map.userData.surfaceId;
+  return m;
 }
 
 /** Plain part (cap, seal, lid, accent): plastic or painted metal from the factory, then overrides. */
@@ -145,6 +147,21 @@ function lathe(points: [number, number][], segments = 96) {
   return new THREE.LatheGeometry(points.map(([r, y]) => new THREE.Vector2(r, y)), segments, -Math.PI, Math.PI * 2);
 }
 
+/**
+ * UVs of a conical wall (wrapCylinder, thetaStart −π) from its developed sector: the vertex at angle θ
+ * (from its original u) and height y gets its position in the sector, divided by the sector's box.
+ */
+function conicalUV(geo: THREE.CylinderGeometry, wall: FrustumWall) {
+  const pos = geo.getAttribute("position"), uv = geo.getAttribute("uv");
+  const half = geo.parameters.height / 2;
+  for (let i = 0; i < uv.count; i++) {
+    const theta = geo.parameters.thetaStart + uv.getX(i) * geo.parameters.thetaLength;
+    const [sx, sy] = coneToSurface(wall, theta, pos.getY(i) + half);
+    uv.setXY(i, sx / wall.width, 1 - sy / wall.height);
+  }
+  uv.needsUpdate = true;
+}
+
 function wrapCylinder(rTop: number, rBottom: number, h: number, theta = Math.PI * 2, hSeg = 1) {
   return new THREE.CylinderGeometry(rTop, rBottom, h, 96, hSeg, true, -theta / 2, theta);
 }
@@ -167,23 +184,40 @@ const smooth = (a: number, b: number, t: number) => {
   return x * x * (3 - 2 * x);
 };
 
-/** Box with per-face artwork. Face order: +x, -x, +y, -y, +z, -z. */
-function printedBox(
-  L: number, H: number, W: number, d: PackagingDesign, surface: Surface,
-  faces: { front: FaceKind; top: FaceKind; side?: FaceKind; back?: FaceKind }, radius?: number
-) {
-  const r = radius ?? Math.min(L, H, W) * 0.02;
-  const geo = new RoundedBoxGeometry(L, H, W, 3, r);
-  const fin = d.finishing;
-  const mats = [
-    printed(faceTexture(d, W, H, faces.side ?? "side"), fin, surface),
-    printed(faceTexture(d, W, H, faces.side ?? "side"), fin, surface),
-    printed(faceTexture(d, L, W, faces.top), fin, surface),
-    printed(faceTexture(d, L, W, "plain"), fin, surface),
-    printed(faceTexture(d, L, H, faces.front), fin, surface),
-    printed(faceTexture(d, L, H, faces.back ?? "back"), fin, surface),
-  ];
-  return mesh(geo, mats, H / 2);
+/**
+ * Film panel of a bag: its triangles (flat mm ↔ 3D), counter-clockwise in the flat panel seen from the
+ * printed side so the normals point outwards; UV = flat position / panel size. `inset`: offset inwards
+ * along −normal, mm (film layers); `inside`: reversed faces, the inner side of the film.
+ */
+function filmGeometry(p: FilmPanel, inset: number, inside = false) {
+  const pos: number[] = [], uv: number[] = [];
+  for (const tr of p.tris) {
+    let idx = [0, 1, 2];
+    const [a, b, c] = tr.flat;
+    const area = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+    if (area < 0) idx = [0, 2, 1];
+    if (inside) idx = [idx[0], idx[2], idx[1]];
+    const P = idx.map((i) => new THREE.Vector3(...tr.pos[i]));
+    const n = new THREE.Vector3().subVectors(P[1], P[0]).cross(new THREE.Vector3().subVectors(P[2], P[0])).normalize();
+    // inside faces are reversed, so their normal already points inwards
+    for (const i of [0, 1, 2]) {
+      const q = P[i].clone().addScaledVector(n, inside ? inset : -inset);
+      pos.push(q.x, q.y, q.z);
+      uv.push(tr.flat[idx[i]][0] / p.wMm, tr.flat[idx[i]][1] / p.hMm);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/** Box-like part (lib/structure boxParts): rounded box whose six faces are shared print surfaces. */
+function boxPartMesh(p: BoxPart, d: PackagingDesign, surfaces: Map<string, StructSurface>, surface: Surface) {
+  const geo = new RoundedBoxGeometry(p.L, p.H, p.W, 3, p.radius);
+  const mats = p.faces.map((f) => printed(surfaceTexture(d, surfaces.get(f.id)!), d.finishing, surface));
+  return mesh(geo, mats, p.y);
 }
 
 // ─── Model builders (millimetres) ────────────────────────────────────────────
@@ -195,46 +229,52 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
   const { ink, accent, bg } = resolveColors(d.palette);
   const R = Math.min(L, W) / 2;
   const fin = d.finishing;
+  // Shared print surfaces of this pack (one id, one size, one drawing for 3D and print).
+  const structure = resolveStructure({ model: spec.model, lengthMm: L, widthMm: W, heightMm: H, material });
+  const surfaces = new Map(structure.printSurfaces.map((x) => [x.id, x]));
 
   switch (spec.model) {
     case "box":
     case "pillow":
-    case "tray":
-      g.add(printedBox(L, H, W, d, surface, { front: "front", top: "strip" }, spec.model === "pillow" ? Math.min(L, H, W) * 0.45 : undefined));
+    case "display":
+    case "moulded":
+    case "pizza":
+    case "clamshell":
+    case "rigid":
+      // Parts, sizes and the artwork of every face come from the structure (profile/boxProfile.ts).
+      for (const part of boxParts(spec.model, L, W, H)) g.add(boxPartMesh(part, d, surfaces, surface));
       break;
 
     case "mailer":
-      g.add(printedBox(L, H, W, d, surface, { front: "strip", top: "top", side: "plain" }));
-      break;
-
-    case "rigid": {
-      const baseH = H * 0.78;
-      g.add(printedBox(L, baseH, W, d, surface, { front: "plain", top: "plain", side: "plain", back: "plain" }, 1));
-      const lid = printedBox(L * 1.015, H * 0.3, W * 1.015, d, surface, { front: "strip", top: "top", side: "plain", back: "plain" }, 1);
-      lid.position.y = H - H * 0.15;
-      g.add(lid);
+    case "tray": {
+      // Folded board construction (structure assembly, profile/mailerProfile.ts, trayProfile.ts): one
+      // slab per board part; the outer face of a printed part shows its shared print surface, every
+      // other face (inside, edges, flaps) is plain board.
+      const board = printed(null, fin, surface, bg);
+      for (const p of structure.assembly!.parts) {
+        const size = [0, 1, 2].map((i) => p.max[i] - p.min[i]);
+        const geo = new THREE.BoxGeometry(size[0], size[1], size[2]);
+        geo.translate(...([0, 1, 2].map((i) => (p.min[i] + p.max[i]) / 2) as [number, number, number]));
+        const faces = ["+x", "-x", "+y", "-y", "+z", "-z"] as const;
+        const mats = faces.map((f) => (p.surface?.face === f ? printed(surfaceTexture(d, surfaces.get(p.surface.id)!), fin, surface) : board));
+        const m = mesh(geo, mats);
+        m.name = `${spec.model}:${p.id}`;
+        g.add(m);
+      }
       break;
     }
 
     case "carton": {
       // ── Parametric gable-top carton (Phase 2B-2) ──────────────────────────
-      const cartonParts = createCartonGeometry({
-        width: L,
-        depth: W,
-        height: H,
-        gableRatio: Math.min(0.22, Math.max(0.13, W / H * 1.1)),
-        edgeChamferRatio: 0.035,
-        strawPatch: true,
-      });
+      const cartonParts = createCartonGeometry(cartonConfigFor(L, W, H));
 
-      // Body: full wrap texture covering 4 faces + chamfers
-      const bodyWrapArc = (L * 2 + W * 2);
-      const bodyTex = wrapTexture(d, bodyWrapArc, H * 0.83, L / bodyWrapArc);
-      g.add(mesh(cartonParts.body, printed(bodyTex, fin, surface)));
-
-      // Roof: top face material
-      const roofTex = faceTexture(d, L, W, "top");
-      g.add(mesh(cartonParts.roof, [printed(roofTex, fin, surface), solid(bg, { roughness: 0.6 })]));
+      // Body wrap and the two roof panels are shared print surfaces, at their real size.
+      g.add(mesh(cartonParts.body, printed(surfaceTexture(d, surfaces.get("body")!), fin, surface)));
+      g.add(mesh(cartonParts.roof, [
+        printed(surfaceTexture(d, surfaces.get("roof-front")!), fin, surface),
+        printed(surfaceTexture(d, surfaces.get("roof-back")!), fin, surface),
+        solid(bg, { roughness: 0.6 }),
+      ]));
 
       // Ridge (fin seal): plain accent colour
       g.add(mesh(cartonParts.ridge, solid(bg, { roughness: 0.55, clearcoat: 0.2 })));
@@ -244,23 +284,35 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       break;
     }
 
-    case "bag":
+    case "bag": {
+      // Film bag (structure/profile/bagProfile.ts): each film panel is its flat rectangle folded into
+      // the filled bag; UV = flat mm, so the artwork keeps its print scale. Inside: plain film.
+      const { panels } = bagShape(L, W, H, structure.material.thicknessMm);
+      const film = printed(null, fin, surface, bg);
+      const t = structure.material.thicknessMm;
+      for (const p of panels) {
+        const outer = filmGeometry(p, (p.layer ?? 0) * t);
+        const map = p.surfaceId ? printed(surfaceTexture(d, surfaces.get(p.surfaceId)!), fin, surface) : film;
+        const m = mesh(outer, p.plain ? film : map);
+        m.name = `bag:${p.surfaceId ?? "fin"}`;
+        g.add(m);
+        // the inside face of the film, one thickness in
+        if (!p.plain) g.add(mesh(filmGeometry(p, t, true), film));
+      }
+      break;
+    }
+
+    case "paperbag":
     case "shopper": {
       const geo = new THREE.BoxGeometry(L, H, W, 12, 30, 12);
-      if (spec.model === "bag") {
+      const bagFaces = boxParts(spec.model as BoxModel, L, W, H)[0].faces;
+      if (spec.model === "paperbag") {
         deformY(geo, H, (v, t) => {
           v.z *= 1 - 0.92 * smooth(0.82, 1, t);
           v.x *= 1 + 0.03 * Math.sin(Math.PI * t);
         });
       }
-      const mats = [
-        printed(faceTexture(d, W, H, "side"), fin, surface),
-        printed(faceTexture(d, W, H, "side"), fin, surface),
-        printed(faceTexture(d, L, W, "plain"), fin, surface),
-        printed(faceTexture(d, L, W, "plain"), fin, surface),
-        printed(faceTexture(d, L, H, "front"), fin, surface),
-        printed(faceTexture(d, L, H, "back"), fin, surface),
-      ];
+      const mats = bagFaces.map((f) => printed(surfaceTexture(d, surfaces.get(f.id)!), fin, surface));
       g.add(mesh(geo, mats, H / 2));
       if (spec.model === "shopper") {
         const handleMat = solid(ink, { roughness: 0.7 });
@@ -284,9 +336,10 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
         type: isDoypack ? "doypack" : "flatpouch",
         seed: d.seed ?? 42,
       });
-      const wrap = wrapTexture(d, L * 2, H, 0.46);
+      // Front, back (and gusset) are separate print surfaces, drawn like the print sheet.
       const s = surface === "paper" ? "kraft" : surface;
-      g.add(mesh(pouchGeo, printed(wrap, fin, s), 0));
+      const panelIds = isDoypack ? ["front", "back", "gusset"] : ["front", "back"];
+      g.add(mesh(pouchGeo, panelIds.map((id) => printed(surfaceTexture(d, surfaces.get(id)!), fin, s)), 0));
 
       if (isDoypack) {
         // Zip-lock heat seal accent line
@@ -296,21 +349,22 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
     }
 
     case "tube": {
-      const geo = wrapCylinder(R, R, H * 0.88, Math.PI * 2, 50);
-      deformY(geo, H * 0.88, (v, t) => {
+      const tubePrint = cylinderWrap("tube", L, W, H).label;
+      const geo = wrapCylinder(R, R, tubePrint.heightMm, Math.PI * 2, 50);
+      deformY(geo, tubePrint.heightMm, (v, t) => {
         const f = smooth(0.08, 1, t);
         v.x *= 1 + 0.35 * f;
         v.z *= 1 - 0.95 * f;
       });
-      g.add(mesh(geo, printed(wrapTexture(d, 2 * Math.PI * R, H * 0.88, 0.32), fin, "plastic"), H * 0.12 + H * 0.44));
+      g.add(mesh(geo, printed(surfaceTexture(d, surfaces.get("wrap")!), fin, "plastic"), tubePrint.yStartMm + tubePrint.heightMm / 2));
       g.add(mesh(new THREE.BoxGeometry(R * 2.7, H * 0.05, 1.2), solid(bg, { roughness: 0.35 }), H * 0.975));
       g.add(mesh(new THREE.CylinderGeometry(R * 0.95, R * 0.95, H * 0.12, 48), solid(ink, { roughness: 0.3 }), H * 0.06));
       break;
     }
 
     case "can": {
-      const neck = H * 0.08;
-      const body = H - neck * 2;
+      const { neck, label: canPrint } = cylinderWrap("can", L, W, H);
+      const body = canPrint.heightMm;
       // Body necked in under the seam; the lid (seam, countersink, panel, rivet, pull tab) closes it.
       const seamH = neck * 0.32;
       g.add(mesh(lathe([[0, 0], [R * 0.75, 0], [R * 0.95, neck * 0.5], [R, neck], [R, H - neck], [R * 0.865, H - seamH]]), METAL_SILVER()));
@@ -318,7 +372,7 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       addClosure(g, createClosureGeometry({ type: "canLid", width: R * 0.88 * 2, height: seamH, seed: 1 }), H, {
         primary: lidMat, secondary: lidMat, metal: lidMat, rubber: lidMat, glass: lidMat,
       });
-      const label = mesh(wrapCylinder(R * 1.002, R * 1.002, body, Math.PI * 2), printed(wrapTexture(d, 2 * Math.PI * R, body, 0.3), fin, "metal"), neck + body / 2);
+      const label = mesh(wrapCylinder(R * 1.002, R * 1.002, body, Math.PI * 2), printed(surfaceTexture(d, surfaces.get("wrap")!), fin, "metal"), canPrint.yStartMm + body / 2);
       g.add(label);
       break;
     }
@@ -326,14 +380,16 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
     case "tin":
     case "papertube":
     case "tub":
+    case "papertub":
     case "cup": {
-      const tapered = spec.model === "tub" || spec.model === "cup";
-      const rTop = spec.model === "cup" ? R : R;
-      const rBot = spec.model === "cup" ? R * 0.72 : spec.model === "tub" ? R * 0.86 : R;
-      const lidH = spec.model === "cup" ? H * 0.07 : spec.model === "papertube" ? H * 0.24 : H * 0.18;
-      const bodyH = spec.model === "papertube" ? H - lidH * 0.8 : H - lidH * 0.6;
+      const rTop = R;
+      const { lidH, bodyH, rBottom: rBot } = cylinderWrap(spec.model, L, W, H);
       const bodySurface = surface === "clearplastic" ? "plastic" : surface;
-      g.add(mesh(wrapCylinder(rTop, rBot, bodyH, Math.PI * 2), printed(wrapTexture(d, 2 * Math.PI * R, bodyH, tapered ? 0.3 : 0.28), fin, bodySurface), bodyH / 2));
+      const wallGeo = wrapCylinder(rTop, rBot, bodyH, Math.PI * 2);
+      // Plastic tub: the texture is the DEVELOPED wall (annular sector, structure/profile/conicalProfile.ts):
+      // each vertex takes the UV of its own place in the sector — 1 mm of artwork = 1 mm of wall.
+      if (spec.model === "tub") conicalUV(wallGeo, tubWall(L, W, H).wall);
+      g.add(mesh(wallGeo, printed(surfaceTexture(d, surfaces.get("wrap")!), fin, bodySurface), bodyH / 2));
       const bottom = new THREE.CircleGeometry(rBot, 64);
       bottom.rotateX(Math.PI / 2);
       g.add(mesh(bottom, solid(bg, { side: THREE.DoubleSide }), 0.1));
@@ -347,17 +403,16 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
     }
 
     case "jar": {
-      const lidH = H * 0.2;
-      const bodyH = H - lidH * 0.85;
+      const { lidH, bodyH, label: jarPrint } = jarLabel(L, W, H);
       const bodyMat = surface === "glass" ? glassMaterial(material) : solid(bg, { roughness: 0.3, clearcoat: 0.6 });
       g.add(mesh(lathe([[0, 0], [R * 0.9, 0], [R, R * 0.12], [R, bodyH * 0.92], [R * 0.9, bodyH], [R * 0.88, bodyH + lidH * 0.3], [0, bodyH + lidH * 0.3]]), bodyMat));
       const jarFill = contentFill(d, surface);
       if (jarFill) g.add(mesh(lathe([[0, R * 0.05], [R * 0.86, R * 0.05], [R * 0.93, R * 0.14], [R * 0.93, bodyH * 0.86], [0, bodyH * 0.86]]), jarFill));
       // Physical label on the jar (same builder as the bottles: round section, 0.7 of the wrap).
-      const jarLabel = createBottleLabel(bottleSection({ width: R * 2, depth: R * 2, bodyShape: "round" }), {
-        yStart: bodyH * 0.48 - bodyH * 0.31, height: bodyH * 0.62, fraction: 0.7, thickness: LABEL_THICKNESS_MM,
+      const jarLbl = createBottleLabel(bottleSection({ width: R * 2, depth: R * 2, bodyShape: "round" }), {
+        yStart: jarPrint.yStartMm, height: jarPrint.heightMm, fraction: jarPrint.coverage, thickness: LABEL_THICKNESS_MM,
       });
-      g.add(mesh(jarLabel.geometry, [printed(wrapTexture(d, jarLabel.arcLength, bodyH * 0.62, 0.7), fin, "paper", undefined, true), mat({ preset: "labelEdge" })]));
+      g.add(mesh(jarLbl.geometry, [printed(surfaceTexture(d, surfaces.get("label")!), fin, "paper", undefined, true), mat({ preset: "labelEdge" })]));
       // Lid from the closure library: knurled plastic (PEHD) or smooth painted metal, rounded edge.
       const plasticLid = /pehd/i.test(material);
       const lidMat = plasticLid ? mat({ preset: "glossyPlastic", color: "#ffffff" }) : mat({ preset: /fer|alu/i.test(material) ? "paintedMetal" : "glossyPlastic", color: ink });
@@ -368,7 +423,7 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
     }
 
     case "jug": {
-      g.add(printedBox(L, H * 0.88, W, d, surface === "paper" ? "plastic" : surface, { front: "front", top: "plain" }, Math.min(L, W) * 0.22));
+      g.add(boxPartMesh(boxParts("jug", L, W, H)[0], d, surfaces, surface === "paper" ? "plastic" : surface));
       g.add(mesh(new THREE.CylinderGeometry(W * 0.2, W * 0.22, H * 0.12, 48), solid(accent, { roughness: 0.3 }), H * 0.94).translateX(-L * 0.25));
       const handle = mesh(new THREE.TorusGeometry(H * 0.14, W * 0.1, 16, 48, Math.PI), solid(bg, { roughness: 0.3, clearcoat: 0.5 }), H * 0.7);
       handle.position.x = L * 0.22;
@@ -379,19 +434,11 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
 
     // ── Bottles: parametric silhouette (section × profile), see geometry/bottleGeometry.ts ──
     default: {
-      const m = spec.model;
-      const family = bottleFamily(m, L, W, material);
-      // Two passes: the closure's height above the neck decides where the bottle stops, so the
-      // pack keeps its catalog height; the second pass fits the closure on the final neck finish.
+      // Glass height, preset and label come from the structure (lib/structure/profile/labels.ts):
+      // the bottle stops where its closure starts, and the printed label is exactly this one.
+      const { family, preset, label: printLabel } = bottleLabel(spec.model as BottleModel, L, W, H, material);
       const closureFor = (b: ReturnType<typeof createBottleGeometry>) =>
         createClosureGeometry(closurePreset(family, H, { width: b.neck.width, finishHeight: b.finish.height, finishScale: b.finish.scale }, b.shoulderStartY));
-      const draft = createBottleGeometry(bottlePreset(family, L, W, H * 0.85).config);
-      const draftClosure = closureFor(draft);
-      const glassH = Math.max(H * 0.5, H - draftClosure.top);
-      for (const p of draftClosure.parts) p.geometry.dispose();
-      draft.body.dispose();
-      draft.bottom.dispose();
-      const preset = bottlePreset(family, L, W, glassH);
       const bottle = createBottleGeometry(preset.config);
 
       const bodyMat = surface === "glass" ? glassMaterial(material)
@@ -406,15 +453,13 @@ function buildModel(spec: PackagingSpec, d: PackagingDesign): THREE.Group {
       if (bottleFill) g.add(mesh(createBottleFill(bottle, bottle.shoulderStartY * 0.98), bottleFill));
 
       // Label on the real section (ellipse, rounded rectangle…), same wrap texture as before.
-      const straight = bottle.shoulderStartY - bottle.bodyBottomY;
-      const labelY = bottle.bodyBottomY + straight * preset.label.from;
-      const labelH = straight * (preset.label.to - preset.label.from);
+      const labelH = printLabel.heightMm;
       // Physical label: 0.15 mm paper shell, printed face + white paper core on the edges and back.
-      const label = createBottleLabel(bottle.section, { yStart: labelY, height: labelH, fraction: preset.label.fraction, thickness: LABEL_THICKNESS_MM });
+      const label = createBottleLabel(bottle.section, { yStart: printLabel.yStartMm, height: labelH, fraction: printLabel.coverage, thickness: LABEL_THICKNESS_MM });
       // Plastic containers carry film labels (BOPP), glass and the rest paper labels.
       const filmLabel = surface === "plastic" || surface === "clearplastic";
       g.add(mesh(label.geometry, [
-        printed(wrapTexture(d, label.arcLength, labelH, 0.5), fin, surface === "metal" ? "metal" : filmLabel ? "film" : "paper", undefined, true),
+        printed(surfaceTexture(d, surfaces.get("label")!), fin, surface === "metal" ? "metal" : filmLabel ? "film" : "paper", undefined, true),
         mat({ preset: filmLabel ? "labelFilmMatte" : "labelEdge", color: filmLabel ? "#f7f7f5" : undefined }),
       ]));
 
@@ -456,6 +501,8 @@ export function buildPackaging(spec: PackagingSpec, design: PackagingDesign, opt
   const outer = new THREE.Group();
   outer.add(inner);
   outer.scale.setScalar(k);
+  // Exact real-size factor (millimetres per scene unit), for AR / export consumers (phase 2C-6).
+  outer.userData.mmPerUnit = 1 / k;
   return outer;
 }
 

@@ -43,7 +43,7 @@ export function DevRenders() {
           import("@/lib/artwork/draw"),
         ]);
         await loadDesignFonts(design);
-        const layout = flatLayout({ model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm });
+        const layout = flatLayout({ model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material });
         const k = 1400 / (layout.width + BLEED_MM * 2);
         const art = renderFlatArtwork(layout, design, k);
         drawDieline(art.getContext("2d")!, layout, k);

@@ -12,6 +12,7 @@
  * Triangle budget: ~3 200 tris.
  */
 import * as THREE from "three";
+import { cartonDims } from "@/lib/structure/profile/cartonProfile";
 
 export interface CartonGeometryConfig {
   /** Width of the body face (X axis, "front" face) in mm */
@@ -35,7 +36,7 @@ export interface CartonGeometryConfig {
 export interface CartonGeometryResult {
   /** Wrap-mapped body geometry */
   body: THREE.BufferGeometry;
-  /** Gable roof: group 0 = printed front/back panels, group 1 = plain side gussets + straw patch */
+  /** Gable roof: groups 0 / 1 = printed front / back panels, group 2 = plain side gussets + straw patch */
   roof: THREE.BufferGeometry;
   /** Fin-seal ridge strip geometry */
   ridge: THREE.BufferGeometry;
@@ -46,46 +47,6 @@ export interface CartonGeometryResult {
 // ─── Internal helpers ─────────────────────────────────────────────────────────
 
 type V3 = [number, number, number];
-
-/**
- * Closed chamfered rectangle, back-centre → left → front → right (same convention as the
- * bottles): on the front face u grows from the viewer's left to right, and the front centre
- * sits at exactly half the perimeter, where `drawWrap` puts the front artwork.
- */
-function chamferedRectProfile(hw: number, hd: number, chamfer: number, segments: number): Array<[number, number]> {
-  const c = Math.max(0, Math.min(chamfer, Math.min(hw, hd) * 0.45));
-  const pts: Array<[number, number]> = [[0, -hd]];
-  // corner centre, start angle, end angle (going around back → left → front → right)
-  const corners: Array<[number, number, number, number]> = [
-    [-hw + c, -hd + c, -Math.PI / 2, -Math.PI],
-    [-hw + c, +hd - c, Math.PI, Math.PI / 2],
-    [+hw - c, +hd - c, Math.PI / 2, 0],
-    [+hw - c, -hd + c, 0, -Math.PI / 2],
-  ];
-  for (const [cx, cz, a0, a1] of corners) {
-    for (let k = 0; k <= segments; k++) {
-      const a = a0 + (a1 - a0) * (k / segments);
-      pts.push([cx + c * Math.cos(a), cz + c * Math.sin(a)]);
-    }
-    // Mid-points of the left, front and right faces (the front centre is exactly u = 0.5).
-    if (cx < 0 && cz < 0) pts.push([-hw, 0]);
-    if (cx < 0 && cz > 0) pts.push([0, hd]);
-    if (cx > 0 && cz > 0) pts.push([hw, 0]);
-  }
-  // Remove consecutive duplicates (zero chamfer).
-  return pts.filter((p, i) => i === 0 || Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1]) > 1e-9);
-}
-
-/** Perimeter of the closed profile. */
-function perimeterOf(profile: Array<[number, number]>): number {
-  let p = 0;
-  for (let i = 0; i < profile.length; i++) {
-    const [ax, az] = profile[i];
-    const [bx, bz] = profile[(i + 1) % profile.length];
-    p += Math.hypot(bx - ax, bz - az);
-  }
-  return p;
-}
 
 /** Closed vertical wall; UV seam column duplicated at the back, outward winding. */
 function extrudeRing(profile: Array<[number, number]>, yBot: number, yTop: number, totalPerim: number): THREE.BufferGeometry {
@@ -161,18 +122,12 @@ export function createCartonGeometry(config: CartonGeometryConfig): CartonGeomet
     strawPatch = true,
   } = config;
 
-  const hw = W / 2;
-  const hd = D / 2;
-  const chamfer = Math.min(hw, hd) * edgeChamferRatio;
-
-  const gableH = H * Math.max(0.05, Math.min(0.4, gableRatio));
-  const ridgeH = gableH * 0.18;
-  const bodyH = H - gableH - ridgeH;
-  const sealH = H * bottomSealRatio;
+  // Dimensions shared with the print structure (lib/structure/profile/cartonProfile.ts).
+  const { hw, hd, gableH, ridgeH, bodyH, sealH, profile, perimeter: perim } = cartonDims({
+    width: W, depth: D, height: H, gableRatio, edgeChamferRatio, chamferSegments, bottomSealRatio,
+  });
 
   // ── Body (closed chamfered tube) ─────────────────────────────────────────────
-  const profile = chamferedRectProfile(hw, hd, chamfer, chamferSegments);
-  const perim = perimeterOf(profile);
   const bodyGeo = extrudeRing(profile, sealH, bodyH, perim);
 
   // ── Bottom (fan from centre, facing down) ────────────────────────────────────
@@ -221,9 +176,11 @@ export function createCartonGeometry(config: CartonGeometryConfig): CartonGeomet
     for (let k = 0; k < ns; k++) rIdx.push(cb, cb + 1 + ((k + 1) % ns), cb + 1 + k);
   }
   const roofGeo = buildGeo(rPos, rUvs, rIdx);
-  // Group 0: front and back panels (printed). Group 1: folded side gussets and straw patch (plain).
-  roofGeo.addGroup(0, 12, 0);
-  roofGeo.addGroup(12, rIdx.length - 12, 1);
+  // Group 0: front roof panel, group 1: back roof panel (print surfaces "roof-front" / "roof-back"),
+  // group 2: folded side gussets and straw patch (plain board).
+  roofGeo.addGroup(0, 6, 0);
+  roofGeo.addGroup(6, 6, 1);
+  roofGeo.addGroup(12, rIdx.length - 12, 2);
 
   // ── Ridge (fin seal): a thin solid fin along the top, full width ─────────────
   const t = Math.max(0.3, Math.min(D * 0.012, ridgeH * 0.25));

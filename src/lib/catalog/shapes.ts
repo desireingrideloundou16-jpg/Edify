@@ -22,12 +22,14 @@ const CATEGORY_LABEL = Object.fromEntries(SHAPE_CATEGORIES.map((c) => [c.id, c.l
 // Flat 2D illustration kept for legacy UI; the sidebar uses 3D thumbnails.
 const ILLUSTRATION: Record<ShapeModel, () => React.ReactNode> = {
   box: IllustrationFoldingBox, pillow: IllustrationFoldingBox, tray: IllustrationMailerBox,
-  mailer: IllustrationMailerBox, rigid: IllustrationRigidBox, carton: IllustrationFoldingBox,
+  mailer: IllustrationMailerBox, pizza: IllustrationMailerBox, clamshell: IllustrationMailerBox,
+  display: IllustrationMailerBox, moulded: IllustrationMailerBox,
+  rigid: IllustrationRigidBox, carton: IllustrationFoldingBox,
   bottle: IllustrationPumpBottle, wine: IllustrationPumpBottle, jug: IllustrationPumpBottle,
   dropper: IllustrationDropperBottle, pump: IllustrationPumpBottle, spray: IllustrationPumpBottle,
-  jar: IllustrationCosmeticJar, tin: IllustrationCosmeticJar, tub: IllustrationCosmeticJar,
+  jar: IllustrationCosmeticJar, tin: IllustrationCosmeticJar, tub: IllustrationCosmeticJar, papertub: IllustrationCosmeticJar,
   pouch: IllustrationDoypack, flatpouch: IllustrationDoypack, sachet: IllustrationDoypack,
-  bag: IllustrationDoypack, shopper: IllustrationMailerBox,
+  bag: IllustrationDoypack, paperbag: IllustrationDoypack, shopper: IllustrationMailerBox,
   tube: IllustrationSqueezeTube, papertube: IllustrationCylinderTube,
   can: IllustrationCanette, cup: IllustrationCylinderTube,
 };

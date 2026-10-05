@@ -9,6 +9,7 @@
  * - Seamless UV mapping compatible with Edify's drawWrap artwork
  */
 import * as THREE from "three";
+import { pouchSeals } from "@/lib/structure/profile/flexibleProfile";
 
 export type PouchType = "flatpouch" | "pouch" | "doypack" | "sachet";
 
@@ -70,8 +71,8 @@ export function createPouchGeometry(config: PouchGeometryConfig): THREE.BufferGe
     height: H,
     depth: W,
     type,
-    topSealHeight = Math.max(10, Math.min(22, H * 0.065)),
-    bottomSealHeight = (type === "doypack" || type === "pouch") ? 0 : Math.max(8, Math.min(18, H * 0.055)),
+    topSealHeight = pouchSeals(type, H).top,
+    bottomSealHeight = pouchSeals(type, H).bottom,
     crimpPeriod = 3.2,
     crimpDepth = 0.32,
     bulgePosition = (type === "doypack" || type === "pouch") ? 0.22 : 0.38,
@@ -89,7 +90,7 @@ export function createPouchGeometry(config: PouchGeometryConfig): THREE.BufferGe
 
   // Vertical subdivision counts
   const ny = Math.max(24, resolutionY);
-  const nx = Math.max(24, resolutionX);
+  const nx = Math.ceil(Math.max(24, resolutionX) / 4) * 4; // panels split at s = 0.25 / 0.75
 
   // Normalized heights
   const hTopSeal = topSealHeight / H;
@@ -289,13 +290,89 @@ export function createPouchGeometry(config: PouchGeometryConfig): THREE.BufferGe
   }
   normAttr.needsUpdate = true;
 
-  // If doypack, add the bottom closing gusset plate
+  // Print panels (phase 2C-3): front = s ∈ [0.25, 0.75], back = s ∈ [0.75, 1] ∪ [0, 0.25] as ONE
+  // panel (no seam through its artwork). Same triangles, positions and normals as the closed grid.
+  const body = splitPanels(geometry, nx, ny);
+  geometry.dispose();
+
+  // If doypack, add the bottom closing gusset plate (group 2)
   if (isDoypack) {
     const bottomGusset = createDoypackGussetPlate(L, W, halfW, resolutionX);
-    return mergeGeometries([geometry, bottomGusset]);
+    const merged = mergeGeometries([body.geometry, bottomGusset]);
+    merged.addGroup(0, body.frontCount, 0);
+    merged.addGroup(body.frontCount, body.backCount, 1);
+    merged.addGroup(body.frontCount + body.backCount, bottomGusset.getIndex()!.count, 2);
+    body.geometry.dispose();
+    return merged;
   }
 
-  return geometry;
+  body.geometry.addGroup(0, body.frontCount, 0);
+  body.geometry.addGroup(body.frontCount, body.backCount, 1);
+  return body.geometry;
+}
+
+/**
+ * Rebuilds the closed (ny+1) × (nx+1) grid as two print panels. UVs follow the real film: on each
+ * row, u is the arc length across the panel divided by the panel's arc length on that row, so the
+ * printed sheet spreads evenly over the bulged surface; v stays the height fraction.
+ * Group order: front quads, then back quads.
+ */
+function splitPanels(grid: THREE.BufferGeometry, nx: number, ny: number) {
+  const pos = grid.getAttribute("position") as THREE.BufferAttribute;
+  const nrm = grid.getAttribute("normal") as THREE.BufferAttribute;
+  const uvSrc = grid.getAttribute("uv") as THREE.BufferAttribute;
+  const q = nx / 4;
+  const range = (a: number, b: number) => Array.from({ length: b - a + 1 }, (_, k) => a + k);
+  // Column strips; the back is two strips that meet at the back centre (column nx ≡ column 0).
+  const front = [range(q, 3 * q)];
+  const back = [range(3 * q, nx), range(0, q)];
+
+  const P: number[] = [], N: number[] = [], U: number[] = [], I: number[] = [];
+  const at = (i: number, j: number) => i * (nx + 1) + j;
+  const emitPanel = (strips: number[][]) => {
+    const start = I.length;
+    // u per row along the whole panel (strips chained), arc length normalised to [0, 1].
+    const cols = strips.flat();
+    const uRows: number[][] = [];
+    for (let i = 0; i <= ny; i++) {
+      const cum = [0];
+      for (let k = 1; k < cols.length; k++) {
+        const a = at(i, cols[k - 1]), b = at(i, cols[k]);
+        cum.push(cum[k - 1] + Math.hypot(pos.getX(b) - pos.getX(a), pos.getY(b) - pos.getY(a), pos.getZ(b) - pos.getZ(a)));
+      }
+      const total = cum[cum.length - 1] || 1;
+      uRows.push(cum.map((c) => c / total));
+    }
+    let offset = 0;
+    for (const strip of strips) {
+      const base = P.length / 3;
+      const w = strip.length;
+      for (let i = 0; i <= ny; i++) {
+        for (let k = 0; k < w; k++) {
+          const v = at(i, strip[k]);
+          P.push(pos.getX(v), pos.getY(v), pos.getZ(v));
+          N.push(nrm.getX(v), nrm.getY(v), nrm.getZ(v));
+          U.push(uRows[i][offset + k], uvSrc.getY(v));
+        }
+      }
+      for (let i = 0; i < ny; i++) {
+        for (let k = 0; k < w - 1; k++) {
+          const a = base + i * w + k, d = a + 1, b = a + w, c = b + 1;
+          I.push(a, d, b, b, d, c); // same winding as the closed grid (outward)
+        }
+      }
+      offset += w;
+    }
+    return I.length - start;
+  };
+  const frontCount = emitPanel(front);
+  const backCount = emitPanel(back);
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(P, 3));
+  geometry.setAttribute("normal", new THREE.Float32BufferAttribute(N, 3));
+  geometry.setAttribute("uv", new THREE.Float32BufferAttribute(U, 2));
+  geometry.setIndex(I);
+  return { geometry, frontCount, backCount };
 }
 
 /**

@@ -35,7 +35,8 @@ function drawPath(page: PDFPage, pts: Pt[], ox: number, oy: number, pageH: numbe
 }
 
 export async function generatePrintPdf(shape: PackagingShape, design: PackagingDesign, projectName: string): Promise<PrintPdfResult> {
-  const layout = flatLayout({ model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm });
+  // Same input as the editor preview (material included: the board thickness shapes folded sheets).
+  const layout = flatLayout({ model: shape.model ?? "box", lengthMm: shape.lengthMm, widthMm: shape.widthMm, heightMm: shape.heightMm, material: shape.material });
   await loadDesignFonts(design);
 
   const bleedW = layout.width + BLEED_MM * 2;
@@ -91,7 +92,25 @@ export async function generatePrintPdf(shape: PackagingShape, design: PackagingD
   p2.drawImage(image, { x: MARGIN * MM, y: MARGIN * MM, width: bleedW * MM, height: bleedH * MM, opacity: 0.18 });
   const ox = MARGIN + BLEED_MM;
   const oy = MARGIN + BLEED_MM;
-  drawPath(p2, layout.cut, ox, oy, pageH, magenta, 0.75);
+  // Glue areas (folded sheets): tinted and outlined in slate, under the cut lines.
+  for (const zone of layout.glueZones ?? []) {
+    const path = zone.map(([x, y], i) => `${i ? "L" : "M"} ${(ox + x) * MM} ${-(oy + y) * MM}`).join(" ") + " Z";
+    p2.drawSvgPath(path, { x: 0, y: pageH, color: rgb(0.58, 0.64, 0.72), opacity: 0.35, borderColor: rgb(0.39, 0.45, 0.55), borderWidth: 0.4 });
+  }
+  // Technical zones: light emerald, dotted outline (printed area, not a cut, fold, glue or seal).
+  for (const { polygon: zone } of layout.technicalZones ?? []) {
+    const path = zone.map(([x, y], i) => `${i ? "L" : "M"} ${(ox + x) * MM} ${-(oy + y) * MM}`).join(" ") + " Z";
+    p2.drawSvgPath(path, { x: 0, y: pageH, color: rgb(0.063, 0.725, 0.506), opacity: 0.12, borderColor: rgb(0.063, 0.725, 0.506), borderWidth: 0.5, borderDashArray: [1, 1.5] });
+  }
+  // Weld / seam areas (film webs): slate, cross-hatch replaced by a tint; dashed when sealed after filling.
+  for (const zone of layout.sealZones ?? []) {
+    const path = zone.polygon.map(([x, y], i) => `${i ? "L" : "M"} ${(ox + x) * MM} ${-(oy + y) * MM}`).join(" ") + " Z";
+    p2.drawSvgPath(path, { x: 0, y: pageH, color: rgb(0.58, 0.64, 0.72), opacity: 0.22, borderColor: rgb(0.39, 0.45, 0.55), borderWidth: 0.5, ...(zone.afterFilling ? { borderDashArray: [3, 2] } : {}) });
+  }
+  for (const contour of [layout.cut, ...(layout.extraCuts ?? [])]) drawPath(p2, contour, ox, oy, pageH, magenta, 0.75);
+  for (const [a, b] of layout.slits ?? []) {
+    p2.drawLine({ start: { x: (ox + a[0]) * MM, y: pageH - (oy + a[1]) * MM }, end: { x: (ox + b[0]) * MM, y: pageH - (oy + b[1]) * MM }, thickness: 0.75, color: magenta, lineCap: LineCapStyle.Round });
+  }
   for (const [a, b] of layout.creases) {
     p2.drawLine({
       start: { x: (ox + a[0]) * MM, y: pageH - (oy + a[1]) * MM },
@@ -99,8 +118,16 @@ export async function generatePrintPdf(shape: PackagingShape, design: PackagingD
       thickness: 0.6, color: cyan, dashArray: [4, 3],
     });
   }
+  // Formed folds (film): not scored by the die — dotted, so the printer never makes them creases.
+  for (const [a, b] of layout.formedFolds ?? []) {
+    p2.drawLine({
+      start: { x: (ox + a[0]) * MM, y: pageH - (oy + a[1]) * MM },
+      end: { x: (ox + b[0]) * MM, y: pageH - (oy + b[1]) * MM },
+      thickness: 0.6, color: cyan, dashArray: [1, 2],
+    });
+  }
   p2.drawText("TRACÉ DE DÉCOUPE — ne pas imprimer", { x: MARGIN * MM, y: pageH - 10 * MM, size: 9, font: bold, color: rgb(0.1, 0.1, 0.12) });
-  p2.drawText(`Magenta : découpe   ·   Cyan pointillé : rainage/pli   ·   Format à plat : ${layout.width.toFixed(1)} × ${layout.height.toFixed(1)} mm`, {
+  p2.drawText(`Magenta : découpe${layout.creases.length ? "   ·   Cyan pointillé : rainage/pli" : ""}${layout.formedFolds?.length ? "   ·   Cyan pointillé fin : pli formé (non rainé)" : ""}${layout.glueZones?.length ? "   ·   Gris : zone de colle" : ""}${layout.sealZones?.length ? "   ·   Gris encadré : soudure (tirets : après remplissage)" : ""}${layout.technicalZones?.some((z) => z.kind === "seam") ? "   ·   Vert pointillé : zone technique (couture), éviter les éléments critiques" : ""}${layout.technicalZones?.some((z) => z.kind === "covered") ? "   ·   Vert pointillé : zone couverte par le couvercle, non imprimée" : ""}   ·   Format à plat : ${layout.width.toFixed(1)} × ${layout.height.toFixed(1)} mm`, {
     x: MARGIN * MM, y: 6 * MM, size: 7, font, color: rgb(0.25, 0.27, 0.3),
   });
 

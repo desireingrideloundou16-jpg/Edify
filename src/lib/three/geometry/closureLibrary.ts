@@ -12,42 +12,13 @@
  */
 import * as THREE from "three";
 import { mergeGeometries, mergeVertices } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import type { ClosureConfig, ClosureMaterialSlot, ClosureType } from "@/lib/structure/profile/closureProfile";
+export {
+  closurePreset, closureTop,
+  type ClosureConfig, type ClosureFamily, type ClosureMaterialSlot, type ClosureType,
+} from "@/lib/structure/profile/closureProfile";
 
 // ─── Public types ────────────────────────────────────────────────────────────
-
-export type ClosureType = "screwCap" | "ribbedCap" | "tamperRing" | "wineCapsule" | "pump" | "spray" | "dropper" | "canLid";
-
-/** Material slot of a part; the renderer maps each slot to one of its existing materials. */
-export type ClosureMaterialSlot = "primary" | "secondary" | "metal" | "rubber" | "glass";
-
-export interface ClosureConfig {
-  type: ClosureType;
-  /** Outer diameter (X) of the main body of the closure, mm. */
-  width: number;
-  /** Outer depth (Z), mm (default: round, = width). */
-  depth?: number;
-  /** Total height, skirt included, mm. */
-  height: number;
-  /** Neck outer diameter the closure sits on, mm (default: 0.8 × width). */
-  neckWidth?: number;
-  /** How far the closure goes down over the neck finish, mm (default: 0). */
-  skirt?: number;
-  /** Ribbed / screw caps, collars. */
-  ribCount?: number;
-  /** Screw / ribbed caps: add a separate tamper-evident ring under the cap. */
-  tamperRing?: boolean;
-  /** Pump / spray: direction of the spout or nozzle, degrees (0 = front, 90 = right). */
-  sprayDirection?: number;
-  nozzleWidth?: number;
-  actuatorWidth?: number;
-  /** Dropper: length of the glass pipette inside the bottle, mm. */
-  stemLength?: number;
-  /** Wine capsule: radial scale of the neck finish bead it must clear. */
-  finishScale?: number;
-  /** Segments around (default per type). */
-  resolution?: number;
-  seed?: number;
-}
 
 export interface ClosurePart {
   name: string;
@@ -507,40 +478,4 @@ export function createClosureGeometry(config: ClosureConfig): ClosureResult {
     triangles += tri(p.geometry);
   }
   return { type: c.type, parts, top, bottom, triangles };
-}
-
-// ─── Presets for the bottle families ─────────────────────────────────────────
-
-export type ClosureFamily = "round" | "beverage" | "oval" | "perfume" | "wine" | "dropper" | "pump" | "spray";
-
-/**
- * Closure for a bottle family. `packHeight` is the catalog height (closure included),
- * `neck` comes from the bottle geometry (finish bead to cover).
- */
-export function closurePreset(
-  family: ClosureFamily,
-  packHeight: number,
-  neck: { width: number; finishHeight: number; finishScale: number },
-  bodyHeight = packHeight * 0.6
-): ClosureConfig {
-  const H = packHeight;
-  const nw = neck.width;
-  const cover = neck.finishHeight * 1.15;
-  switch (family) {
-    case "wine":
-      return { type: "wineCapsule", width: nw * neck.finishScale * 1.04, height: H * 0.16, neckWidth: nw, skirt: H * 0.16 - H * 0.004, finishScale: neck.finishScale, seed: 7 };
-    case "dropper":
-      return { type: "dropper", width: nw * 1.3, height: H * 0.34 + cover, neckWidth: nw, skirt: cover, stemLength: bodyHeight * 0.8 };
-    case "pump":
-      return { type: "pump", width: nw * 1.4, height: H * 0.2 + cover, neckWidth: nw, skirt: cover, sprayDirection: 90 };
-    case "spray":
-    case "perfume":
-      return { type: "spray", width: nw * 1.35, height: H * 0.2 + cover, neckWidth: nw, skirt: cover, sprayDirection: 0 };
-    case "round":
-      return { type: "ribbedCap", width: nw * 1.2, height: H * 0.1 + cover, neckWidth: nw, skirt: cover, ribCount: 24, tamperRing: true };
-    case "oval":
-    case "beverage":
-    default:
-      return { type: "screwCap", width: nw * 1.18, height: H * 0.1 + cover, neckWidth: nw, skirt: cover, ribCount: 32, tamperRing: true };
-  }
 }

@@ -4,6 +4,7 @@
  * Every layout follows the same hierarchy: brand block → product → benefit → net quantity.
  */
 import { fitText, fontCss, fontWeight, isScript, luminance, resolveColors, type PackagingDesign } from "./draw";
+import { elementId, placeElement, textBox, textRole } from "./placement";
 
 export const LAYOUTS = ["classic", "bold", "band", "split", "emblem", "minimal", "frame", "pop", "window", "illustrated", "arch", "vertical", "label", "poster"] as const;
 export type LayoutId = (typeof LAYOUTS)[number];
@@ -68,13 +69,19 @@ function withAlpha(hex: string, a: number) {
 }
 
 function drawLogo(ctx: CanvasRenderingContext2D, d: PackagingDesign, cx: number, cy: number, size: number, fill: string, inkOnFill: string) {
-  if (d.logo && d.logo.complete && d.logo.naturalWidth > 0) {
-    const r = d.logo.naturalWidth / d.logo.naturalHeight;
+  const logo = d.logo;
+  if (logo && logo.complete && logo.naturalWidth > 0) {
+    const r = logo.naturalWidth / logo.naturalHeight;
     const lw = r >= 1 ? size : size * r;
     const lh = r >= 1 ? size / r : size;
-    ctx.drawImage(d.logo, cx - lw / 2, cy - lh / 2, lw, lh);
+    placeElement(ctx, "logo", () => [cx - lw / 2, cy - lh / 2, lw, lh], () => ctx.drawImage(logo, cx - lw / 2, cy - lh / 2, lw, lh));
     return;
   }
+  const lr = size * 0.42;
+  placeElement(ctx, "logo", () => [cx - lr, cy - lr, lr * 2, lr * 2], () => drawMonogram(ctx, d, cx, cy, size, fill, inkOnFill));
+}
+
+function drawMonogram(ctx: CanvasRenderingContext2D, d: PackagingDesign, cx: number, cy: number, size: number, fill: string, inkOnFill: string) {
   ctx.save();
   ctx.beginPath();
   ctx.arc(cx, cy, size * 0.42, 0, Math.PI * 2);
@@ -96,7 +103,7 @@ function text(ctx: CanvasRenderingContext2D, s: string, x: number, y: number, ma
   ctx.fillStyle = color;
   ctx.globalAlpha = alpha;
   const used = fitText(ctx, s, maxW, size, font);
-  ctx.fillText(s, x, y);
+  placeElement(ctx, textRole(ctx, s), () => textBox(ctx, s, x, y, used, align, "middle"), () => ctx.fillText(s, x, y));
   ctx.restore();
   return used;
 }
@@ -352,6 +359,10 @@ function arcText(ctx: CanvasRenderingContext2D, s: string, cx: number, cy: numbe
 function drawSeal(ctx: CanvasRenderingContext2D, d: PackagingDesign, cx: number, cy: number, R: number, rot = -0.18) {
   const badge = (d.badge ?? "").trim();
   if (!badge || R < 6) return;
+  placeElement(ctx, "badge", () => [cx - R, cy - R, R * 2, R * 2], () => paintSeal(ctx, d, badge, cx, cy, R, rot));
+}
+
+function paintSeal(ctx: CanvasRenderingContext2D, d: PackagingDesign, badge: string, cx: number, cy: number, R: number, rot: number) {
   const { bg, extra, accent } = resolveColors(d.palette);
   const fill = contrastOk(extra, bg) ? extra : accent;
   const sealInk = resolveColors([fill, "#ffffff", "#111111"]).ink;
@@ -477,33 +488,37 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
     case "emblem": {
       // Circular seal — honey, coffee, heritage, cooperatives
       const cy = y + h * 0.4, R = unit * 0.36;
-      ctx.save();
-      ctx.fillStyle = withAlpha(accent, 0.12);
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = accent;
-      ctx.lineWidth = Math.max(1.5, unit * 0.014);
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.lineWidth = Math.max(1, unit * 0.005);
-      ctx.beginPath();
-      ctx.arc(cx, cy, R * 0.9, 0, Math.PI * 2);
-      ctx.stroke();
-      // Dotted ring
-      for (let i = 0; i < 48; i++) {
-        const a = (i / 48) * Math.PI * 2;
-        ctx.fillStyle = accent;
+      // The emblem rings and its rule are linked to the brand they frame (they follow it, phase 2C-4F-4).
+      placeElement(ctx, "decorative", () => [cx - R, cy - R, R * 2, R * 2], () => {
+        ctx.save();
+        ctx.fillStyle = withAlpha(accent, 0.12);
         ctx.beginPath();
-        ctx.arc(cx + Math.cos(a) * R * 0.95, cy + Math.sin(a) * R * 0.95, unit * 0.004, 0, Math.PI * 2);
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
         ctx.fill();
-      }
-      ctx.restore();
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = Math.max(1.5, unit * 0.014);
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.lineWidth = Math.max(1, unit * 0.005);
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 0.9, 0, Math.PI * 2);
+        ctx.stroke();
+        // Dotted ring
+        for (let i = 0; i < 48; i++) {
+          const a = (i / 48) * Math.PI * 2;
+          ctx.fillStyle = accent;
+          ctx.beginPath();
+          ctx.arc(cx + Math.cos(a) * R * 0.95, cy + Math.sin(a) * R * 0.95, unit * 0.004, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }, elementId(ctx, "brand", "next"));
       drawLogo(ctx, d, cx, cy - R * 0.45, unit * 0.14, accent, accentInk);
       text(ctx, brandText(d), cx, cy + R * 0.02, R * 1.5, unit * 0.15, H, ink);
       ctx.fillStyle = accent;
-      ctx.fillRect(cx - R * 0.25, cy + R * 0.25, R * 0.5, Math.max(1.5, unit * 0.01));
+      const ruleH = Math.max(1.5, unit * 0.01);
+      placeElement(ctx, "decorative", () => [cx - R * 0.25, cy + R * 0.25, R * 0.5, ruleH], () => ctx.fillRect(cx - R * 0.25, cy + R * 0.25, R * 0.5, ruleH), elementId(ctx, "brand", "last"));
       if (d.tagline) text(ctx, d.tagline, cx, cy + R * 0.45, R * 1.3, unit * 0.042, Br, ink, "center", 0.85);
       text(ctx, d.productName, cx, cy + R + unit * 0.1, maxText, unit * 0.08, B, ink);
       text(ctx, d.volume, cx, y + h - pad * 1.5, maxText, unit * 0.055, B, ink, "center", 0.9);
@@ -711,28 +726,31 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       const R = Math.min(w * 0.4, h * 0.3), ly = y + h * 0.47;
       const panel = luminance(bg) > 0.5 ? "#fffdf8" : mixHex(bg, "#ffffff", 0.9);
       const pInk = resolveColors([panel, ink, accent, "#1a1a1a"]).ink;
-      ctx.save();
-      ctx.shadowColor = "rgba(0,0,0,0.22)";
-      ctx.shadowBlur = unit * 0.04;
-      ctx.shadowOffsetY = unit * 0.01;
-      ctx.fillStyle = panel;
-      ctx.beginPath();
-      ctx.arc(cx, ly, R, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-      ctx.strokeStyle = accent;
-      ctx.lineWidth = Math.max(1.5, R * 0.03);
-      ctx.beginPath();
-      ctx.arc(cx, ly, R * 0.93, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.lineWidth = Math.max(1, R * 0.01);
-      ctx.beginPath();
-      ctx.arc(cx, ly, R * 0.7, 0, Math.PI * 2);
-      ctx.stroke();
-      const ringSize = R * 0.09;
-      const ringFont = `${fontWeight(d.bodyFont, 700)} ${ringSize}px ${fontCss(d.bodyFont)}`;
-      arcText(ctx, (d.origin || d.tagline || d.productName || "").toUpperCase().slice(0, 34), cx, ly, R * 0.815, ringSize, ringFont, pInk);
-      arcText(ctx, (d.volume || "").toUpperCase(), cx, ly, R * 0.815, ringSize, ringFont, pInk, true);
+      // The medallion (panel, rings and ring texts) is linked to the brand it carries (phase 2C-4F-4).
+      placeElement(ctx, "decorative", () => [cx - R, ly - R, R * 2, R * 2], () => {
+        ctx.save();
+        ctx.shadowColor = "rgba(0,0,0,0.22)";
+        ctx.shadowBlur = unit * 0.04;
+        ctx.shadowOffsetY = unit * 0.01;
+        ctx.fillStyle = panel;
+        ctx.beginPath();
+        ctx.arc(cx, ly, R, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = Math.max(1.5, R * 0.03);
+        ctx.beginPath();
+        ctx.arc(cx, ly, R * 0.93, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.lineWidth = Math.max(1, R * 0.01);
+        ctx.beginPath();
+        ctx.arc(cx, ly, R * 0.7, 0, Math.PI * 2);
+        ctx.stroke();
+        const ringSize = R * 0.09;
+        const ringFont = `${fontWeight(d.bodyFont, 700)} ${ringSize}px ${fontCss(d.bodyFont)}`;
+        arcText(ctx, (d.origin || d.tagline || d.productName || "").toUpperCase().slice(0, 34), cx, ly, R * 0.815, ringSize, ringFont, pInk);
+        arcText(ctx, (d.volume || "").toUpperCase(), cx, ly, R * 0.815, ringSize, ringFont, pInk, true);
+      }, elementId(ctx, "brand", "next"));
       drawLogo(ctx, d, cx, ly - R * 0.4, R * 0.26, accent, accentInk);
       const bs = text(ctx, brandText(d), cx, ly - R * 0.02, R * 1.2, R * 0.3, H, pInk);
       ctx.fillStyle = accent;
