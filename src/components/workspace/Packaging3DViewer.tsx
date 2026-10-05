@@ -7,6 +7,7 @@ import { OrbitControls } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { buildPackaging, disposeObject, PackagingDesign, PackagingSpec } from "@/lib/three/packagingModels";
 import { loadDesignFonts } from "@/lib/artwork/draw";
+import { viewerDesign } from "@/lib/three/designKey";
 import { chooseQuality, frameShot, resolveCamera, resolveLighting, type CameraPresetId, type LightingPresetId, type RenderQualityConfig } from "@/lib/three/scenePresets";
 import { detectGraphicsCaps } from "@/lib/three/capabilities";
 import { StudioRig } from "@/lib/three/studioRig";
@@ -18,7 +19,9 @@ export type LightingPreset = LightingPresetId | "studio" | "warm";
 
 interface ViewerProps {
   spec: PackagingSpec;
-  design: Omit<PackagingDesign, "logo">;
+  /** The APPLIED design (phase 3C): the same object the 2D and the PDF draw (illustration, logo, layout). */
+  design: PackagingDesign;
+  /** Fallback only: a logo loaded by the view while the design carries none yet. */
   logoUrl: string | null;
   view: ViewPreset;
   lighting: LightingPreset;
@@ -56,7 +59,7 @@ function useFontsVersion(heading: string, body: string) {
 
 function PackagingObject({ spec, design, logo, onObject, materialQuality }: {
   spec: PackagingSpec;
-  design: Omit<PackagingDesign, "logo">;
+  design: PackagingDesign;
   logo: HTMLImageElement | null;
   onObject: (object: THREE.Object3D) => void;
   materialQuality: RenderQualityConfig["materialQuality"];
@@ -69,7 +72,7 @@ function PackagingObject({ spec, design, logo, onObject, materialQuality }: {
   }, [design]);
 
   const object = useMemo(
-    () => buildPackaging(spec, { ...debounced, logo }, { quality: materialQuality }),
+    () => buildPackaging(spec, viewerDesign(debounced, logo), { quality: materialQuality }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [spec.model, spec.lengthMm, spec.widthMm, spec.heightMm, spec.material, debounced, logo, fonts, materialQuality]
   );

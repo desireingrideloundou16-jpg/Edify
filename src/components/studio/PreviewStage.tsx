@@ -228,8 +228,8 @@ interface PreviewStageProps {
   onMode: (m: PreviewMode) => void;
   shape: PackagingShape;
   spec: PackagingSpec;
+  /** The applied design: drawn by the flat view, the live 3D and the 3D viewer alike. */
   design: PackagingDesign;
-  baseDesign: Omit<PackagingDesign, "logo">;
   logoUrl: string | null;
   onCaptureReady: (capture: () => string) => void;
   onViewChange?: (view: ViewPreset) => void;
@@ -237,7 +237,7 @@ interface PreviewStageProps {
   smart?: SmartLayoutView | null;
 }
 
-export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, logoUrl, onCaptureReady, onViewChange, smart }: PreviewStageProps) {
+export function PreviewStage({ mode, onMode, shape, spec, design, logoUrl, onCaptureReady, onViewChange, smart }: PreviewStageProps) {
   const [zoom, setZoom] = useState(1);
   const [autoRotate, setAutoRotate] = useState(true);
   const [viewKey, setViewKey] = useState(0);
@@ -299,7 +299,7 @@ export function PreviewStage({ mode, onMode, shape, spec, design, baseDesign, lo
           <div className="st-3d" key={viewKey}>
             <Packaging3DViewer
               spec={spec}
-              design={baseDesign}
+              design={design}
               logoUrl={logoUrl}
               view={view}
               lighting="studio"

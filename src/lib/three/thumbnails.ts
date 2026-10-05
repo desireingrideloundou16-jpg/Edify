@@ -10,6 +10,7 @@ import { CAMERA_PRESETS, frameShot, resolveCamera, resolveLighting, type CameraP
 import { StudioRig } from "./studioRig";
 import { loadDesignFonts, type PackagingDesign } from "@/lib/artwork/draw";
 import type { PackagingShape } from "@/components/workspace/Modals";
+import { designIdentityKey } from "./designKey";
 
 const SIZE = 320;
 const cache = new Map<string, string>();
@@ -131,8 +132,8 @@ export function requestThumbnail(shape: PackagingShape, onReady: (url: string) =
  * Every mounted card is redrawn, the selected container first.
  */
 export async function setThumbnailDesign(design: PackagingDesign | null, priorityShapeId?: string) {
-  const { logo, ...rest } = design ?? ({} as PackagingDesign);
-  const key = design ? JSON.stringify(rest) + (logo?.src ? `|logo:${logo.src.length}:${logo.src.slice(-32)}` : "") : "neutral";
+  // Identity of the logo AND of the illustration by their source (phase 3C): a new image, a new key.
+  const key = design ? designIdentityKey(design) : "neutral";
   if ((current?.key ?? "neutral") === key) return;
   if (design) await loadDesignFonts(design);
   current = design ? { design, key } : null;

@@ -4,10 +4,11 @@ import { z } from "zod";
 import { geminiDesign, GeminiError } from "@/lib/ai/gemini";
 import { createClient as createSupabase } from "@/lib/supabase/server";
 import {
-  SHAPE_IDS, STYLE_IDS, FONT_FAMILIES, LAYOUT_IDS, MOTIF_IDS, ART_STYLES, catalogForPrompt, localDesign, sanitizeSpec,
+  ADMISSIBLE_SHAPE_IDS, STYLE_IDS, FONT_FAMILIES, LAYOUT_IDS, MOTIF_IDS, ART_STYLES, catalogForPrompt, localDesign, sanitizeSpec,
   type CurrentDesign, type DesignSpec,
 } from "@/lib/ai/designSpec";
 import { PACKAGING_KNOWLEDGE } from "@/lib/ai/packagingKnowledge";
+import { isSupportedShape, shapeName } from "@/lib/catalog/packagingResolver";
 import { DESIGNER_METHOD, DESIGNER_ROLE } from "@/lib/ai/designerPrompt";
 import { logAiEvent } from "@/lib/admin/log";
 import { claudeTokens, recordAiFallback, trackAiCall } from "@/lib/ai/gateway";
@@ -25,7 +26,8 @@ const DESIGNS_PER_DAY = { free: 6, plan: 40 };
 const Hex = z.string().describe("Couleur hexadécimale #RRGGBB");
 
 const DesignSchema = z.object({
-  shapeId: z.enum(SHAPE_IDS as [string, ...string[]]),
+  // Phase 3C: a new design may only use a format the engine supports.
+  shapeId: z.enum(ADMISSIBLE_SHAPE_IDS as [string, ...string[]]),
   styleId: z.enum(STYLE_IDS as [string, ...string[]]),
   headingFont: z.enum(FONT_FAMILIES as [string, ...string[]]),
   bodyFont: z.enum(FONT_FAMILIES as [string, ...string[]]),
@@ -68,10 +70,12 @@ ${styles}
 POLICES INSTALLÉES
 ${fonts}`;
 
-function userMessage(prompt: string, current: CurrentDesign, opts: { fresh?: boolean; logoColors?: string[]; hasLogo?: boolean } = {}) {
-  const logo = opts.hasLogo
+function userMessage(prompt: string, current: CurrentDesign, opts: { fresh?: boolean; logoColors?: string[]; hasLogo?: boolean; lockShapeId?: string | null } = {}) {
+  // The packaging was already chosen by Edify's resolver (or by the user): the designer keeps it.
+  const locked = opts.lockShapeId ? `\n\nCONTENANT IMPOSÉ (déjà choisi, ne pas le changer) : shapeId « ${opts.lockShapeId} » — ${shapeName(opts.lockShapeId)}.` : "";
+  const logo = (opts.hasLogo
     ? `\n\nLOGO DE LA MARQUE : fourni en image${opts.logoColors?.length ? `, couleurs dominantes ${opts.logoColors.join(", ")}` : ""}. Construis la palette à partir de ces couleurs (background ou accent = couleur principale du logo, ink contrasté) pour que le logo s'intègre parfaitement sur la face avant.`
-    : "";
+    : "") + locked;
   if (opts.fresh) {
     return `NOUVEAU PACKAGING À CRÉER DE ZÉRO : ignore tout design précédent. Conçois-le de façon autonome, comme un directeur artistique, en utilisant TOUTES les informations ci-dessous : le contenant doit correspondre exactement au packaging décrit et à sa contenance, le nom de marque est repris à l'identique, les ingrédients et l'usage inspirent l'univers visuel (couleurs du fruit, de l'épice, de la plante…), l'origine et les autres informations nourrissent l'accroche et le texte du dos.${logo}
 
@@ -159,7 +163,7 @@ function withLogoColors(spec: DesignSpec, colors: string[]): DesignSpec {
 }
 
 export async function POST(req: Request) {
-  let body: { prompt?: string; current?: CurrentDesign; reference?: RefFile | null; fresh?: boolean; logoColors?: string[]; projectId?: string | null };
+  let body: { prompt?: string; current?: CurrentDesign; reference?: RefFile | null; fresh?: boolean; logoColors?: string[]; projectId?: string | null; lockShapeId?: string | null };
   try {
     body = await req.json();
   } catch {
@@ -180,6 +184,8 @@ export async function POST(req: Request) {
     fresh: body.fresh === true,
     hasLogo: reference?.name === "logo",
     logoColors: Array.isArray(body.logoColors) ? body.logoColors.filter((c) => /^#[0-9a-f]{6}$/i.test(c)).slice(0, 4) : [],
+    // Only a supported format can be imposed (anything else is ignored, never trusted).
+    lockShapeId: typeof body.lockShapeId === "string" && isSupportedShape(body.lockShapeId) ? body.lockShapeId : null,
   };
 
   // Signed-in users only. Designing is open (the paywall is at download time) within a daily cap;
@@ -216,7 +222,7 @@ export async function POST(req: Request) {
   const failures: string[] = [];
   for (const engine of engines) {
     try {
-      const spec = sanitizeSpec(await engine.run(), current);
+      const spec = sanitizeSpec(await engine.run(), current, msgOpts.lockShapeId);
       await admin.from("projects").update({ ai_generations: project.ai_generations + 1 }).eq("id", project.id);
       // A successful AI design MUST be logged: the daily fair-use cap (dailyAiCount) and the
       // admin statistics count exactly these events. Failures (success=false) and the offline
@@ -241,7 +247,7 @@ export async function POST(req: Request) {
   // Observability: the customer gets the deterministic offline designer (no provider call).
   recordAiFallback({ operation: "design.generate", userId: user.id, reason: engines.length ? "providers_failed" : "not_configured" });
   return Response.json({
-    spec: sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current),
+    spec: sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current, msgOpts.lockShapeId),
     engine: "local",
     credits: available,
     projectId: project.id,

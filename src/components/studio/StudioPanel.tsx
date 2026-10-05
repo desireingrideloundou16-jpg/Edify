@@ -7,15 +7,17 @@ import {
 
   Check,
   ImagePlus,
-  Search,
-  X,
   Loader2,
 } from "lucide-react";
 import type { PackagingShape, VisualStylePreset } from "@/components/workspace/Modals";
 import type { DesignContent } from "@/lib/design/state";
 import { normalizeEan } from "@/lib/print/ean13";
 import { LAYOUTS, LAYOUT_LABELS, MOTIFS, MOTIF_LABELS } from "@/lib/artwork/compose";
-import { SHAPE_CATEGORIES, searchShapes } from "@/lib/catalog/shapes";
+import { ALL_CATALOG_SHAPES } from "@/lib/catalog/shapes";
+import {
+  FAMILY_LABEL, availableFamilies, familyOfShape, familyShapes, isSupportedShape, recommendWhenUnsure,
+  type PackagingDecision, type PackagingFamily,
+} from "@/lib/catalog/packagingResolver";
 import { STYLE_FAMILIES, ALL_CATALOG_STYLES } from "@/lib/catalog/styles";
 import { PACKAGING_FONTS, type FontCategory } from "@/lib/catalog/fonts";
 
@@ -94,30 +96,6 @@ function ShapeCard({ shape, selected, onSelect }: {
   );
 }
 
-function SearchField({ value, onChange, placeholder }: { value: string; onChange: (v: string) => void; placeholder: string }) {
-  return (
-    <div className="relative">
-      <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-      <input
-        type="search"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="w-full pl-8 pr-7 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs text-slate-800 placeholder:text-slate-400 focus:bg-white focus:border-slate-400 focus:outline-none transition"
-      />
-      {value && (
-        <button
-          type="button"
-          onClick={() => onChange("")}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 rounded text-slate-400 hover:text-slate-700"
-          aria-label="Effacer la recherche"
-        >
-          <X className="w-3.5 h-3.5" />
-        </button>
-      )}
-    </div>
-  );
-}
 
 
 // ─── Panel ──────────────────────────────────────────────────────────────────
@@ -163,6 +141,8 @@ interface StudioPanelProps {
   logo: string | null;
   logoName: string | null;
   onSelectShape: (s: PackagingShape) => void;
+  /** How the current packaging was decided, and the product words used to rank the alternatives. */
+  packaging: { decision: PackagingDecision; productText: string };
   onSelectStyle: (s: VisualStylePreset) => void;
   onChangeFont: (role: "heading" | "body", family: string) => void;
   layout: string;
@@ -207,37 +187,95 @@ export function StudioPanel(props: StudioPanelProps) {
   );
 }
 
-function ShapeTab({ shape, onSelectShape }: StudioPanelProps) {
-  const [category, setCategory] = useState<string>("all");
-  const [query, setQuery] = useState("");
-  const visible = useMemo(() => searchShapes(query, category), [query, category]);
+/**
+ * Packaging (phase 3C): Edify recommends ONE supported format and says why. "Changer" opens human
+ * families (Pot, Bouteille, Tube…) and then a short list of supported formats of that family — never
+ * the 119 technical structures. A format saved before (even one no longer offered) stays as it is.
+ */
+function ShapeTab({ shape, onSelectShape, packaging }: StudioPanelProps) {
+  const [changing, setChanging] = useState(false);
+  const [family, setFamily] = useState<PackagingFamily | null>(null);
+  const [more, setMore] = useState(false);
+  const supported = isSupportedShape(shape.id);
+  const currentFamily = familyOfShape(shape.id);
+  const list = useMemo(() => (family ? familyShapes(family, packaging.productText) : []), [family, packaging.productText]);
+  const shown = more ? list : list.slice(0, 6);
+  const pick = (id: string | null) => {
+    const next = ALL_CATALOG_SHAPES.find((x) => x.id === id);
+    if (!next) return;
+    onSelectShape(next);
+    setChanging(false);
+    setFamily(null);
+    setMore(false);
+  };
+  const reasons = packaging.decision.reasons;
   return (
     <div className="st-section">
-      <p className="st-help">Choisissez la forme de votre emballage.</p>
-      <SearchField value={query} onChange={setQuery} placeholder="Rechercher : flacon, pochette, canette…" />
-      <div className="flex items-center gap-1 overflow-x-auto pb-1 no-scrollbar">
-        {SHAPE_CATEGORIES.map((cat) => (
-          <button
-            key={cat.id}
-            type="button"
-            onClick={() => setCategory(cat.id)}
-            className={`flex-shrink-0 px-2.5 py-1 rounded-full text-[11px] font-bold transition ${
-              category === cat.id ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            {cat.label}
-          </button>
-        ))}
-      </div>
-      {visible.length ? (
-        <div className="grid grid-cols-2 gap-x-2.5 gap-y-3">
-          {visible.map((s) => (
-            <ShapeCard key={s.id} shape={s} selected={s.id === shape.id} onSelect={() => onSelectShape(s)} />
-          ))}
+      <span className="st-label">Packaging recommandé</span>
+      <div className="flex items-center gap-3">
+        <div className="w-24 flex-shrink-0">
+          <ShapeCard shape={shape} selected onSelect={() => setChanging((v) => !v)} />
         </div>
-      ) : (
-        <p className="text-xs text-slate-500 text-center py-6">Aucun contenant ne correspond à « {query} ».</p>
-      )}
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-slate-900">{shape.name}</p>
+          {currentFamily ? <p className="st-help">{FAMILY_LABEL[currentFamily]}</p> : null}
+          <p className="st-help">
+            {reasons.length ? `Pourquoi ? ${reasons.join(" ; ")}.` : packaging.decision.source === "user" ? "Choisi par vous." : "Packaging de votre projet."}
+          </p>
+        </div>
+      </div>
+      {!supported ? (
+        <p className="st-help text-amber-700" role="status">
+          Ce packaging n&apos;est plus disponible pour les nouvelles créations. Votre projet reste ouvert tel quel.
+        </p>
+      ) : null}
+      <button
+        type="button"
+        className="edify-secondary-btn justify-center"
+        aria-expanded={changing}
+        onClick={() => {
+          setChanging((v) => !v);
+          if (!supported && currentFamily) setFamily(currentFamily);
+        }}
+      >
+        {supported ? "Changer" : "Choisir une alternative"}
+      </button>
+      {changing ? (
+        <div className="space-y-2" aria-label="Choisir un type de packaging">
+          <p className="st-help">Quel type de packaging préférez-vous ?</p>
+          <div className="flex flex-wrap gap-1">
+            {availableFamilies().map((f) => (
+              <button
+                key={f}
+                type="button"
+                aria-pressed={family === f}
+                onClick={() => { setFamily(f); setMore(false); }}
+                className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition ${family === f ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
+              >
+                {FAMILY_LABEL[f]}
+              </button>
+            ))}
+            <button type="button" onClick={() => pick(recommendWhenUnsure(packaging.productText).shapeId)} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">
+              Je ne sais pas
+            </button>
+          </div>
+          {family ? (
+            <>
+              <div className="grid grid-cols-2 gap-x-2.5 gap-y-3">
+                {shown.map((c) => {
+                  const sh = ALL_CATALOG_SHAPES.find((x) => x.id === c.shapeId)!;
+                  return <ShapeCard key={c.shapeId} shape={sh} selected={c.shapeId === shape.id} onSelect={() => pick(c.shapeId)} />;
+                })}
+              </div>
+              {list.length > shown.length ? (
+                <button type="button" className="st-help underline" onClick={() => setMore(true)}>
+                  Voir d&apos;autres formats ({list.length - shown.length})
+                </button>
+              ) : null}
+            </>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }

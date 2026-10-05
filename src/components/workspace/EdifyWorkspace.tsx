@@ -23,6 +23,11 @@ import type { DesignSpec } from "@/lib/ai/designSpec";
 import { generatePrintPdf, downloadPrintPdf, slugify } from "@/lib/print/exportPrintPdf";
 import { useSmartLayout } from "@/components/studio/useSmartLayout";
 import { PreflightDialog } from "@/components/studio/PreflightDialog";
+import { PackagingQuestion, type PackagingAnswer } from "@/components/studio/PackagingQuestion";
+import {
+  decidePackaging, decisionFrom, isSupportedShape, legacyDecision, parseDecision, recommendWhenUnsure, resolvePackaging, shapeName, userDecision,
+  type PackagingDecision,
+} from "@/lib/catalog/packagingResolver";
 import { loadDesignFonts } from "@/lib/artwork/draw";
 import { computeSmartLayout } from "@/lib/artwork/smartLayout";
 import { autoLayoutState, exportAllowed, fullPreflight, parseSmartLayoutState, sameState, stateFromResult, wrapPlacementFromState } from "@/lib/artwork/smartLayoutState";
@@ -60,6 +65,8 @@ interface SavedProject {
   smartLayout?: unknown;
   /** Automatic layout adjustment (phase 3B): on unless the user chose "Annuler l'ajustement". */
   smartLayoutAuto?: boolean;
+  /** How the packaging was decided (phase 3C): resolver, user or legacy; validated on load. */
+  packaging?: unknown;
 }
 
 /** Neutral placeholders: the studio never shows a demo product as if it were the user's. */
@@ -87,6 +94,11 @@ export function EdifyWorkspace() {
   const [shape, setShape] = useState<PackagingShape>(
     ALL_CATALOG_SHAPES.find((s) => s.id === "folding-box-standard") ?? ALL_CATALOG_SHAPES[0]
   );
+  // Phase 3C: how the current packaging was decided (kept with the project; drives its stability).
+  const [packagingDecision, setPackagingDecision] = useState<PackagingDecision>(() => legacyDecision(shape.id));
+  // The single packaging question, when Edify cannot tell from the brief (resolves the pending answer).
+  const [packagingAsk, setPackagingAsk] = useState<((a: PackagingAnswer | null) => void) | null>(null);
+  const askPackaging = () => new Promise<PackagingAnswer | null>((resolve) => setPackagingAsk(() => resolve));
   const [style, setStyle] = useState<VisualStylePreset>(ALL_CATALOG_STYLES[0]);
   const [customPalette, setCustomPalette] = useState<string[] | null>(null);
   const [headingFont, setHeadingFont] = useState<string | null>(null);
@@ -180,7 +192,6 @@ export function EdifyWorkspace() {
     setSmartLayoutRaw(on && smartLayout ? stateFromResult(smartLayout) : null);
   }, [smartLayout]);
   const fullDesign: PackagingDesign = useMemo(() => (wrapPlacement ? { ...designAsDrawn, wrapPlacement } : designAsDrawn), [designAsDrawn, wrapPlacement]);
-  const stageBaseDesign = useMemo(() => (wrapPlacement ? { ...baseDesign, wrapPlacement } : baseDesign), [baseDesign, wrapPlacement]);
   // Preflight of the packaging as it will be printed (live in the preview; recomputed fresh before an export).
   const barcode = designAsDrawn.barcode;
   const preflight = useMemo(() => fullPreflight(structure, smartLayout?.elements ?? null, smartState, { barcode }), [structure, smartLayout, smartState, barcode]);
@@ -268,7 +279,11 @@ export function EdifyWorkspace() {
     if (!d?.content) return;
     const s = ALL_CATALOG_SHAPES.find((x) => x.id === d.shapeId);
     const st = ALL_CATALOG_STYLES.find((x) => x.id === d.styleId);
-    if (s) setShape(s);
+    if (s) {
+      // Opened as saved, even a format no longer offered for new designs (never migrated silently).
+      setShape(s);
+      setPackagingDecision(parseDecision(d.packaging, s.id));
+    }
     if (st) setStyle(st);
     setCustomPalette(d.customPalette ?? null);
     setHeadingFont(d.headingFont ?? null);
@@ -289,7 +304,7 @@ export function EdifyWorkspace() {
     setSaveState("saving");
     const t = setTimeout(async () => {
       const supabase = createSupabase();
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto, packaging: packagingDecision };
       const row = { name: (content.projectName || "Sans titre").slice(0, 120), data };
       const id = projectId.current ?? (await ensureProjectId());
       if (!id) return setSaveState("error");
@@ -304,14 +319,14 @@ export function EdifyWorkspace() {
     }, 1200);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, extras, uploadedLogo, uploadedLogoName, smartState, smartLayoutAuto]);
+  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, extras, uploadedLogo, uploadedLogoName, smartState, smartLayoutAuto, packagingDecision]);
 
   /** Makes sure the packaging exists in the database (needed before the AI or a download). */
   const ensureProjectId = async () => {
     if (projectId.current) return projectId.current;
     // Single flight: the autosave and the AI may ask at the same time — create one packaging only.
     if (!creatingProject.current) {
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto, packaging: packagingDecision };
       creatingProject.current = (async () => {
         const { data: row } = await createSupabase().from("projects").insert({ name: (content.projectName || "Nouveau packaging").slice(0, 120), data }).select("id").single();
         projectId.current = row?.id ?? null;
@@ -356,7 +371,10 @@ export function EdifyWorkspace() {
     if (!shared) return;
     const s = ALL_CATALOG_SHAPES.find((x) => x.id === shared.shapeId);
     const st = ALL_CATALOG_STYLES.find((x) => x.id === shared.styleId);
-    if (s) setShape(s);
+    if (s) {
+      setShape(s);
+      setPackagingDecision(legacyDecision(s.id));
+    }
     if (st) setStyle(st);
     setCustomPalette(shared.customPalette ?? null);
     setHeadingFont(shared.headingFont ?? null);
@@ -428,6 +446,7 @@ export function EdifyWorkspace() {
 
   const handleSelectShape = (s: PackagingShape) => {
     setShape(s);
+    setPackagingDecision(userDecision(s.id));
     showToast(`Contenant : ${s.name} (${s.dimensions})`);
   };
 
@@ -492,6 +511,24 @@ export function EdifyWorkspace() {
     reference: ReferenceFile | null,
     opts: { fresh?: boolean; fields?: Partial<DesignContent>; logoColors?: string[] } = {}
   ) => {
+    // Packaging (phase 3C): decided ONCE per generation by the resolver (never per keystroke), kept while
+    // the product's packaging meaning is unchanged, ONE human question when Edify cannot tell. The AI then
+    // designs on that format: it can no longer pick another one.
+    const current = packagingDecision.shapeId === shape.id ? packagingDecision : legacyDecision(shape.id);
+    const act = decidePackaging(prompt, current, { fresh: opts.fresh });
+    let decision = current;
+    let packagingNote = "";
+    if (act.action !== "keep") {
+      let resolution = act.resolution;
+      if (act.action === "ask") {
+        const answer = await askPackaging();
+        if (!answer) return false;
+        resolution = answer === "unsure" ? recommendWhenUnsure(prompt) : resolvePackaging(prompt, { family: answer });
+      }
+      if (!resolution.shapeId) return false;
+      decision = decisionFrom(resolution);
+      if (resolution.refused) packagingNote = ` « ${resolution.refused.name} » n'est pas encore disponible : ${shapeName(resolution.shapeId)} à la place.`;
+    }
     // Designing is free to try: the paywall comes at download time.
     setIsGenerating(true);
     try {
@@ -505,6 +542,7 @@ export function EdifyWorkspace() {
           fresh: opts.fresh ?? false,
           projectId: pid,
           logoColors: opts.logoColors ?? [],
+          lockShapeId: isSupportedShape(decision.shapeId) ? decision.shapeId : null,
           current: {
             shapeId: shape.id,
             styleId: style.id,
@@ -548,13 +586,14 @@ export function EdifyWorkspace() {
       if (!res.ok || !json.spec) throw new Error(json.error || `HTTP ${res.status}`);
       const sp = json.spec as DesignSpec;
       applySpec(sp);
+      setPackagingDecision(sp.shapeId === decision.shapeId ? decision : legacyDecision(sp.shapeId));
       // The custom illustration is part of the design: wait for it (the layouts fall back without it).
       if (sp.artStyle && sp.artStyle !== "none" && sp.artSubject) {
         await generateArt(sp.artStyle, sp.artSubject, [sp.palette.background, sp.palette.ink, sp.palette.accent, sp.palette.extra]);
       }
       if (json.engine !== "local") track("ai_design");
       if (opts.fresh) track("new_packaging");
-      const msg = json.engine === "local" ? `Design généré hors ligne. ${json.notice ?? ""}` : `✨ ${json.spec.rationale}`;
+      const msg = (json.engine === "local" ? `Design généré hors ligne. ${json.notice ?? ""}` : `✨ ${json.spec.rationale}`) + packagingNote;
       showToast(msg, 7000);
       return true;
     } catch (e) {
@@ -649,9 +688,12 @@ export function EdifyWorkspace() {
       if (c.containerQuery?.trim()) {
         const words = c.containerQuery.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(/\s+/).filter((w) => w.length > 2);
         const norm = (t: string) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        const best = ALL_CATALOG_SHAPES.map((sh) => ({ sh, score: words.filter((w) => norm(`${sh.name} ${sh.category ?? ""} ${sh.material ?? ""}`).includes(w)).length }))
+        const best = ALL_CATALOG_SHAPES.filter((sh) => isSupportedShape(sh.id)).map((sh) => ({ sh, score: words.filter((w) => norm(`${sh.name} ${sh.category ?? ""} ${sh.material ?? ""}`).includes(w)).length }))
           .sort((a, b) => b.score - a.score)[0];
-        if (best?.score) setShape(best.sh);
+        if (best?.score) {
+          setShape(best.sh);
+          setPackagingDecision(userDecision(best.sh.id));
+        }
       }
     } catch (e) {
       console.error(e);
@@ -862,6 +904,7 @@ export function EdifyWorkspace() {
           logo={uploadedLogo}
           logoName={uploadedLogoName}
           onSelectShape={handleSelectShape}
+          packaging={{ decision: packagingDecision, productText: `${content.productName} ${content.volume} ${content.details}` }}
           onSelectStyle={handleSelectStyle}
           onChangeFont={handleChangeFont}
           onChangeContent={updateContent}
@@ -888,7 +931,6 @@ export function EdifyWorkspace() {
             shape={shape}
             spec={spec}
             design={fullDesign}
-            baseDesign={stageBaseDesign}
             smart={smartView}
             logoUrl={uploadedLogo}
             onCaptureReady={handleCaptureReady}
@@ -920,6 +962,17 @@ export function EdifyWorkspace() {
       <GamePanel open={gameOpen} state={game.state} onClose={() => setGameOpen(false)} />
       <GameCelebration celebration={game.celebration} onClose={game.dismissCelebration} />
       <PlanPaywall open={!!paywall} reason={paywall ?? "generate"} onClose={() => setPaywall(null)} />
+      <PackagingQuestion
+        open={!!packagingAsk}
+        onAnswer={(a) => {
+          packagingAsk?.(a);
+          setPackagingAsk(null);
+        }}
+        onCancel={() => {
+          packagingAsk?.(null);
+          setPackagingAsk(null);
+        }}
+      />
       <PreflightDialog
         report={preflightBlock}
         canFix={!!smartLayout && !!preflightBlock?.issues.some((i) => i.blocking && i.fix === "smart-layout")}
