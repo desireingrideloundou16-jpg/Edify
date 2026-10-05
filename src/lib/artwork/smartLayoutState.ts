@@ -13,8 +13,10 @@
  */
 import {
   PREFLIGHT_NOT_APPLICABLE, ROLE_PRIORITY, layoutOffsets, preflightLayout, rectInRegion,
-  type ElementRole, type PackagingElement, type PackagingStructure, type PreflightReport, type Rect,
+  type ElementRole, type PackagingElement, type PackagingStructure, type PreflightIssue, type PreflightReport, type PrintSurface, type Rect,
 } from "@/lib/structure";
+import { normalizeEan } from "@/lib/print/ean13";
+import { wrapHasBackPanel, type PackagingDesign } from "./draw";
 import type { WrapPlacement } from "./placement";
 import type { SmartLayoutResult } from "./smartLayout";
 
@@ -167,3 +169,71 @@ export function runPackagingPreflight(structure: PackagingStructure, elements: P
 
 /** The final print export is allowed unless the preflight found a blocking issue (warnings go through). */
 export const exportAllowed = (r: PreflightReport) => r.status !== "blocking";
+
+// ─── Phase 3B ────────────────────────────────────────────────────────────────
+
+/**
+ * P0-2 — the smart layout is applied automatically. The next applied state for a fresh result:
+ * - an applied state follows the design (the deterministic plan, applied again);
+ * - with the automatic adjustment on (the default), a result that moves something becomes the applied
+ *   state at once; a result that moves nothing leaves the design as it is (null);
+ * - with it switched off ("Annuler l'ajustement"), the original layout is kept.
+ * Pure and idempotent: called again with its own output it returns an equal state (no loop).
+ */
+export function autoLayoutState(result: SmartLayoutResult | null, current: SmartLayoutState | null, auto: boolean): SmartLayoutState | null {
+  if (!result) return current;
+  if (!auto) return null;
+  const next = stateFromResult(result);
+  if (current) return sameState(next, current) ? current : next;
+  return next.placements.length ? next : null;
+}
+
+/** Surfaces whose artwork carries the back panel, hence a barcode place (same rule as the drawing). */
+export function barcodeSurfaces(structure: PackagingStructure): PrintSurface[] {
+  return structure.printSurfaces.filter((p) => {
+    if (!p.printable) return false;
+    if (p.draw.kind === "back") return true;
+    if (p.draw.kind !== "wrap") return false;
+    const a = p.printArea ?? { x: 0, y: 0, w: p.wMm, h: p.hMm };
+    return wrapHasBackPanel(a.w, a.h, p.draw.frontFraction ?? 0.3);
+  });
+}
+
+export const BARCODE_MISSING = "Code-barres absent — ajoutez un code-barres valide avant l'impression.";
+export const BARCODE_INVALID = "Code-barres invalide — corrigez-le avant l'impression (13 chiffres, clé de contrôle correcte).";
+
+/**
+ * P0-1 — content preflight: a packaging whose artwork has a barcode place but no valid EAN-13 is not
+ * fully ready to print. Nothing is drawn there (never a fake code); this says so. A warning: the print
+ * file can still be produced, without a barcode.
+ */
+export function contentPreflight(structure: PackagingStructure, design: Pick<PackagingDesign, "barcode">): PreflightIssue[] {
+  const surfaces = barcodeSurfaces(structure);
+  if (!surfaces.length) return [];
+  const ean = normalizeEan(design.barcode);
+  if (ean.ok) return [];
+  const where = surfaces[0];
+  const message = ean.reason === "empty" ? BARCODE_MISSING : BARCODE_INVALID;
+  return [{
+    severity: "warning", blocking: false, elementId: "barcode", role: "barcode", priority: ROLE_PRIORITY.barcode, surfaceId: where.id,
+    message, reason: ean.reason === "empty" ? "aucun code saisi" : ean.reason === "format" ? "format invalide" : "clé de contrôle incorrecte",
+    fix: "content", currentRect: where.printArea ?? { x: 0, y: 0, w: where.wMm, h: where.hMm },
+  }];
+}
+
+/** The complete preflight of what is exported: placement (developed cones) + content (every format). */
+export function fullPreflight(structure: PackagingStructure, elements: PackagingElement[] | null, state: SmartLayoutState | null, design: Pick<PackagingDesign, "barcode">): PreflightReport {
+  const placement = runPackagingPreflight(structure, elements, state);
+  const content = contentPreflight(structure, design);
+  if (!content.length) return placement;
+  // Without a valid code nothing is printed at the barcode place: its position is not a print issue;
+  // the content warning ("Code-barres absent / invalide") replaces it.
+  const issues = [...placement.issues.filter((i) => i.role !== "barcode"), ...content];
+  return {
+    applicable: true,
+    status: issues.some((i) => i.blocking) ? "blocking" : "warning",
+    issues,
+    checked: placement.checked,
+    passed: placement.passed,
+  };
+}

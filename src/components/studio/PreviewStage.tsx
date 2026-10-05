@@ -10,7 +10,7 @@ import { resolveFlatLayout, BLEED_MM, type FlatLayout } from "@/lib/print/layout
 import { renderFlatArtwork, drawDieline, drawLayoutAdvice } from "@/lib/print/artwork";
 import type { SmartLayoutResult } from "@/lib/artwork/smartLayout";
 import type { PreflightReport } from "@/lib/structure";
-import { ROLE_LABEL, fixLabel } from "./roleLabels";
+import { ROLE_LABEL, fixLabel, sentence } from "./roleLabels";
 import type { PackagingSpec } from "@/lib/three/packagingModels";
 import type { ViewPreset } from "@/components/workspace/Packaging3DViewer";
 
@@ -28,6 +28,8 @@ export interface SmartLayoutView {
   result: SmartLayoutResult;
   /** An applied layout is part of the design: saved with the project, restored on reload. */
   applied: boolean;
+  /** Automatic adjustment on (phase 3B default); off after "Annuler l'ajustement". */
+  auto: boolean;
   onApply: (applied: boolean) => void;
   /** Preflight of the packaging as it will be printed. */
   preflight: PreflightReport;
@@ -50,7 +52,7 @@ function PreflightSummary({ report }: { report: PreflightReport }) {
             <li key={i.elementId} className="flex flex-wrap gap-x-1.5">
               <span className={i.blocking ? "text-red-600" : "text-amber-600"}>{i.blocking ? "⛔" : "⚠"}</span>
               <span className="font-medium text-slate-700">{ROLE_LABEL[i.role]}</span>
-              <span>{i.message}.</span>
+              <span>{sentence(i.message)}</span>
               <span className="text-slate-500">{fixLabel(i)}</span>
             </li>
           ))}
@@ -62,36 +64,31 @@ function PreflightSummary({ report }: { report: PreflightReport }) {
 
 /** RECOMMEND / APPLY panel: what the smart layout would move, what it cannot place, and why. */
 function SmartLayoutPanel({ smart }: { smart: SmartLayoutView }) {
-  const { result, applied, onApply } = smart;
-  // Declared decorative pieces (rules) simply follow their column: not listed.
-  const issues = result.plan.filter((p) => p.role !== "decorative" && (p.status === "moved" || p.status === "invalid"));
-  const moved = issues.filter((p) => p.status === "moved").length, invalid = issues.length - moved;
+  const { result, applied, auto, onApply } = smart;
+  // Phase 3B: the adjustment is automatic; the panel only says what happened, in plain words (no
+  // measures, no technical terms). Declared decorative pieces (rules) simply follow: not listed.
+  // An empty barcode place (no valid code yet) is not shown as a repositioned element.
+  const noCode = smart.preflight.issues.some((i) => i.elementId === "barcode");
+  const moved = [...new Set(result.plan.filter((p) => p.role !== "decorative" && p.status === "moved" && !(noCode && p.role === "barcode")).map((p) => ROLE_LABEL[p.role]))];
+  const impossible = [...new Set(result.plan.filter((p) => p.role !== "decorative" && p.status === "invalid").map((p) => ROLE_LABEL[p.role]))];
+  const text = applied
+    ? moved.length ? `Quelques éléments ont été repositionnés automatiquement pour l'impression : ${moved.join(", ").toLowerCase()}.` : "Mise en page vérifiée pour l'impression."
+    : !auto && moved.length ? "Ajustement automatique désactivé : la mise en page d'origine est utilisée." : "Mise en page vérifiée pour l'impression.";
   return (
     <div className="mt-3 mx-auto max-w-2xl rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-[11px] text-slate-600" aria-label="Mise en page intelligente">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="font-semibold text-slate-800">Mise en page intelligente</span>
-        <span>
-          {applied
-            ? "Corrections appliquées — enregistrées avec le projet."
-            : moved === 0 && invalid === 0 ? "Tous les éléments importants sont dans la zone sûre." : `${moved} élément${moved > 1 ? "s" : ""} à repositionner${invalid ? `, ${invalid} impossible${invalid > 1 ? "s" : ""} à placer` : ""} (recommandation).`}
-        </span>
-        {moved > 0 || applied ? (
-          <button type="button" className="ml-auto rounded-md border border-slate-300 px-2 py-0.5 font-medium text-slate-800 hover:bg-slate-50" aria-pressed={applied} onClick={() => onApply(!applied)}>
-            {applied ? "Revenir à la mise en page d'origine" : "Appliquer les positions recommandées"}
+        <span>{text}</span>
+        {applied && moved.length ? (
+          <button type="button" className="ml-auto rounded-md border border-slate-300 px-2 py-0.5 font-medium text-slate-800 hover:bg-slate-50" onClick={() => onApply(false)}>
+            Annuler l&apos;ajustement
+          </button>
+        ) : !applied && !auto && moved.length ? (
+          <button type="button" className="ml-auto rounded-md border border-slate-300 px-2 py-0.5 font-medium text-slate-800 hover:bg-slate-50" onClick={() => onApply(true)}>
+            Réactiver l&apos;ajustement
           </button>
         ) : null}
       </div>
-      {issues.length ? (
-        <ul className="mt-1 space-y-0.5">
-          {issues.map((p) => (
-            <li key={p.id} className="flex gap-1.5">
-              <span className={p.status === "invalid" ? "text-red-600" : "text-amber-600"}>{p.status === "invalid" ? "✕" : applied ? "✓" : "→"}</span>
-              <span className="font-medium text-slate-700">{ROLE_LABEL[p.role]}</span>
-              <span>{p.status === "moved" && applied ? p.reason.replace("déplacé", "repositionné") : p.reason}</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      {impossible.length ? <p className="mt-1 text-red-600">✕ {impossible.join(", ")} : ne tient pas sur le pot tel quel.</p> : null}
       <PreflightSummary report={smart.preflight} />
     </div>
   );
@@ -140,7 +137,8 @@ function DielineCanvas({ layout, design, zoom, smart }: { layout: FlatLayout; de
       // Fit width (and a sensible max height), then apply zoom.
       const fit = Math.min((width - 8) / totalW, 560 / totalH);
       const k = fit * zoom * dpr;
-      const art = renderFlatArtwork(layout, design, k);
+      // The flat preview may show non-printable hints (e.g. where the barcode will go); never the PDF.
+      const art = renderFlatArtwork(layout, { ...design, previewHints: true }, k);
       canvas.width = art.width;
       canvas.height = art.height;
       canvas.style.width = `${art.width / dpr}px`;

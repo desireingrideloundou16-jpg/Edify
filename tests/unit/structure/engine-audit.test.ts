@@ -363,15 +363,22 @@ describe("K. barrière d'export", () => {
   it("contrat de l'atelier : PDF et ZIP passent par le preflight AVANT le contrôle d'abonnement (aucun crédit consommé si bloqué)", () => {
     const src = readFileSync("src/components/workspace/EdifyWorkspace.tsx", "utf8");
     const body = src.slice(src.indexOf("const handleExport = async"), src.indexOf("return (", src.indexOf("const handleExport = async")));
-    const pre = body.indexOf("preflightNow()"), gate = body.indexOf("gateDownload()"), block = body.indexOf("if (!exportAllowed(checked))");
+    const pre = body.indexOf("preflightNow()"), gate = body.indexOf("gateDownload()"), block = body.indexOf("if (!exportAllowed(checked.report))");
     expect(pre).toBeGreaterThan(0);
     expect(block).toBeGreaterThan(pre);
     expect(gate).toBeGreaterThan(block);
     expect(body).toMatch(/if \(a === "pdf" \|\| a === "zip"\)/);
-    // the print files use the design that carries the applied layout, as the preview and the 3D
-    expect(src).toMatch(/downloadPrintPdf\(shape, fullDesign,/);
-    expect(src).toMatch(/generatePrintPdf\(shape, fullDesign,/);
-    expect(src).toMatch(/runPackagingPreflight\(structure, res\.elements, smartState\)/);
+    // phase 3B: the print files use the very design the preflight checked (automatic adjustment applied
+    // to the fresh record), never a design computed elsewhere
+    expect(body).toMatch(/handleDownloadPdf\(checked\)/);
+    expect(body).toMatch(/handleDownloadZip\(checked\)/);
+    expect(src).toMatch(/downloadPrintPdf\(shape, checked\?\.design \?\? fullDesign,/);
+    expect(src).toMatch(/const design = checked\?\.design \?\? fullDesign;/);
+    expect(src).toMatch(/generatePrintPdf\(shape, design,/);
+    const now = src.slice(src.indexOf("const preflightNow = async"), src.indexOf("type Checked"));
+    expect(now).toMatch(/const state = autoLayoutState\(res, smartState, smartLayoutAuto\);/);
+    expect(now).toMatch(/wrapPlacement: wrapPlacementFromState\(state\)/);
+    expect(now).toMatch(/report: fullPreflight\(structure, res\.elements, state, designAsDrawn\), design/);
   });
 });
 

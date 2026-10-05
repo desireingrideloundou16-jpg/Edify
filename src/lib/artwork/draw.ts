@@ -49,6 +49,11 @@ export interface PackagingDesign {
   adCta?: string;
   /** Smart layout applied to the wrap (phase 2C-4F-3): offsets of the moved elements (see artwork/placement.ts). */
   wrapPlacement?: WrapPlacement;
+  /**
+   * Non-printable hints of the flat preview only (phase 3B): e.g. "Code-barres à ajouter" where the
+   * barcode will go. Never set for the 3D, the thumbnails or the print PDF (exportPrintPdf forces false).
+   */
+  previewHints?: boolean;
 }
 
 export type FaceKind = "front" | "back" | "side" | "top" | "plain" | "strip";
@@ -147,18 +152,18 @@ function paperGrain(ctx: CanvasRenderingContext2D, x: number, y: number, w: numb
   for (let i = 0; i < n; i++) ctx.fillRect(x + Math.random() * w, y + Math.random() * h, 1.5, 1.5);
 }
 
+/**
+ * A real EAN-13 only. An absent or invalid code draws NOTHING (phase 3B): Edify never prints bars that
+ * could pass for a barcode. The preflight reports the missing code instead (artwork/smartLayoutState.ts).
+ */
 function drawBarcode(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, code?: string) {
   const ean = normalizeEan(code);
+  if (!ean.ok) return;
   // White box with the GS1 quiet zones (11 modules left, 7 right) so scanners read it on any background.
   const unit = w / 95;
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(x - unit * 11, y - h * 0.08, w + unit * 18, h * 1.32);
   ctx.fillStyle = "#111111";
-  if (!ean.ok) {
-    // Placeholder: evenly spaced thin bars, clearly not a real code.
-    for (let px = 0; px < w; px += unit * 3) ctx.fillRect(x + px, y, unit, h);
-    return;
-  }
   const modules = ean13Modules(ean.digits);
   const digitsH = h * 0.2;
   for (let i = 0; i < 95; i++) {
@@ -364,9 +369,37 @@ function drawBack(ctx: CanvasRenderingContext2D, x: number, y: number, w: number
   });
   ctx.restore();
 
-  // The barcode's box includes its white plate with the GS1 quiet zones (see drawBarcode).
+  // The barcode's box includes its white plate with the GS1 quiet zones (see drawBarcode). Without a valid
+  // code the place stays reserved (same element, same layout) but nothing printable is drawn there.
   const qz = bw / 95;
-  placeElement(ctx, "barcode", () => [barX - qz * 11, barTop - bh * 0.08, bw + qz * 18, bh * 1.32], () => drawBarcode(ctx, barX, barTop, bw, bh, d.barcode));
+  const box: [number, number, number, number] = [barX - qz * 11, barTop - bh * 0.08, bw + qz * 18, bh * 1.32];
+  const hasCode = normalizeEan(d.barcode).ok;
+  placeElement(ctx, "barcode", () => box, () => {
+    if (hasCode) drawBarcode(ctx, barX, barTop, bw, bh, d.barcode);
+    else if (d.previewHints) drawBarcodeHint(ctx, ...box);
+  });
+}
+
+/** Flat preview only: where the barcode will go — a dashed frame and a label, nothing like bars. */
+function drawBarcodeHint(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+  ctx.save();
+  ctx.strokeStyle = "rgba(100,116,139,0.85)";
+  ctx.lineWidth = Math.max(1, h * 0.03);
+  ctx.setLineDash([h * 0.08, h * 0.06]);
+  ctx.strokeRect(x, y, w, h);
+  ctx.setLineDash([]);
+  ctx.fillStyle = "rgba(71,85,105,0.95)";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  const label = "Code-barres à ajouter";
+  fitText(ctx, label, w * 0.9, h * 0.22, (z) => `600 ${z}px Arial, sans-serif`);
+  ctx.fillText(label, x + w / 2, y + h / 2);
+  ctx.restore();
+}
+
+/** Does a wrap of this size carry the back panel (label copy, facts, barcode) beside its front? */
+export function wrapHasBackPanel(w: number, h: number, frontFraction: number) {
+  return (w - w * frontFraction) / 2 > h * 0.35;
 }
 
 function drawSide(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, d: PackagingDesign, kind: FaceKind) {
@@ -443,7 +476,7 @@ function paintWrap(
   drawFront(ctx, x + (w - fw) / 2, y + h * 0.035, fw, h * 0.93, d);
   // Legal copy on the left-hand side of the wrap (reads when the pack is turned).
   const side = (w - fw) / 2;
-  if (side > h * 0.35) {
+  if (wrapHasBackPanel(w, h, frontFraction)) {
     // Plain panel behind the label copy so it stays readable over a motif.
     if (d.motif && d.motif !== "none") {
       ctx.fillStyle = bg;

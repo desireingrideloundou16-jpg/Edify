@@ -43,7 +43,8 @@ export async function generatePrintPdf(shape: PackagingShape, design: PackagingD
   const bleedH = layout.height + BLEED_MM * 2;
   const pxPerMm = Math.min(300 / 25.4, MAX_PX / Math.max(bleedW, bleedH));
   const dpi = Math.round(pxPerMm * 25.4);
-  const art = renderFlatArtwork(layout, design, pxPerMm);
+  // The print file never carries the preview's non-printable hints (phase 3B).
+  const art = renderFlatArtwork(layout, { ...design, previewHints: false }, pxPerMm);
   const big = art.width * art.height > 12_000_000;
   const blob = await canvasToBlob(art, big ? "image/jpeg" : "image/png", big ? 0.95 : undefined);
   const imgBytes = new Uint8Array(await blob.arrayBuffer());

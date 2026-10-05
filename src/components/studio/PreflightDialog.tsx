@@ -3,7 +3,7 @@
 import React from "react";
 import { X } from "lucide-react";
 import type { PreflightReport } from "@/lib/structure";
-import { ROLE_LABEL, fixLabel } from "./roleLabels";
+import { ROLE_LABEL, fixLabel, sentence } from "./roleLabels";
 
 /**
  * Export stopped by the preflight (phase 2C-4F-4): what is wrong, where, why and how to fix it. The
@@ -26,7 +26,7 @@ export function PreflightDialog({ report, canFix, onFix, onClose }: { report: Pr
         <ul className="mt-3 space-y-2 text-left text-sm">
           {blocking.map((i) => (
             <li key={i.elementId}>
-              <strong>{ROLE_LABEL[i.role]}</strong> — {i.message}.
+              <strong>{ROLE_LABEL[i.role]}</strong> — {sentence(i.message)}
               <br />
               <span className="text-slate-500">{fixLabel(i)}</span>
             </li>

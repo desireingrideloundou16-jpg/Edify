@@ -25,8 +25,8 @@ import { useSmartLayout } from "@/components/studio/useSmartLayout";
 import { PreflightDialog } from "@/components/studio/PreflightDialog";
 import { loadDesignFonts } from "@/lib/artwork/draw";
 import { computeSmartLayout } from "@/lib/artwork/smartLayout";
-import { exportAllowed, parseSmartLayoutState, runPackagingPreflight, sameState, stateFromResult, wrapPlacementFromState } from "@/lib/artwork/smartLayoutState";
-import { PREFLIGHT_NOT_APPLICABLE, resolveStructure, type PreflightReport } from "@/lib/structure";
+import { autoLayoutState, exportAllowed, fullPreflight, parseSmartLayoutState, sameState, stateFromResult, wrapPlacementFromState } from "@/lib/artwork/smartLayoutState";
+import { resolveStructure, type PreflightReport } from "@/lib/structure";
 import { UnsupportedDielineError } from "@/lib/print/layout";
 import { createClient as createSupabase } from "@/lib/supabase/client";
 import { briefContent, briefToPrompt, clearBrief, loadBrief } from "@/lib/design/brief";
@@ -58,6 +58,8 @@ interface SavedProject {
   extras?: DesignExtras | null;
   /** Applied smart layout (conical tubs, phase 2C-4F-4): validated on load, see artwork/smartLayoutState.ts. */
   smartLayout?: unknown;
+  /** Automatic layout adjustment (phase 3B): on unless the user chose "Annuler l'ajustement". */
+  smartLayoutAuto?: boolean;
 }
 
 /** Neutral placeholders: the studio never shows a demo product as if it were the user's. */
@@ -163,23 +165,29 @@ export function EdifyWorkspace() {
   // drawn as it is after a reload; dropping it restores the original layout, which is never rewritten.
   const structure = useMemo(() => resolveStructure(spec), [spec]);
   const [smartLayoutRaw, setSmartLayoutRaw] = useState<unknown>(null);
+  const [smartLayoutAuto, setSmartLayoutAuto] = useState(true);
   const smartState = useMemo(() => parseSmartLayoutState(smartLayoutRaw, structure).state, [smartLayoutRaw, structure]);
   const wrapPlacement = useMemo(() => (smartState ? wrapPlacementFromState(smartState) : undefined), [smartState]);
-  // An applied layout follows the design: when the design changes, the (deterministic) plan is applied again.
+  // P0-2 (phase 3B): the correction the smart layout computes is applied automatically, once per result,
+  // and follows the design; "Annuler l'ajustement" switches it off (kept with the project). Converges at
+  // once: autoLayoutState is idempotent, so the new state never triggers another change.
   useEffect(() => {
-    if (!smartState || !smartLayout) return;
-    const next = stateFromResult(smartLayout);
+    const next = autoLayoutState(smartLayout, smartState, smartLayoutAuto);
     if (!sameState(next, smartState)) setSmartLayoutRaw(next);
-  }, [smartLayout, smartState]);
-  const applySmartLayout = useCallback((on: boolean) => setSmartLayoutRaw(on && smartLayout ? stateFromResult(smartLayout) : null), [smartLayout]);
+  }, [smartLayout, smartState, smartLayoutAuto]);
+  const applySmartLayout = useCallback((on: boolean) => {
+    setSmartLayoutAuto(on);
+    setSmartLayoutRaw(on && smartLayout ? stateFromResult(smartLayout) : null);
+  }, [smartLayout]);
   const fullDesign: PackagingDesign = useMemo(() => (wrapPlacement ? { ...designAsDrawn, wrapPlacement } : designAsDrawn), [designAsDrawn, wrapPlacement]);
   const stageBaseDesign = useMemo(() => (wrapPlacement ? { ...baseDesign, wrapPlacement } : baseDesign), [baseDesign, wrapPlacement]);
   // Preflight of the packaging as it will be printed (live in the preview; recomputed fresh before an export).
-  const preflight = useMemo(() => runPackagingPreflight(structure, smartLayout?.elements ?? null, smartState), [structure, smartLayout, smartState]);
+  const barcode = designAsDrawn.barcode;
+  const preflight = useMemo(() => fullPreflight(structure, smartLayout?.elements ?? null, smartState, { barcode }), [structure, smartLayout, smartState, barcode]);
   const [preflightBlock, setPreflightBlock] = useState<PreflightReport | null>(null);
   const smartView = useMemo(
-    () => (smartLayout ? { result: smartLayout, applied: !!smartState, onApply: applySmartLayout, preflight } : null),
-    [smartLayout, smartState, applySmartLayout, preflight]
+    () => (smartLayout ? { result: smartLayout, applied: !!smartState, auto: smartLayoutAuto, onApply: applySmartLayout, preflight } : null),
+    [smartLayout, smartState, smartLayoutAuto, applySmartLayout, preflight]
   );
 
   const game = useGame(!!account);
@@ -269,6 +277,7 @@ export function EdifyWorkspace() {
     setMotif(d.motif ?? null);
     setExtras(d.extras ?? {});
     setSmartLayoutRaw(d.smartLayout ?? null);
+    setSmartLayoutAuto(d.smartLayoutAuto ?? true);
     setContent({ ...DEFAULT_CONTENT, ...d.content });
     setUploadedLogo(d.logo ?? null);
     setUploadedLogoName(d.logoName ?? null);
@@ -280,7 +289,7 @@ export function EdifyWorkspace() {
     setSaveState("saving");
     const t = setTimeout(async () => {
       const supabase = createSupabase();
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto };
       const row = { name: (content.projectName || "Sans titre").slice(0, 120), data };
       const id = projectId.current ?? (await ensureProjectId());
       if (!id) return setSaveState("error");
@@ -295,14 +304,14 @@ export function EdifyWorkspace() {
     }, 1200);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, extras, uploadedLogo, uploadedLogoName, smartState]);
+  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, extras, uploadedLogo, uploadedLogoName, smartState, smartLayoutAuto]);
 
   /** Makes sure the packaging exists in the database (needed before the AI or a download). */
   const ensureProjectId = async () => {
     if (projectId.current) return projectId.current;
     // Single flight: the autosave and the AI may ask at the same time — create one packaging only.
     if (!creatingProject.current) {
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto };
       creatingProject.current = (async () => {
         const { data: row } = await createSupabase().from("projects").insert({ name: (content.projectName || "Nouveau packaging").slice(0, 120), data }).select("id").single();
         projectId.current = row?.id ?? null;
@@ -356,6 +365,7 @@ export function EdifyWorkspace() {
     setMotif(shared.motif ?? null);
     setExtras(shared.extras ?? {});
     setSmartLayoutRaw(null);
+    setSmartLayoutAuto(true);
     setContent({
       projectName: shared.projectName ?? DEFAULT_CONTENT.projectName,
       brandName: shared.brandName ?? "",
@@ -652,28 +662,35 @@ export function EdifyWorkspace() {
   };
 
   /**
-   * Preflight of the artwork exactly as it will be exported (fresh record, current applied layout).
-   * Formats without composition regions: not applicable. Throws if the check cannot run.
+   * Preflight of the artwork exactly as it will be exported: fresh record, the automatic adjustment
+   * applied to this very artwork (phase 3B), and the design to export with it — the exported files use
+   * THIS design, so the check and the print file can never differ. Throws if the check cannot run.
    */
-  const preflightNow = async (): Promise<PreflightReport> => {
-    if (!structure.composition) return PREFLIGHT_NOT_APPLICABLE;
+  const preflightNow = async (): Promise<{ report: PreflightReport; design: PackagingDesign }> => {
+    if (!structure.composition) return { report: fullPreflight(structure, null, null, designAsDrawn), design: fullDesign };
     await loadDesignFonts(designAsDrawn);
     const ctx = document.createElement("canvas").getContext("2d");
     const res = ctx ? computeSmartLayout(structure, designAsDrawn, ctx) : null;
     if (!res) throw new Error("preflight unavailable");
-    return runPackagingPreflight(structure, res.elements, smartState);
+    const state = autoLayoutState(res, smartState, smartLayoutAuto);
+    if (!sameState(state, smartState)) setSmartLayoutRaw(state);
+    const design = state ? { ...designAsDrawn, wrapPlacement: wrapPlacementFromState(state) } : designAsDrawn;
+    return { report: fullPreflight(structure, res.elements, state, designAsDrawn), design };
   };
-  const warningNote = (r: PreflightReport | null) => {
-    const n = r?.issues.filter((i) => !i.blocking).length ?? 0;
-    return n ? ` ⚠ ${n} avertissement${n > 1 ? "s" : ""} de mise en page.` : "";
+  type Checked = Awaited<ReturnType<typeof preflightNow>>;
+  const warningNote = (r: PreflightReport | null | undefined) => {
+    const warnings = r?.issues.filter((i) => !i.blocking) ?? [];
+    const content = warnings.find((i) => i.fix === "content" && i.elementId === "barcode");
+    if (content) return ` ⚠ ${content.message}`;
+    return warnings.length ? ` ⚠ ${warnings.length} avertissement${warnings.length > 1 ? "s" : ""} de mise en page.` : "";
   };
 
-  const handleDownloadPdf = async (checked: PreflightReport | null = null) => {
+  const handleDownloadPdf = async (checked: Checked | null = null) => {
     setIsExportingPdf(true);
     try {
-      const res = await downloadPrintPdf(shape, fullDesign, content.projectName);
+      const res = await downloadPrintPdf(shape, checked?.design ?? fullDesign, content.projectName);
       track("download_pdf");
-      showToast(`✓ PDF d'impression téléchargé (${res.dpi} dpi, fonds perdus 3 mm, tracé de découpe en page 2).${warningNote(checked)}`, 5000);
+      showToast(`✓ PDF d'impression téléchargé (${res.dpi} dpi, fonds perdus 3 mm, tracé de découpe en page 2).${warningNote(checked?.report)}`, 6000);
     } catch (e) {
       // Formats without a valid die-line template: refuse with the reason, never a fake pattern.
       if (e instanceof UnsupportedDielineError) showToast(e.message, 6000);
@@ -686,14 +703,15 @@ export function EdifyWorkspace() {
     }
   };
 
-  const handleDownloadZip = async (checked: PreflightReport | null = null) => {
+  const handleDownloadZip = async (checked: Checked | null = null) => {
+    const design = checked?.design ?? fullDesign;
     setIsExportingZip(true);
     try {
       const zip = new JSZip();
       const base = slugify(content.projectName) || shape.id;
       // No print PDF for formats without a valid die-line template; the rest of the archive still ships.
       let dielineNote: string | null = null;
-      const pdf = await generatePrintPdf(shape, fullDesign, content.projectName).catch((e: unknown) => {
+      const pdf = await generatePrintPdf(shape, design, content.projectName).catch((e: unknown) => {
         if (!(e instanceof UnsupportedDielineError)) throw e;
         dielineNote = e.message;
         return null;
@@ -702,12 +720,12 @@ export function EdifyWorkspace() {
       let shot = previewMode === "3d" ? captureRef.current?.() : null;
       if (!shot) {
         const { renderShowcase } = await import("@/lib/three/thumbnails");
-        shot = await renderShowcase(shape, fullDesign, 1400, -0.5);
+        shot = await renderShowcase(shape, design, 1400, -0.5);
       }
       if (shot) zip.file(`${base}-apercu-3d.png`, shot.split(",")[1], { base64: true });
       try {
         const { exportGlb } = await import("@/lib/three/arExport");
-        zip.file(`${base}-modele-3d.glb`, await exportGlb(spec, fullDesign));
+        zip.file(`${base}-modele-3d.glb`, await exportGlb(spec, design));
       } catch (e) {
         console.warn("GLB export skipped", e);
       }
@@ -733,7 +751,7 @@ export function EdifyWorkspace() {
       saveBlob(blob, `edify-${base}.zip`);
       showToast(
         pdf
-          ? `✓ Archive téléchargée : PDF d'impression, aperçu 3D, modèle GLB et fiche technique.${warningNote(checked)}`
+          ? `✓ Archive téléchargée : PDF d'impression, aperçu 3D, modèle GLB et fiche technique.${warningNote(checked?.report)}`
           : "✓ Archive téléchargée : aperçu 3D, modèle GLB et fiche technique (pas de patron de découpe pour ce format).",
         6000
       );
@@ -776,7 +794,7 @@ export function EdifyWorkspace() {
     }
     // Print files (PDF, and the ZIP that carries it): preflight first. A blocking issue stops the export
     // here — before the plan gate, so nothing is claimed — and is shown with its fix; warnings go through.
-    let checked: PreflightReport | null = null;
+    let checked: Checked | null = null;
     if (a === "pdf" || a === "zip") {
       try {
         checked = await preflightNow();
@@ -785,8 +803,8 @@ export function EdifyWorkspace() {
         showToast("La vérification avant impression n'a pas pu être faite. Réessayez.");
         return;
       }
-      if (!exportAllowed(checked)) {
-        setPreflightBlock(checked);
+      if (!exportAllowed(checked.report)) {
+        setPreflightBlock(checked.report);
         return;
       }
     }
