@@ -1,0 +1,9127 @@
+{
+ "folding-box-standard": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 112,
+   "L": 38,
+   "W": 38
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 218,
+   "width": 165.3
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 38,
+    "hMm": 112,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 38,
+    "hMm": 112,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 38,
+    "hMm": 38,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 38,
+    "hMm": 38,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 38,
+    "hMm": 112,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 38,
+    "hMm": 112,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 13.3,
+    "hMm": 112,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "d287b92175c9f0595b6f4faeca205ea8",
+   "extraCuts": null,
+   "creases": "f0330ebaa11ffc61b217e9be6e1855e7",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "7be36dcee9d309fb2dbede52adb9ca9f",
+   "composition": null
+  },
+  "structureHash": "178b5e51529855a78a0ff02d433f043f"
+ },
+ "tuck-end-box-wide": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 130,
+   "L": 90,
+   "W": 40
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 240,
+   "width": 274
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 40,
+    "hMm": 130,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 40,
+    "hMm": 130,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 90,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 90,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 90,
+    "hMm": 130,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 90,
+    "hMm": 130,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 14,
+    "hMm": 130,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "f68c9b718da9ab77d044e66eafc26493",
+   "extraCuts": null,
+   "creases": "f56b1e3c3e9901caad0be31c1573c8c5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "9ab173ad3377e48e389b09798a9ab765",
+   "composition": null
+  },
+  "structureHash": "487ec3b824b832d5666698fd2eb356e1"
+ },
+ "tuck-end-box-tall": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 160,
+   "L": 55,
+   "W": 55
+  },
+  "material": {
+   "name": "Carton couché 400g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 300,
+   "width": 235
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 55,
+    "hMm": 160,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 55,
+    "hMm": 160,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 55,
+    "hMm": 55,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 55,
+    "hMm": 55,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 55,
+    "hMm": 160,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 55,
+    "hMm": 160,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 160,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "d32074590adb2ffeb41c7335537baeed",
+   "extraCuts": null,
+   "creases": "26b34de4de0ecf79fada4510416a0e8c",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "0b3fda8091a90ef9c660121d8c031afd",
+   "composition": null
+  },
+  "structureHash": "22544c7fa4c1df63f2bff9b31d83b541"
+ },
+ "cube-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 80,
+   "L": 80,
+   "W": 80
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 270,
+   "width": 335
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 80,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 80,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 80,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 80,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 80,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 80,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 80,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "705467c9cd0f505d62986d153bf2d01e",
+   "extraCuts": null,
+   "creases": "e4b23eae80d8cdb63b28914c2e689936",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "b1361f8c167a1acfec8b449357cba35a",
+   "composition": null
+  },
+  "structureHash": "713b8a792d4ac5f36ac476730e8db41a"
+ },
+ "flat-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 30,
+   "L": 150,
+   "W": 110
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 280,
+   "width": 535
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 110,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 110,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 150,
+    "hMm": 110,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 150,
+    "hMm": 110,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 150,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 150,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 30,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "d4d77cb6a5fc94e622b9b2d77143d8d9",
+   "extraCuts": null,
+   "creases": "b36d54fd5685a77ebcf9357d0c849445",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "8fcaa85efd6090ee128e7b6602b87dba",
+   "composition": null
+  },
+  "structureHash": "91510e1bfb16bb8df92c50be8204b375"
+ },
+ "cereal-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 280,
+   "L": 190,
+   "W": 65
+  },
+  "material": {
+   "name": "Carton compact 400g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 440,
+   "width": 525
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 65,
+    "hMm": 280,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 65,
+    "hMm": 280,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 190,
+    "hMm": 65,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 190,
+    "hMm": 65,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 190,
+    "hMm": 280,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 190,
+    "hMm": 280,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 280,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "cc4de15765ac7b007f67d2be7e4fcbec",
+   "extraCuts": null,
+   "creases": "9c982d41f8f528a40f395f37f3c9c543",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "b4419e4f54e6cc33166b3ef56d200a95",
+   "composition": null
+  },
+  "structureHash": "7a38ddc228edcf723edcd34052274287"
+ },
+ "tea-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 130,
+   "L": 70,
+   "W": 70
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 300,
+   "width": 295
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 70,
+    "hMm": 130,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 70,
+    "hMm": 130,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 70,
+    "hMm": 70,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 70,
+    "hMm": 70,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 70,
+    "hMm": 130,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 70,
+    "hMm": 130,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 130,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "24d9f34dde50f57f48af32fe333fe952",
+   "extraCuts": null,
+   "creases": "c345348f5f2574bc4b181425d14e883a",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "6d35517e81af2bc40a71ffa1b87aaa57",
+   "composition": null
+  },
+  "structureHash": "7e6b25b131377e0c9fa15edf0bf4a642"
+ },
+ "cigarette-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 88,
+   "L": 55,
+   "W": 22
+  },
+  "material": {
+   "name": "Carton couché 300g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 151.8,
+   "width": 162
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 22,
+    "hMm": 88,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 22,
+    "hMm": 88,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 55,
+    "hMm": 22,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 55,
+    "hMm": 22,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 55,
+    "hMm": 88,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 55,
+    "hMm": 88,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 8,
+    "hMm": 88,
+    "printable": false,
+    "safeMm": 2,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "9d21828e69086bc138dd4b2b58c240fc",
+   "extraCuts": null,
+   "creases": "02785910784bcfa5f3ff8de65b28b8d8",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "ec344a8165f4bd5bac5d68f99dd44b67",
+   "composition": null
+  },
+  "structureHash": "b6e085c528881c0abaf4cdccbc6ba82d"
+ },
+ "soap-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 35,
+   "L": 90,
+   "W": 60
+  },
+  "material": {
+   "name": "Kraft 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 185,
+   "width": 315
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 60,
+    "hMm": 35,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 60,
+    "hMm": 35,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 90,
+    "hMm": 60,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 90,
+    "hMm": 60,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 90,
+    "hMm": 35,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 90,
+    "hMm": 35,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 35,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "eb2d01473d9be29dbb6b39052d05dc82",
+   "extraCuts": null,
+   "creases": "4703aa1fec8fac360687baa0c35cb180",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "98143c7bcdf81c09edb005fc1bdd74b6",
+   "composition": null
+  },
+  "structureHash": "31dfe7aba0ced26db79bdb36c09dadd0"
+ },
+ "candle-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 100,
+   "L": 90,
+   "W": 90
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 310,
+   "width": 375
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 90,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 90,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 90,
+    "hMm": 90,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 90,
+    "hMm": 90,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 90,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 90,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 100,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "28aeb05aeb9d3d8a417c5d2b8648ca9e",
+   "extraCuts": null,
+   "creases": "5f47a8cf9a316aad1422f674a3e5905e",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "ddf5b807339bbed8aa43e9ccbe5a2821",
+   "composition": null
+  },
+  "structureHash": "ea6d2e18bf5785e872631f814d82eeb8"
+ },
+ "luxury-rigid-box": {
+  "model": "rigid",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "rigidSetUp",
+  "outerMm": {
+   "H": 70,
+   "L": 120,
+   "W": 120
+  },
+  "material": {
+   "name": "Carton rigide 1,5 mm",
+   "thicknessMm": 1.5,
+   "thicknessSource": "material-name"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 229.2,
+   "width": 399
+  },
+  "surfaces": [
+   {
+    "id": "base-right",
+    "wMm": 120,
+    "hMm": 54.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "base-left",
+    "wMm": 120,
+    "hMm": 54.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "base-top",
+    "wMm": 120,
+    "hMm": 120,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-bottom",
+    "wMm": 120,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-front",
+    "wMm": 120,
+    "hMm": 54.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-back",
+    "wMm": 120,
+    "hMm": 54.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-right",
+    "wMm": 121.8,
+    "hMm": 21,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-left",
+    "wMm": 121.8,
+    "hMm": 21,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-top",
+    "wMm": 121.8,
+    "hMm": 121.8,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-bottom",
+    "wMm": 121.8,
+    "hMm": 121.8,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-front",
+    "wMm": 121.8,
+    "hMm": 21,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-back",
+    "wMm": 121.8,
+    "hMm": 21,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "7f3e49ddb689f86d51cd9170fe28d19e",
+   "extraCuts": "e3934b3e0e88b550c78aa582361f69c4",
+   "creases": "443d26f43ce6de9a87f69129d6f44ea5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "a437517cc33e8e62a1daa2db7db2270b",
+   "composition": null
+  },
+  "structureHash": "c0ab5ca60224b9a8f1b66a62c71105d1"
+ },
+ "rigid-watch-box": {
+  "model": "rigid",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "rigidSetUp",
+  "outerMm": {
+   "H": 80,
+   "L": 100,
+   "W": 100
+  },
+  "material": {
+   "name": "Carton rigide 2 mm",
+   "thicknessMm": 2,
+   "thicknessSource": "material-name"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 224.8,
+   "width": 380.3
+  },
+  "surfaces": [
+   {
+    "id": "base-right",
+    "wMm": 100,
+    "hMm": 62.4,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "base-left",
+    "wMm": 100,
+    "hMm": 62.4,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "base-top",
+    "wMm": 100,
+    "hMm": 100,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-bottom",
+    "wMm": 100,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-front",
+    "wMm": 100,
+    "hMm": 62.4,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-back",
+    "wMm": 100,
+    "hMm": 62.4,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-right",
+    "wMm": 101.5,
+    "hMm": 24,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-left",
+    "wMm": 101.5,
+    "hMm": 24,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-top",
+    "wMm": 101.5,
+    "hMm": 101.5,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-bottom",
+    "wMm": 101.5,
+    "hMm": 101.5,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-front",
+    "wMm": 101.5,
+    "hMm": 24,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-back",
+    "wMm": 101.5,
+    "hMm": 24,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "f16ccea6656fb5fbca1587fcf1eaa2cf",
+   "extraCuts": "6e79527e386ae0ebeec99efaa5f06ade",
+   "creases": "e0f68e23ccc97acfb83141ed113e6d08",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "fd09d49bb20c4d7b9596dac5d9f2112e",
+   "composition": null
+  },
+  "structureHash": "40ce25fc463c2b1e898319c3b26c90b3"
+ },
+ "rigid-shoe-box": {
+  "model": "rigid",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "rigidSetUp",
+  "outerMm": {
+   "H": 120,
+   "L": 330,
+   "W": 200
+  },
+  "material": {
+   "name": "Carton rigide 1,5 mm",
+   "thicknessMm": 1.5,
+   "thicknessSource": "material-name"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 387.2,
+   "width": 930.15
+  },
+  "surfaces": [
+   {
+    "id": "base-right",
+    "wMm": 200,
+    "hMm": 93.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "base-left",
+    "wMm": 200,
+    "hMm": 93.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "base-top",
+    "wMm": 330,
+    "hMm": 200,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-bottom",
+    "wMm": 330,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-front",
+    "wMm": 330,
+    "hMm": 93.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-back",
+    "wMm": 330,
+    "hMm": 93.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-right",
+    "wMm": 203,
+    "hMm": 36,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-left",
+    "wMm": 203,
+    "hMm": 36,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-top",
+    "wMm": 334.95,
+    "hMm": 203,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-bottom",
+    "wMm": 334.95,
+    "hMm": 203,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-front",
+    "wMm": 334.95,
+    "hMm": 36,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-back",
+    "wMm": 334.95,
+    "hMm": 36,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "5b82b7ca611404fcdb76170d8e1244ac",
+   "extraCuts": "b5b996367f0f0d5c05bacf1c0fb51476",
+   "creases": "d7e8d9c905852a158b0b41e60bcdad84",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "e1dc21e14a4fe2d523dd0e720dbf64a5",
+   "composition": null
+  },
+  "structureHash": "567175cc4d9ac02a830131cd82f0c1b4"
+ },
+ "gift-box-large": {
+  "model": "rigid",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "rigidSetUp",
+  "outerMm": {
+   "H": 100,
+   "L": 300,
+   "W": 220
+  },
+  "material": {
+   "name": "Carton rigide 2 mm",
+   "thicknessMm": 2,
+   "thicknessSource": "material-name"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 376,
+   "width": 826.5
+  },
+  "surfaces": [
+   {
+    "id": "base-right",
+    "wMm": 220,
+    "hMm": 78,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "base-left",
+    "wMm": 220,
+    "hMm": 78,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "base-top",
+    "wMm": 300,
+    "hMm": 220,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-bottom",
+    "wMm": 300,
+    "hMm": 220,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-front",
+    "wMm": 300,
+    "hMm": 78,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "base-back",
+    "wMm": 300,
+    "hMm": 78,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-right",
+    "wMm": 223.3,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-left",
+    "wMm": 223.3,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-top",
+    "wMm": 304.5,
+    "hMm": 223.3,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-bottom",
+    "wMm": 304.5,
+    "hMm": 223.3,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-front",
+    "wMm": 304.5,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "lid-back",
+    "wMm": 304.5,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "3a3b37c80355dd7eabbc29827e42e68a",
+   "extraCuts": "9841156f30dcee33ed3f9df28771e2f9",
+   "creases": "aec78d3848429d6f5e6a6df2789cf9d8",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "68d45b685130ce24424d3db17c514753",
+   "composition": null
+  },
+  "structureHash": "857b176c3a9bb81f84828c84a0ad5f98"
+ },
+ "ecom-mailer": {
+  "model": "mailer",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "rollEndTuckFront",
+  "outerMm": {
+   "H": 60,
+   "L": 220,
+   "W": 160
+  },
+  "material": {
+   "name": "Carton ondulé E",
+   "thicknessMm": 1.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 519.5,
+   "width": 454
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 160,
+    "hMm": 60,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 160,
+    "hMm": 60,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 211,
+    "hMm": 157,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 217,
+    "hMm": 157,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 217,
+    "hMm": 60,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 217,
+    "hMm": 58.5,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "592ea271d58f71a9ab17eb58ea6ea307",
+   "extraCuts": null,
+   "creases": "ea9016c111febaa8d2ec13a19d7d9315",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": "6deb4de9f716dc9ecda11704d690a6e2",
+   "panels": "4328c2004a75d462d4dc515ab93b80a8",
+   "composition": null
+  },
+  "structureHash": "6494547fb02385e6bee143da53939e5a"
+ },
+ "mailer-small": {
+  "model": "mailer",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "rollEndTuckFront",
+  "outerMm": {
+   "H": 50,
+   "L": 150,
+   "W": 110
+  },
+  "material": {
+   "name": "Carton ondulé E",
+   "thicknessMm": 1.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 384.5,
+   "width": 344
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 110,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 110,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 141,
+    "hMm": 107,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 147,
+    "hMm": 107,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 147,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 147,
+    "hMm": 48.5,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "b164dab44b690c77e67226ae859d4816",
+   "extraCuts": null,
+   "creases": "a6fb5a7eac073375253799511b8b74c8",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": "0ffd08bb90bfe6204394176e6814e75c",
+   "panels": "b9549d1ede5410d0a930f0bc3995e632",
+   "composition": null
+  },
+  "structureHash": "5fdd489439931aa17215569b91a942e6"
+ },
+ "mailer-large": {
+  "model": "mailer",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "rollEndTuckFront",
+  "outerMm": {
+   "H": 100,
+   "L": 350,
+   "W": 250
+  },
+  "material": {
+   "name": "Carton ondulé B",
+   "thicknessMm": 3,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 829,
+   "width": 738
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 250,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 250,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 332,
+    "hMm": 244,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 344,
+    "hMm": 244,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 344,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 344,
+    "hMm": 97,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "e6c0c7f5abc37b1e2dddab88bcd20c04",
+   "extraCuts": null,
+   "creases": "92280c33ac544c35894fb2b5c4773dfd",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": "27dd800f74756c8cf661bccb5f749be6",
+   "panels": "b5beb5798b90e22c4886a2ebc655cf84",
+   "composition": null
+  },
+  "structureHash": "f79fc1bcb5b8b6ffb4db70e825775778"
+ },
+ "subscription-box": {
+  "model": "mailer",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "rollEndTuckFront",
+  "outerMm": {
+   "H": 90,
+   "L": 280,
+   "W": 200
+  },
+  "material": {
+   "name": "Carton ondulé E",
+   "thicknessMm": 1.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 704.5,
+   "width": 634
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 200,
+    "hMm": 90,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 200,
+    "hMm": 90,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 271,
+    "hMm": 197,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 277,
+    "hMm": 197,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 277,
+    "hMm": 90,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 277,
+    "hMm": 88.5,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "56bdad12ea68594c3515fb0e42df9b3b",
+   "extraCuts": null,
+   "creases": "b711896daad85851b0994da60025aaec",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": "dcb3df2560e603642945bbc5b99daf11",
+   "panels": "ccfa92c4b7fc9061cd6353a083ace9ff",
+   "composition": null
+  },
+  "structureHash": "6d1de52951ef551b33d603925ac25ab2"
+ },
+ "shipping-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 200,
+   "L": 300,
+   "W": 200
+  },
+  "material": {
+   "name": "Carton ondulé double",
+   "thicknessMm": 1.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 630,
+   "width": 1015
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 200,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 200,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 300,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 300,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 300,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 300,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 200,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "c6fe6425f2ec05eb95d211563e923eed",
+   "extraCuts": null,
+   "creases": "e18dc2aeaf1390e8dbdd632123e57534",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "f03889cce1eab50dc108bcf278bf3616",
+   "composition": null
+  },
+  "structureHash": "105032d4dfaaeeb232f802574a239d65"
+ },
+ "pillow-box": {
+  "model": "pillow",
+  "family": "dieline",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 80,
+   "L": 120,
+   "W": 30
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 30,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 30,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 120,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 120,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 120,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 120,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "26195c25eb627e25d7167f451a382d4b"
+ },
+ "display-box": {
+  "model": "display",
+  "family": "dieline",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 80,
+   "L": 200,
+   "W": 150
+  },
+  "material": {
+   "name": "Carton ondulé E",
+   "thicknessMm": 1.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 150,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 150,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 200,
+    "hMm": 150,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 200,
+    "hMm": 150,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 200,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 200,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "1f5cd65dd7e80a5f19f6bc0b917b5d7c"
+ },
+ "sleeve-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 30,
+   "L": 110,
+   "W": 80
+  },
+  "material": {
+   "name": "Carton couché 400g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 220,
+   "width": 395
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 80,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 80,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 110,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 110,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 110,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 110,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 30,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "3ed148e6d245be8cdadce040804a4ab0",
+   "extraCuts": null,
+   "creases": "ee8915fd5e7f659204bf42b701a9cc2b",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "b662d36c025327ce07931e96731bf65c",
+   "composition": null
+  },
+  "structureHash": "6bd6bdc64677874dca58482b8844f121"
+ },
+ "pizza-box": {
+  "model": "pizza",
+  "family": "dieline",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 40,
+   "L": 330,
+   "W": 330
+  },
+  "material": {
+   "name": "Carton ondulé",
+   "thicknessMm": 1.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 330,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 330,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 330,
+    "hMm": 330,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 330,
+    "hMm": 330,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 330,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 330,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "79aeb0f6eca3429947aae5993f4cc3de"
+ },
+ "cake-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 120,
+   "L": 200,
+   "W": 200
+  },
+  "material": {
+   "name": "Carton alimentaire",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 550,
+   "width": 815
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 200,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 200,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 200,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 200,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 200,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 200,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 120,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "17ac41946d22f0b6cee2d821ab817320",
+   "extraCuts": null,
+   "creases": "58725a8c16c09a0a33fd3f7cadc83173",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "e95e9d1b2129ef2a66b73f6377841cd0",
+   "composition": null
+  },
+  "structureHash": "1eec605230dfbbf7012600e41745d2f3"
+ },
+ "burger-box": {
+  "model": "clamshell",
+  "family": "dieline",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 80,
+   "L": 120,
+   "W": 120
+  },
+  "material": {
+   "name": "Carton alimentaire",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 120,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 120,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 120,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 120,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 120,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 120,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "51ba90e47fe7a28fb4e5129c2fb565bb"
+ },
+ "macaron-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 50,
+   "L": 160,
+   "W": 50
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 180,
+   "width": 435
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 50,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 50,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 160,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 160,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 160,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 160,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 50,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "5553fa6ea9cc11fdf00904062a8ac7cc",
+   "extraCuts": null,
+   "creases": "54142f26e05e602c7e0bd033f30ff871",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "a70d3361664377b7466f829bc713fa6d",
+   "composition": null
+  },
+  "structureHash": "ca9ca25baa7434765582670281dde82c"
+ },
+ "chocolate-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 50,
+   "L": 120,
+   "W": 80
+  },
+  "material": {
+   "name": "Carton couché 350g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 240,
+   "width": 415
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 80,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 80,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 120,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 120,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 120,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 120,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 50,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "c925b8c6514d5242d89286241facd2ae",
+   "extraCuts": null,
+   "creases": "9f56d60bafdf2f790ee3b3057f676f45",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "6bdfb363ed3087180f00785e41e3253c",
+   "composition": null
+  },
+  "structureHash": "c62eec1dbcfe0ce4e3289d362dd81f87"
+ },
+ "noodle-box": {
+  "model": "cup",
+  "family": "profile",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 100,
+   "L": 90,
+   "W": 90
+  },
+  "material": {
+   "name": "Carton alimentaire",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 282.743338823,
+    "hMm": 95.8,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "5dbe60929c87471b8eac0b4545a5086f"
+ },
+ "fries-box": {
+  "model": "cup",
+  "family": "profile",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 110,
+   "L": 90,
+   "W": 50
+  },
+  "material": {
+   "name": "Carton alimentaire",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 157.079632679,
+    "hMm": 105.38,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "9897ed1ceb5d5ec5e533137eb5405e75"
+ },
+ "food-tray": {
+  "model": "tray",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "gluedCornerTray",
+  "outerMm": {
+   "H": 40,
+   "L": 180,
+   "W": 120
+  },
+  "material": {
+   "name": "Carton alimentaire",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 199.1,
+   "width": 259.1
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 120,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side",
+     "rotate": 90
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 120,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side",
+     "rotate": 270
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 179.1,
+    "hMm": 119.1,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 179.1,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 179.1,
+    "hMm": 40,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back",
+     "rotate": 180
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "db095fd0656e7320bb441048057bce9f",
+   "extraCuts": null,
+   "creases": "f139e73504ecb3c9815801f68c6bb3d1",
+   "glueZones": "a35e79b40563e6650d73113ebe1f237c",
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": "edb78ac4c158b260623de15e9b47ef7f",
+   "panels": "44710c9121548cb008e70848828a26c6",
+   "composition": null
+  },
+  "structureHash": "d221d450b9b844575b4c3a4c2d2f0796"
+ },
+ "egg-carton": {
+  "model": "moulded",
+  "family": "dieline",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 70,
+   "L": 150,
+   "W": 100
+  },
+  "material": {
+   "name": "Carton moulé",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 100,
+    "hMm": 70,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 100,
+    "hMm": 70,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 150,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 150,
+    "hMm": 100,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 150,
+    "hMm": 70,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 150,
+    "hMm": 70,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "473ec8f0fbb49205fcdb6fcfce544e8c"
+ },
+ "milk-carton": {
+  "model": "carton",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "gableTop",
+  "outerMm": {
+   "H": 190,
+   "L": 70,
+   "W": 70
+  },
+  "material": {
+   "name": "Carton aseptique",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 197.968253824,
+   "width": 292.865288787
+  },
+  "surfaces": [
+   {
+    "id": "body",
+    "wMm": 277.865288787,
+    "hMm": 135.926,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.251920635,
+     "kind": "wrap"
+    },
+    "shape": null
+   },
+   {
+    "id": "roof-front",
+    "wMm": 70,
+    "hMm": 54.518253824,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "roof-back",
+    "wMm": 70,
+    "hMm": 54.518253824,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 135.926,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "880cd362938f1ea0088fe3c05ccd60b1",
+   "extraCuts": null,
+   "creases": "60a803572a00d2b7f41bca0027381a50",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "9435ecaf1c651005cb41b70607c3a209",
+   "composition": null
+  },
+  "structureHash": "9a6326fd14c35b82e8e4110979780e21"
+ },
+ "juice-carton-small": {
+  "model": "carton",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "gableTop",
+  "outerMm": {
+   "H": 105,
+   "L": 60,
+   "W": 40
+  },
+  "material": {
+   "name": "Carton aseptique",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 109.830032319,
+   "width": 212.780165021
+  },
+  "surfaces": [
+   {
+    "id": "body",
+    "wMm": 198.780165021,
+    "hMm": 75.117,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.301840981,
+     "kind": "wrap"
+    },
+    "shape": null
+   },
+   {
+    "id": "roof-front",
+    "wMm": 60,
+    "hMm": 30.555032319,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "roof-back",
+    "wMm": 60,
+    "hMm": 30.555032319,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 14,
+    "hMm": 75.117,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "eadec95f3733c70240c4059f94a0e2d8",
+   "extraCuts": null,
+   "creases": "1ecdc80270c6100a9ecf339af214081e",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "f7cda399a48319928adeb12168c19331",
+   "composition": null
+  },
+  "structureHash": "26133cbfaa1c183faeffe9dc1bb85bc4"
+ },
+ "gable-top-1l": {
+  "model": "carton",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "gableTop",
+  "outerMm": {
+   "H": 240,
+   "L": 70,
+   "W": 70
+  },
+  "material": {
+   "name": "Carton aseptique",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 244.546980986,
+   "width": 292.865288787
+  },
+  "surfaces": [
+   {
+    "id": "body",
+    "wMm": 277.865288787,
+    "hMm": 171.696,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.251920635,
+     "kind": "wrap"
+    },
+    "shape": null
+   },
+   {
+    "id": "roof-front",
+    "wMm": 70,
+    "hMm": 63.346980986,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "roof-back",
+    "wMm": 70,
+    "hMm": 63.346980986,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "top"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 15,
+    "hMm": 171.696,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "8c6179e539fd22bd8aec1818bec14bc0",
+   "extraCuts": null,
+   "creases": "8df2a5e1cabb820275cd2156bb261d36",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "fa41110ef04d682dff7e35c6620fb028",
+   "composition": null
+  },
+  "structureHash": "f82177a7f9e35eadea745ffbe02c138a"
+ },
+ "dropper-bottle": {
+  "model": "dropper",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 95,
+   "L": 34,
+   "W": 34
+  },
+  "material": {
+   "name": "Verre ambré",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 38.1728,
+   "width": 72.203761368
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 66.203761368,
+    "hMm": 38.1728,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "cbb22ec016e69598c12c8ddd491a7e39",
+   "extraCuts": null,
+   "creases": "da2d804272337b5410d39b466b5b80ce",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "2952f1452282baf02335fd670c818a1c",
+   "composition": null
+  },
+  "structureHash": "b8665851f1d2c876e9ca17c4b64c5600"
+ },
+ "dropper-bottle-clear": {
+  "model": "dropper",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 95,
+   "L": 34,
+   "W": 34
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 38.1728,
+   "width": 72.203761368
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 66.203761368,
+    "hMm": 38.1728,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "cbb22ec016e69598c12c8ddd491a7e39",
+   "extraCuts": null,
+   "creases": "da2d804272337b5410d39b466b5b80ce",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "2952f1452282baf02335fd670c818a1c",
+   "composition": null
+  },
+  "structureHash": "3bafad3fbb5cd7ea40342f23dfc9d6e3"
+ },
+ "pump-bottle": {
+  "model": "pump",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 170,
+   "L": 55,
+   "W": 55
+  },
+  "material": {
+   "name": "PET recyclé",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 82.311459097,
+   "width": 113.094319859
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 107.094319859,
+    "hMm": 82.311459097,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "9115379977ceaabd8578b1d75d05e4f6",
+   "extraCuts": null,
+   "creases": "8728512ca591b98a85da5b4dc73e43ef",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "ae94eb3995038b04024ff44d53e5036a",
+   "composition": null
+  },
+  "structureHash": "0f022f7170dc87480adad574211a1eed"
+ },
+ "pump-bottle-small": {
+  "model": "pump",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 120,
+   "L": 40,
+   "W": 40
+  },
+  "material": {
+   "name": "PET recyclé",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 58.073382892,
+   "width": 83.88677808
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 77.88677808,
+    "hMm": 58.073382892,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "6f0c6bb439c07de827f5a2120ea423a7",
+   "extraCuts": null,
+   "creases": "6e498932aa8ca05c04a4618f82e6edcf",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "b5eab4efa938aa5dec49400a34381576",
+   "composition": null
+  },
+  "structureHash": "724db844933a8da3cf2c5543b6c815e8"
+ },
+ "spray-bottle": {
+  "model": "spray",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 150,
+   "L": 45,
+   "W": 45
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 67.593365822,
+   "width": 93.622625339
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 87.622625339,
+    "hMm": 67.593365822,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "690edcff6790f298012f4079ba90445a",
+   "extraCuts": null,
+   "creases": "0171cc9b531b857e0462e651d9717122",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "06f12ffcd2692bfb67d96ad36f4812c3",
+   "composition": null
+  },
+  "structureHash": "6510580cf994466ea65fd4a74f5911fb"
+ },
+ "perfume-bottle": {
+  "model": "spray",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 110,
+   "L": 60,
+   "W": 35
+  },
+  "material": {
+   "name": "Verre épais",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 40.599500435,
+   "width": 59.812410154
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 53.812410154,
+    "hMm": 40.599500435,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "e6ee45dbcafdd0649d23937a89ea9a12",
+   "extraCuts": null,
+   "creases": "f77b4b0290bff0af0987321ba0eb5d5c",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "0bc668b283ff11979809da0f6903a69e",
+   "composition": null
+  },
+  "structureHash": "1412ebfbac56a80f60930fd01a09a4e8"
+ },
+ "shampoo-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 200,
+   "L": 60,
+   "W": 40
+  },
+  "material": {
+   "name": "PEHD",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 110.402068594,
+   "width": 85.302029044
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 79.302029044,
+    "hMm": 110.402068594,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "162aada818b2a7bed05e21028bf739bf",
+   "extraCuts": null,
+   "creases": "513eeb8aa5184012d91f4b36eec8fc65",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "4dffe2ad625bba7082f10f09890e2fff",
+   "composition": null
+  },
+  "structureHash": "669a9510104771813f0c60383103104f"
+ },
+ "water-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 220,
+   "L": 65,
+   "W": 65
+  },
+  "material": {
+   "name": "PET",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 69.346881435,
+   "width": 138.690176365
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 132.690176365,
+    "hMm": 69.346881435,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "419805f4353853941061846d5208a486",
+   "extraCuts": null,
+   "creases": "24c3a4b3a5ea0c7461cd20fb24c7ae7e",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "7ce31cdedd2ab18a01c65ff8f2a8e577",
+   "composition": null
+  },
+  "structureHash": "3164ff75295b5c3c468cb5fe08250a42"
+ },
+ "juice-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 190,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 84.5208042,
+   "width": 122.830167119
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 116.830167119,
+    "hMm": 84.5208042,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "a1027b1ea57fcbe452cd6635106ac46e",
+   "extraCuts": null,
+   "creases": "461f36649ef4efc82a2f60c6c476c1a8",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "451abddfb30aba9506776eaa2297806e",
+   "composition": null
+  },
+  "structureHash": "f8f208922a5e0a9ef13af8308b8419d5"
+ },
+ "soda-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 240,
+   "L": 70,
+   "W": 70
+  },
+  "material": {
+   "name": "PET",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 75.71956893,
+   "width": 148.897113009
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 142.897113009,
+    "hMm": 75.71956893,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "a169f6cfc6047dd3a3b4c87cc46ece2c",
+   "extraCuts": null,
+   "creases": "51810de46ab9522f6f581347b55ae4b9",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "0ee43787a5f2e7fe39842cb9fff51f02",
+   "composition": null
+  },
+  "structureHash": "c1c1210f452f28fd2251872acae42b33"
+ },
+ "beer-bottle": {
+  "model": "wine",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 230,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "Verre ambré",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 95.29716,
+   "width": 109.63966438
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 103.63966438,
+    "hMm": 95.29716,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "e9d7551b75cf592eb6f9ce8a90c9fcf5",
+   "extraCuts": null,
+   "creases": "49054c828babf344d12ba66e37e065ae",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "eec4b37630ee0f5347e7c17bd66eaccc",
+   "composition": null
+  },
+  "structureHash": "ae66092108e22b8d1f92ad9a242bf8ee"
+ },
+ "wine-bottle": {
+  "model": "wine",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 300,
+   "L": 75,
+   "W": 75
+  },
+  "material": {
+   "name": "Verre teinté",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 124.4376,
+   "width": 135.549580475
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 129.549580475,
+    "hMm": 124.4376,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "2ef1c702f1af82a406f55b4bd664c746",
+   "extraCuts": null,
+   "creases": "be64a1f8b86d4ae30e4c1a40a0b48aca",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "f46ab285720a3a6a5742c841d54a2aca",
+   "composition": null
+  },
+  "structureHash": "76f6fbe89b7d5580b4c2afcd1699663b"
+ },
+ "champagne-bottle": {
+  "model": "wine",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 300,
+   "L": 90,
+   "W": 90
+  },
+  "material": {
+   "name": "Verre épais",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 123.8076,
+   "width": 161.45949657
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 155.45949657,
+    "hMm": 123.8076,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "0ab54d5dfcdddd3b5675901a8f5dc28c",
+   "extraCuts": null,
+   "creases": "72b2b2324f3c9548dddec9240428e2e5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "ff60ab10f886b556d6d1f680be21476f",
+   "composition": null
+  },
+  "structureHash": "230dc5dee85edc375b73a8621fdd5ed6"
+ },
+ "spirits-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 260,
+   "L": 85,
+   "W": 85
+  },
+  "material": {
+   "name": "Verre extra-blanc",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 115.58673595,
+   "width": 171.509403419
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 165.509403419,
+    "hMm": 115.58673595,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "697595cee0d8242f1800236d6e7f6700",
+   "extraCuts": null,
+   "creases": "14c66806e0e459adc8682613b161123e",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "ea22d8c6ab25e3c3564874afbd7f59e1",
+   "composition": null
+  },
+  "structureHash": "f014ac7a24c400947f5d4bf4cf9a7adc"
+ },
+ "olive-oil-bottle": {
+  "model": "wine",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 280,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "Verre teinté",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 116.56176,
+   "width": 109.63966438
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 103.63966438,
+    "hMm": 116.56176,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "9c4f2741c24d4bf6a3f6d46df47bd908",
+   "extraCuts": null,
+   "creases": "321feba1ac7abb2e0a9d6215bad31cef",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "bf7cd1fd202ae0e2618e74028f41cee3",
+   "composition": null
+  },
+  "structureHash": "9ad605ace8fc5d8e79b3d6e223f784ee"
+ },
+ "sauce-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 180,
+   "L": 55,
+   "W": 55
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 80.11899385,
+   "width": 113.094319859
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 107.094319859,
+    "hMm": 80.11899385,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "e133a664142e1191258cde04c82d9563",
+   "extraCuts": null,
+   "creases": "ac4bc468aceb677121bef137a224fd6e",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "87323a1e4aa0f27fb8ab0782e0186b9f",
+   "composition": null
+  },
+  "structureHash": "412a3195931553d2364ea29056217f93"
+ },
+ "syrup-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 250,
+   "L": 75,
+   "W": 75
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 111.31155525,
+   "width": 152.037708899
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 146.037708899,
+    "hMm": 111.31155525,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "50bd758d779cfff69f60b10327f5006e",
+   "extraCuts": null,
+   "creases": "f330b871d45b1f007d7515076072b106",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "e610d3ac3930c99e254ac3a67a0b92f9",
+   "composition": null
+  },
+  "structureHash": "864ee09103f077559854fe0bf3d68a1b"
+ },
+ "milk-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 210,
+   "L": 75,
+   "W": 75
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 93.19779525,
+   "width": 152.037708899
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 146.037708899,
+    "hMm": 93.19779525,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "1b2c464bdaf25320e6e28d427254dbf4",
+   "extraCuts": null,
+   "creases": "881f68db5cfa74a0688be407bc8094bb",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "347469bef12455385328737f85c7d759",
+   "composition": null
+  },
+  "structureHash": "5d18975e0fc026da60301a9fa078f037"
+ },
+ "sport-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 240,
+   "L": 70,
+   "W": 70
+  },
+  "material": {
+   "name": "Aluminium",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 106.9097449,
+   "width": 142.301861639
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 136.301861639,
+    "hMm": 106.9097449,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "c157455143129bb199ce95e407245a6b",
+   "extraCuts": null,
+   "creases": "32e6b4cc146b8fc6f5e965d5cc6c1229",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "6d93dc1ef5b3ca226dcda67b59d0bb10",
+   "composition": null
+  },
+  "structureHash": "ca10e7b78b785af8d8148599cdbb4346"
+ },
+ "supplement-bottle": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 110,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "PEHD blanc",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 56.606,
+   "width": 137.905027393
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 131.905027393,
+    "hMm": 56.606,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "53aac98d66d770212e14800ec1e21cc4",
+   "extraCuts": null,
+   "creases": "b7738fd2a65f7720a37e634785e0937d",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "baa8a7543a852f31aa71586af93a31bf",
+   "composition": null
+  },
+  "structureHash": "7602077637810ac8f790eeef5d87ef25"
+ },
+ "jug-bottle": {
+  "model": "jug",
+  "family": "profile",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 250,
+   "L": 150,
+   "W": 80
+  },
+  "material": {
+   "name": "PEHD",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 80,
+    "hMm": 220,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 80,
+    "hMm": 220,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 150,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 150,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 150,
+    "hMm": 220,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 150,
+    "hMm": 220,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "1ffa9cea5a6e2a195bd08b35c5ef1ced"
+ },
+ "detergent-bottle": {
+  "model": "jug",
+  "family": "profile",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 260,
+   "L": 110,
+   "W": 70
+  },
+  "material": {
+   "name": "PEHD",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 70,
+    "hMm": 228.8,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 70,
+    "hMm": 228.8,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 110,
+    "hMm": 70,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 110,
+    "hMm": 70,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 110,
+    "hMm": 228.8,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 110,
+    "hMm": 228.8,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "866862916d9ac616ba04ae85b2f12e9e"
+ },
+ "nail-polish": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 70,
+   "L": 30,
+   "W": 30
+  },
+  "material": {
+   "name": "Verre épais",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 30.942353694,
+   "width": 64.41508356
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 58.41508356,
+    "hMm": 30.942353694,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "04150067aa3a9d35887f15fe61abccf2",
+   "extraCuts": null,
+   "creases": "f8814b276f1de88a9f01fd514508a7b8",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "48cc31f7e46a4d27c9519c945f062d6d",
+   "composition": null
+  },
+  "structureHash": "2f85afe37278c1357fd78eef03b0fad6"
+ },
+ "cosmetic-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 50,
+   "L": 65,
+   "W": 65
+  },
+  "material": {
+   "name": "Verre dépoli",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 25.73,
+   "width": 148.897113009
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 142.897113009,
+    "hMm": 25.73,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "025ec1f0274b8fafca5e00567daa64d4",
+   "extraCuts": null,
+   "creases": "2f652f461f7160b6a8354cb806e0cbb6",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "e21876b15cc6d65a609eea0e6dac57aa",
+   "composition": null
+  },
+  "structureHash": "09a1b7b180087243f3bf7b585e89e431"
+ },
+ "cosmetic-jar-tall": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 80,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 41.168,
+   "width": 137.905027393
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 131.905027393,
+    "hMm": 41.168,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "f276f735c65d68306eb6b6edaef20b1b",
+   "extraCuts": null,
+   "creases": "ffc90d075d6f19d25c5c8e3edaa4949e",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "6adf18195549cbb0bab10c215232374d",
+   "composition": null
+  },
+  "structureHash": "44f311902031a71c9b1829b7b8963182"
+ },
+ "honey-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 95,
+   "L": 75,
+   "W": 75
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 48.887,
+   "width": 170.881284241
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 164.881284241,
+    "hMm": 48.887,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "886aa979e66c4658ff9178554c6835bb",
+   "extraCuts": null,
+   "creases": "66e055076fe7bc66fc7b4325f9e1c711",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "28a36d43834495cc5cf740ba10f1f324",
+   "composition": null
+  },
+  "structureHash": "c075d1ba154232565b638087c0dca099"
+ },
+ "jam-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 85,
+   "L": 70,
+   "W": 70
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 43.741,
+   "width": 159.889198625
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 153.889198625,
+    "hMm": 43.741,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "61e2a06e699657e57673ff0d4ac282e7",
+   "extraCuts": null,
+   "creases": "6cd347d8cd7b116f6128f1a194db97af",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "6dfc4777c0584e1d1253f5c2de37ecb8",
+   "composition": null
+  },
+  "structureHash": "5d37eb0191cbfeaa2c2bc94eed0b55fa"
+ },
+ "mason-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 130,
+   "L": 85,
+   "W": 85
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 66.898,
+   "width": 192.865455473
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 186.865455473,
+    "hMm": 66.898,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "c94d954e1f8b83844ce683f744a43bef",
+   "extraCuts": null,
+   "creases": "fca7e2601759b29741148d32d162d7ce",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "1787254e7310652f799aa283f530fc5b",
+   "composition": null
+  },
+  "structureHash": "7adc46a527120e0e1d69a62ef2661395"
+ },
+ "candle-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 90,
+   "L": 80,
+   "W": 80
+  },
+  "material": {
+   "name": "Verre ambré",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 46.314,
+   "width": 181.873369857
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 175.873369857,
+    "hMm": 46.314,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "7cb0050bf7a28f82273bf4d533dce842",
+   "extraCuts": null,
+   "creases": "658f17e634e3e7ea7c1b0af88e74b79e",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "5dc8822441818642996ed49f10b21515",
+   "composition": null
+  },
+  "structureHash": "686af0015f6ca72f802726619dd69af0"
+ },
+ "baby-food-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 65,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 33.449,
+   "width": 137.905027393
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 131.905027393,
+    "hMm": 33.449,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "0c28975748ab69493674a50b72b2ad1c",
+   "extraCuts": null,
+   "creases": "5953bba9d13952080f87ce67086006b3",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "3b06124dc7ea6b50a8e4f6915cd7f501",
+   "composition": null
+  },
+  "structureHash": "c6a252b2a2e40f6fd3a4804b299cadab"
+ },
+ "protein-tub": {
+  "model": "tub",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "conicalWrap",
+  "outerMm": {
+   "H": 170,
+   "L": 120,
+   "W": 120
+  },
+  "material": {
+   "name": "PEHD",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 165.920872033,
+   "width": 375.096924764
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 375.096924764,
+    "hMm": 165.920872033,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 153.662106986,
+     "w": 370.858161309,
+     "x": 2.119381727,
+     "y": 12.258765047
+    },
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": "be68698a6727c1b9fea7fc0db5a28d70"
+   }
+  ],
+  "technical": {
+   "cut": "0e30b06732ee3a15366ee6ba1947effe",
+   "extraCuts": null,
+   "creases": "4f53cda18c2baa0c0354bb5f9a3ecbe5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": "f6ea61f59d720a228c102931aabfa0c7",
+   "hinges": null,
+   "panels": "aafc7df418928d875e03f39690b8c880",
+   "composition": "4e775993ca750f8428c78971b07acbf6"
+  },
+  "structureHash": "e55def8eb8eef85791e2d9f94274dbdd"
+ },
+ "yogurt-cup": {
+  "model": "tub",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "conicalWrap",
+  "outerMm": {
+   "H": 75,
+   "L": 70,
+   "W": 70
+  },
+  "material": {
+   "name": "PP",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 77.882037998,
+   "width": 217.98631583
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 217.98631583,
+    "hMm": 77.882037998,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 72.467572866,
+     "w": 215.52297271,
+     "x": 1.23167156,
+     "y": 5.414465132
+    },
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": "42d97295f2220b4dc996d54d0d2e5b4c"
+   }
+  ],
+  "technical": {
+   "cut": "98cec1be92d3ff98a0d075c2e29d047b",
+   "extraCuts": null,
+   "creases": "4f53cda18c2baa0c0354bb5f9a3ecbe5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": "9df68aff7e4338901d250904a5342748",
+   "hinges": null,
+   "panels": "27fc6652beb59d8cb9f35279d69f1123",
+   "composition": "029afff5797c0436dcf5e3649f88c87f"
+  },
+  "structureHash": "b11ae6e5fd975be894c9a7fd5130ceac"
+ },
+ "ice-cream-tub": {
+  "model": "papertub",
+  "family": "profile",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 90,
+   "L": 100,
+   "W": 100
+  },
+  "material": {
+   "name": "Carton alimentaire",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 314.159265359,
+    "hMm": 80.28,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "fe5bca9f1045e82e4c0ec47cd9fb7fd5"
+ },
+ "deli-container": {
+  "model": "tub",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "conicalWrap",
+  "outerMm": {
+   "H": 70,
+   "L": 115,
+   "W": 115
+  },
+  "material": {
+   "name": "PP transparent",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 93.741952178,
+   "width": 351.644902321
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 351.644902321,
+    "hMm": 93.741952178,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 88.660239024,
+     "w": 347.671157236,
+     "x": 1.986872542,
+     "y": 5.081713153
+    },
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": "c59a7525fae1ef567bc1e4a2d0f10244"
+   }
+  ],
+  "technical": {
+   "cut": "ca1829ea3ea2808614fefd53328dbc89",
+   "extraCuts": null,
+   "creases": "4f53cda18c2baa0c0354bb5f9a3ecbe5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": "825e76721807f8bd7f2d8f804ce3f1a1",
+   "hinges": null,
+   "panels": "8e38cdb168d5e9fc2f9a40d86194d9fd",
+   "composition": "699196c3e9739bb272e6ed20522b35bd"
+  },
+  "structureHash": "87e628313c657a8be725df90888ed993"
+ },
+ "stand-up-pouch": {
+  "model": "pouch",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 210,
+   "L": 140,
+   "W": 80
+  },
+  "material": {
+   "name": "Kraft + PE",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 290,
+   "width": 280
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 140,
+    "hMm": 210,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 196.35,
+     "w": 140,
+     "x": 0,
+     "y": 13.65
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 140,
+    "hMm": 210,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 196.35,
+     "w": 140,
+     "x": 0,
+     "y": 13.65
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset",
+    "wMm": 280,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "f94ad53dd16dd9b1028263f872b8d3a0",
+   "extraCuts": null,
+   "creases": "0e5e600aeee65e81ab9dcbd8742477c9",
+   "glueZones": null,
+   "seals": "fddf1658cb73a1b6312bc5cee71b0345",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "bca75e0c37b9bff1526c0f4897d9723a",
+   "composition": null
+  },
+  "structureHash": "8e6e9fb827f22798f4c554647e3b70f6"
+ },
+ "stand-up-pouch-small": {
+  "model": "pouch",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 150,
+   "L": 100,
+   "W": 60
+  },
+  "material": {
+   "name": "Film métallisé",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 210,
+   "width": 200
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 100,
+    "hMm": 150,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 140,
+     "w": 100,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 100,
+    "hMm": 150,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 140,
+     "w": 100,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset",
+    "wMm": 200,
+    "hMm": 60,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "c06eb85e89ec89b3875be1e6d846a9df",
+   "extraCuts": null,
+   "creases": "072f8ec3d586f5e7ae7a4a8d04f7a09f",
+   "glueZones": null,
+   "seals": "5fcc8167fb1a7ed4c264f03f17f1c012",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "4872ed221b5ae6fedbac60d8c8a507a2",
+   "composition": null
+  },
+  "structureHash": "4c622003d1661a5c08b5fbeb7b873bf6"
+ },
+ "coffee-pouch": {
+  "model": "pouch",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 220,
+   "L": 130,
+   "W": 80
+  },
+  "material": {
+   "name": "Kraft + alu",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 300,
+   "width": 260
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 130,
+    "hMm": 220,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 205.7,
+     "w": 130,
+     "x": 0,
+     "y": 14.3
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 130,
+    "hMm": 220,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 205.7,
+     "w": 130,
+     "x": 0,
+     "y": 14.3
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset",
+    "wMm": 260,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "3f680eab10e383e00520847d60aa7c7c",
+   "extraCuts": null,
+   "creases": "7a7a2506449db892cf58d5f56d5aeb85",
+   "glueZones": null,
+   "seals": "82717b1ac8f0bc2dd894034660505679",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "2b76c95f1aaf3d31d76fa792d8b938d8",
+   "composition": null
+  },
+  "structureHash": "358d35beb9d711a87f45728d4f1be3e1"
+ },
+ "flat-pouch": {
+  "model": "flatpouch",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 170,
+   "L": 120,
+   "W": 10
+  },
+  "material": {
+   "name": "Film métallisé",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 170,
+   "width": 240
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 120,
+    "hMm": 170,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 149.6,
+     "w": 120,
+     "x": 0,
+     "y": 11.05
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 120,
+    "hMm": 170,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 149.6,
+     "w": 120,
+     "x": 0,
+     "y": 11.05
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "83a8205f4e095c3a5ab852840afe9040",
+   "extraCuts": null,
+   "creases": "a0827abf3e4fccf78236362b93c22a30",
+   "glueZones": null,
+   "seals": "5cdc9171642b4d585b0f52b2aca68e7c",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "8c2e5af12b1afa6c6bdef70be10e993b",
+   "composition": null
+  },
+  "structureHash": "b2c10a1ed411a166e5873a4001299fc9"
+ },
+ "chips-bag": {
+  "model": "flatpouch",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 280,
+   "L": 200,
+   "W": 20
+  },
+  "material": {
+   "name": "Film métallisé",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 280,
+   "width": 400
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 200,
+    "hMm": 280,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 246.4,
+     "w": 200,
+     "x": 0,
+     "y": 18.2
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 200,
+    "hMm": 280,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 246.4,
+     "w": 200,
+     "x": 0,
+     "y": 18.2
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "e5192e147bb541cd59ca4f55547d21df",
+   "extraCuts": null,
+   "creases": "31971209be700419595ca73970bf1a6f",
+   "glueZones": null,
+   "seals": "b50afec72888feef7f4e27aac7b7c898",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "2a30e31043fc46c0088ff09edca7280c",
+   "composition": null
+  },
+  "structureHash": "a92f9b6107efb9db7494656a4ccd7397"
+ },
+ "candy-bag": {
+  "model": "flatpouch",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 200,
+   "L": 150,
+   "W": 15
+  },
+  "material": {
+   "name": "Film transparent",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 200,
+   "width": 300
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 150,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 176,
+     "w": 150,
+     "x": 0,
+     "y": 13
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 150,
+    "hMm": 200,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 176,
+     "w": 150,
+     "x": 0,
+     "y": 13
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "e8918d048597c87d5f15ae4ad5c9fb63",
+   "extraCuts": null,
+   "creases": "420307466156d5bda7511be3657728a2",
+   "glueZones": null,
+   "seals": "5ec7b10460922504b65bff7cb8b153eb",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "91039dad5f2562391a0e5e98e6dfe682",
+   "composition": null
+  },
+  "structureHash": "4d391b6a4faa7d66e5015aae06fb8ce1"
+ },
+ "sachet-sample": {
+  "model": "sachet",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 80,
+   "L": 60,
+   "W": 5
+  },
+  "material": {
+   "name": "Film alu",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 80,
+   "width": 120
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 60,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 62,
+     "w": 60,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 60,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 62,
+     "w": 60,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "bd4fab4f982b7e9f890bd38d032531ca",
+   "extraCuts": null,
+   "creases": "acfaf59a96b30a0f8dab82a66b909bbc",
+   "glueZones": null,
+   "seals": "20eb13dbbdca92920c008898651c71fe",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "da293c733f9cfd813cabe98dbd1b6b75",
+   "composition": null
+  },
+  "structureHash": "1c6bd3ee78c117909b1bc7128109b111"
+ },
+ "stick-pack": {
+  "model": "sachet",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 110,
+   "L": 25,
+   "W": 5
+  },
+  "material": {
+   "name": "Film alu",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 110,
+   "width": 50
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 25,
+    "hMm": 110,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 92,
+     "w": 25,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 25,
+    "hMm": 110,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 92,
+     "w": 25,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "6cf94984d78fb2a6a33c1aa9b2531bad",
+   "extraCuts": null,
+   "creases": "b295daf744ae379811c8fc89f191afd7",
+   "glueZones": null,
+   "seals": "bf70142d99bd678acc40ead75d2a48ed",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "e8488dba7b520e04d571a9d634da96b2",
+   "composition": null
+  },
+  "structureHash": "930b1270acaa467032b03248bcd2105f"
+ },
+ "tea-sachet": {
+  "model": "sachet",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 90,
+   "L": 70,
+   "W": 5
+  },
+  "material": {
+   "name": "Papier",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 90,
+   "width": 140
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 70,
+    "hMm": 90,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 72,
+     "w": 70,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 70,
+    "hMm": 90,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 72,
+     "w": 70,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "612521beb9bc406c18ef010d46201587",
+   "extraCuts": null,
+   "creases": "8f8936aaa8964e8da1e6b666d7882883",
+   "glueZones": null,
+   "seals": "9c1bf8f089d8d628c7009ba7bb6899fe",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "4142f66a193ee4274ad747bfaf179207",
+   "composition": null
+  },
+  "structureHash": "32bfa51292f000093519ac6794e86b2c"
+ },
+ "face-mask-sachet": {
+  "model": "sachet",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 180,
+   "L": 130,
+   "W": 5
+  },
+  "material": {
+   "name": "Film alu",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 180,
+   "width": 260
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 130,
+    "hMm": 180,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 158.4,
+     "w": 130,
+     "x": 0,
+     "y": 11.7
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 130,
+    "hMm": 180,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 158.4,
+     "w": 130,
+     "x": 0,
+     "y": 11.7
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "1895b2e4e30c4924e7c38e3907674cd5",
+   "extraCuts": null,
+   "creases": "38f884973e809bc4a2df36edaeb635de",
+   "glueZones": null,
+   "seals": "c3e871f61671f6d85115d1cdf493ea6f",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "9be1f4045d2f51bcf8b8345b5eff5c90",
+   "composition": null
+  },
+  "structureHash": "05c05b783ffa37c1b1377197b7638339"
+ },
+ "pet-food-bag": {
+  "model": "bag",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "sideGussetBag",
+  "outerMm": {
+   "H": 400,
+   "L": 250,
+   "W": 100
+  },
+  "material": {
+   "name": "Film PE",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 420.669256762,
+   "width": 735.6
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 250,
+    "hMm": 420.669256762,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 380.669256762,
+     "w": 250,
+     "x": 0,
+     "y": 22
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 250,
+    "hMm": 420.669256762,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 380.669256762,
+     "w": 250,
+     "x": 0,
+     "y": 22
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset-left",
+    "wMm": 99.8,
+    "hMm": 420.669256762,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 380.669256762,
+     "w": 99.8,
+     "x": 0,
+     "y": 22
+    },
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset-right",
+    "wMm": 99.8,
+    "hMm": 420.669256762,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 380.669256762,
+     "w": 99.8,
+     "x": 0,
+     "y": 22
+    },
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "e6189002a24878ed2618f9e8370f27f5",
+   "extraCuts": null,
+   "creases": "4f53cda18c2baa0c0354bb5f9a3ecbe5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": "7a2f576347d69fd5d025614468f01f24",
+   "technicalZones": "c27e18a9c830dc6a5ae8b5c1e85ffcd5",
+   "hinges": "32c2181a2ef69d0a80c6b93102ca1dd7",
+   "panels": "1b6bf7fb965e5fd9a793a2dc7c10fb0d",
+   "composition": null
+  },
+  "structureHash": "d21f6327feb5fae7e1a8095d022d08fd"
+ },
+ "flour-bag": {
+  "model": "paperbag",
+  "family": "flexible",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 250,
+   "L": 150,
+   "W": 80
+  },
+  "material": {
+   "name": "Papier kraft",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 80,
+    "hMm": 250,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 80,
+    "hMm": 250,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 150,
+    "hMm": 80,
+    "printable": false,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 150,
+    "hMm": 80,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 150,
+    "hMm": 250,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 150,
+    "hMm": 250,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "0173359d480b403e922f7c297a50be69"
+ },
+ "coffee-bag-gusset": {
+  "model": "bag",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "sideGussetBag",
+  "outerMm": {
+   "H": 250,
+   "L": 110,
+   "W": 70
+  },
+  "material": {
+   "name": "Kraft + alu",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 264.414631971,
+   "width": 386.7
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 110,
+    "hMm": 264.414631971,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 234.414631971,
+     "w": 110,
+     "x": 0,
+     "y": 16.25
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 110,
+    "hMm": 264.414631971,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 234.414631971,
+     "w": 110,
+     "x": 0,
+     "y": 16.25
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset-left",
+    "wMm": 69.6,
+    "hMm": 264.414631971,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 234.414631971,
+     "w": 69.6,
+     "x": 0,
+     "y": 16.25
+    },
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset-right",
+    "wMm": 69.6,
+    "hMm": 264.414631971,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 234.414631971,
+     "w": 69.6,
+     "x": 0,
+     "y": 16.25
+    },
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "b6447efb86b9e75dee1ed857e89c628a",
+   "extraCuts": null,
+   "creases": "4f53cda18c2baa0c0354bb5f9a3ecbe5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": "f5d21736efe23a4fce1bad3f06f1f0ef",
+   "technicalZones": "8eaa15739ea0f2bea82cf4f77eafca24",
+   "hinges": "538715bddfd21319d6182eb85ddbf58c",
+   "panels": "ea91ae88217fe05953593ab6fde43f58",
+   "composition": null
+  },
+  "structureHash": "251574ca24c60fa7c52de85e5c495ab8"
+ },
+ "rice-bag": {
+  "model": "bag",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "sideGussetBag",
+  "outerMm": {
+   "H": 330,
+   "L": 200,
+   "W": 90
+  },
+  "material": {
+   "name": "Film PE",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 348.598188951,
+   "width": 615.6
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 200,
+    "hMm": 348.598188951,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 309.148188951,
+     "w": 200,
+     "x": 0,
+     "y": 21.45
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 200,
+    "hMm": 348.598188951,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 309.148188951,
+     "w": 200,
+     "x": 0,
+     "y": 21.45
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset-left",
+    "wMm": 89.8,
+    "hMm": 348.598188951,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 309.148188951,
+     "w": 89.8,
+     "x": 0,
+     "y": 21.45
+    },
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset-right",
+    "wMm": 89.8,
+    "hMm": 348.598188951,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 309.148188951,
+     "w": 89.8,
+     "x": 0,
+     "y": 21.45
+    },
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "bbfe70b1ebcd14721fa533d8bc1f385e",
+   "extraCuts": null,
+   "creases": "4f53cda18c2baa0c0354bb5f9a3ecbe5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": "af8e166dc3ffa85e0dab8dcebe30a221",
+   "technicalZones": "2167f64858312905bd8354a0d781d95f",
+   "hinges": "cf3792a549ec2d3e93a51fa069b522c5",
+   "panels": "9ba991447a849d56460bc7beac9cbc8b",
+   "composition": null
+  },
+  "structureHash": "a39e0aff2ebd7e4b50708b4cdf4f58e8"
+ },
+ "squeeze-tube": {
+  "model": "tube",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 150,
+   "L": 35,
+   "W": 35
+  },
+  "material": {
+   "name": "PE",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 132,
+   "width": 115.955742876
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 109.955742876,
+    "hMm": 132,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.32,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "ef09b118cba7a0ae194f031057cecea0",
+   "extraCuts": null,
+   "creases": "f005b698375ceba5106ebde412a313fd",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "05a360f3eb0334383b2cc6896981f54e",
+   "composition": null
+  },
+  "structureHash": "8530276ca7a2f99d0dd1a821d87d73f6"
+ },
+ "squeeze-tube-large": {
+  "model": "tube",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 190,
+   "L": 50,
+   "W": 50
+  },
+  "material": {
+   "name": "PE",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 167.2,
+   "width": 163.079632679
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 157.079632679,
+    "hMm": 167.2,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.32,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "9043f01d5c074d20cd5b39352b881897",
+   "extraCuts": null,
+   "creases": "45dcdc19570b2fe9440601787ee6334c",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "29ae730d3e08f32dc86a9573889c2d09",
+   "composition": null
+  },
+  "structureHash": "c6e846dba05fd14f38d725dc9e00c9c0"
+ },
+ "lip-balm-tube": {
+  "model": "papertube",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 70,
+   "L": 18,
+   "W": 18
+  },
+  "material": {
+   "name": "Carton",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 56.56,
+   "width": 62.548667765
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 56.548667765,
+    "hMm": 56.56,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "df8eef15981c527c5e33c51307efdffa",
+   "extraCuts": null,
+   "creases": "23c67ed611a1a37d749fa84cfcecd996",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "1b06f3c0d63265b2574b69936614e31d",
+   "composition": null
+  },
+  "structureHash": "90a018a5675fd3f47eec2ea3937a2908"
+ },
+ "cylinder-tube": {
+  "model": "papertube",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 180,
+   "L": 70,
+   "W": 70
+  },
+  "material": {
+   "name": "Carton kraft",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 145.44,
+   "width": 225.911485751
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 219.911485751,
+    "hMm": 145.44,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "1b3169354fe0c2ff69cb1bd1c81d6b92",
+   "extraCuts": null,
+   "creases": "24b65c8494d64e0e42df1b8aa6fcbef3",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "0673f16ef00e5c0a0e2d52ebb0f50633",
+   "composition": null
+  },
+  "structureHash": "8e6fce7cbc6d92ace48ffbaa7038c596"
+ },
+ "poster-tube": {
+  "model": "papertube",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 420,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "Carton kraft",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 339.36,
+   "width": 194.495559215
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 188.495559215,
+    "hMm": 339.36,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "ea2dcd04bcae80cd78325ab587f730ad",
+   "extraCuts": null,
+   "creases": "37ccf22cb853521fd887573fe709b7b3",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "4f3dd698f37d8d735596ea7b9e0fa287",
+   "composition": null
+  },
+  "structureHash": "5f082cef74dc88a6135b7fc565f1f33b"
+ },
+ "deodorant-stick": {
+  "model": "papertube",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 110,
+   "L": 45,
+   "W": 45
+  },
+  "material": {
+   "name": "Carton",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 88.88,
+   "width": 147.371669412
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 141.371669412,
+    "hMm": 88.88,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "0f2e20e5f15c72ef2c24190947edde4f",
+   "extraCuts": null,
+   "creases": "21f786b9e89f7306a4fc00a27dd0c968",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "588f1bcfe0a860b998c3811f5a55021d",
+   "composition": null
+  },
+  "structureHash": "1125fe2c61513c5f6f9c0a15d380521a"
+ },
+ "beverage-can": {
+  "model": "can",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 115,
+   "L": 66,
+   "W": 66
+  },
+  "material": {
+   "name": "Aluminium",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 96.6,
+   "width": 213.345115137
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 207.345115137,
+    "hMm": 96.6,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "ad287fe5b4c23ae8d34b340aaa7047d8",
+   "extraCuts": null,
+   "creases": "b73b4c94b02ed52634bd3a62ce2a391e",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "c699420fc8e99f0ec55f4f4447faf656",
+   "composition": null
+  },
+  "structureHash": "0fcaafd1ae35fb4b38a81b17cba18174"
+ },
+ "sleek-can": {
+  "model": "can",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 134,
+   "L": 53,
+   "W": 53
+  },
+  "material": {
+   "name": "Aluminium",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 112.56,
+   "width": 172.50441064
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 166.50441064,
+    "hMm": 112.56,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "dccf39e9defe657f3a9a79bdc444fc4e",
+   "extraCuts": null,
+   "creases": "0f925e8e53cf890a73c4dde86a7f8369",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "8292589de31980d3874e2ec89ac2871d",
+   "composition": null
+  },
+  "structureHash": "50e6ab9c7fc3803780f985a254478f71"
+ },
+ "tall-can": {
+  "model": "can",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 168,
+   "L": 66,
+   "W": 66
+  },
+  "material": {
+   "name": "Aluminium",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 141.12,
+   "width": 213.345115137
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 207.345115137,
+    "hMm": 141.12,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "e4f130157b98cfe0ab1fa484d2e11c56",
+   "extraCuts": null,
+   "creases": "e9659fb9c618c0026937a3aec6b2d73f",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "109cba0b4ecb3dc68a64941229000256",
+   "composition": null
+  },
+  "structureHash": "47ee0506ee632e13d7b7fb7eb20138be"
+ },
+ "food-can": {
+  "model": "tin",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 110,
+   "L": 73,
+   "W": 73
+  },
+  "material": {
+   "name": "Fer blanc",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 98.12,
+   "width": 235.336263712
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 229.336263712,
+    "hMm": 98.12,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "8bcab21c15f0000121061a092d55d6aa",
+   "extraCuts": null,
+   "creases": "ab09b5474f5153dc9233ed947e56947f",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "017f9aeee282e33385b9f7c96eebbb31",
+   "composition": null
+  },
+  "structureHash": "bdf29be77cc7bae4bc56632f92f769af"
+ },
+ "aerosol-can": {
+  "model": "spray",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 190,
+   "L": 50,
+   "W": 50
+  },
+  "material": {
+   "name": "Aluminium",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 85.788232708,
+   "width": 103.358472599
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 97.358472599,
+    "hMm": 85.788232708,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "758e7a9a786055fe75a789067fa50fb7",
+   "extraCuts": null,
+   "creases": "b271518c5a8c210038543e154128b4fb",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "5982f7ee115756ea2d003043ea481610",
+   "composition": null
+  },
+  "structureHash": "1e2b1feead4da7ef092a8623006667ed"
+ },
+ "round-tin": {
+  "model": "tin",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 60,
+   "L": 90,
+   "W": 90
+  },
+  "material": {
+   "name": "Fer blanc",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 53.52,
+   "width": 288.743338823
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 282.743338823,
+    "hMm": 53.52,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "441b6de2015bfe13786703757ed219b9",
+   "extraCuts": null,
+   "creases": "0228a45d1cc42c5033f21e9584f74e63",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "f09f0eb59f5e8c573d2ff966ca2d4101",
+   "composition": null
+  },
+  "structureHash": "cc7817e119a8c77a9c8f16f0b03ff4c9"
+ },
+ "tea-tin": {
+  "model": "tin",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 120,
+   "L": 75,
+   "W": 75
+  },
+  "material": {
+   "name": "Fer blanc",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 107.04,
+   "width": 241.619449019
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 235.619449019,
+    "hMm": 107.04,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "7442157ab7d4132e12de924e67bdb519",
+   "extraCuts": null,
+   "creases": "3ec1885a4ba0b4c8bff341813465a3d4",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "7d6a9236bfa0bd0904096708f31a8932",
+   "composition": null
+  },
+  "structureHash": "447dd35f6fef2ef321a8369f1f6f71dd"
+ },
+ "cookie-tin": {
+  "model": "tin",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 80,
+   "L": 200,
+   "W": 200
+  },
+  "material": {
+   "name": "Fer blanc",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 71.36,
+   "width": 634.318530718
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 628.318530718,
+    "hMm": 71.36,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "c7ea27f37ee1c2344bb853cd62743448",
+   "extraCuts": null,
+   "creases": "aeaa270b2db0715ff77c67617a311cf5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "15c1bd3f40acf7af8c26b63ec10421b1",
+   "composition": null
+  },
+  "structureHash": "33df03a5a70e8151c5dca309134b251f"
+ },
+ "mint-tin": {
+  "model": "tin",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 20,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "Fer blanc",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 17.84,
+   "width": 194.495559215
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 188.495559215,
+    "hMm": 17.84,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "b0ed585b39093459a0ff3dbd81d4fa87",
+   "extraCuts": null,
+   "creases": "b1e2d66416b86f9b836823a51f10da40",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "bd125c8934539c897105e3bf7c4b486c",
+   "composition": null
+  },
+  "structureHash": "eae4be4b7c31fca539c92a8ca4ec942a"
+ },
+ "juice-bottle-30cl": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 165,
+   "L": 58,
+   "W": 58
+  },
+  "material": {
+   "name": "PET transparent",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 51.317970825,
+   "width": 124.400465064
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 118.400465064,
+    "hMm": 51.317970825,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "7b3c2d9efb5fd1e1eba3011d877ca072",
+   "extraCuts": null,
+   "creases": "6361590d275c271e5283376325ba6977",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "816d7569848e2fe615a1d151676122c2",
+   "composition": null
+  },
+  "structureHash": "f7dfa855cdad565de71c719b49b59714"
+ },
+ "glass-juice-25cl": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 170,
+   "L": 55,
+   "W": 55
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 75.59055385,
+   "width": 113.094319859
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 107.094319859,
+    "hMm": 75.59055385,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "231c8bad37df27395c654dd2c573002f",
+   "extraCuts": null,
+   "creases": "71a20b326fc9a7c080b39fee9366714a",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "9a6b706351bbf320f83754ccbde20f45",
+   "composition": null
+  },
+  "structureHash": "cc425fe7c583389ba89168adca94acee"
+ },
+ "oil-bottle-1l": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 290,
+   "L": 82,
+   "W": 82
+  },
+  "material": {
+   "name": "PET transparent",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 91.688921718,
+   "width": 173.393760953
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 167.393760953,
+    "hMm": 91.688921718,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "4f418d74ab29d59c56dc52efa8e2c891",
+   "extraCuts": null,
+   "creases": "ce641661195a9b0305ea7e82a370c9f5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "46f95e268836b56d4c172f9b050e6bc0",
+   "composition": null
+  },
+  "structureHash": "f44078c03ba7a50636909e5633d2811e"
+ },
+ "jerrican-5l": {
+  "model": "jug",
+  "family": "profile",
+  "dieline": "unsupported",
+  "template": null,
+  "outerMm": {
+   "H": 300,
+   "L": 190,
+   "W": 120
+  },
+  "material": {
+   "name": "PEHD",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": null,
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 120,
+    "hMm": 264,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 120,
+    "hMm": 264,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 190,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 190,
+    "hMm": 120,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 190,
+    "hMm": 264,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 190,
+    "hMm": 264,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": null,
+   "extraCuts": null,
+   "creases": null,
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": null,
+   "composition": null
+  },
+  "structureHash": "71a47adcc53f2637f17121794628192c"
+ },
+ "big-beer-bottle": {
+  "model": "wine",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 290,
+   "L": 72,
+   "W": 72
+  },
+  "material": {
+   "name": "Verre ambré",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 120.31068,
+   "width": 130.367597256
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 124.367597256,
+    "hMm": 120.31068,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "7c8625010982ddc2852b823329683ac7",
+   "extraCuts": null,
+   "creases": "87d4f7b9b859449f34aaa713ac7c7472",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "184f853c07b1aca04a866e3d2f087dfe",
+   "composition": null
+  },
+  "structureHash": "4cd6f4e5652ef5ffe225065dcd84849f"
+ },
+ "drink-yogurt-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 150,
+   "L": 55,
+   "W": 55
+  },
+  "material": {
+   "name": "PEHD blanc",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 66.53367385,
+   "width": 113.094319859
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 107.094319859,
+    "hMm": 66.53367385,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "417ed8726452be09ecce35a3055070ed",
+   "extraCuts": null,
+   "creases": "1a7c06b74f7a3bc511d019f67bcd4908",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "07ccec13b0ed3e67426e36c62ab208ab",
+   "composition": null
+  },
+  "structureHash": "bd9b9a677bca6bb74ca566459695f343"
+ },
+ "cosmetic-oil-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 140,
+   "L": 42,
+   "W": 42
+  },
+  "material": {
+   "name": "PET ambré",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 44.081935758,
+   "width": 91.738267805
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 85.738267805,
+    "hMm": 44.081935758,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "c490e13847a86c261b1f4e0ef0427bfc",
+   "extraCuts": null,
+   "creases": "63e76176904993e9a6044ee9926ace19",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "a9c003462222c413aa009a960b17a931",
+   "composition": null
+  },
+  "structureHash": "ea79f3881d69f6087da471070239ced0"
+ },
+ "roll-on-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 85,
+   "L": 22,
+   "W": 22
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 37.93456954,
+   "width": 48.837727944
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 42.837727944,
+    "hMm": 37.93456954,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "b59188fb1dca695b1c5a6bdc775db5ca",
+   "extraCuts": null,
+   "creases": "bf07ca4500d16889e97866eccc71a01d",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "62d96fdfec4db5d2c04f366839abdcfb",
+   "composition": null
+  },
+  "structureHash": "1e10d484b6276935a862a22f77145bbf"
+ },
+ "hot-sauce-bottle": {
+  "model": "bottle",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 150,
+   "L": 45,
+   "W": 45
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 66.78693315,
+   "width": 93.622625339
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 87.622625339,
+    "hMm": 66.78693315,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.5,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "86c047e096791010e7eb5ca6a7446ba5",
+   "extraCuts": null,
+   "creases": "207ec62c5b717a0bcdc9e7939d3f8c89",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "4a7ccfc259e7840187e4b9b73b5a1387",
+   "composition": null
+  },
+  "structureHash": "47da96a378331766d9a7ac99fa35fe87"
+ },
+ "water-sachet": {
+  "model": "sachet",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 210,
+   "L": 150,
+   "W": 5
+  },
+  "material": {
+   "name": "Film PE",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 210,
+   "width": 300
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 150,
+    "hMm": 210,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 184.8,
+     "w": 150,
+     "x": 0,
+     "y": 13.65
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 150,
+    "hMm": 210,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 184.8,
+     "w": 150,
+     "x": 0,
+     "y": 13.65
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "8acb0c6a6313018d4dc49a273cd73c92",
+   "extraCuts": null,
+   "creases": "2a1fdeb54418b99db2fb6bc02a5f68e1",
+   "glueZones": null,
+   "seals": "eb9c7a8f6fb456ea3b93b1d6258e73d4",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "409b2e0c14a45861d32ae6802e176787",
+   "composition": null
+  },
+  "structureHash": "fae9c53774a576235ef833d1adb941b1"
+ },
+ "gari-bag": {
+  "model": "bag",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "sideGussetBag",
+  "outerMm": {
+   "H": 280,
+   "L": 180,
+   "W": 70
+  },
+  "material": {
+   "name": "Film PE",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 294.456053327,
+   "width": 530.4
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 180,
+    "hMm": 294.456053327,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 260.856053327,
+     "w": 180,
+     "x": 0,
+     "y": 18.2
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 180,
+    "hMm": 294.456053327,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 260.856053327,
+     "w": 180,
+     "x": 0,
+     "y": 18.2
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset-left",
+    "wMm": 69.8,
+    "hMm": 294.456053327,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 260.856053327,
+     "w": 69.8,
+     "x": 0,
+     "y": 18.2
+    },
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "gusset-right",
+    "wMm": 69.8,
+    "hMm": 294.456053327,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 260.856053327,
+     "w": 69.8,
+     "x": 0,
+     "y": 18.2
+    },
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "3e1af58f898640cec82de3c3a6f6d4d3",
+   "extraCuts": null,
+   "creases": "4f53cda18c2baa0c0354bb5f9a3ecbe5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": "94f7e0b964d521bb7c64a810b02e6c54",
+   "technicalZones": "0f39695d481aadbb9959bb06838c44d0",
+   "hinges": "b37caca2d8eb554d26e0f807793d3108",
+   "panels": "87ffcf03b865dcf7d4658401ef7dde00",
+   "composition": null
+  },
+  "structureHash": "0d1bbbd60d4199a7afdf40284e6b5010"
+ },
+ "spice-sachet": {
+  "model": "flatpouch",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 140,
+   "L": 90,
+   "W": 8
+  },
+  "material": {
+   "name": "Film métallisé",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 140,
+   "width": 180
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 90,
+    "hMm": 140,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 122,
+     "w": 90,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 90,
+    "hMm": 140,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 122,
+     "w": 90,
+     "x": 0,
+     "y": 10
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "b7a1f0cdf84ecbf40d3a0802ddfb261c",
+   "extraCuts": null,
+   "creases": "c7edb987d7684671b0f89bb32fe471b2",
+   "glueZones": null,
+   "seals": "45cc40792f3ae7023a77f0277570a07b",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "4b87386f0e114fc3f5a816f263c37ef1",
+   "composition": null
+  },
+  "structureHash": "3b292cd1d65a64073ec7497794547433"
+ },
+ "plantain-chips-bag": {
+  "model": "flatpouch",
+  "family": "flexible",
+  "dieline": "supported",
+  "template": "frontBack",
+  "outerMm": {
+   "H": 230,
+   "L": 160,
+   "W": 15
+  },
+  "material": {
+   "name": "Film métallisé",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 230,
+   "width": 320
+  },
+  "surfaces": [
+   {
+    "id": "front",
+    "wMm": 160,
+    "hMm": 230,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 202.4,
+     "w": 160,
+     "x": 0,
+     "y": 14.95
+    },
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 160,
+    "hMm": 230,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 202.4,
+     "w": 160,
+     "x": 0,
+     "y": 14.95
+    },
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "71445d05fb392c0221d0a494eaf4f01d",
+   "extraCuts": null,
+   "creases": "e6a9b8cd2f16944c1b9fb09bff63e1ac",
+   "glueZones": null,
+   "seals": "7af0f6fdea2f71cd46f4711c3c1f6174",
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "819d46d8174c74b9373b20b420023487",
+   "composition": null
+  },
+  "structureHash": "4a7d0456e964d203bba9bb7dd01d143d"
+ },
+ "peanut-butter-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 100,
+   "L": 80,
+   "W": 80
+  },
+  "material": {
+   "name": "PET transparent",
+   "thicknessMm": 0.6,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 51.46,
+   "width": 181.873369857
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 175.873369857,
+    "hMm": 51.46,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "f8900eddcfdff59c2a0814a858e9d214",
+   "extraCuts": null,
+   "creases": "861fc7b020ffe83097df5d64006c970d",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "a0242ef35094bb45934cfdb15856cbab",
+   "composition": null
+  },
+  "structureHash": "0aef6934d46677bb0994aab6c6269eed"
+ },
+ "spice-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 100,
+   "L": 48,
+   "W": 48
+  },
+  "material": {
+   "name": "Verre transparent",
+   "thicknessMm": 2.5,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 51.46,
+   "width": 111.524021914
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 105.524021914,
+    "hMm": 51.46,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "9d41ca0a943c05a92105cf4c9d87972f",
+   "extraCuts": null,
+   "creases": "49df53d3f7f91fe656553bd63774c050",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "be9ae417c2fa13848692b390e2cb9f1a",
+   "composition": null
+  },
+  "structureHash": "f737d00435e0715e4bcbae17131cd446"
+ },
+ "shea-butter-jar": {
+  "model": "jar",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 55,
+   "L": 75,
+   "W": 75
+  },
+  "material": {
+   "name": "PP blanc",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 28.303,
+   "width": 170.881284241
+  },
+  "surfaces": [
+   {
+    "id": "label",
+    "wMm": 164.881284241,
+    "hMm": 28.303,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.7,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "3aaac7d1993a8346e1499cd8f3b41e6a",
+   "extraCuts": null,
+   "creases": "f0a893b3d1a60b88a4f6a4c4f7ec65fe",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "d0992d47b57d502dfd16b9ad3349398b",
+   "composition": null
+  },
+  "structureHash": "5415f06d3998ba87b6d1e25e5895ea6e"
+ },
+ "hair-cream-tub": {
+  "model": "tub",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "conicalWrap",
+  "outerMm": {
+   "H": 70,
+   "L": 90,
+   "W": 90
+  },
+  "material": {
+   "name": "PP",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 81.770268583,
+   "width": 278.079566882
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 278.079566882,
+    "hMm": 81.770268583,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": {
+     "h": 76.704679499,
+     "w": 274.937143077,
+     "x": 1.571211903,
+     "y": 5.065589084
+    },
+    "draw": {
+     "frontFraction": 0.3,
+     "kind": "wrap"
+    },
+    "shape": "818705e9201c9e8f96f81e5def6c53d3"
+   }
+  ],
+  "technical": {
+   "cut": "0e4a173acf7a9fe6c0d9f56449449d77",
+   "extraCuts": null,
+   "creases": "4f53cda18c2baa0c0354bb5f9a3ecbe5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": "2565309835ff479696d50adbe8b3c8ce",
+   "hinges": null,
+   "panels": "d6d0a6aa8272c8a03c6b447b92d9ad07",
+   "composition": "d9584943194904463354d94c033e6a93"
+  },
+  "structureHash": "6d3939712cb0f690d8b2630c4b4b9ab4"
+ },
+ "tomato-paste-tin": {
+  "model": "tin",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 45,
+   "L": 60,
+   "W": 60
+  },
+  "material": {
+   "name": "Fer blanc",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 40.14,
+   "width": 194.495559215
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 188.495559215,
+    "hMm": 40.14,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "50465becb135fccceabb60f9d2bb427b",
+   "extraCuts": null,
+   "creases": "a1c43fa950c55e79df908011392093cc",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "4bb0402f4e8f5695521b20e4f8e1bbdb",
+   "composition": null
+  },
+  "structureHash": "885dca15bf1a7170b535a5a88d624a52"
+ },
+ "milk-powder-tin": {
+  "model": "tin",
+  "family": "profile",
+  "dieline": "supported",
+  "template": "wrapLabel",
+  "outerMm": {
+   "H": 130,
+   "L": 100,
+   "W": 100
+  },
+  "material": {
+   "name": "Fer blanc",
+   "thicknessMm": 0.2,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 115.96,
+   "width": 320.159265359
+  },
+  "surfaces": [
+   {
+    "id": "wrap",
+    "wMm": 314.159265359,
+    "hMm": 115.96,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "frontFraction": 0.28,
+     "kind": "wrap"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "34f1bd1ad5ba150b678b33844252a3bc",
+   "extraCuts": null,
+   "creases": "4c9a3ea7f9d24f0bb71ed7b3eb18110c",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "3c6143e9da7f913599f67e90f3cd70a6",
+   "composition": null
+  },
+  "structureHash": "5466cd79e1dc81d4f8bfa3e4e53917c4"
+ },
+ "bouillon-box": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 50,
+   "L": 60,
+   "W": 30
+  },
+  "material": {
+   "name": "Carton couché 300g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 137,
+   "width": 190.5
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 30,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 30,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 60,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 60,
+    "hMm": 30,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 60,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 60,
+    "hMm": 50,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 10.5,
+    "hMm": 50,
+    "printable": false,
+    "safeMm": 2.625,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "843e2a7b3d22ee5b2cea2405b2f7be82",
+   "extraCuts": null,
+   "creases": "7c36c70c0c1b3aa51c2b5013c4f994ea",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "c4dd17fabf3a79170dc1f7bc7963d9dc",
+   "composition": null
+  },
+  "structureHash": "47448cebed4f69e7a1c87fb355fa11b0"
+ },
+ "soap-wrap": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 55,
+   "L": 85,
+   "W": 28
+  },
+  "material": {
+   "name": "Papier kraft",
+   "thicknessMm": 0.1,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 136.2,
+   "width": 235.8
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 28,
+    "hMm": 55,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 28,
+    "hMm": 55,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 85,
+    "hMm": 28,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 85,
+    "hMm": 28,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 85,
+    "hMm": 55,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 85,
+    "hMm": 55,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 9.8,
+    "hMm": 55,
+    "printable": false,
+    "safeMm": 2.45,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "887dca9da5550b70f233d04690c52674",
+   "extraCuts": null,
+   "creases": "0312c8eceb06a3dcb83f17e1a81aa1a5",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "44e6bde8566b09edd91e5a5b47ec6dd6",
+   "composition": null
+  },
+  "structureHash": "cb1cdc80c6f315c76f0b0b630b389223"
+ },
+ "chocolate-bar": {
+  "model": "box",
+  "family": "dieline",
+  "dieline": "supported",
+  "template": "tuckEndBox",
+  "outerMm": {
+   "H": 160,
+   "L": 80,
+   "W": 12
+  },
+  "material": {
+   "name": "Carton couché 300g",
+   "thicknessMm": 0.45,
+   "thicknessSource": "default"
+  },
+  "bleedMm": 3,
+  "flatMm": {
+   "height": 200,
+   "width": 192
+  },
+  "surfaces": [
+   {
+    "id": "right",
+    "wMm": 12,
+    "hMm": 160,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "left",
+    "wMm": 12,
+    "hMm": 160,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "side"
+    },
+    "shape": null
+   },
+   {
+    "id": "top",
+    "wMm": 80,
+    "hMm": 12,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "strip",
+     "rotate": 180
+    },
+    "shape": null
+   },
+   {
+    "id": "bottom",
+    "wMm": 80,
+    "hMm": 12,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   },
+   {
+    "id": "front",
+    "wMm": 80,
+    "hMm": 160,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "front"
+    },
+    "shape": null
+   },
+   {
+    "id": "back",
+    "wMm": 80,
+    "hMm": 160,
+    "printable": true,
+    "safeMm": 3,
+    "printArea": null,
+    "draw": {
+     "kind": "back"
+    },
+    "shape": null
+   },
+   {
+    "id": "glue",
+    "wMm": 8,
+    "hMm": 160,
+    "printable": false,
+    "safeMm": 2,
+    "printArea": null,
+    "draw": {
+     "kind": "plain"
+    },
+    "shape": null
+   }
+  ],
+  "technical": {
+   "cut": "82ba4233ed06c34cdc1e33c4f2e38c78",
+   "extraCuts": null,
+   "creases": "ec04e546b02f7606fbf8e5cd0e83a1b1",
+   "glueZones": null,
+   "seals": null,
+   "sealZones": null,
+   "technicalZones": null,
+   "hinges": null,
+   "panels": "154a05287f4145ac49ff26dcfbc1265a",
+   "composition": null
+  },
+  "structureHash": "14ec6de51a303e4b25d14e51390b5ef9"
+ }
+}

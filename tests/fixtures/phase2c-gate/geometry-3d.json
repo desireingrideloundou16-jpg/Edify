@@ -1,0 +1,7388 @@
+{
+ "folding-box-standard": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "db01abf884dfef0ee974502a2df9cf3f",
+   "uv": "f804eada49a429a25cbda2a3063c7e36",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      38,
+      112
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      38,
+      112
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      38,
+      38
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      38,
+      38
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      38,
+      112
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      38,
+      112
+     ]
+    }
+   ]
+  }
+ ],
+ "tuck-end-box-wide": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "d268fa223a7201768697f8f806e65dcf",
+   "uv": "351dc6df3fb14b41a6f21a603831ab37",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      40,
+      130
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      40,
+      130
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      90,
+      40
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      90,
+      40
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      90,
+      130
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      90,
+      130
+     ]
+    }
+   ]
+  }
+ ],
+ "tuck-end-box-tall": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "c4b1dfa31d2d1c36d85ea5a880468f76",
+   "uv": "ddb7363eaac3e6ddc52d46f739a56ead",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      55,
+      160
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      55,
+      160
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      55,
+      55
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      55,
+      55
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      55,
+      160
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      55,
+      160
+     ]
+    }
+   ]
+  }
+ ],
+ "cube-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "36fe4dc9810a37f86a619774ce08e2e9",
+   "uv": "8ab4f88ef759b6b8f8b4a6ac26621e4c",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      80,
+      80
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      80,
+      80
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      80,
+      80
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      80,
+      80
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      80,
+      80
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      80,
+      80
+     ]
+    }
+   ]
+  }
+ ],
+ "flat-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "38719e5dc58101fa884ac2e8923346c3",
+   "uv": "a78383ea8f26f47c900d976223388700",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      110,
+      30
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      110,
+      30
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      150,
+      110
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      150,
+      110
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      150,
+      30
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      150,
+      30
+     ]
+    }
+   ]
+  }
+ ],
+ "cereal-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "a9c89e390e054cf1f51f99afbb091f20",
+   "uv": "454babb3d59f71e258e05ba437e78433",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      65,
+      280
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      65,
+      280
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      190,
+      65
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      190,
+      65
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      190,
+      280
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      190,
+      280
+     ]
+    }
+   ]
+  }
+ ],
+ "tea-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "8666526ab4f010c08ac759f3cabcb77b",
+   "uv": "ac7ea520fa635a5f42195e23c536351e",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      70,
+      130
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      70,
+      130
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      70,
+      70
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      70,
+      70
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      70,
+      130
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      70,
+      130
+     ]
+    }
+   ]
+  }
+ ],
+ "cigarette-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "bef7b697687918976f087d4c1b88c8d1",
+   "uv": "e0e19ea64be7bd16c83097ec329ef84e",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      22,
+      88
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      22,
+      88
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      55,
+      22
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      55,
+      22
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      55,
+      88
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      55,
+      88
+     ]
+    }
+   ]
+  }
+ ],
+ "soap-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "f645e1d9d35d4de58718a8f8012e4b16",
+   "uv": "02a3359a344df9c94024dea2576aaf9e",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      60,
+      35
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      60,
+      35
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      90,
+      60
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      90,
+      60
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      90,
+      35
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      90,
+      35
+     ]
+    }
+   ]
+  }
+ ],
+ "candle-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "0d2df54d2735c09b98ffafd5599d0462",
+   "uv": "eb87b18ae68838bdb7eba6402b298384",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      90,
+      100
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      90,
+      100
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      90,
+      90
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      90,
+      90
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      90,
+      100
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      90,
+      100
+     ]
+    }
+   ]
+  }
+ ],
+ "luxury-rigid-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "3527eb8670ab9f0c02614067ddb79e4c",
+   "uv": "9560267c473cf6036ae32255f8af7e89",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "base-right",
+     "mm": [
+      120,
+      54.6
+     ]
+    },
+    {
+     "surfaceId": "base-left",
+     "mm": [
+      120,
+      54.6
+     ]
+    },
+    {
+     "surfaceId": "base-top",
+     "mm": [
+      120,
+      120
+     ]
+    },
+    {
+     "surfaceId": "base-bottom",
+     "mm": [
+      120,
+      120
+     ]
+    },
+    {
+     "surfaceId": "base-front",
+     "mm": [
+      120,
+      54.6
+     ]
+    },
+    {
+     "surfaceId": "base-back",
+     "mm": [
+      120,
+      54.6
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "71d65d8b78c1a5e0181c22f9905b78eb",
+   "uv": "a2adb1fdf5df882040743f32a5375046",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "lid-right",
+     "mm": [
+      121.8,
+      21
+     ]
+    },
+    {
+     "surfaceId": "lid-left",
+     "mm": [
+      121.8,
+      21
+     ]
+    },
+    {
+     "surfaceId": "lid-top",
+     "mm": [
+      121.8,
+      121.8
+     ]
+    },
+    {
+     "surfaceId": "lid-bottom",
+     "mm": [
+      121.8,
+      121.8
+     ]
+    },
+    {
+     "surfaceId": "lid-front",
+     "mm": [
+      121.8,
+      21
+     ]
+    },
+    {
+     "surfaceId": "lid-back",
+     "mm": [
+      121.8,
+      21
+     ]
+    }
+   ]
+  }
+ ],
+ "rigid-watch-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "7945cab43b612af292856f77164a71a8",
+   "uv": "0890d37ebd6610a9f2969a95a0ef49ed",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "base-right",
+     "mm": [
+      100,
+      62.4
+     ]
+    },
+    {
+     "surfaceId": "base-left",
+     "mm": [
+      100,
+      62.4
+     ]
+    },
+    {
+     "surfaceId": "base-top",
+     "mm": [
+      100,
+      100
+     ]
+    },
+    {
+     "surfaceId": "base-bottom",
+     "mm": [
+      100,
+      100
+     ]
+    },
+    {
+     "surfaceId": "base-front",
+     "mm": [
+      100,
+      62.4
+     ]
+    },
+    {
+     "surfaceId": "base-back",
+     "mm": [
+      100,
+      62.4
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "74967c50b7e60b5305820569766e1561",
+   "uv": "a764d94337ebe8a4c03ac02638ff1dc2",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "lid-right",
+     "mm": [
+      101.5,
+      24
+     ]
+    },
+    {
+     "surfaceId": "lid-left",
+     "mm": [
+      101.5,
+      24
+     ]
+    },
+    {
+     "surfaceId": "lid-top",
+     "mm": [
+      101.5,
+      101.5
+     ]
+    },
+    {
+     "surfaceId": "lid-bottom",
+     "mm": [
+      101.5,
+      101.5
+     ]
+    },
+    {
+     "surfaceId": "lid-front",
+     "mm": [
+      101.5,
+      24
+     ]
+    },
+    {
+     "surfaceId": "lid-back",
+     "mm": [
+      101.5,
+      24
+     ]
+    }
+   ]
+  }
+ ],
+ "rigid-shoe-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "fdb0027463362066fb851f8908fe2a52",
+   "uv": "f1f33dfd866bf5a954c55decb19dd54a",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "base-right",
+     "mm": [
+      200,
+      93.6
+     ]
+    },
+    {
+     "surfaceId": "base-left",
+     "mm": [
+      200,
+      93.6
+     ]
+    },
+    {
+     "surfaceId": "base-top",
+     "mm": [
+      330,
+      200
+     ]
+    },
+    {
+     "surfaceId": "base-bottom",
+     "mm": [
+      330,
+      200
+     ]
+    },
+    {
+     "surfaceId": "base-front",
+     "mm": [
+      330,
+      93.6
+     ]
+    },
+    {
+     "surfaceId": "base-back",
+     "mm": [
+      330,
+      93.6
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "35d39da7658c3ff6b45efdea44ff8263",
+   "uv": "7f80b2bf6a4daa1dc864e1965c30b5af",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "lid-right",
+     "mm": [
+      203,
+      36
+     ]
+    },
+    {
+     "surfaceId": "lid-left",
+     "mm": [
+      203,
+      36
+     ]
+    },
+    {
+     "surfaceId": "lid-top",
+     "mm": [
+      334.95,
+      203
+     ]
+    },
+    {
+     "surfaceId": "lid-bottom",
+     "mm": [
+      334.95,
+      203
+     ]
+    },
+    {
+     "surfaceId": "lid-front",
+     "mm": [
+      334.95,
+      36
+     ]
+    },
+    {
+     "surfaceId": "lid-back",
+     "mm": [
+      334.95,
+      36
+     ]
+    }
+   ]
+  }
+ ],
+ "gift-box-large": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "5b6daaa600caeee915c8ec20a4ff0fc6",
+   "uv": "9169499eba1df6c0bf04bb884403235f",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "base-right",
+     "mm": [
+      220,
+      78
+     ]
+    },
+    {
+     "surfaceId": "base-left",
+     "mm": [
+      220,
+      78
+     ]
+    },
+    {
+     "surfaceId": "base-top",
+     "mm": [
+      300,
+      220
+     ]
+    },
+    {
+     "surfaceId": "base-bottom",
+     "mm": [
+      300,
+      220
+     ]
+    },
+    {
+     "surfaceId": "base-front",
+     "mm": [
+      300,
+      78
+     ]
+    },
+    {
+     "surfaceId": "base-back",
+     "mm": [
+      300,
+      78
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "afa8f5d45f88493574569d45ea2d4e7a",
+   "uv": "896d8f159b26cac25c2aa38135e7b625",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "lid-right",
+     "mm": [
+      223.3,
+      30
+     ]
+    },
+    {
+     "surfaceId": "lid-left",
+     "mm": [
+      223.3,
+      30
+     ]
+    },
+    {
+     "surfaceId": "lid-top",
+     "mm": [
+      304.5,
+      223.3
+     ]
+    },
+    {
+     "surfaceId": "lid-bottom",
+     "mm": [
+      304.5,
+      223.3
+     ]
+    },
+    {
+     "surfaceId": "lid-front",
+     "mm": [
+      304.5,
+      30
+     ]
+    },
+    {
+     "surfaceId": "lid-back",
+     "mm": [
+      304.5,
+      30
+     ]
+    }
+   ]
+  }
+ ],
+ "ecom-mailer": [
+  {
+   "name": "mailer:bottom",
+   "vertices": 24,
+   "positions": "e7c9dc5f9f50e1e093f38802aaddc296",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      217,
+      157
+     ]
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:front",
+   "vertices": 24,
+   "positions": "09dc29a87cc8f999dc90a21cf158ff5a",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "front",
+     "mm": [
+      217,
+      60
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "mailer:front-inner",
+   "vertices": 24,
+   "positions": "edc6bb7035429b6b2c8dc09aa51b3622",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:back",
+   "vertices": 24,
+   "positions": "35a9ef068ee99869c52ec2f750f86f2e",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "back",
+     "mm": [
+      217,
+      58.5
+     ]
+    }
+   ]
+  },
+  {
+   "name": "mailer:top",
+   "vertices": 24,
+   "positions": "ca49f4d38fe79fdc68e6717c90322062",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    {
+     "surfaceId": "top",
+     "mm": [
+      211,
+      157
+     ]
+    },
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:tuck",
+   "vertices": 24,
+   "positions": "f1db048a0114c50a002050501f3f9d08",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:left",
+   "vertices": 24,
+   "positions": "41b7e340569214faf4d480a13ba16044",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    {
+     "surfaceId": "left",
+     "mm": [
+      160,
+      60
+     ]
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:left-inner",
+   "vertices": 24,
+   "positions": "72c6f13955a10d76c81743d2fdaadc1c",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-front-left",
+   "vertices": 24,
+   "positions": "5811e792a021f3b78ed64ec8e1817ee6",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-back-left",
+   "vertices": 24,
+   "positions": "325bd7a5a67218a34b839e9b86184ec7",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:dust-left",
+   "vertices": 24,
+   "positions": "1d4b8e7c8ae72afdcba96ffbd22f482f",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:right",
+   "vertices": 24,
+   "positions": "1a8a95201fbda65c290bea4fca5d959e",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      160,
+      60
+     ]
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:right-inner",
+   "vertices": 24,
+   "positions": "a5a686c4f3bfb72a3d6b5d1026a712e4",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-front-right",
+   "vertices": 24,
+   "positions": "929512fa89950325487ae449e6f172da",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-back-right",
+   "vertices": 24,
+   "positions": "e7d4be46bd2c050e4febb517351955dd",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:dust-right",
+   "vertices": 24,
+   "positions": "61c1d22dabf9f4d55592f0fa3f8b11b2",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ ],
+ "mailer-small": [
+  {
+   "name": "mailer:bottom",
+   "vertices": 24,
+   "positions": "6b0bc5923ba7a8da5c1bd45fa132d2bf",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      147,
+      107
+     ]
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:front",
+   "vertices": 24,
+   "positions": "b48450040f05ca448c38311d8ac2d83b",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "front",
+     "mm": [
+      147,
+      50
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "mailer:front-inner",
+   "vertices": 24,
+   "positions": "7dfda6d381db5c71c42c22fbe07d3520",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:back",
+   "vertices": 24,
+   "positions": "b45622ca8f96fc541bd18dcd443e901c",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "back",
+     "mm": [
+      147,
+      48.5
+     ]
+    }
+   ]
+  },
+  {
+   "name": "mailer:top",
+   "vertices": 24,
+   "positions": "4042936a9730253cbf8768a6a27e541c",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    {
+     "surfaceId": "top",
+     "mm": [
+      141,
+      107
+     ]
+    },
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:tuck",
+   "vertices": 24,
+   "positions": "90dc888cae927f1e6e33fc34775a333f",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:left",
+   "vertices": 24,
+   "positions": "b8ce18b1f1091558b7d0aaa0061c67d1",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    {
+     "surfaceId": "left",
+     "mm": [
+      110,
+      50
+     ]
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:left-inner",
+   "vertices": 24,
+   "positions": "5cfefda42c5e29a19e576a7ac4273af7",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-front-left",
+   "vertices": 24,
+   "positions": "720a935b8066423215782ab70e788f17",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-back-left",
+   "vertices": 24,
+   "positions": "65e889bbb3b76e073db6f7b8c3b390f6",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:dust-left",
+   "vertices": 24,
+   "positions": "efb3b3d79c199139342232d1649100fe",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:right",
+   "vertices": 24,
+   "positions": "40111fa5ebcfce348b36664e691d6d86",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      110,
+      50
+     ]
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:right-inner",
+   "vertices": 24,
+   "positions": "7fd526ef9b81521bd79936f108d19712",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-front-right",
+   "vertices": 24,
+   "positions": "eb340aac2e9f52b07be9d99375f34244",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-back-right",
+   "vertices": 24,
+   "positions": "9ad591377244070b076ce443ebf2770b",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:dust-right",
+   "vertices": 24,
+   "positions": "3471d50fb22622e270b6cb0d3e338357",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ ],
+ "mailer-large": [
+  {
+   "name": "mailer:bottom",
+   "vertices": 24,
+   "positions": "a32256834581ccb82da216007484dffe",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      344,
+      244
+     ]
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:front",
+   "vertices": 24,
+   "positions": "48c4e80032fbd8e1f8672ff37dbf9d48",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "front",
+     "mm": [
+      344,
+      100
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "mailer:front-inner",
+   "vertices": 24,
+   "positions": "7bccdacb322261f81775f09b7d5fef5b",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:back",
+   "vertices": 24,
+   "positions": "50c1ad4ca7b86127acd867ae1316e142",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "back",
+     "mm": [
+      344,
+      97
+     ]
+    }
+   ]
+  },
+  {
+   "name": "mailer:top",
+   "vertices": 24,
+   "positions": "b63296247eb20b4ef4208a8bed86e973",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    {
+     "surfaceId": "top",
+     "mm": [
+      332,
+      244
+     ]
+    },
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:tuck",
+   "vertices": 24,
+   "positions": "07766eab690f485b3d9921fbdfbf87f7",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:left",
+   "vertices": 24,
+   "positions": "4e4abda9fa9e2761c93271fbd27574a5",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    {
+     "surfaceId": "left",
+     "mm": [
+      250,
+      100
+     ]
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:left-inner",
+   "vertices": 24,
+   "positions": "f8126e6d20e87405fe9e226523c72b56",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-front-left",
+   "vertices": 24,
+   "positions": "212c226301333b5b7df47ed21a0fe5c3",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-back-left",
+   "vertices": 24,
+   "positions": "d2c908d87c3de87d6faa60c7952752e4",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:dust-left",
+   "vertices": 24,
+   "positions": "d066939f81fa004d4fe47bb5765332da",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:right",
+   "vertices": 24,
+   "positions": "0c10e50c3c9be7a3a8a63db7046fa618",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      250,
+      100
+     ]
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:right-inner",
+   "vertices": 24,
+   "positions": "32cc90cb2729eee1f4c2b3f9b08a64d1",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-front-right",
+   "vertices": 24,
+   "positions": "d40e563e5d115851105c75e40786b242",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-back-right",
+   "vertices": 24,
+   "positions": "994a8f1fc1e27a905d3ba345df3967ee",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:dust-right",
+   "vertices": 24,
+   "positions": "ed76b7fd923f67682a91b7718e9a91df",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ ],
+ "subscription-box": [
+  {
+   "name": "mailer:bottom",
+   "vertices": 24,
+   "positions": "c8a25aba364adb1c8870bb6d3341c408",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      277,
+      197
+     ]
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:front",
+   "vertices": 24,
+   "positions": "caad2ff07ffc09b39d3b114c1b46fe9e",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "front",
+     "mm": [
+      277,
+      90
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "mailer:front-inner",
+   "vertices": 24,
+   "positions": "9411d09cb7e22fdc5eff0bdc34a3d7ac",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:back",
+   "vertices": 24,
+   "positions": "d377bded57b60646ff5d50360d06a74a",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "back",
+     "mm": [
+      277,
+      88.5
+     ]
+    }
+   ]
+  },
+  {
+   "name": "mailer:top",
+   "vertices": 24,
+   "positions": "3235875c437cfc7125a0e31f7adf9c2f",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    {
+     "surfaceId": "top",
+     "mm": [
+      271,
+      197
+     ]
+    },
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:tuck",
+   "vertices": 24,
+   "positions": "d719722bdaf7482d1102b15705a5cf39",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:left",
+   "vertices": 24,
+   "positions": "4080e844a8c733d9b7270b07e6ee752f",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    {
+     "surfaceId": "left",
+     "mm": [
+      200,
+      90
+     ]
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:left-inner",
+   "vertices": 24,
+   "positions": "df1f56d0beee9423e799db9e5e03e541",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-front-left",
+   "vertices": 24,
+   "positions": "db2aad5226bb85e42cb1d965f40da0bb",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-back-left",
+   "vertices": 24,
+   "positions": "3e35f65350dea4c9d24d26249fdb0a78",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:dust-left",
+   "vertices": 24,
+   "positions": "fece2d5c9927b6ce2263fd1dbe0d5a8a",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:right",
+   "vertices": 24,
+   "positions": "ec9881b599874fa34944f7b758e87cec",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      200,
+      90
+     ]
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:right-inner",
+   "vertices": 24,
+   "positions": "3f9304701ab64fcad8dbcc1c2f088137",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-front-right",
+   "vertices": 24,
+   "positions": "1f393ca343775b14edba769cb88b880c",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:ear-back-right",
+   "vertices": 24,
+   "positions": "0b8f902b54c0fe613245146dec75997b",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "mailer:dust-right",
+   "vertices": 24,
+   "positions": "f7ed5ca3bfcbee4ea552e0ce1b8f660b",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ ],
+ "shipping-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "926dcf38a32dcd201405d93a44b165ab",
+   "uv": "fd30ecb756afd73cf1ed0c473b715570",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      200,
+      200
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      200,
+      200
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      300,
+      200
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      300,
+      200
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      300,
+      200
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      300,
+      200
+     ]
+    }
+   ]
+  }
+ ],
+ "pillow-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "ef3662c89a520b2d20b1ca3cefa8dd38",
+   "uv": "fa17eff52d0f8d4ff4e54f162e4edfe8",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      30,
+      80
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      30,
+      80
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      120,
+      30
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      120,
+      30
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      120,
+      80
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      120,
+      80
+     ]
+    }
+   ]
+  }
+ ],
+ "display-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "f123d7283e0f35fae2eab57063807272",
+   "uv": "05459afdafcf6ccd6d11d7b2716706e7",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      150,
+      80
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      150,
+      80
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      200,
+      150
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      200,
+      150
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      200,
+      80
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      200,
+      80
+     ]
+    }
+   ]
+  }
+ ],
+ "sleeve-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "6f24755fb67d94932f312f4ebe53f6bc",
+   "uv": "f7dcf479be62a70c8df30047470b7a50",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      80,
+      30
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      80,
+      30
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      110,
+      80
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      110,
+      80
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      110,
+      30
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      110,
+      30
+     ]
+    }
+   ]
+  }
+ ],
+ "pizza-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "125d1bc339bc49c340eba3d5b46f5b0a",
+   "uv": "2b10aa3a436b385c8b4fac398e24c34c",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      330,
+      40
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      330,
+      40
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      330,
+      330
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      330,
+      330
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      330,
+      40
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      330,
+      40
+     ]
+    }
+   ]
+  }
+ ],
+ "cake-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "c9f915eec72f5c662a3cd66dd9ab3a92",
+   "uv": "8cb3ff98411435fa4a02d02213ac5a7e",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      200,
+      120
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      200,
+      120
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      200,
+      200
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      200,
+      200
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      200,
+      120
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      200,
+      120
+     ]
+    }
+   ]
+  }
+ ],
+ "burger-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "9ea02bc510ff5198e584db1c6b3fee80",
+   "uv": "cda062425cbbbed0008af1043aa46ed7",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      120,
+      80
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      120,
+      80
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      120,
+      120
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      120,
+      120
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      120,
+      80
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      120,
+      80
+     ]
+    }
+   ]
+  }
+ ],
+ "macaron-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "ac5a0ac6853e79548b6d80b8e83e0f09",
+   "uv": "05d0f5a493359b575d6e00f9d4e141c8",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      50,
+      50
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      50,
+      50
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      160,
+      50
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      160,
+      50
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      160,
+      50
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      160,
+      50
+     ]
+    }
+   ]
+  }
+ ],
+ "chocolate-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "07dd9bba53473985442848a0694c3ee2",
+   "uv": "0cb08eeec9c429d5a868a7c793790487",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      80,
+      50
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      80,
+      50
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      120,
+      80
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      120,
+      80
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      120,
+      50
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      120,
+      50
+     ]
+    }
+   ]
+  }
+ ],
+ "noodle-box": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "306cbb29fec9f038dafd2b6bbaba0f63",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      282.743339,
+      95.8
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "fd32982ffaa6c42375de122e4504dfc2",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "5219dfec389f9ca4d436ffa337937a2f",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 1261,
+   "positions": "75e1cc5bfe0d62017fabea7d8d9f318c",
+   "uv": "d9ac355d4787f835d8214fb4db33312a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "fries-box": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "bacae3bc947a5734e992f9936d661556",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      157.079633,
+      105.38
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "4e3cd19a74e22e51485e51c11c5066b8",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "4d07ffce305f49d3f0164aaa15b077f7",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 1261,
+   "positions": "f6249096d40d61dc2d47ae2b0ea05cd4",
+   "uv": "d9ac355d4787f835d8214fb4db33312a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "food-tray": [
+  {
+   "name": "tray:bottom",
+   "vertices": 24,
+   "positions": "57aabcaa13744d75e597378be1383177",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      179.1,
+      119.1
+     ]
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "name": "tray:front",
+   "vertices": 24,
+   "positions": "07671a25596b38ede229287855a24938",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "front",
+     "mm": [
+      179.1,
+      40
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "tray:back",
+   "vertices": 24,
+   "positions": "63b470cb33bbaa0653970a3bc3423850",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "surfaceId": "back",
+     "mm": [
+      179.1,
+      40
+     ]
+    }
+   ]
+  },
+  {
+   "name": "tray:left",
+   "vertices": 24,
+   "positions": "3d0d9628f52b6b5ac8b22f00400f47ca",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    {
+     "surfaceId": "left",
+     "mm": [
+      120,
+      40
+     ]
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "tray:right",
+   "vertices": 24,
+   "positions": "52abb9564c26197ac8eb2a363a85b794",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      120,
+      40
+     ]
+    },
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "tray:flap-front-left",
+   "vertices": 24,
+   "positions": "95b5f7824bc99f2051dd5ef03aef8de3",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "tray:flap-front-right",
+   "vertices": 24,
+   "positions": "ff7e8823fcd28260b55903cac7d15b82",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "tray:flap-back-left",
+   "vertices": 24,
+   "positions": "8b1c414c2c33ea102fed18e53c26d655",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "name": "tray:flap-back-right",
+   "vertices": 24,
+   "positions": "a2a31cd31423ead08787953658eb6900",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ ],
+ "egg-carton": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "9d79ce5dec7a99981a89bb08e793ca1d",
+   "uv": "e6db0e1db4bc818cd1da5a7a5c30b13b",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      100,
+      70
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      100,
+      70
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      150,
+      100
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      150,
+      100
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      150,
+      70
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      150,
+      70
+     ]
+    }
+   ]
+  }
+ ],
+ "milk-carton": [
+  {
+   "name": "",
+   "vertices": 58,
+   "positions": "234cb718e0700560aa38d4f9b83c4dd9",
+   "uv": "0d9614d242e696957a433a7a7dff7336",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "body",
+     "mm": [
+      277.865289,
+      135.926
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 27,
+   "positions": "901f9abcec25c04dff22460768a1755a",
+   "uv": "775a3f20ce42b4d39e34bd2d2b8d4765",
+   "groups": 3,
+   "textures": [
+    {
+     "surfaceId": "roof-front",
+     "mm": [
+      70,
+      54.518254
+     ]
+    },
+    {
+     "surfaceId": "roof-back",
+     "mm": [
+      70,
+      54.518254
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 20,
+   "positions": "0bfa09cb969687baa00d4fcbdf22aa9c",
+   "uv": "ddc376b55a9d4add0af72b21cb66ec67",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 29,
+   "positions": "7b5a64261233b4db7e932a1e646750ca",
+   "uv": "545bba3924323b1a2bb7e73ef745ab6f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "juice-carton-small": [
+  {
+   "name": "",
+   "vertices": 58,
+   "positions": "800e65f21065b95eadd1e1fe5ec7be46",
+   "uv": "884009767897339ab13060fc29123698",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "body",
+     "mm": [
+      198.780165,
+      75.117
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 27,
+   "positions": "00ca7fc2170c79f45980644a884ff4bf",
+   "uv": "775a3f20ce42b4d39e34bd2d2b8d4765",
+   "groups": 3,
+   "textures": [
+    {
+     "surfaceId": "roof-front",
+     "mm": [
+      60,
+      30.555032
+     ]
+    },
+    {
+     "surfaceId": "roof-back",
+     "mm": [
+      60,
+      30.555032
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 20,
+   "positions": "15fe5764f0ba29ed0f23886d5a1a89c2",
+   "uv": "ddc376b55a9d4add0af72b21cb66ec67",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 29,
+   "positions": "faa7144c08599d7b9ac30611c7419128",
+   "uv": "073c306d268aa7df780ba3afc67b669c",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "gable-top-1l": [
+  {
+   "name": "",
+   "vertices": 58,
+   "positions": "34723a95c966ea80c7ae6470cf5a0aba",
+   "uv": "0d9614d242e696957a433a7a7dff7336",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "body",
+     "mm": [
+      277.865289,
+      171.696
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 27,
+   "positions": "48eb85d57258018c95cd9cc37081ecc8",
+   "uv": "775a3f20ce42b4d39e34bd2d2b8d4765",
+   "groups": 3,
+   "textures": [
+    {
+     "surfaceId": "roof-front",
+     "mm": [
+      70,
+      63.346981
+     ]
+    },
+    {
+     "surfaceId": "roof-back",
+     "mm": [
+      70,
+      63.346981
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 20,
+   "positions": "084d1322f045c748e4e3710d9ac63311",
+   "uv": "ddc376b55a9d4add0af72b21cb66ec67",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 29,
+   "positions": "c9f2417ab0eef98192e8e39be0315549",
+   "uv": "545bba3924323b1a2bb7e73ef745ab6f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "dropper-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "d22fd41fa1075da8c3b830b11678baf5",
+   "uv": "a40f4278b987048e872819ffc93467cb",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "c50d367c8a0faa1e3221b1a5436c724e",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "f91da937386c5fd6fd3cbc61e00719c7",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      66.203761,
+      38.1728
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "collar",
+   "vertices": 893,
+   "positions": "f8ab830b9f30e25d7b24f54d22aac7a8",
+   "uv": "51b247e608886f39a2fe742c89f83e3d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bulb",
+   "vertices": 533,
+   "positions": "493d8c69c67c2295c506eeb06d501050",
+   "uv": "0f89787d1b1cc9e9370965e332fc4455",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "stem",
+   "vertices": 126,
+   "positions": "e9276127025753abba14b225533d3adf",
+   "uv": "2d311d188461dcc90a616ddffb608bd1",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "dropper-bottle-clear": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "d22fd41fa1075da8c3b830b11678baf5",
+   "uv": "a40f4278b987048e872819ffc93467cb",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "c50d367c8a0faa1e3221b1a5436c724e",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "f91da937386c5fd6fd3cbc61e00719c7",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      66.203761,
+      38.1728
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "collar",
+   "vertices": 893,
+   "positions": "f8ab830b9f30e25d7b24f54d22aac7a8",
+   "uv": "51b247e608886f39a2fe742c89f83e3d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bulb",
+   "vertices": 533,
+   "positions": "493d8c69c67c2295c506eeb06d501050",
+   "uv": "0f89787d1b1cc9e9370965e332fc4455",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "stem",
+   "vertices": 126,
+   "positions": "e9276127025753abba14b225533d3adf",
+   "uv": "2d311d188461dcc90a616ddffb608bd1",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "pump-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "586b724aa94acdd73996ad873634a292",
+   "uv": "e469bad5705ddbb999db6a23f30bc8f5",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "7fe39139b34b8104640848b60805d66f",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "9860ec0483f8abd0f2866ba1ece0247b",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      107.09432,
+      82.311459
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "collar",
+   "vertices": 957,
+   "positions": "4c5fde720dabaa9a311420cb7018aca3",
+   "uv": "c8cef9fa1dc89eb98352e40017373a09",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "stem",
+   "vertices": 125,
+   "positions": "707f4cd06a8fe7aca751748030e8bd9d",
+   "uv": "63ff3fefa6603b46a8e40bf7ea69d270",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "actuator",
+   "vertices": 392,
+   "positions": "4249ad2fa363b8b54754554ef84e81c0",
+   "uv": "a1c53e5f56a104e2e131055440adb092",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "spout",
+   "vertices": 118,
+   "positions": "a5508b83bf6ee616015d37480a0da655",
+   "uv": "089eb4b00394fa46895ecddbce0ba467",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "pump-bottle-small": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "9b7301fe0f380cd7effb135233afed73",
+   "uv": "3c977289b1291a7e79b526a6c79720f8",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "294d9c443cd53de8b7535bb50f0e0cbb",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "bd61c75cabc5fc1648119683cf50c653",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      77.886778,
+      58.073383
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "collar",
+   "vertices": 957,
+   "positions": "c4d310ed3767e7f3008bd87f34f1b425",
+   "uv": "2411ee46489834df65a04784219be6fa",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "stem",
+   "vertices": 125,
+   "positions": "fef5346b12a0fcc6124d6920c4a249e7",
+   "uv": "dafa2a01473f993d70e0ce80556fc306",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "actuator",
+   "vertices": 392,
+   "positions": "a1cb0f5cc5da143d9170aa1cb5715dfb",
+   "uv": "b123b56b2c6d1fa3bb7b45dc22753996",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "spout",
+   "vertices": 118,
+   "positions": "454b742a7eb14e09baec720ecb1020d0",
+   "uv": "089eb4b00394fa46895ecddbce0ba467",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "spray-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "4e607054cf04b06b767493ff4fe83e04",
+   "uv": "5010ff6d7d1bea03a51e5e6ad2f43346",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "0bb839db09190dc30430f5daad86bc78",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "12189bb8d59e326c2d5cc86cdc8cdce7",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      87.622625,
+      67.593366
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "collar",
+   "vertices": 363,
+   "positions": "41f6963e1dc61a2e1e478e5fda4ce443",
+   "uv": "d0323948539bde6c5ff57ba5ddd5d064",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "actuator",
+   "vertices": 392,
+   "positions": "88df751b052cdf31fe9188e6d796af3e",
+   "uv": "33c9f87149ad7a61eefdbdb3621f288c",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "nozzle",
+   "vertices": 53,
+   "positions": "bb48b7dae4daf993b800ead052ac606d",
+   "uv": "52d0d707041558eba8bc4d6b023a79a2",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "perfume-bottle": [
+  {
+   "name": "",
+   "vertices": 1029,
+   "positions": "bdf42e3ce3feee7736037b608e253fee",
+   "uv": "51a26b189dd591f7d6f2a7d2f70e6215",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 49,
+   "positions": "6f3753e04929e522baab3c5232376f1a",
+   "uv": "f0a5cf0b34dca6d76fe10f25b0fe4c4a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 96,
+   "positions": "ccf1b908a6378572c7613729bd19d63c",
+   "uv": "a65a6a7616033b634c20f69235828b43",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      53.81241,
+      40.5995
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "collar",
+   "vertices": 363,
+   "positions": "7dbb1cf0ef64d5ae6ab5a7cc7b161670",
+   "uv": "d3af32fc7e8cd4e2ab5806ba7dbf79a4",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "actuator",
+   "vertices": 392,
+   "positions": "c60a7cd7394b81b5be7c592a824b44d8",
+   "uv": "fa4cd06e3f31fdcac404bed46ffd2639",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "nozzle",
+   "vertices": 53,
+   "positions": "dcba31a6447b35d9fe06fb7f52cf204b",
+   "uv": "52d0d707041558eba8bc4d6b023a79a2",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "shampoo-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "554df616247960b028936748cd17029e",
+   "uv": "1b12847f44740ef3965a4336d0596416",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "a928f9525b1b394a928128374eae74ff",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 304,
+   "positions": "de77b277d7140f7186a88284e8b86979",
+   "uv": "304c08b9676c0ed85880084ef3383098",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      79.302029,
+      110.402069
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 1006,
+   "positions": "9a8a775775940db34133d1aa47d98b64",
+   "uv": "bb6cb7e5560cf4d0564f5d794e7a5820",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "ad5ff758dfb6e09787a22e831f909885",
+   "uv": "c9c6e4e9768ca15d5c1ea344bab2b40d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "water-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "7524a98584ac4210da2bae9fdbdd26da",
+   "uv": "a27823c0930268044cb8e11831b4de05",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "44d0488f0f76184c44f38f675a28ae6a",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 400,
+   "positions": "77351b39e957c6e55708b04cafd13875",
+   "uv": "00c258769771bae64dd38285ff1e14cc",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      132.690176,
+      69.346881
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 1006,
+   "positions": "8562decd1bef00dfd54d9ed111c48e24",
+   "uv": "9eb9e5bd6c1a43e89802ecd3d8244156",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "1e7636d13ca5681bee5ed066239d689f",
+   "uv": "a316f32aa4af7981b61c5458ed0f1aa8",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "juice-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "ae3dd61775bacb8cb401a7015aa749a8",
+   "uv": "0bcb1f7cb6431884e754f11ac101152f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "9513a1b79245e00bc9754566d85dea9f",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "1d5e80dd2e7d8ee15318f9388022c0fa",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      116.830167,
+      84.520804
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "0c143299cdce150f6a5fa6f1d449d730",
+   "uv": "4c79fddda5a3f4b8ba431996ee2e927d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "fed345daf2967d731d73b209d18904c8",
+   "uv": "53e34b233d8fffb049f371ea838afa7b",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "soda-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "bb89e8c781d2e491202db14e506cba8a",
+   "uv": "ccb019d1774da5ca4f295a5e3be32f1f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "18a3c737d6e7941b0bc5ff40daf31711",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 400,
+   "positions": "217b8a4c731668172f285fcda8f8c37f",
+   "uv": "00c258769771bae64dd38285ff1e14cc",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      142.897113,
+      75.719569
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 1006,
+   "positions": "7b4be8c9b23643eff7792ed9b6cc43bc",
+   "uv": "fdcb65f8148ad65c2fabd0352322914a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "15880a137283cb09384e364c933b9d91",
+   "uv": "01ebcd13c757a44454b2a7f19a10ecd0",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "beer-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "441a84475b77405d114bfebfdbe0f354",
+   "uv": "4bedd37904698eb23539ecc91fa690ee",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 511,
+   "positions": "f785aa4c0331e5fc647683ca56de4f82",
+   "uv": "775a96f2f08bf2d5c2abc1eb9d99106d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 336,
+   "positions": "f153a6a459f9486f568da63878949ffc",
+   "uv": "53f1fb2b95262452e3a5db4b8c747762",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      103.639664,
+      95.29716
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "wineCapsule",
+   "vertices": 585,
+   "positions": "9e7ea678d1d0e1b3de001442f035b399",
+   "uv": "b8556013acaefd852e240cc06d2b35b5",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "wine-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "995cc1c49719323239f6fcc1d68943db",
+   "uv": "35e6e80c1ab21812bbb4d2ba68f08618",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 511,
+   "positions": "cb0fc83d9a184b6e7ee3f5df4bb48736",
+   "uv": "4ef39c7251559600457a527fff0bcfd0",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 336,
+   "positions": "ce6f62380809d700d9d4eb67e458fb04",
+   "uv": "53f1fb2b95262452e3a5db4b8c747762",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      129.54958,
+      124.4376
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "wineCapsule",
+   "vertices": 585,
+   "positions": "9258368d9976d1ba5d1c640f8610333b",
+   "uv": "0011e8dffbf4f5a3fdd31f58f46486f5",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "champagne-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "2175c9e88beaa9b48929416c3f22628f",
+   "uv": "bc81b5780c073e30e530a4da12b51fc3",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 511,
+   "positions": "9e330218f5001535ba68c2e01745d6d8",
+   "uv": "afcd5ed6d93d3e6f4f742c5d6caf4b6a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 336,
+   "positions": "c879e6b379d5ad2da68a5ca61e95767d",
+   "uv": "53f1fb2b95262452e3a5db4b8c747762",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      155.459497,
+      123.8076
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "wineCapsule",
+   "vertices": 585,
+   "positions": "555cbc1544920379f37d2eaa979afe31",
+   "uv": "6768815ae02ed81615045ecaefb696c0",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "spirits-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "76e1d62445d7cbe3ed744dafb0ec0503",
+   "uv": "c6e5f6113ef01a37fa3e1f07a979d10e",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "e263bde168af7c201f3aac36e8d0a25c",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "2953b50bf015d7b9fc270e0bdc09ef19",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      165.509403,
+      115.586736
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "fc0601c1c9dfe6551a4d6c51f59396dd",
+   "uv": "e8fd1dc3347e6edc2d931ebaac539e78",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "81f252f5d5679c817d6796649beea580",
+   "uv": "51e5aa4fc0db357bb50c781243ed1fa2",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "olive-oil-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "ba189e064fdb7458f57245ae4e70f7c8",
+   "uv": "225ee7f75be260e8ee33641d8a0c0e5c",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 511,
+   "positions": "9738159f3ad1f642f51ecdc023cac2b9",
+   "uv": "0952198a77847431748e9bb3738b222c",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 336,
+   "positions": "0fba6d7dbc8a5e9be571a50470475dab",
+   "uv": "53f1fb2b95262452e3a5db4b8c747762",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      103.639664,
+      116.56176
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "wineCapsule",
+   "vertices": 585,
+   "positions": "3405ebe4c8986e1061c520db66e8b706",
+   "uv": "bc2d142b9222d3d86e7c1d9b820a691c",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "sauce-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "f52062002b61fbff49c5852e0ba592e8",
+   "uv": "33b9f3bc21ba4123ac3a8e3218bf7fab",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "4a8437e6c5b06f99750a58955824fd05",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "dfda7b84274d1fca5b49396c36a7a7c9",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      107.09432,
+      80.118994
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "26db7b7baa07871b7822833994c15526",
+   "uv": "700881b1010d993ff9a4408a22cb6b97",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "2bfe4038c71e207ea3f6385200a14665",
+   "uv": "b891a646f51521bc51435fa6f0670a8e",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "syrup-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "7c85c53373792438e875b665396160b7",
+   "uv": "4f435861c4fe9e47f002aa665c77cb08",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "e491a2bb8bdea285ac51f5a833206344",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "2467c38b376e314f8a7bec4c6eb7630c",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      146.037709,
+      111.311555
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "c458bc2240b027da0b68bc40d3568040",
+   "uv": "5f8aa13379da9f404ce7309246cbf3e4",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "eb7d1f4d5f653fc251c2a281af2a5a5c",
+   "uv": "bb235724431a7b5e2892a8fa8e96a35b",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "milk-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "fad3219d5a27d5df31f0ce0443af8860",
+   "uv": "6cd023d96c61716a932e051d1b9dd639",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "b3a6d9d3ca4d362fa528e44fa8ab3bdd",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "81812a3c38097526e3c3fd23a8aa7243",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      146.037709,
+      93.197795
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "193fe0dde207793a88b4855bbc208f51",
+   "uv": "2def6b1a6472e9870b64f7bd1774d1a3",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "677c49983eaec7b4b5630519083efa1f",
+   "uv": "370b55b21cb513d62c6084dae4f666bd",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "sport-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "e570b57274112492dd8e34b1b1ae3673",
+   "uv": "af329533e7b703e0159be031f014a89a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "673940d5ebf948f05ba77cdf66fec106",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "dec36e0c10cc88dccf1a14cf7f87dfa2",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      136.301862,
+      106.909745
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "51d9eaed8063d376763e02e996e4454e",
+   "uv": "6d4cb37c77c4cdb88daee094ab34433b",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "7101d42e9c32bde60c41de624997bf7f",
+   "uv": "4ba93522ecd9588c9bbebd7a4a3ad6ab",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "supplement-bottle": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "56094432ed718f4570e08554b8a24cb5",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "c2167a3d27e2d6b4b529fd5eb47a67a1",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      131.905027,
+      56.606
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 1262,
+   "positions": "299525fbb6c5e9ecd3a40305f45a2db0",
+   "uv": "13e159a2bf6fc6c81d056690ea7a8fb6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "jug-bottle": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "7945cecb6c4350bfea93e76d83dcc7fb",
+   "uv": "4ab839ef0b295fdf4011ce2a2ebe468b",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      80,
+      220
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      80,
+      220
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      150,
+      80
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      150,
+      80
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      150,
+      220
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      150,
+      220
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 292,
+   "positions": "a3f8b78d7666418852d920d34d54e6a4",
+   "uv": "388ba1093ae370fc6c0c958d6d67807f",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 833,
+   "positions": "228bd0246d7f079d8c54a9f7f6103367",
+   "uv": "22963759685ba8575961e201fb8167ee",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "detergent-bottle": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "9bcd153122dbaf4b30dd228b903f8a43",
+   "uv": "607c353f42b9289debb8f7f02ddc00ef",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      70,
+      228.8
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      70,
+      228.8
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      110,
+      70
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      110,
+      70
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      110,
+      228.8
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      110,
+      228.8
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 292,
+   "positions": "d2baaef0f4f46042511d7a3fa6034330",
+   "uv": "388ba1093ae370fc6c0c958d6d67807f",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 833,
+   "positions": "d947c81ae5cb9a173ca44632ff5bd762",
+   "uv": "22963759685ba8575961e201fb8167ee",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "nail-polish": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "20ea750fe6fa08be18eb10888c391295",
+   "uv": "4b995f2f70301baa26f2956d45e05727",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "2191ea103460421eee186a5ef7e311fb",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "31ad939028df9b612d9e07cc1e4a7ffc",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      58.415084,
+      30.942354
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "bd5b24634695e775e1be43f6d8f296fb",
+   "uv": "4132aa1b581bca9f89b44ebae1e10663",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "56d6216993f55df808749547d1c9017d",
+   "uv": "654805297ffd5ad07b1bc678d63c751f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "cosmetic-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "0ad188f9660143e4ac88d613f35053c8",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "688005362d4543f64da026eb923b1d5d",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      142.897113,
+      25.73
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "ab6ddc0b99771a8556b1d9d735219f55",
+   "uv": "7d457421de2623dc74be612e9d25b382",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "cosmetic-jar-tall": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "b0badf36eae12ed508a10afa8524aa5a",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "10c8015895000cf1f694d3c0a703d7e2",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      131.905027,
+      41.168
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "3ce0678e83f1789dbfe330692b9963c0",
+   "uv": "d21a79f1538b53a1be077ec7ebf438a6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "honey-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "5b6f9f3d82a897350e3e99dccb3676ab",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "3fb340a8872c2036c5efee38186e0746",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      164.881284,
+      48.887
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "711953def5dee25495fef99a5477e417",
+   "uv": "6176851cea885ec1d9951cf3f94481c0",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "jam-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "eb2bb6d684103e9a0de0b22b393d21c1",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "8fb61a7fa8fc3fb6cf377a6d0ecd7fe9",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      153.889199,
+      43.741
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "297c9c8fbb80af60643b75783393f80d",
+   "uv": "8a5411666484b4ac033d6a88151a1993",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "mason-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "70e4610dbb6bc9eeceae2bb6079c5a79",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "a13da32494bb4846d282b4dc273551ce",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      186.865455,
+      66.898
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "dac9ffcadd6af3b779b1474e2d41350d",
+   "uv": "bf45c63e978357870de7ad1f1b9c3750",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "candle-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "2b5510335af4b9259c2f63d3471954f6",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "f4363e2e7c84c984e43a981fce53d816",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      175.87337,
+      46.314
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "25edcf9b391b23e780f3d6821857bdea",
+   "uv": "4223d5bb0a8dc676388c970ef226ce7a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "baby-food-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "77d1215059664bae7851cb1862579395",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "41a0584e8c3641c2ee2589f7ab368383",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      131.905027,
+      33.449
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "697220e53bfda19e071f6ca8cb1bf6ca",
+   "uv": "25388d15542208a41e32fe77b23e4638",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "protein-tub": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "d5c27b9f02af5f98c0f0604a332b17c7",
+   "uv": "4f6e5ea6f0981556388ccdedbc6d0aa9",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      375.096925,
+      165.920872
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "13f2ff0ea90eccc1a4b08489c0fb48f4",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "1ab452d72cea1d149580874afb9e2caf",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "yogurt-cup": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "92258a41576439d0cd8169900809aeb1",
+   "uv": "2a33876a143019a88825709a12f65592",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      217.986316,
+      77.882038
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "933bd9c0c986c8eacbac68010002700f",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "80b983361a481cac92fe441d9057e77d",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "ice-cream-tub": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "b1bd59f19a4234dea2a738b903c0ce04",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      314.159265,
+      80.28
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "3a306bbed97ed7536e140de0c62eb2ab",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "2cc0827197aebd62bef8b97354e14d44",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "deli-container": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "a132e29b8c4f8ba0c4b220446fdcc948",
+   "uv": "9096645a512282acb9d098d6c247feaa",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      351.644902,
+      93.741952
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "0229afaca3c518b5feeebda25ce71839",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "64cc1bc9b9c2018dcb3d1d024fd43c53",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "stand-up-pouch": [
+  {
+   "name": "",
+   "vertices": 3348,
+   "positions": "91548e845af29d7e8b9fe819fb7a95c8",
+   "uv": "6f346d76ae5a991d18503b80803999d0",
+   "groups": 3,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      140,
+      210
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      140,
+      210
+     ]
+    },
+    {
+     "surfaceId": "gusset",
+     "mm": [
+      280,
+      80
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 24,
+   "positions": "a4c345bde0f47ff6cdcc3ec557a5f834",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "stand-up-pouch-small": [
+  {
+   "name": "",
+   "vertices": 3348,
+   "positions": "d09467c861321c19c89f70fbf71c4cde",
+   "uv": "7822c4d913fcf8045404dbce5ed864f2",
+   "groups": 3,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      100,
+      150
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      100,
+      150
+     ]
+    },
+    {
+     "surfaceId": "gusset",
+     "mm": [
+      200,
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 24,
+   "positions": "c29ecdd4b7d46119cecb2ea4c16741c7",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "coffee-pouch": [
+  {
+   "name": "",
+   "vertices": 3348,
+   "positions": "7d5f2ad6b8e0f6d3bba81554ef4838b9",
+   "uv": "edfc782255c99d9a9925f9342db11589",
+   "groups": 3,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      130,
+      220
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      130,
+      220
+     ]
+    },
+    {
+     "surfaceId": "gusset",
+     "mm": [
+      260,
+      80
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 24,
+   "positions": "164bdb22125833cab72f13a8166fe1e5",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "flat-pouch": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "12bf7ebd66447f1bf98fdfede9b80995",
+   "uv": "b269464c4e687b69742cedf0b8923481",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      120,
+      170
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      120,
+      170
+     ]
+    }
+   ]
+  }
+ ],
+ "chips-bag": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "c7435a19673baae1ba7a308e7de061e7",
+   "uv": "be19e6ae39e6795592f9724abaa48cc7",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      200,
+      280
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      200,
+      280
+     ]
+    }
+   ]
+  }
+ ],
+ "candy-bag": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "01032ec1cb78fac156410232afcb20af",
+   "uv": "b232bdd01447fe7839b3a83d56a39f51",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      150,
+      200
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      150,
+      200
+     ]
+    }
+   ]
+  }
+ ],
+ "sachet-sample": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "ae06c1b691743084e3832bcda4a6ec6c",
+   "uv": "913c190b6a5d2dc3366e17fd2a7a9cb4",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      60,
+      80
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      60,
+      80
+     ]
+    }
+   ]
+  }
+ ],
+ "stick-pack": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "516f8bb1011174fd60c9957e77b2d9bc",
+   "uv": "03accdf94910b18a5b04d819d2003aa6",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      25,
+      110
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      25,
+      110
+     ]
+    }
+   ]
+  }
+ ],
+ "tea-sachet": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "07f25b60a2f2c1ecd808ac2c62ca1763",
+   "uv": "7548bae21ce3525af0bba0e52b6a9d4d",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      70,
+      90
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      70,
+      90
+     ]
+    }
+   ]
+  }
+ ],
+ "face-mask-sachet": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "de31c784d04eddfe94d1ffba0b8a3a8f",
+   "uv": "e3414408a367b5998a39b2f6575b8b27",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      130,
+      180
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      130,
+      180
+     ]
+    }
+   ]
+  }
+ ],
+ "pet-food-bag": [
+  {
+   "name": "bag:front",
+   "vertices": 18,
+   "positions": "aea240720f6dcae02778986bfcf0f87b",
+   "uv": "37780f1c9814ce94d6d564023d654efd",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      250,
+      420.669257
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 18,
+   "positions": "51fc21e2c9d7d061b1619d1f9af6a558",
+   "uv": "ee1d96aa101a159a3fccc6bb68093cbf",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:back",
+   "vertices": 18,
+   "positions": "02f186422f521d3991af027d61dee9bf",
+   "uv": "37780f1c9814ce94d6d564023d654efd",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "back",
+     "mm": [
+      250,
+      420.669257
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 18,
+   "positions": "5adee2293828d876a579943ba1f3d705",
+   "uv": "ee1d96aa101a159a3fccc6bb68093cbf",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:gusset-right",
+   "vertices": 30,
+   "positions": "413852259eeedace1c5327a41e87b81b",
+   "uv": "09f7e072f83d49163a526b83e19e639a",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "gusset-right",
+     "mm": [
+      99.8,
+      420.669257
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 30,
+   "positions": "10dbcbeeb7a3f1338abd6be4b43592c1",
+   "uv": "0a3d884aac0b3cc9586f8cc7d07577e3",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:gusset-left",
+   "vertices": 30,
+   "positions": "6acf01136c6cd0bea948f925b679450b",
+   "uv": "466b1b00a0827129b5b8ccb011981562",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "gusset-left",
+     "mm": [
+      99.8,
+      420.669257
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 30,
+   "positions": "d302edbf3d38087b4ac157c3391f787c",
+   "uv": "bb2c38e8d35cbefc676d5ffcf102a964",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:fin",
+   "vertices": 18,
+   "positions": "48ff218216746f07ab62b6d0c278c45f",
+   "uv": "37780f1c9814ce94d6d564023d654efd",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:fin",
+   "vertices": 18,
+   "positions": "098c429fce407a4d549abe74e996970a",
+   "uv": "37780f1c9814ce94d6d564023d654efd",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "flour-bag": [
+  {
+   "name": "",
+   "vertices": 1950,
+   "positions": "48097e56131a9fa9e1ecafa031f62a1e",
+   "uv": "644900a5e56ec9aba9276e36e32c3b59",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      80,
+      250
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      80,
+      250
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      150,
+      80
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      150,
+      80
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      150,
+      250
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      150,
+      250
+     ]
+    }
+   ]
+  }
+ ],
+ "coffee-bag-gusset": [
+  {
+   "name": "bag:front",
+   "vertices": 18,
+   "positions": "2edb0b32e03c0307f63ec469e9e7a7af",
+   "uv": "a1b14e4f57a4ae7179b01c5026aa2959",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      110,
+      264.414632
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 18,
+   "positions": "e11709a1f11c2e7b5865b94ddb32c338",
+   "uv": "551c6b79ef5f1f8b697a2f39cfc17536",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:back",
+   "vertices": 18,
+   "positions": "f009092f0ab3804c3b962ee4ef92cb21",
+   "uv": "a1b14e4f57a4ae7179b01c5026aa2959",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "back",
+     "mm": [
+      110,
+      264.414632
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 18,
+   "positions": "883dfd60bef1db355ac2da90b2cb671f",
+   "uv": "551c6b79ef5f1f8b697a2f39cfc17536",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:gusset-right",
+   "vertices": 30,
+   "positions": "e4da9c7091f49d4d1b30dfe66899d903",
+   "uv": "720c5f87ed248024fd721c8aa774f3e4",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "gusset-right",
+     "mm": [
+      69.6,
+      264.414632
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 30,
+   "positions": "ab68797a8f3a2ff11ce3c3b341f48598",
+   "uv": "f9977a4460d20596e28c3dc15a6a8e11",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:gusset-left",
+   "vertices": 30,
+   "positions": "db4c9c1dd4fc9e5a013204b7a889a137",
+   "uv": "c11ca02d76be66bfd72aa2d12f656818",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "gusset-left",
+     "mm": [
+      69.6,
+      264.414632
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 30,
+   "positions": "098e24b03b6702c2071301e0d8f6546f",
+   "uv": "04df39445c74394cddfee2b3c0f6e87a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:fin",
+   "vertices": 18,
+   "positions": "51ec21d83634594e38a86934c645712d",
+   "uv": "a1b14e4f57a4ae7179b01c5026aa2959",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:fin",
+   "vertices": 18,
+   "positions": "e3f555db2183e3a8c2e204e36fadbf2c",
+   "uv": "a1b14e4f57a4ae7179b01c5026aa2959",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "rice-bag": [
+  {
+   "name": "bag:front",
+   "vertices": 18,
+   "positions": "87c12bed05ca1ccf8fee712e54215fd8",
+   "uv": "81222a587bcb78e47d413e149fd4989a",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      200,
+      348.598189
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 18,
+   "positions": "318eb07772bb6609b8c1e4b5bb91fe38",
+   "uv": "3692f03a9f2b5731b82a7562e1283334",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:back",
+   "vertices": 18,
+   "positions": "95d583de4dbd8bfc97edd55668bf02bc",
+   "uv": "81222a587bcb78e47d413e149fd4989a",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "back",
+     "mm": [
+      200,
+      348.598189
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 18,
+   "positions": "6c01d22184fa0e4a8c3cd2d77135b21f",
+   "uv": "3692f03a9f2b5731b82a7562e1283334",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:gusset-right",
+   "vertices": 30,
+   "positions": "381e70a1c3efe71502a4cc66afc57f35",
+   "uv": "5a8d6ef65f170a38372b7fee26a84fde",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "gusset-right",
+     "mm": [
+      89.8,
+      348.598189
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 30,
+   "positions": "b342b09fc15df9e6f057a3e3898b6e32",
+   "uv": "52f2891924053ba71172948caff4aa83",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:gusset-left",
+   "vertices": 30,
+   "positions": "c7c381e3f6cadc62fd48b1a4e1c4d2f5",
+   "uv": "0509600203302dc8d863b49cb2c15eb0",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "gusset-left",
+     "mm": [
+      89.8,
+      348.598189
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 30,
+   "positions": "fe915e5a501be9eb71937d3a93639bb7",
+   "uv": "2ecd23581f68c36ea6dd6364ebb1c7d3",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:fin",
+   "vertices": 18,
+   "positions": "f478e171ca6b43bde8df6bdd46de0f6c",
+   "uv": "81222a587bcb78e47d413e149fd4989a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:fin",
+   "vertices": 18,
+   "positions": "bcebe6d35b2f592b6bfb751ed20e5612",
+   "uv": "81222a587bcb78e47d413e149fd4989a",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "squeeze-tube": [
+  {
+   "name": "",
+   "vertices": 4947,
+   "positions": "99d6714e20a356fd74b5f63c01acef7c",
+   "uv": "3a03c68633400dc0d1106e47ae71bf09",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      109.955743,
+      132
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 24,
+   "positions": "6266371995e22b68b19133e798deff46",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 292,
+   "positions": "c0730b746cfaa65258231a109fea7f3d",
+   "uv": "388ba1093ae370fc6c0c958d6d67807f",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "squeeze-tube-large": [
+  {
+   "name": "",
+   "vertices": 4947,
+   "positions": "9e5091c09c206c53066ea5b3deb54534",
+   "uv": "3a03c68633400dc0d1106e47ae71bf09",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      157.079633,
+      167.2
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 24,
+   "positions": "4945445e6f6b6d428ecce90361b425ca",
+   "uv": "9e4769cf9c44598b2ef8688e292e5aa8",
+   "groups": 6,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 292,
+   "positions": "c9ab08bc91541456352cfcf0fc2aea18",
+   "uv": "388ba1093ae370fc6c0c958d6d67807f",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "lip-balm-tube": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "1aed6ff4f300bd18e1963e97f8dabd57",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      56.548668,
+      56.56
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "b8ac1be444ff35dc4e5568591d21945b",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "1c28e155186121300fb3c7804db97ca5",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "cylinder-tube": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "d67901cd39be5c618730116f535bda1a",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      219.911486,
+      145.44
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "9f66e1a76700f4c9da0abe23df6ec736",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "9f670582978e4852ca4eae2173ae886f",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "poster-tube": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "2b9757434dcab0d3276a34bfc20cc99b",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      188.495559,
+      339.36
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "73d3f12de1701b315243174b3d8f611d",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "9483edeaea5292d674bdb50b9f5fc3e1",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "deodorant-stick": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "ae275c8ea7baeb94266d3b4309f142dd",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      141.371669,
+      88.88
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "2ecdb85e054830dad1decd5e86ef4e65",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "0f58404fbcaa7dedc1a0e45b05cb1d13",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "beverage-can": [
+  {
+   "name": "",
+   "vertices": 582,
+   "positions": "bbd8aaa2ee00bc4342d2e793d2a08047",
+   "uv": "0ad6c05bf3439186501461088ed67cc9",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "lid",
+   "vertices": 910,
+   "positions": "cf5b4454e6137dd93a9eb8762371cc3f",
+   "uv": "e895c955c654732f344cd833ac6ab278",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "rivet",
+   "vertices": 125,
+   "positions": "b7c3a4d5f286875ebfad29ca3a5fee46",
+   "uv": "9661726c9e85a7737744edfdb5317024",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "pullTab",
+   "vertices": 980,
+   "positions": "57229970c373fa9d542a60b3ff309dc7",
+   "uv": "30a5c3d12447fbfcd77ac62a07d88449",
+   "groups": 2,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "00961d3dd1d8bd2de63470b8b5a54faf",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      207.345115,
+      96.6
+     ]
+    }
+   ]
+  }
+ ],
+ "sleek-can": [
+  {
+   "name": "",
+   "vertices": 582,
+   "positions": "e53a21c2230f70f8a8693512e089727f",
+   "uv": "0ad6c05bf3439186501461088ed67cc9",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "lid",
+   "vertices": 910,
+   "positions": "50a05047642877e8ebd8223e34420459",
+   "uv": "06862a09ce796834efe0b4a73c2fc469",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "rivet",
+   "vertices": 125,
+   "positions": "b8814a8e1cc6b5ed5344b870058207bf",
+   "uv": "0392e0cfba4619d33422b5dc8f564c7e",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "pullTab",
+   "vertices": 986,
+   "positions": "9af29790e4c2ead51cfb86845b9ed5c2",
+   "uv": "f5f7d7afc7996694b8211fed7cbf9fee",
+   "groups": 2,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "7d16c549dc9105947f375a30e741761a",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      166.504411,
+      112.56
+     ]
+    }
+   ]
+  }
+ ],
+ "tall-can": [
+  {
+   "name": "",
+   "vertices": 582,
+   "positions": "f759cdf1e7285a8810f8d6c50bdc7b80",
+   "uv": "0ad6c05bf3439186501461088ed67cc9",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "lid",
+   "vertices": 910,
+   "positions": "7ab3088bb64b20bc6a5523e7dee07944",
+   "uv": "dd15907a4502e04c71768b684c1c56ed",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "rivet",
+   "vertices": 125,
+   "positions": "45bc836aaba4b8c04979065575c2f81b",
+   "uv": "9661726c9e85a7737744edfdb5317024",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "pullTab",
+   "vertices": 980,
+   "positions": "cfb3f34fb231bec1a4a55d54c704d22d",
+   "uv": "30a5c3d12447fbfcd77ac62a07d88449",
+   "groups": 2,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "95bdaf48370b979c4b4cfe1bf3817016",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      207.345115,
+      141.12
+     ]
+    }
+   ]
+  }
+ ],
+ "food-can": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "959c9754fdff40aaf12ea70ccd954300",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      229.336264,
+      98.12
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "3bbfce37223107dd22a8e2ed1649291a",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "30ae6f5b24c4033e04efaab28467a2e5",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "aerosol-can": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "6df1df535636141d3171724cb0cb0410",
+   "uv": "1567dc66a418f8671610c0366969e08c",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "58dab3f56f05d8a49c56ff7676ceae1b",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "fb28f45fe00e757ccad554780f7e5fec",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      97.358473,
+      85.788233
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "collar",
+   "vertices": 363,
+   "positions": "a1ab279da163a11abd668bd482626d5c",
+   "uv": "9cec472479cee3e8740c0542b1afeba1",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "actuator",
+   "vertices": 392,
+   "positions": "ffb88115755886a137eab562f3b64640",
+   "uv": "42c87ca326d4947ccb767d042f4fe145",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "nozzle",
+   "vertices": 53,
+   "positions": "9073b7a92cbc5f1931dd5cb353f7e525",
+   "uv": "52d0d707041558eba8bc4d6b023a79a2",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "round-tin": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "09d9a16d0b755fac7fb671a223ba6170",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      282.743339,
+      53.52
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "ed4d34bc7c9867f2fd281f48d25361f7",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "84c76089389d753440bc9b680987834f",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "tea-tin": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "474f8555e6fc5cdb0b1dbde5e0ae73d3",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      235.619449,
+      107.04
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "5c7cd2f91bd972de57abcdbb5f44e710",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "b06c46471b21796c5f5f7b4413deb63a",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "cookie-tin": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "7bb0e1320532d5e585334b422471bc97",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      628.318531,
+      71.36
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "233290c32abf511c506e1d30b1a0affd",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "4b2fe42b78665ae8aaca5885b85ec86f",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "mint-tin": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "4fa2924e545efca586fd44e584a3ea46",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      188.495559,
+      17.84
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "1a5ecb8fb7fa4bda73f60ae6152e085a",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "f7114f5ef65011dbd62841a5ceae415f",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "juice-bottle-30cl": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "1f64bf64dd7a5c99aafca66c686815d7",
+   "uv": "d173109a47dea11e901b7311e5432d9e",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "c6068287cff8672f912f4a6496274e74",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 400,
+   "positions": "abc572f6af71c1a0620844b53b2f2056",
+   "uv": "00c258769771bae64dd38285ff1e14cc",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      118.400465,
+      51.317971
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 1006,
+   "positions": "2a148423e7c7f61af582b7b8aef7a5cb",
+   "uv": "656511f52fa3ffffff93b5c56bfea528",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "5ba267d47ebf375a619bc6957afb1109",
+   "uv": "1b4a65cbdfdaf61afbeb3eabbb9b99bb",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "glass-juice-25cl": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "9ff0063cfa6776b892eba97c5b36fff3",
+   "uv": "782de19211fc9941f4ecf8fdf3ef919c",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "4dac1d6b436666a02d8fe28c87ede108",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "fe8df07e573859089161f8c83779dc3a",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      107.09432,
+      75.590554
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "c7b9c2bbec8a5b7f4893c9b1367a972f",
+   "uv": "f422a9ba8f66b343d43405aa99e01b3e",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "ae8decc376c4e01836a88dbf4f3154d9",
+   "uv": "a809df04515362fb66195fba540cccd3",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "oil-bottle-1l": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "4a8ea8d935993f3cc2f8d6c196a80319",
+   "uv": "89f11bc9f4bbae812dfcb0dedf39da6d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "8567e401425e2de47ad165b1a299d124",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 400,
+   "positions": "56013d3137f464047509852ff74e9c3c",
+   "uv": "00c258769771bae64dd38285ff1e14cc",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      167.393761,
+      91.688922
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 1006,
+   "positions": "4f7c3ec09cd1ceb603de36afddad36c8",
+   "uv": "29b7ea6ca13c3ad5ce25c5964ebfde78",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "c86c59f89b41ab795b65bc12048d8e4a",
+   "uv": "410a879a94444a50d321fb257654d3d4",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "jerrican-5l": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "af43acd50a719965a2386ea3c68067d3",
+   "uv": "69400beceed310e5ae977415c9024703",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      120,
+      264
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      120,
+      264
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      190,
+      120
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      190,
+      120
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      190,
+      264
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      190,
+      264
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 292,
+   "positions": "6c56a1ffac4c3fc21d7ab06edad3b24c",
+   "uv": "388ba1093ae370fc6c0c958d6d67807f",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 833,
+   "positions": "2af59538d587f2a47c4785c965140cd1",
+   "uv": "22963759685ba8575961e201fb8167ee",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "big-beer-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "fad8b59a66c9e489fe9091457908c1b8",
+   "uv": "a5b95f905bca30f04e8d8341ca87ad7b",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 511,
+   "positions": "9efae4f206656e1b726a16484ceb99ad",
+   "uv": "29970f933f4c98a9718ce3e2b9c1cd71",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 336,
+   "positions": "9918e6c3cdcb1bf4edf64edd296b684b",
+   "uv": "53f1fb2b95262452e3a5db4b8c747762",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      124.367597,
+      120.31068
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "wineCapsule",
+   "vertices": 585,
+   "positions": "00e99824db01ad48dacaf02dd1a61de9",
+   "uv": "1d982cdbde9db5184d0df5949bbc1267",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "drink-yogurt-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "0d079083a8b3e48df0a9041b0dd5accd",
+   "uv": "2d25c2588ec077ed522b1d3af665bc7f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "666a1e484c0aed49f9b4ce75bc95ca80",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "19a83ab33351007e6eec5c5b6a50df74",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      107.09432,
+      66.533674
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "0f67a85d53879f60b10d9b03b2532309",
+   "uv": "fe58561d7227223782abec1ed7669b98",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "d1e6d02306598e31f9d560fae0600fec",
+   "uv": "ddf35ee62f0aff8d55b3c240576c5d06",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "cosmetic-oil-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "ef036978c486b7c2a8f0498279d32e47",
+   "uv": "6f290089d7f465945f4f7e5d12f50be8",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "a26c574a1c1be8f96e7b703e155696d8",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 400,
+   "positions": "b8cf22e50702b30b1642ee23fd336ec6",
+   "uv": "00c258769771bae64dd38285ff1e14cc",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      85.738268,
+      44.081936
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 1006,
+   "positions": "fd35f352a0e51475f2762c542982027f",
+   "uv": "971bbc5651477b5899817a1d599bd081",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "6168e3ca79c271bd05a91925193fcc55",
+   "uv": "233724b16b3c304ab263951e56195145",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "roll-on-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "e81bb08303403fd32354cf90dc885d1c",
+   "uv": "223084f0af0b02fe697e9ce1ebea2bac",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "46fc4565629381317bf2dc24a669c7f8",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "2fc3d9f308aca9b683ffc12cdd52ce7d",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      42.837728,
+      37.93457
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "3718cb32911222d42e699c65ad264514",
+   "uv": "7f84551c571ad8bf19cc121d8fb2ab32",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "098a29a5d2aed51a47b57ddaa6ad73b4",
+   "uv": "846288ea26b399f00cd0fb670e2212d3",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "hot-sauce-bottle": [
+  {
+   "name": "",
+   "vertices": 2117,
+   "positions": "ec63252fe770678324db7e6d969f819f",
+   "uv": "4f435861c4fe9e47f002aa665c77cb08",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 73,
+   "positions": "c75296106a2aefbc146a2a1d44614424",
+   "uv": "75e18d415242e70cb7706643d1882f0d",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 384,
+   "positions": "11e787d23fa776c74073b3786cea1c7d",
+   "uv": "e0af7dba3da7c494324dd5bb2fab8fab",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      87.622625,
+      66.786933
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "ribbedCap",
+   "vertices": 878,
+   "positions": "2f54b7a1cfcfae7f4627fcdd90dea4cf",
+   "uv": "5f8aa13379da9f404ce7309246cbf3e4",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "tamperRing",
+   "vertices": 222,
+   "positions": "19e6e2f02373cfa8eb6ca15f3b83ff20",
+   "uv": "bb235724431a7b5e2892a8fa8e96a35b",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "water-sachet": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "55bbbcd83f91679b3d1a860fad3a1b2d",
+   "uv": "6614ec925bc7bf172cc5e17d92530bcf",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      150,
+      210
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      150,
+      210
+     ]
+    }
+   ]
+  }
+ ],
+ "gari-bag": [
+  {
+   "name": "bag:front",
+   "vertices": 18,
+   "positions": "2a766a13d3604be3f5c5f4c3ab31eb55",
+   "uv": "595ea4c508079e51675222c05c9add30",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      180,
+      294.456053
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 18,
+   "positions": "1ae0b3d1f29a42e27683c094dcc9a313",
+   "uv": "1eb4b329c1c2852425cbfc2ce4dfca63",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:back",
+   "vertices": 18,
+   "positions": "cf7115d15e0ea11152f88a249b37a4d5",
+   "uv": "595ea4c508079e51675222c05c9add30",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "back",
+     "mm": [
+      180,
+      294.456053
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 18,
+   "positions": "95a88b3b96812b2ebb6eccd866696353",
+   "uv": "1eb4b329c1c2852425cbfc2ce4dfca63",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:gusset-right",
+   "vertices": 30,
+   "positions": "0d76d0b9711282f9226e85d764cc9d74",
+   "uv": "47a952f493e0c57a615610dcc0b95db1",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "gusset-right",
+     "mm": [
+      69.8,
+      294.456053
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 30,
+   "positions": "4419b7ea9265e509c51e708b9b703cc7",
+   "uv": "28f0f8e0dfb723a5470917450ecaf0a1",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:gusset-left",
+   "vertices": 30,
+   "positions": "85b379a33971f9272441108d100f6172",
+   "uv": "f1d3209ba332b5d04ad142137f09a9e0",
+   "groups": 0,
+   "textures": [
+    {
+     "surfaceId": "gusset-left",
+     "mm": [
+      69.8,
+      294.456053
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 30,
+   "positions": "13e5345aa3fdba5ac3a167d6843ce8d5",
+   "uv": "2c61729d5e906147df64e24cbd035e64",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:fin",
+   "vertices": 18,
+   "positions": "8a40c376f47d04601e642dfcd5691d11",
+   "uv": "595ea4c508079e51675222c05c9add30",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "bag:fin",
+   "vertices": 18,
+   "positions": "9c1e853c70949bd7a82516317d9665b6",
+   "uv": "595ea4c508079e51675222c05c9add30",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "spice-sachet": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "5acd6edfed575c6826cdb7e0e1e3d565",
+   "uv": "af5600048213c91f5f609fccccb92925",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      90,
+      140
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      90,
+      140
+     ]
+    }
+   ]
+  }
+ ],
+ "plantain-chips-bag": [
+  {
+   "name": "",
+   "vertices": 2907,
+   "positions": "d91542604871ddf270213185a46cf7a8",
+   "uv": "3beeb302f158c8b57c2ba1049ef5e886",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "front",
+     "mm": [
+      160,
+      230
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      160,
+      230
+     ]
+    }
+   ]
+  }
+ ],
+ "peanut-butter-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "f0602769b0a1146522e36d55c2d42d6c",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "219f2129ed3686265842742ee4a40432",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      175.87337,
+      51.46
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "296d7fa361b56a1d566c53c79f083f7d",
+   "uv": "6d45ec2caca81f50a136b564cfde0b81",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "spice-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "c0e3715fddffb0bb0abc0b8539678809",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "27ae91be29e09512f4d887eb50899f52",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      105.524022,
+      51.46
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "76fe386be74d7110ac4dc3483849925c",
+   "uv": "73d8542a0b5fc00ce5bd822c70962a15",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "shea-butter-jar": [
+  {
+   "name": "",
+   "vertices": 679,
+   "positions": "478e39ab977a23a07732f5b8cad85e17",
+   "uv": "4334629acec37a9ced17b07c7466b90f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 432,
+   "positions": "dd90365450b6e4af6ce5cca5a10189c2",
+   "uv": "a58df735f16a8f4da8a6148967b3fa61",
+   "groups": 2,
+   "textures": [
+    {
+     "surfaceId": "label",
+     "mm": [
+      164.881284,
+      28.303
+     ]
+    },
+    null
+   ]
+  },
+  {
+   "name": "screwCap",
+   "vertices": 396,
+   "positions": "f190ba4c05aabfe65ff7c8a38afeda01",
+   "uv": "c9f337a33a3600ce487380ac56e0622f",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "hair-cream-tub": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "ada5e82b91f4543aa6f7c48c04b55218",
+   "uv": "014a8b1bca1aeb2e7a94ba347388b337",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      278.079567,
+      81.770269
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "777862eafd00a1d8497a89f9b5dafaf7",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "96a765f13995244f8639d873bd84db51",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "tomato-paste-tin": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "531a935f76a6fb3eaa15132a943e0264",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      188.495559,
+      40.14
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "1a5ecb8fb7fa4bda73f60ae6152e085a",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "b8fd2feddda4948262a816eeab1531dc",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "milk-powder-tin": [
+  {
+   "name": "",
+   "vertices": 194,
+   "positions": "d013fec1421f14f256c31af95db8ecac",
+   "uv": "021d4d8669fa20484cecc4280fa5302e",
+   "groups": 1,
+   "textures": [
+    {
+     "surfaceId": "wrap",
+     "mm": [
+      314.159265,
+      115.96
+     ]
+    }
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 66,
+   "positions": "b78390ee1d5675c6bb63e43a379a53ab",
+   "uv": "6fcde46829ca321df3e1b34d037fe4c6",
+   "groups": 0,
+   "textures": [
+    null
+   ]
+  },
+  {
+   "name": "",
+   "vertices": 580,
+   "positions": "555218c2e6b0c0a5715c6f5bf444be39",
+   "uv": "b55237dd63c8f045cbcbf5988abf49af",
+   "groups": 3,
+   "textures": [
+    null
+   ]
+  }
+ ],
+ "bouillon-box": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "7cb32e0dd6a768e3aecf41055aec4adc",
+   "uv": "0391e8be672417f590e3d5b4b22aed5a",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      30,
+      50
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      30,
+      50
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      60,
+      30
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      60,
+      30
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      60,
+      50
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      60,
+      50
+     ]
+    }
+   ]
+  }
+ ],
+ "soap-wrap": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "26ad20289d3cb90a3c3ee2aefd61d218",
+   "uv": "de5d678f94ca2ef938c4903dd553c776",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      28,
+      55
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      28,
+      55
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      85,
+      28
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      85,
+      28
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      85,
+      55
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      85,
+      55
+     ]
+    }
+   ]
+  }
+ ],
+ "chocolate-bar": [
+  {
+   "name": "",
+   "vertices": 1764,
+   "positions": "d1c238f1b79093a1052f0904c5cfa6c1",
+   "uv": "b935e140a84b8b62e933509c34fba00e",
+   "groups": 6,
+   "textures": [
+    {
+     "surfaceId": "right",
+     "mm": [
+      12,
+      160
+     ]
+    },
+    {
+     "surfaceId": "left",
+     "mm": [
+      12,
+      160
+     ]
+    },
+    {
+     "surfaceId": "top",
+     "mm": [
+      80,
+      12
+     ]
+    },
+    {
+     "surfaceId": "bottom",
+     "mm": [
+      80,
+      12
+     ]
+    },
+    {
+     "surfaceId": "front",
+     "mm": [
+      80,
+      160
+     ]
+    },
+    {
+     "surfaceId": "back",
+     "mm": [
+      80,
+      160
+     ]
+    }
+   ]
+  }
+ ]
+}

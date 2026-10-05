@@ -4,7 +4,8 @@
  * Every layout follows the same hierarchy: brand block → product → benefit → net quantity.
  */
 import { fitText, fontCss, fontWeight, isScript, luminance, resolveColors, type PackagingDesign } from "./draw";
-import { elementId, placeElement, textBox, textRole } from "./placement";
+import { elementId, placeElement, textBox } from "./placement";
+import type { ElementRole } from "@/lib/structure";
 
 export const LAYOUTS = ["classic", "bold", "band", "split", "emblem", "minimal", "frame", "pop", "window", "illustrated", "arch", "vertical", "label", "poster"] as const;
 export type LayoutId = (typeof LAYOUTS)[number];
@@ -95,7 +96,8 @@ function drawMonogram(ctx: CanvasRenderingContext2D, d: PackagingDesign, cx: num
   ctx.restore();
 }
 
-function text(ctx: CanvasRenderingContext2D, s: string, x: number, y: number, maxW: number, size: number, font: (s: number) => string, color: string, align: CanvasTextAlign = "center", alpha = 1) {
+/** One line of text; `role`: what it shows (phase 3A — given by the caller, never guessed from the text). */
+function text(ctx: CanvasRenderingContext2D, role: ElementRole, s: string, x: number, y: number, maxW: number, size: number, font: (s: number) => string, color: string, align: CanvasTextAlign = "center", alpha = 1) {
   if (!s) return 0;
   ctx.save();
   ctx.textAlign = align;
@@ -103,7 +105,7 @@ function text(ctx: CanvasRenderingContext2D, s: string, x: number, y: number, ma
   ctx.fillStyle = color;
   ctx.globalAlpha = alpha;
   const used = fitText(ctx, s, maxW, size, font);
-  placeElement(ctx, textRole(ctx, s), () => textBox(ctx, s, x, y, used, align, "middle"), () => ctx.fillText(s, x, y));
+  placeElement(ctx, role, () => textBox(ctx, s, x, y, used, align, "middle"), () => ctx.fillText(s, x, y));
   ctx.restore();
   return used;
 }
@@ -326,7 +328,7 @@ function microLine(ctx: CanvasRenderingContext2D, d: PackagingDesign, s: string,
   if (!s) return;
   ctx.save();
   ctx.letterSpacing = `${size * 0.22}px`;
-  text(ctx, s.toUpperCase(), x, y, maxW, size, (z) => `${fontWeight(d.bodyFont, 700)} ${z}px ${fontCss(d.bodyFont)}`, color, align, 0.9);
+  text(ctx, "secondary", s.toUpperCase(), x, y, maxW, size, (z) => `${fontWeight(d.bodyFont, 700)} ${z}px ${fontCss(d.bodyFont)}`, color, align, 0.9);
   ctx.restore();
 }
 
@@ -442,15 +444,15 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       let yy = y + pad * 1.5;
       const left = x + pad * 1.1;
       for (const word of words) {
-        const s = text(ctx, word, left, yy + unit * 0.13, w - pad * 2.2, unit * 0.36, H, ink, "left");
+        const s = text(ctx, "brand", word, left, yy + unit * 0.13, w - pad * 2.2, unit * 0.36, H, ink, "left");
         yy += s * 0.92;
       }
       ctx.fillStyle = accent;
       ctx.fillRect(left, yy + unit * 0.05, unit * 0.22, Math.max(2, unit * 0.022));
       const py = y + h - pad * 3.2;
-      text(ctx, d.productName, left, py, w - pad * 2.2, unit * 0.085, B, ink, "left");
-      if (d.tagline) text(ctx, d.tagline, left, py + unit * 0.085, w - pad * 2.2, unit * 0.05, Br, ink, "left", 0.85);
-      text(ctx, d.volume, x + w - pad * 1.1, y + h - pad * 1.4, w * 0.4, unit * 0.055, B, ink, "right", 0.9);
+      text(ctx, "productName", d.productName, left, py, w - pad * 2.2, unit * 0.085, B, ink, "left");
+      if (d.tagline) text(ctx, "subtitle", d.tagline, left, py + unit * 0.085, w - pad * 2.2, unit * 0.05, Br, ink, "left", 0.85);
+      text(ctx, "netContent", d.volume, x + w - pad * 1.1, y + h - pad * 1.4, w * 0.4, unit * 0.055, B, ink, "right", 0.9);
       if (d.logo) drawLogo(ctx, d, x + w - pad * 1.9, y + pad * 1.9, unit * 0.2, accent, accentInk);
       return;
     }
@@ -460,10 +462,10 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       ctx.fillStyle = accent;
       ctx.fillRect(x, top, w, bh);
       drawLogo(ctx, d, cx, y + h * 0.2, unit * 0.24, accent, accentInk);
-      text(ctx, brandText(d), cx, top + bh / 2, maxText, Math.min(bh * 0.55, unit * 0.2), H, accentInk);
-      text(ctx, d.productName, cx, top + bh + unit * 0.1, maxText, unit * 0.08, B, ink);
-      if (d.tagline) text(ctx, d.tagline, cx, top + bh + unit * 0.18, maxText, unit * 0.05, Br, ink, "center", 0.85);
-      text(ctx, d.volume, cx, y + h - pad * 1.5, maxText, unit * 0.055, B, ink, "center", 0.9);
+      text(ctx, "brand", brandText(d), cx, top + bh / 2, maxText, Math.min(bh * 0.55, unit * 0.2), H, accentInk);
+      text(ctx, "productName", d.productName, cx, top + bh + unit * 0.1, maxText, unit * 0.08, B, ink);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, top + bh + unit * 0.18, maxText, unit * 0.05, Br, ink, "center", 0.85);
+      text(ctx, "netContent", d.volume, cx, y + h - pad * 1.5, maxText, unit * 0.055, B, ink, "center", 0.9);
       return;
     }
     case "split": {
@@ -479,10 +481,10 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       ctx.closePath();
       ctx.fill();
       drawLogo(ctx, d, cx, y + h * 0.15, unit * 0.2, bg, ink);
-      text(ctx, brandText(d), cx, y + h * 0.33, maxText, unit * 0.19, H, accentInk);
-      text(ctx, d.productName, cx, y + h * 0.66, maxText, unit * 0.085, B, ink);
-      if (d.tagline) text(ctx, d.tagline, cx, y + h * 0.66 + unit * 0.085, maxText, unit * 0.05, Br, ink, "center", 0.85);
-      text(ctx, d.volume, cx, y + h - pad * 1.5, maxText, unit * 0.055, B, ink, "center", 0.9);
+      text(ctx, "brand", brandText(d), cx, y + h * 0.33, maxText, unit * 0.19, H, accentInk);
+      text(ctx, "productName", d.productName, cx, y + h * 0.66, maxText, unit * 0.085, B, ink);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, y + h * 0.66 + unit * 0.085, maxText, unit * 0.05, Br, ink, "center", 0.85);
+      text(ctx, "netContent", d.volume, cx, y + h - pad * 1.5, maxText, unit * 0.055, B, ink, "center", 0.9);
       return;
     }
     case "emblem": {
@@ -515,26 +517,26 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
         ctx.restore();
       }, elementId(ctx, "brand", "next"));
       drawLogo(ctx, d, cx, cy - R * 0.45, unit * 0.14, accent, accentInk);
-      text(ctx, brandText(d), cx, cy + R * 0.02, R * 1.5, unit * 0.15, H, ink);
+      text(ctx, "brand", brandText(d), cx, cy + R * 0.02, R * 1.5, unit * 0.15, H, ink);
       ctx.fillStyle = accent;
       const ruleH = Math.max(1.5, unit * 0.01);
       placeElement(ctx, "decorative", () => [cx - R * 0.25, cy + R * 0.25, R * 0.5, ruleH], () => ctx.fillRect(cx - R * 0.25, cy + R * 0.25, R * 0.5, ruleH), elementId(ctx, "brand", "last"));
-      if (d.tagline) text(ctx, d.tagline, cx, cy + R * 0.45, R * 1.3, unit * 0.042, Br, ink, "center", 0.85);
-      text(ctx, d.productName, cx, cy + R + unit * 0.1, maxText, unit * 0.08, B, ink);
-      text(ctx, d.volume, cx, y + h - pad * 1.5, maxText, unit * 0.055, B, ink, "center", 0.9);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, cy + R * 0.45, R * 1.3, unit * 0.042, Br, ink, "center", 0.85);
+      text(ctx, "productName", d.productName, cx, cy + R + unit * 0.1, maxText, unit * 0.08, B, ink);
+      text(ctx, "netContent", d.volume, cx, y + h - pad * 1.5, maxText, unit * 0.055, B, ink, "center", 0.9);
       return;
     }
     case "minimal": {
       // Restraint and white space — premium cosmetics, tea, luxury
       ctx.save();
       ctx.letterSpacing = `${unit * 0.02}px`;
-      text(ctx, brandText(d), cx, y + pad * 2.2, maxText, unit * 0.075, H, ink);
+      text(ctx, "brand", brandText(d), cx, y + pad * 2.2, maxText, unit * 0.075, H, ink);
       ctx.restore();
       ctx.fillStyle = accent;
       ctx.fillRect(cx - unit * 0.03, y + pad * 2.2 + unit * 0.08, unit * 0.06, Math.max(1, unit * 0.006));
-      text(ctx, d.productName, cx, y + h * 0.52, maxText, unit * 0.12, (sz) => `${fontWeight(d.headingFont, 400)} ${sz}px ${head}`, ink);
-      if (d.tagline) text(ctx, d.tagline, cx, y + h * 0.52 + unit * 0.11, maxText, unit * 0.045, Br, ink, "center", 0.75);
-      text(ctx, d.volume, x + pad * 1.2, y + h - pad * 1.4, w * 0.45, unit * 0.045, Br, ink, "left", 0.8);
+      text(ctx, "productName", d.productName, cx, y + h * 0.52, maxText, unit * 0.12, (sz) => `${fontWeight(d.headingFont, 400)} ${sz}px ${head}`, ink);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, y + h * 0.52 + unit * 0.11, maxText, unit * 0.045, Br, ink, "center", 0.75);
+      text(ctx, "netContent", d.volume, x + pad * 1.2, y + h - pad * 1.4, w * 0.45, unit * 0.045, Br, ink, "left", 0.8);
       ctx.fillStyle = accent;
       ctx.beginPath();
       ctx.arc(x + w - pad * 1.3, y + h - pad * 1.4, unit * 0.018, 0, Math.PI * 2);
@@ -576,11 +578,11 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       };
       drawLogo(ctx, d, cx, y + h * 0.2, unit * 0.2, accent, accentInk);
       divider(y + h * 0.32);
-      text(ctx, brandText(d), cx, y + h * 0.42, maxText * 0.95, unit * 0.16, H, ink);
+      text(ctx, "brand", brandText(d), cx, y + h * 0.42, maxText * 0.95, unit * 0.16, H, ink);
       divider(y + h * 0.52);
-      text(ctx, d.productName, cx, y + h * 0.6, maxText * 0.9, unit * 0.075, B, ink);
-      if (d.tagline) text(ctx, d.tagline, cx, y + h * 0.6 + unit * 0.075, maxText * 0.9, unit * 0.045, Br, ink, "center", 0.85);
-      text(ctx, d.volume, cx, y + h - pad * 1.9, maxText * 0.8, unit * 0.05, B, ink, "center", 0.9);
+      text(ctx, "productName", d.productName, cx, y + h * 0.6, maxText * 0.9, unit * 0.075, B, ink);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, y + h * 0.6 + unit * 0.075, maxText * 0.9, unit * 0.045, Br, ink, "center", 0.85);
+      text(ctx, "netContent", d.volume, cx, y + h - pad * 1.9, maxText * 0.8, unit * 0.05, B, ink, "center", 0.9);
       return;
     }
     case "pop": {
@@ -592,7 +594,7 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       ctx.fill();
       ctx.translate(cx, y + h * 0.42);
       ctx.rotate(-0.07);
-      text(ctx, brandText(d), 0, 0, unit * 0.85, unit * 0.22, H, accentInk);
+      text(ctx, "brand", brandText(d), 0, 0, unit * 0.85, unit * 0.22, H, accentInk);
       ctx.restore();
       // Sticker
       const sx = x + w - pad * 2.4, sy = y + pad * 2.4, sr = unit * 0.15;
@@ -607,11 +609,11 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       ctx.fill();
       ctx.translate(sx, sy);
       ctx.rotate(0.2);
-      text(ctx, d.volume || "NEW", 0, 0, sr * 1.4, sr * 0.45, B, resolveColors([extra, bg, ink, "#111111", "#ffffff"]).ink);
+      text(ctx, d.volume ? "netContent" : "secondary", d.volume || "NEW", 0, 0, sr * 1.4, sr * 0.45, B, resolveColors([extra, bg, ink, "#111111", "#ffffff"]).ink);
       ctx.restore();
       if (d.logo) drawLogo(ctx, d, x + pad * 2.2, y + pad * 2.2, unit * 0.18, accent, accentInk);
-      text(ctx, d.productName, cx, y + h * 0.72, maxText, unit * 0.09, B, ink);
-      if (d.tagline) text(ctx, d.tagline, cx, y + h * 0.72 + unit * 0.09, maxText, unit * 0.05, Br, ink, "center", 0.85);
+      text(ctx, "productName", d.productName, cx, y + h * 0.72, maxText, unit * 0.09, B, ink);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, y + h * 0.72 + unit * 0.09, maxText, unit * 0.05, Br, ink, "center", 0.85);
       return;
     }
     case "window": {
@@ -635,12 +637,12 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       ctx.roundRect(px + unit * 0.02, py + unit * 0.02, pw - unit * 0.04, ph - unit * 0.04, rr * 0.7);
       ctx.stroke();
       drawLogo(ctx, d, cx, py + ph * 0.2, unit * 0.18, accent, accentInk);
-      text(ctx, brandText(d), cx, py + ph * 0.43, pw * 0.85, unit * 0.14, H, panelInk);
+      text(ctx, "brand", brandText(d), cx, py + ph * 0.43, pw * 0.85, unit * 0.14, H, panelInk);
       ctx.fillStyle = accent;
       ctx.fillRect(cx - unit * 0.06, py + ph * 0.54, unit * 0.12, Math.max(1.5, unit * 0.01));
-      text(ctx, d.productName, cx, py + ph * 0.66, pw * 0.85, unit * 0.07, B, panelInk);
-      if (d.tagline) text(ctx, d.tagline, cx, py + ph * 0.78, pw * 0.85, unit * 0.042, Br, panelInk, "center", 0.85);
-      text(ctx, d.volume, cx, y + h - pad * 1.3, maxText, unit * 0.055, B, ink, "center", 0.95);
+      text(ctx, "productName", d.productName, cx, py + ph * 0.66, pw * 0.85, unit * 0.07, B, panelInk);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, py + ph * 0.78, pw * 0.85, unit * 0.042, Br, panelInk, "center", 0.85);
+      text(ctx, "netContent", d.volume, cx, y + h - pad * 1.3, maxText, unit * 0.055, B, ink, "center", 0.95);
       drawSeal(ctx, d, px + pw - unit * 0.03, py + unit * 0.03, unit * 0.1);
       return;
     }
@@ -655,13 +657,13 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
         drawLogo(ctx, d, cx, y + artH * 0.5, unit * 0.34, accent, accentInk);
       } else if (d.logo) drawLogo(ctx, d, x + pad * 1.6, y + pad * 1.6, unit * 0.16, accent, accentInk);
       const by = y + h * 0.71;
-      const bs = text(ctx, brandText(d), cx, by, maxText, unit * 0.2, H, ink);
+      const bs = text(ctx, "brand", brandText(d), cx, by, maxText, unit * 0.2, H, ink);
       microLine(ctx, d, d.origin ?? "", cx, by - bs * 0.72, maxText, unit * 0.032, ink);
       ctx.fillStyle = accent;
       ctx.fillRect(cx - unit * 0.06, by + bs * 0.62, unit * 0.12, Math.max(1.5, unit * 0.01));
-      text(ctx, d.productName, cx, by + bs * 0.62 + unit * 0.075, maxText, unit * 0.075, B, ink);
-      if (d.tagline) text(ctx, d.tagline, cx, by + bs * 0.62 + unit * 0.14, maxText, unit * 0.045, Br, ink, "center", 0.85);
-      text(ctx, d.volume, cx, y + h - pad * 0.95, maxText, unit * 0.045, B, ink, "center", 0.9);
+      text(ctx, "productName", d.productName, cx, by + bs * 0.62 + unit * 0.075, maxText, unit * 0.075, B, ink);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, by + bs * 0.62 + unit * 0.14, maxText, unit * 0.045, Br, ink, "center", 0.85);
+      text(ctx, "netContent", d.volume, cx, y + h - pad * 0.95, maxText, unit * 0.045, B, ink, "center", 0.9);
       drawSeal(ctx, d, x + w - pad * 1.9, y + pad * 1.9, unit * 0.13);
       return;
     }
@@ -689,10 +691,10 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       ctx.stroke();
       microLine(ctx, d, d.origin ?? "", cx, y + h * 0.065, maxText, unit * 0.034, ink);
       const by = ay + ah + unit * 0.13;
-      const bs = text(ctx, brandText(d), cx, by, maxText, unit * 0.17, H, ink);
-      text(ctx, d.productName, cx, by + bs * 0.55 + unit * 0.06, maxText, unit * 0.07, B, ink);
-      if (d.tagline) text(ctx, d.tagline, cx, by + bs * 0.55 + unit * 0.125, maxText, unit * 0.043, Br, ink, "center", 0.85);
-      text(ctx, d.volume, cx, y + h - pad * 1.0, maxText, unit * 0.045, B, ink, "center", 0.9);
+      const bs = text(ctx, "brand", brandText(d), cx, by, maxText, unit * 0.17, H, ink);
+      text(ctx, "productName", d.productName, cx, by + bs * 0.55 + unit * 0.06, maxText, unit * 0.07, B, ink);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, cx, by + bs * 0.55 + unit * 0.125, maxText, unit * 0.043, Br, ink, "center", 0.85);
+      text(ctx, "netContent", d.volume, cx, y + h - pad * 1.0, maxText, unit * 0.045, B, ink, "center", 0.9);
       drawSeal(ctx, d, ax + aw - unit * 0.02, ay + ah - unit * 0.04, unit * 0.11);
       return;
     }
@@ -704,7 +706,7 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       ctx.save();
       ctx.translate(x + col / 2, y + h / 2);
       ctx.rotate(-Math.PI / 2);
-      text(ctx, brandText(d), 0, 0, h - pad * 1.4, col * 0.86, H, accentInk);
+      text(ctx, "brand", brandText(d), 0, 0, h - pad * 1.4, col * 0.86, H, accentInk);
       ctx.restore();
       const rx = x + col, rw = w - col, rpad = rw * 0.1;
       if (!drawArt(ctx, d, rx + rpad * 0.5, y + pad * 0.8, rw - rpad, h * 0.46, { fit: "contain", fade: "edges" })) {
@@ -712,11 +714,11 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       } else if (d.logo) drawLogo(ctx, d, rx + rw - rpad * 1.4, y + pad * 1.2, unit * 0.12, accent, accentInk);
       const lx = rx + rpad;
       microLine(ctx, d, d.origin ?? "", lx, y + h * 0.58, rw - rpad * 2, unit * 0.03, ink, "left");
-      text(ctx, d.productName, lx, y + h * 0.645, rw - rpad * 2, unit * 0.085, B, ink, "left");
+      text(ctx, "productName", d.productName, lx, y + h * 0.645, rw - rpad * 2, unit * 0.085, B, ink, "left");
       ctx.fillStyle = accent;
       ctx.fillRect(lx, y + h * 0.69, unit * 0.1, Math.max(1.5, unit * 0.01));
-      if (d.tagline) text(ctx, d.tagline, lx, y + h * 0.735, rw - rpad * 2, unit * 0.045, Br, ink, "left", 0.85);
-      text(ctx, d.volume, lx, y + h - pad * 1.1, rw - rpad * 2, unit * 0.05, B, ink, "left", 0.9);
+      if (d.tagline) text(ctx, "subtitle", d.tagline, lx, y + h * 0.735, rw - rpad * 2, unit * 0.045, Br, ink, "left", 0.85);
+      text(ctx, "netContent", d.volume, lx, y + h - pad * 1.1, rw - rpad * 2, unit * 0.05, B, ink, "left", 0.9);
       drawSeal(ctx, d, x + w - rpad * 1.6, y + h - pad * 1.9, Math.min(unit * 0.11, rw * 0.2));
       return;
     }
@@ -752,10 +754,10 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
         arcText(ctx, (d.volume || "").toUpperCase(), cx, ly, R * 0.815, ringSize, ringFont, pInk, true);
       }, elementId(ctx, "brand", "next"));
       drawLogo(ctx, d, cx, ly - R * 0.4, R * 0.26, accent, accentInk);
-      const bs = text(ctx, brandText(d), cx, ly - R * 0.02, R * 1.2, R * 0.3, H, pInk);
+      const bs = text(ctx, "brand", brandText(d), cx, ly - R * 0.02, R * 1.2, R * 0.3, H, pInk);
       ctx.fillStyle = accent;
       ctx.fillRect(cx - R * 0.14, ly + bs * 0.5, R * 0.28, Math.max(1, R * 0.018));
-      text(ctx, d.productName, cx, ly + bs * 0.5 + R * 0.16, R * 1.15, R * 0.13, B, pInk);
+      text(ctx, "productName", d.productName, cx, ly + bs * 0.5 + R * 0.16, R * 1.15, R * 0.13, B, pInk);
       const below = ly + R + (y + h - ly - R) / 2;
       if (d.tagline && d.origin) {
         ctx.save();
@@ -766,7 +768,7 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
         ctx.roundRect(cx - tw / 2, below - unit * 0.045, tw, unit * 0.09, unit * 0.045);
         ctx.fill();
         ctx.restore();
-        text(ctx, d.tagline, cx, below, maxText, unit * 0.042, B, pInk);
+        text(ctx, "subtitle", d.tagline, cx, below, maxText, unit * 0.042, B, pInk);
       }
       drawSeal(ctx, d, cx + R * 0.82, ly - R * 0.78, R * 0.3);
       return;
@@ -797,9 +799,9 @@ export function drawLayout(ctx: CanvasRenderingContext2D, x: number, y: number, 
       }
       ctx.fillStyle = ink;
       ctx.fillRect(x + pad, y + h * 0.8, w - pad * 2, Math.max(1, unit * 0.005));
-      text(ctx, d.productName, x + pad, y + h * 0.85, w * 0.6, unit * 0.07, B, ink, "left");
-      if (d.tagline) text(ctx, d.tagline, x + pad, y + h * 0.905, w * (d.origin ? 0.5 : 0.7), unit * 0.042, Br, ink, "left", 0.85);
-      text(ctx, d.volume, x + w - pad, y + h * 0.85, w * 0.3, unit * 0.05, B, ink, "right", 0.9);
+      text(ctx, "productName", d.productName, x + pad, y + h * 0.85, w * 0.6, unit * 0.07, B, ink, "left");
+      if (d.tagline) text(ctx, "subtitle", d.tagline, x + pad, y + h * 0.905, w * (d.origin ? 0.5 : 0.7), unit * 0.042, Br, ink, "left", 0.85);
+      text(ctx, "netContent", d.volume, x + w - pad, y + h * 0.85, w * 0.3, unit * 0.05, B, ink, "right", 0.9);
       microLine(ctx, d, d.origin ?? "", x + w - pad, y + h * 0.905, w * 0.28, unit * 0.026, ink, "right");
       drawSeal(ctx, d, x + w - pad * 2, y + h * 0.7, unit * 0.11);
       return;

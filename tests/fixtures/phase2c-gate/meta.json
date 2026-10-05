@@ -1,0 +1,19 @@
+{
+ "validated": "phase 2C-4G, commit 5f9c808",
+ "formats": 119,
+ "supported": 107,
+ "refused": [
+  "pillow-box",
+  "display-box",
+  "pizza-box",
+  "burger-box",
+  "noodle-box",
+  "fries-box",
+  "egg-carton",
+  "jug-bottle",
+  "detergent-bottle",
+  "ice-cream-tub",
+  "flour-bag",
+  "jerrican-5l"
+ ]
+}

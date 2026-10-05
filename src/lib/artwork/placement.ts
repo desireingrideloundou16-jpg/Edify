@@ -8,7 +8,8 @@
  * - "apply": the element is drawn translated by its planned offset — same size, font, colours and
  *   rotation; only its position changes. The clip of the printed outline (drawSurface) is not moved.
  *
- * Ids are the role and its rank in drawing order ("netContent#1"): the drawing order of a design is
+ * Roles are given by the caller (phase 3A: never guessed from the drawn text). Ids are the role and its
+ * rank in drawing order ("netContent#1"): the drawing order of a design is
  * fixed, so a record and an apply of the same design give the same ids.
  */
 import type { ElementRole } from "@/lib/structure";
@@ -136,27 +137,6 @@ export function elementId(ctx: CanvasRenderingContext2D, role: ElementRole, whic
   const n = s.counts.get(role) ?? 0;
   if (which === "last") return n ? `${role}#${n - 1}` : undefined;
   return `${role}#${n}`;
-}
-
-const norm = (s: string | undefined) => (s ?? "").trim().replace(/\s+/g, " ").toUpperCase();
-
-/**
- * Role of a text line from the design field it shows (deterministic): exact field first, then a part
- * of the brand or product name (stacked words), else a secondary line.
- */
-export function textRole(ctx: CanvasRenderingContext2D, s: string): ElementRole {
-  const d = sessions.get(ctx)?.design;
-  if (!d) return "secondary";
-  const t = norm(s);
-  if (!t) return "decorative";
-  const exact: [string | undefined, ElementRole][] = [
-    [d.volume, "netContent"], [d.productName, "productName"], [d.brandName, "brand"], [d.tagline, "subtitle"],
-    [d.badge, "badge"], [d.origin, "secondary"], [d.adHeadline, "claim"],
-  ];
-  for (const [v, role] of exact) if (norm(v) && norm(v) === t) return role;
-  if (norm(d.brandName).includes(t)) return "brand";
-  if (norm(d.productName).includes(t)) return "productName";
-  return "secondary";
 }
 
 /** Is a placement session open on this context (the wrap is being recorded or placed)? */

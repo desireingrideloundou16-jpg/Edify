@@ -1,0 +1,894 @@
+{
+ "folding-box-standard": {
+  "supported": true,
+  "width": 165.3,
+  "height": 218,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "0d3b6b53d77e4f4bfcb8878247436a2a"
+ },
+ "tuck-end-box-wide": {
+  "supported": true,
+  "width": 274,
+  "height": 240,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "63215bef3fb441137ca0b8601689724f"
+ },
+ "tuck-end-box-tall": {
+  "supported": true,
+  "width": 235,
+  "height": 300,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "2c71c8615e790708985fc3a35eaa8ed5"
+ },
+ "cube-box": {
+  "supported": true,
+  "width": 335,
+  "height": 270,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "dd805bf745e3cd49f821539be1129d81"
+ },
+ "flat-box": {
+  "supported": true,
+  "width": 535,
+  "height": 280,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "8beaf679f5cc09b36d4041fc69135185"
+ },
+ "cereal-box": {
+  "supported": true,
+  "width": 525,
+  "height": 440,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "65acda77beb82080dec1141f32699be6"
+ },
+ "tea-box": {
+  "supported": true,
+  "width": 295,
+  "height": 300,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "2f89893673a4ba8923144cb07ae19f95"
+ },
+ "cigarette-box": {
+  "supported": true,
+  "width": 162,
+  "height": 151.8,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "b092e4c721ad09ca0c882f82d377824a"
+ },
+ "soap-box": {
+  "supported": true,
+  "width": 315,
+  "height": 185,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "63ad3a134ab5415d209322f31bb87be6"
+ },
+ "candle-box": {
+  "supported": true,
+  "width": 375,
+  "height": 310,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "84587486a20df68d219d4ebb1d6de2f4"
+ },
+ "luxury-rigid-box": {
+  "supported": true,
+  "width": 399,
+  "height": 229.2,
+  "panels": 10,
+  "kindLabel": "Coffret rigide — fond et couvercle séparés (habillage extérieur, sans rempli)",
+  "layoutHash": "fd33c3faaeb1f3f1745ef55c3e1a2cdd"
+ },
+ "rigid-watch-box": {
+  "supported": true,
+  "width": 380.3,
+  "height": 224.8,
+  "panels": 10,
+  "kindLabel": "Coffret rigide — fond et couvercle séparés (habillage extérieur, sans rempli)",
+  "layoutHash": "3b49bb20350f8cede089e14178266076"
+ },
+ "rigid-shoe-box": {
+  "supported": true,
+  "width": 930.15,
+  "height": 387.2,
+  "panels": 10,
+  "kindLabel": "Coffret rigide — fond et couvercle séparés (habillage extérieur, sans rempli)",
+  "layoutHash": "475eb1edb689e3680a2cfefdf4454391"
+ },
+ "gift-box-large": {
+  "supported": true,
+  "width": 826.5,
+  "height": 376,
+  "panels": 10,
+  "kindLabel": "Coffret rigide — fond et couvercle séparés (habillage extérieur, sans rempli)",
+  "layoutHash": "04dbd5d855274fd0cd51d0e012f18b5a"
+ },
+ "ecom-mailer": {
+  "supported": true,
+  "width": 454,
+  "height": 519.5,
+  "panels": 6,
+  "kindLabel": "Boîte postale à rabat d'insertion (type FEFCO 0427) — une feuille, sans colle",
+  "layoutHash": "1c6fb9263bbd9d068ce14939326a1393"
+ },
+ "mailer-small": {
+  "supported": true,
+  "width": 344,
+  "height": 384.5,
+  "panels": 6,
+  "kindLabel": "Boîte postale à rabat d'insertion (type FEFCO 0427) — une feuille, sans colle",
+  "layoutHash": "2b56c3a8406d957e8ed842d7e9e7a34d"
+ },
+ "mailer-large": {
+  "supported": true,
+  "width": 738,
+  "height": 829,
+  "panels": 6,
+  "kindLabel": "Boîte postale à rabat d'insertion (type FEFCO 0427) — une feuille, sans colle",
+  "layoutHash": "6313e99d183b01319a2913c90d34e608"
+ },
+ "subscription-box": {
+  "supported": true,
+  "width": 634,
+  "height": 704.5,
+  "panels": 6,
+  "kindLabel": "Boîte postale à rabat d'insertion (type FEFCO 0427) — une feuille, sans colle",
+  "layoutHash": "d00c09ca0e3e3b7bac2da779533dd0f3"
+ },
+ "shipping-box": {
+  "supported": true,
+  "width": 1015,
+  "height": 630,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "5ac9bb4d48f74b95a247eee1e102935f"
+ },
+ "pillow-box": {
+  "supported": false
+ },
+ "display-box": {
+  "supported": false
+ },
+ "sleeve-box": {
+  "supported": true,
+  "width": 395,
+  "height": 220,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "ac2c4d6a223653ec22e7efe61aec2fe2"
+ },
+ "pizza-box": {
+  "supported": false
+ },
+ "cake-box": {
+  "supported": true,
+  "width": 815,
+  "height": 550,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "c699b50dd545314cb965afa52bac71ed"
+ },
+ "burger-box": {
+  "supported": false
+ },
+ "macaron-box": {
+  "supported": true,
+  "width": 435,
+  "height": 180,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "c9dde707723d982ab4cc7ba33b2fce64"
+ },
+ "chocolate-box": {
+  "supported": true,
+  "width": 415,
+  "height": 240,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "376d888a2620f5774f6c70a11a89f91f"
+ },
+ "noodle-box": {
+  "supported": false
+ },
+ "fries-box": {
+  "supported": false
+ },
+ "food-tray": {
+  "supported": true,
+  "width": 259.1,
+  "height": 199.1,
+  "panels": 5,
+  "kindLabel": "Barquette à coins collés — une feuille, 4 pattes collées",
+  "layoutHash": "ad8546dd4ad49c2dabc2b8333f4637a0"
+ },
+ "egg-carton": {
+  "supported": false
+ },
+ "milk-carton": {
+  "supported": true,
+  "width": 292.865288787,
+  "height": 197.968253824,
+  "panels": 3,
+  "kindLabel": "Brique à pignon — corps, toit et crête (fond non inclus)",
+  "layoutHash": "951becf73044700d84fac0b2f1a10c13"
+ },
+ "juice-carton-small": {
+  "supported": true,
+  "width": 212.780165021,
+  "height": 109.830032319,
+  "panels": 3,
+  "kindLabel": "Brique à pignon — corps, toit et crête (fond non inclus)",
+  "layoutHash": "b314f5515227f0233a60bdd3dc996f46"
+ },
+ "gable-top-1l": {
+  "supported": true,
+  "width": 292.865288787,
+  "height": 244.546980986,
+  "panels": 3,
+  "kindLabel": "Brique à pignon — corps, toit et crête (fond non inclus)",
+  "layoutHash": "d2494869b60d235876fe5fbc6af430ef"
+ },
+ "dropper-bottle": {
+  "supported": true,
+  "width": 72.203761368,
+  "height": 38.1728,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "7c544d5664a4dc71dcf2af8016efe8a7"
+ },
+ "dropper-bottle-clear": {
+  "supported": true,
+  "width": 72.203761368,
+  "height": 38.1728,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "7c544d5664a4dc71dcf2af8016efe8a7"
+ },
+ "pump-bottle": {
+  "supported": true,
+  "width": 113.094319859,
+  "height": 82.311459097,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "6af5b6316d8aec226d6596e0d37eb813"
+ },
+ "pump-bottle-small": {
+  "supported": true,
+  "width": 83.88677808,
+  "height": 58.073382892,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "08f243f7c25ccaf1f10480ba46f9aa91"
+ },
+ "spray-bottle": {
+  "supported": true,
+  "width": 93.622625339,
+  "height": 67.593365822,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "b9c91bbeaf9cf40a777ee2e8a1151cd0"
+ },
+ "perfume-bottle": {
+  "supported": true,
+  "width": 59.812410154,
+  "height": 40.599500435,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "db45a6d1066d99a758663f81b2d5f046"
+ },
+ "shampoo-bottle": {
+  "supported": true,
+  "width": 85.302029044,
+  "height": 110.402068594,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "e682503fddd03ad0dd3ada12b3cad731"
+ },
+ "water-bottle": {
+  "supported": true,
+  "width": 138.690176365,
+  "height": 69.346881435,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "e54229c531e8b8d2ffb3da53e5cd12a0"
+ },
+ "juice-bottle": {
+  "supported": true,
+  "width": 122.830167119,
+  "height": 84.5208042,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "5d8e2e8dfd29bf87170db46692c864a8"
+ },
+ "soda-bottle": {
+  "supported": true,
+  "width": 148.897113009,
+  "height": 75.71956893,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "6489abbe9ddc77a787d3665f2ad895bb"
+ },
+ "beer-bottle": {
+  "supported": true,
+  "width": 109.63966438,
+  "height": 95.29716,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "8b811caa0c990a4f5b5c3f29fa12b3b9"
+ },
+ "wine-bottle": {
+  "supported": true,
+  "width": 135.549580475,
+  "height": 124.4376,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "e2273310ffbebfd94ecf1309d11f37c3"
+ },
+ "champagne-bottle": {
+  "supported": true,
+  "width": 161.45949657,
+  "height": 123.8076,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "ab1e1b484e7671386a0ac51e093bb78a"
+ },
+ "spirits-bottle": {
+  "supported": true,
+  "width": 171.509403419,
+  "height": 115.58673595,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "1f05fdd55f1c8c01be722d53468216c4"
+ },
+ "olive-oil-bottle": {
+  "supported": true,
+  "width": 109.63966438,
+  "height": 116.56176,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "05556ba51d91bc547ed221e85ff08cbd"
+ },
+ "sauce-bottle": {
+  "supported": true,
+  "width": 113.094319859,
+  "height": 80.11899385,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "598b960d1402e6a7b0c27d3d201bf47d"
+ },
+ "syrup-bottle": {
+  "supported": true,
+  "width": 152.037708899,
+  "height": 111.31155525,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "bc3bd06d27f54051b12933337c0a1104"
+ },
+ "milk-bottle": {
+  "supported": true,
+  "width": 152.037708899,
+  "height": 93.19779525,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "8d6e174a4cb4474fa12fd2bf13c42ec8"
+ },
+ "sport-bottle": {
+  "supported": true,
+  "width": 142.301861639,
+  "height": 106.9097449,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "553a717edbdd0de445c1554c26ecd20b"
+ },
+ "supplement-bottle": {
+  "supported": true,
+  "width": 137.905027393,
+  "height": 56.606,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "0ecd45ec896482eb96e4eb1e085e0de8"
+ },
+ "jug-bottle": {
+  "supported": false
+ },
+ "detergent-bottle": {
+  "supported": false
+ },
+ "nail-polish": {
+  "supported": true,
+  "width": 64.41508356,
+  "height": 30.942353694,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "42b2c30edf5291e34f48239daeb81f35"
+ },
+ "cosmetic-jar": {
+  "supported": true,
+  "width": 148.897113009,
+  "height": 25.73,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "d98a2617b42e273ee660161f2a26f8b2"
+ },
+ "cosmetic-jar-tall": {
+  "supported": true,
+  "width": 137.905027393,
+  "height": 41.168,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "c54c80d47994cd21e8ed327f54146b24"
+ },
+ "honey-jar": {
+  "supported": true,
+  "width": 170.881284241,
+  "height": 48.887,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "61e1ba6aa1180056ea0356f44784660c"
+ },
+ "jam-jar": {
+  "supported": true,
+  "width": 159.889198625,
+  "height": 43.741,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "0697e2f3204c87b7200efdfb901195f2"
+ },
+ "mason-jar": {
+  "supported": true,
+  "width": 192.865455473,
+  "height": 66.898,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "4a73625b85409014b495c4264bb005a7"
+ },
+ "candle-jar": {
+  "supported": true,
+  "width": 181.873369857,
+  "height": 46.314,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "5a2304dcf9819af2a26ec56a0d0daa96"
+ },
+ "baby-food-jar": {
+  "supported": true,
+  "width": 137.905027393,
+  "height": 33.449,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "25a68547c587549a9ddddd34d5fa5570"
+ },
+ "protein-tub": {
+  "supported": true,
+  "width": 375.096924764,
+  "height": 165.920872033,
+  "panels": 1,
+  "kindLabel": "Paroi conique développée (secteur d'anneau) — couture au dos",
+  "layoutHash": "a8ae9e045690133dec7a0968065e3844"
+ },
+ "yogurt-cup": {
+  "supported": true,
+  "width": 217.98631583,
+  "height": 77.882037998,
+  "panels": 1,
+  "kindLabel": "Paroi conique développée (secteur d'anneau) — couture au dos",
+  "layoutHash": "3e56fb8e6d1526d566775f47831420af"
+ },
+ "ice-cream-tub": {
+  "supported": false
+ },
+ "deli-container": {
+  "supported": true,
+  "width": 351.644902321,
+  "height": 93.741952178,
+  "panels": 1,
+  "kindLabel": "Paroi conique développée (secteur d'anneau) — couture au dos",
+  "layoutHash": "fec10fe04dc9c1edd6d4fe1854e72fcd"
+ },
+ "stand-up-pouch": {
+  "supported": true,
+  "width": 280,
+  "height": 290,
+  "panels": 3,
+  "kindLabel": "Doypack — face, dos et soufflet",
+  "layoutHash": "c0cd7855a822ca1cb7617d9d0a0b7deb"
+ },
+ "stand-up-pouch-small": {
+  "supported": true,
+  "width": 200,
+  "height": 210,
+  "panels": 3,
+  "kindLabel": "Doypack — face, dos et soufflet",
+  "layoutHash": "93f3ec1515937cd76971dc55a995d24c"
+ },
+ "coffee-pouch": {
+  "supported": true,
+  "width": 260,
+  "height": 300,
+  "panels": 3,
+  "kindLabel": "Doypack — face, dos et soufflet",
+  "layoutHash": "f29d82527c607bb864630764cf4208ae"
+ },
+ "flat-pouch": {
+  "supported": true,
+  "width": 240,
+  "height": 170,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "80c48839fb74e0fc156cf16d53be8f02"
+ },
+ "chips-bag": {
+  "supported": true,
+  "width": 400,
+  "height": 280,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "67722021c75f3975b569783b78bc07ad"
+ },
+ "candy-bag": {
+  "supported": true,
+  "width": 300,
+  "height": 200,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "2a389424c231dd4be26483a62b7fa82a"
+ },
+ "sachet-sample": {
+  "supported": true,
+  "width": 120,
+  "height": 80,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "f6707b16dabacb018584efe72081e60f"
+ },
+ "stick-pack": {
+  "supported": true,
+  "width": 50,
+  "height": 110,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "1de100a5a39c64484a90f33405c50dbe"
+ },
+ "tea-sachet": {
+  "supported": true,
+  "width": 140,
+  "height": 90,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "12e66c5950df3c277d1108271947a262"
+ },
+ "face-mask-sachet": {
+  "supported": true,
+  "width": 260,
+  "height": 180,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "616c1726d0fff0c9d0d31d77b483e9c9"
+ },
+ "pet-food-bag": {
+  "supported": true,
+  "width": 735.6,
+  "height": 420.669256762,
+  "panels": 5,
+  "kindLabel": "Sac film à soufflets — laize, soudure dorsale en aileron, soudures haute et basse",
+  "layoutHash": "682de57ad5a5a48f12339744dee877c3"
+ },
+ "flour-bag": {
+  "supported": false
+ },
+ "coffee-bag-gusset": {
+  "supported": true,
+  "width": 386.7,
+  "height": 264.414631971,
+  "panels": 5,
+  "kindLabel": "Sac film à soufflets — laize, soudure dorsale en aileron, soudures haute et basse",
+  "layoutHash": "4e97a45afdbfdb7d88fd07e02111d305"
+ },
+ "rice-bag": {
+  "supported": true,
+  "width": 615.6,
+  "height": 348.598188951,
+  "panels": 5,
+  "kindLabel": "Sac film à soufflets — laize, soudure dorsale en aileron, soudures haute et basse",
+  "layoutHash": "ca9125d8aa67c8206766c2952dca367e"
+ },
+ "squeeze-tube": {
+  "supported": true,
+  "width": 115.955742876,
+  "height": 132,
+  "panels": 1,
+  "kindLabel": "Impression tube (à plat)",
+  "layoutHash": "575155311ab8a92fac25c76773ee4a9d"
+ },
+ "squeeze-tube-large": {
+  "supported": true,
+  "width": 163.079632679,
+  "height": 167.2,
+  "panels": 1,
+  "kindLabel": "Impression tube (à plat)",
+  "layoutHash": "5d814c7854f83b4810de590033d1eb93"
+ },
+ "lip-balm-tube": {
+  "supported": true,
+  "width": 62.548667765,
+  "height": 56.56,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "83534576091d9c84c95d0c01ba728d31"
+ },
+ "cylinder-tube": {
+  "supported": true,
+  "width": 225.911485751,
+  "height": 145.44,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "94c9338ce01de9eaaac8e98d52042453"
+ },
+ "poster-tube": {
+  "supported": true,
+  "width": 194.495559215,
+  "height": 339.36,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "a7b2eea6297508e1fd12d8566cae3833"
+ },
+ "deodorant-stick": {
+  "supported": true,
+  "width": 147.371669412,
+  "height": 88.88,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "6fafdcb57e7f34bff0fd86227dabbb25"
+ },
+ "beverage-can": {
+  "supported": true,
+  "width": 213.345115137,
+  "height": 96.6,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "0dc578457014c9701c8f97390f09d889"
+ },
+ "sleek-can": {
+  "supported": true,
+  "width": 172.50441064,
+  "height": 112.56,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "4b8ca2ebf089d8b0339a479dcdd25153"
+ },
+ "tall-can": {
+  "supported": true,
+  "width": 213.345115137,
+  "height": 141.12,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "3163e209eab2f91cb85685d6cf5fe3bf"
+ },
+ "food-can": {
+  "supported": true,
+  "width": 235.336263712,
+  "height": 98.12,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "6fb11d17acccc566b361dd660f0612c3"
+ },
+ "aerosol-can": {
+  "supported": true,
+  "width": 103.358472599,
+  "height": 85.788232708,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "65195e15d39f5c1a691afe5d1a034082"
+ },
+ "round-tin": {
+  "supported": true,
+  "width": 288.743338823,
+  "height": 53.52,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "62970d7e5df29bab646de01bb92faaf8"
+ },
+ "tea-tin": {
+  "supported": true,
+  "width": 241.619449019,
+  "height": 107.04,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "e6d39c5630a55800a3714be327535ac3"
+ },
+ "cookie-tin": {
+  "supported": true,
+  "width": 634.318530718,
+  "height": 71.36,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "f5550162a347b9306ba4a269db48f2ec"
+ },
+ "mint-tin": {
+  "supported": true,
+  "width": 194.495559215,
+  "height": 17.84,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "e3eb2456fd73a2a25f64ddc5446a2158"
+ },
+ "juice-bottle-30cl": {
+  "supported": true,
+  "width": 124.400465064,
+  "height": 51.317970825,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "8bd2da77c2929215c75d62dee3f75083"
+ },
+ "glass-juice-25cl": {
+  "supported": true,
+  "width": 113.094319859,
+  "height": 75.59055385,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "2256b8c0a205c9f2e65bb55a46b473ab"
+ },
+ "oil-bottle-1l": {
+  "supported": true,
+  "width": 173.393760953,
+  "height": 91.688921718,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "eb2db1cd3d7a0235d95f8cf57719812b"
+ },
+ "jerrican-5l": {
+  "supported": false
+ },
+ "big-beer-bottle": {
+  "supported": true,
+  "width": 130.367597256,
+  "height": 120.31068,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "46a9fbb0f5227aae7fef558bd46a6be9"
+ },
+ "drink-yogurt-bottle": {
+  "supported": true,
+  "width": 113.094319859,
+  "height": 66.53367385,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "ad73c20d1770e527e3043534629169b0"
+ },
+ "cosmetic-oil-bottle": {
+  "supported": true,
+  "width": 91.738267805,
+  "height": 44.081935758,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "03c09c1c0ffe5d507e326d89d7d3a622"
+ },
+ "roll-on-bottle": {
+  "supported": true,
+  "width": 48.837727944,
+  "height": 37.93456954,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "9b49faf0a4bcdaa0e2a79a84f845a8b8"
+ },
+ "hot-sauce-bottle": {
+  "supported": true,
+  "width": 93.622625339,
+  "height": 66.78693315,
+  "panels": 1,
+  "kindLabel": "Étiquette de flacon",
+  "layoutHash": "bf31f985dc6f1e756996edeb20880463"
+ },
+ "water-sachet": {
+  "supported": true,
+  "width": 300,
+  "height": 210,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "a6ca4b9ab7af11ff971b6bfba92769a9"
+ },
+ "gari-bag": {
+  "supported": true,
+  "width": 530.4,
+  "height": 294.456053327,
+  "panels": 5,
+  "kindLabel": "Sac film à soufflets — laize, soudure dorsale en aileron, soudures haute et basse",
+  "layoutHash": "7e8e18f8a134686f205ca13683364f45"
+ },
+ "spice-sachet": {
+  "supported": true,
+  "width": 180,
+  "height": 140,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "20512e1228634953b14dfe2c4f967284"
+ },
+ "plantain-chips-bag": {
+  "supported": true,
+  "width": 320,
+  "height": 230,
+  "panels": 2,
+  "kindLabel": "Sachet — face et dos",
+  "layoutHash": "bb56807a176ad59c548ce5f065c95ca8"
+ },
+ "peanut-butter-jar": {
+  "supported": true,
+  "width": 181.873369857,
+  "height": 51.46,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "93b980ef4d381802a24c22513d3f1fb6"
+ },
+ "spice-jar": {
+  "supported": true,
+  "width": 111.524021914,
+  "height": 51.46,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "ed259a60dba0ba4aaac497686c2f9674"
+ },
+ "shea-butter-jar": {
+  "supported": true,
+  "width": 170.881284241,
+  "height": 28.303,
+  "panels": 1,
+  "kindLabel": "Étiquette de pot",
+  "layoutHash": "8861f64a32f44914e9d08f6fb5f1583b"
+ },
+ "hair-cream-tub": {
+  "supported": true,
+  "width": 278.079566882,
+  "height": 81.770268583,
+  "panels": 1,
+  "kindLabel": "Paroi conique développée (secteur d'anneau) — couture au dos",
+  "layoutHash": "177b7797679aab73d81551ede7a5282e"
+ },
+ "tomato-paste-tin": {
+  "supported": true,
+  "width": 194.495559215,
+  "height": 40.14,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "62309bfab07495ada5144c38925c0312"
+ },
+ "milk-powder-tin": {
+  "supported": true,
+  "width": 320.159265359,
+  "height": 115.96,
+  "panels": 1,
+  "kindLabel": "Étiquette enveloppante 360°",
+  "layoutHash": "57e05d647c2ca8f7072a01defca877bf"
+ },
+ "bouillon-box": {
+  "supported": true,
+  "width": 190.5,
+  "height": 137,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "3cd8087f292e8a1ab6600c96638bfd7d"
+ },
+ "soap-wrap": {
+  "supported": true,
+  "width": 235.8,
+  "height": 136.2,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "7276e6b71539793f233df3c477e99bbf"
+ },
+ "chocolate-bar": {
+  "supported": true,
+  "width": 192,
+  "height": 200,
+  "panels": 6,
+  "kindLabel": "Étui à rabats inversés (4 faces + rabats)",
+  "layoutHash": "fbeaa25afed3d7429ce16d5c962ba153"
+ }
+}
