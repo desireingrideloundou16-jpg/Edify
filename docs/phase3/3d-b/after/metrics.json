@@ -1,0 +1,4841 @@
+{
+  "commit": "c0954fcfc540d89501f2fdd308fc739d723908d0",
+  "date": "2026-10-06T15:27:44.720Z",
+  "chrome": "Chrome/154.0.8037.93",
+  "headless": true,
+  "uncapped": false,
+  "size": 640,
+  "seconds": 5,
+  "runs": [
+    {
+      "kind": "static",
+      "family": "pot",
+      "shape": "cosmetic-jar",
+      "model": "jar",
+      "material": "Verre dépoli",
+      "view": "front",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 43.9,
+        "low": {
+          "msMedian": 3.5,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 425472,
+          "textureMBEstimate": 2.2
+        },
+        "medium": {
+          "msMedian": 2.9,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        },
+        "high": {
+          "msMedian": 3.9,
+          "canvasesPerBuild": 6,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16,
+        "buildMs": 3.2,
+        "rigFitMs": 16.2,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 98.8,
+        "stableRenderMsMedian": 0.6,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 230.5,
+        "mountToFirstPackFrameMs": 232.4,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 11,
+          "triangles": 4332,
+          "geometries": 9,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "pot",
+      "shape": "cosmetic-jar",
+      "model": "jar",
+      "material": "Verre dépoli",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 50.6,
+        "low": {
+          "msMedian": 4.3,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 425472,
+          "textureMBEstimate": 2.2
+        },
+        "medium": {
+          "msMedian": 4.2,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        },
+        "high": {
+          "msMedian": 4,
+          "canvasesPerBuild": 6,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 19.4,
+        "buildMs": 3.3,
+        "rigFitMs": 18.1,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 108.3,
+        "stableRenderMsMedian": 0.5,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 226.9,
+        "mountToFirstPackFrameMs": 228.6,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 11,
+          "triangles": 4332,
+          "geometries": 9,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "pot",
+      "shape": "cosmetic-jar",
+      "model": "jar",
+      "material": "Verre dépoli",
+      "view": "back",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 60.1,
+        "low": {
+          "msMedian": 3.7,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 425472,
+          "textureMBEstimate": 2.2
+        },
+        "medium": {
+          "msMedian": 3.5,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        },
+        "high": {
+          "msMedian": 4.2,
+          "canvasesPerBuild": 6,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 23,
+        "buildMs": 4.2,
+        "rigFitMs": 20.2,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 136.1,
+        "stableRenderMsMedian": 0.8,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 257.7,
+        "mountToFirstPackFrameMs": 259.7,
+        "firstPackFrameCpuMs": 1.5
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 11,
+          "triangles": 4332,
+          "geometries": 9,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "rotating",
+      "family": "pot",
+      "shape": "cosmetic-jar",
+      "model": "jar",
+      "material": "Verre dépoli",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 46.9,
+        "low": {
+          "msMedian": 3.9,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 425472,
+          "textureMBEstimate": 2.2
+        },
+        "medium": {
+          "msMedian": 4.2,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        },
+        "high": {
+          "msMedian": 4.7,
+          "canvasesPerBuild": 6,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 18,
+        "buildMs": 4.2,
+        "rigFitMs": 16.9,
+        "frameShotMs": 0,
+        "firstRenderMs": 108.6,
+        "stableRenderMsMedian": 0.5,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 241.2,
+        "mountToFirstPackFrameMs": 243.4,
+        "firstPackFrameCpuMs": 1.7
+      },
+      "fps": {
+        "frames": 301,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 61,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.2,
+        "frameMsMax": 19.5,
+        "renderCpuMsAvg": 0.7,
+        "info": {
+          "drawCalls": 11,
+          "triangles": 4332,
+          "geometries": 9,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "bottle",
+      "shape": "shampoo-bottle",
+      "model": "bottle",
+      "material": "PEHD",
+      "view": "front",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 129.1,
+        "low": {
+          "msMedian": 4.9,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1694208,
+          "textureMBEstimate": 8.6
+        },
+        "medium": {
+          "msMedian": 3.5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        },
+        "high": {
+          "msMedian": 3.1,
+          "canvasesPerBuild": 18,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.9,
+        "buildMs": 3.3,
+        "rigFitMs": 20.3,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 237.6,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 214.6,
+        "mountToFirstPackFrameMs": 216.9,
+        "firstPackFrameCpuMs": 2
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 6272,
+          "geometries": 11,
+          "textures": 16,
+          "programs": 11
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "bottle",
+      "shape": "shampoo-bottle",
+      "model": "bottle",
+      "material": "PEHD",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 101,
+        "low": {
+          "msMedian": 4.2,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1694208,
+          "textureMBEstimate": 8.6
+        },
+        "medium": {
+          "msMedian": 4.2,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        },
+        "high": {
+          "msMedian": 4.2,
+          "canvasesPerBuild": 18,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 20.5,
+        "buildMs": 4.6,
+        "rigFitMs": 17.8,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 79,
+        "stableRenderMsMedian": 0.2,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 222,
+        "mountToFirstPackFrameMs": 223.9,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 6272,
+          "geometries": 11,
+          "textures": 16,
+          "programs": 11
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "bottle",
+      "shape": "shampoo-bottle",
+      "model": "bottle",
+      "material": "PEHD",
+      "view": "back",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 97.6,
+        "low": {
+          "msMedian": 5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1694208,
+          "textureMBEstimate": 8.6
+        },
+        "medium": {
+          "msMedian": 3.7,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        },
+        "high": {
+          "msMedian": 5.7,
+          "canvasesPerBuild": 18,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 17,
+        "buildMs": 3.7,
+        "rigFitMs": 21.2,
+        "frameShotMs": 0.3,
+        "firstRenderMs": 94.6,
+        "stableRenderMsMedian": 0.4,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 225,
+        "mountToFirstPackFrameMs": 226.7,
+        "firstPackFrameCpuMs": 1.4
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 6272,
+          "geometries": 11,
+          "textures": 16,
+          "programs": 11
+        }
+      }
+    },
+    {
+      "kind": "rotating",
+      "family": "bottle",
+      "shape": "shampoo-bottle",
+      "model": "bottle",
+      "material": "PEHD",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 100.8,
+        "low": {
+          "msMedian": 4.9,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1694208,
+          "textureMBEstimate": 8.6
+        },
+        "medium": {
+          "msMedian": 4.3,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        },
+        "high": {
+          "msMedian": 3.2,
+          "canvasesPerBuild": 18,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.1,
+        "buildMs": 3.5,
+        "rigFitMs": 15.6,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 75.3,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 204,
+        "mountToFirstPackFrameMs": 205.6,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.1,
+        "frameMsMax": 17.8,
+        "renderCpuMsAvg": 0.4,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 6272,
+          "geometries": 11,
+          "textures": 16,
+          "programs": 11
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "glass",
+      "shape": "juice-bottle",
+      "model": "bottle",
+      "material": "Verre transparent",
+      "view": "front",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 86,
+        "low": {
+          "msMedian": 3.8,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1706496,
+          "textureMBEstimate": 8.7
+        },
+        "medium": {
+          "msMedian": 3,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        },
+        "high": {
+          "msMedian": 3.1,
+          "canvasesPerBuild": 14,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 15.8,
+        "buildMs": 3.6,
+        "rigFitMs": 19.5,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 144.4,
+        "stableRenderMsMedian": 0.5,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 242.5,
+        "mountToFirstPackFrameMs": 244.5,
+        "firstPackFrameCpuMs": 1.5
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 15,
+          "triangles": 12220,
+          "geometries": 11,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "glass",
+      "shape": "juice-bottle",
+      "model": "bottle",
+      "material": "Verre transparent",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 76.5,
+        "low": {
+          "msMedian": 3.6,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1706496,
+          "textureMBEstimate": 8.7
+        },
+        "medium": {
+          "msMedian": 3.2,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        },
+        "high": {
+          "msMedian": 2.9,
+          "canvasesPerBuild": 14,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.7,
+        "buildMs": 3.2,
+        "rigFitMs": 16.3,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 135.7,
+        "stableRenderMsMedian": 0.7,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 240.5,
+        "mountToFirstPackFrameMs": 243.4,
+        "firstPackFrameCpuMs": 2.4
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 15,
+          "triangles": 12220,
+          "geometries": 11,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "glass",
+      "shape": "juice-bottle",
+      "model": "bottle",
+      "material": "Verre transparent",
+      "view": "back",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 76.7,
+        "low": {
+          "msMedian": 3.4,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1706496,
+          "textureMBEstimate": 8.7
+        },
+        "medium": {
+          "msMedian": 5.1,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        },
+        "high": {
+          "msMedian": 5.4,
+          "canvasesPerBuild": 14,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 19.5,
+        "buildMs": 4.5,
+        "rigFitMs": 19.5,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 123.2,
+        "stableRenderMsMedian": 0.5,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 240.4,
+        "mountToFirstPackFrameMs": 242.2,
+        "firstPackFrameCpuMs": 1.5
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 15,
+          "triangles": 12220,
+          "geometries": 11,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "rotating",
+      "family": "glass",
+      "shape": "juice-bottle",
+      "model": "bottle",
+      "material": "Verre transparent",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 74.9,
+        "low": {
+          "msMedian": 4.5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1706496,
+          "textureMBEstimate": 8.7
+        },
+        "medium": {
+          "msMedian": 3,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        },
+        "high": {
+          "msMedian": 3.7,
+          "canvasesPerBuild": 14,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 18,
+        "buildMs": 3.7,
+        "rigFitMs": 17.6,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 143,
+        "stableRenderMsMedian": 0.6,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 255.2,
+        "mountToFirstPackFrameMs": 257.2,
+        "firstPackFrameCpuMs": 1.5
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 18,
+        "frameMsMax": 20.7,
+        "renderCpuMsAvg": 0.9,
+        "info": {
+          "drawCalls": 15,
+          "triangles": 12220,
+          "geometries": 11,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "metal",
+      "shape": "beverage-can",
+      "model": "can",
+      "material": "Aluminium",
+      "view": "front",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 73,
+        "low": {
+          "msMedian": 9.8,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1099776,
+          "textureMBEstimate": 5.6
+        },
+        "medium": {
+          "msMedian": 5.7,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        },
+        "high": {
+          "msMedian": 5,
+          "canvasesPerBuild": 6,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 18,
+        "buildMs": 7.4,
+        "rigFitMs": 19.3,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 412.5,
+        "stableRenderMsMedian": 0.4,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 207.4,
+        "mountToFirstPackFrameMs": 209,
+        "firstPackFrameCpuMs": 1.2
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 8,
+          "triangles": 3558,
+          "geometries": 11,
+          "textures": 12,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "metal",
+      "shape": "beverage-can",
+      "model": "can",
+      "material": "Aluminium",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 44.2,
+        "low": {
+          "msMedian": 7.2,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1099776,
+          "textureMBEstimate": 5.6
+        },
+        "medium": {
+          "msMedian": 6.5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        },
+        "high": {
+          "msMedian": 5.4,
+          "canvasesPerBuild": 6,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.2,
+        "buildMs": 5.5,
+        "rigFitMs": 17.5,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 62,
+        "stableRenderMsMedian": 0.4,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 214.2,
+        "mountToFirstPackFrameMs": 215.7,
+        "firstPackFrameCpuMs": 1
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 8,
+          "triangles": 3558,
+          "geometries": 11,
+          "textures": 12,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "metal",
+      "shape": "beverage-can",
+      "model": "can",
+      "material": "Aluminium",
+      "view": "back",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 35.3,
+        "low": {
+          "msMedian": 6.5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1099776,
+          "textureMBEstimate": 5.6
+        },
+        "medium": {
+          "msMedian": 5.3,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        },
+        "high": {
+          "msMedian": 4.8,
+          "canvasesPerBuild": 6,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.4,
+        "buildMs": 5.6,
+        "rigFitMs": 17.1,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 56.1,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 201,
+        "mountToFirstPackFrameMs": 203,
+        "firstPackFrameCpuMs": 1.5
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 8,
+          "triangles": 3558,
+          "geometries": 11,
+          "textures": 12,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "rotating",
+      "family": "metal",
+      "shape": "beverage-can",
+      "model": "can",
+      "material": "Aluminium",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 36,
+        "low": {
+          "msMedian": 6.7,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1099776,
+          "textureMBEstimate": 5.6
+        },
+        "medium": {
+          "msMedian": 5.5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        },
+        "high": {
+          "msMedian": 5.1,
+          "canvasesPerBuild": 6,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 15.9,
+        "buildMs": 5.7,
+        "rigFitMs": 14,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 59.7,
+        "stableRenderMsMedian": 0.4,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 208.5,
+        "mountToFirstPackFrameMs": 210,
+        "firstPackFrameCpuMs": 1.1
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.6,
+        "frameMsMax": 17.8,
+        "renderCpuMsAvg": 0.5,
+        "info": {
+          "drawCalls": 8,
+          "triangles": 3558,
+          "geometries": 11,
+          "textures": 12,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "box",
+      "shape": "folding-box-standard",
+      "model": "box",
+      "material": "Carton couché 350g",
+      "view": "front",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 62.5,
+        "low": {
+          "msMedian": 3.7,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 6,
+          "texturePixels": 1413120,
+          "textureMBEstimate": 7.2
+        },
+        "medium": {
+          "msMedian": 3.4,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        },
+        "high": {
+          "msMedian": 4.2,
+          "canvasesPerBuild": 13,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 15.6,
+        "buildMs": 3.1,
+        "rigFitMs": 32.5,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 61,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 245.4,
+        "mountToFirstPackFrameMs": 246.8,
+        "firstPackFrameCpuMs": 1.1
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 688,
+          "geometries": 7,
+          "textures": 19,
+          "programs": 9
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "box",
+      "shape": "folding-box-standard",
+      "model": "box",
+      "material": "Carton couché 350g",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 40.8,
+        "low": {
+          "msMedian": 3.4,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 6,
+          "texturePixels": 1413120,
+          "textureMBEstimate": 7.2
+        },
+        "medium": {
+          "msMedian": 2.8,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        },
+        "high": {
+          "msMedian": 3.6,
+          "canvasesPerBuild": 13,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 15.7,
+        "buildMs": 3.2,
+        "rigFitMs": 35.3,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 69.8,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 215.8,
+        "mountToFirstPackFrameMs": 217.2,
+        "firstPackFrameCpuMs": 1.1
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 688,
+          "geometries": 7,
+          "textures": 19,
+          "programs": 9
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "box",
+      "shape": "folding-box-standard",
+      "model": "box",
+      "material": "Carton couché 350g",
+      "view": "back",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 41.6,
+        "low": {
+          "msMedian": 3.7,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 6,
+          "texturePixels": 1413120,
+          "textureMBEstimate": 7.2
+        },
+        "medium": {
+          "msMedian": 3.2,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        },
+        "high": {
+          "msMedian": 4,
+          "canvasesPerBuild": 13,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.7,
+        "buildMs": 3.2,
+        "rigFitMs": 29.8,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 64.6,
+        "stableRenderMsMedian": 0.8,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 221.3,
+        "mountToFirstPackFrameMs": 222.7,
+        "firstPackFrameCpuMs": 1.2
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 688,
+          "geometries": 7,
+          "textures": 19,
+          "programs": 9
+        }
+      }
+    },
+    {
+      "kind": "rotating",
+      "family": "box",
+      "shape": "folding-box-standard",
+      "model": "box",
+      "material": "Carton couché 350g",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 38.5,
+        "low": {
+          "msMedian": 3.6,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 6,
+          "texturePixels": 1413120,
+          "textureMBEstimate": 7.2
+        },
+        "medium": {
+          "msMedian": 2.9,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        },
+        "high": {
+          "msMedian": 3.4,
+          "canvasesPerBuild": 13,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.2,
+        "buildMs": 3.1,
+        "rigFitMs": 31.1,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 61,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 221.2,
+        "mountToFirstPackFrameMs": 222.8,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 301,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 61,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.6,
+        "frameMsMax": 18.2,
+        "renderCpuMsAvg": 0.5,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 688,
+          "geometries": 7,
+          "textures": 19,
+          "programs": 9
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "pouch",
+      "shape": "stand-up-pouch",
+      "model": "pouch",
+      "material": "Kraft + PE",
+      "view": "front",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 83.1,
+        "low": {
+          "msMedian": 6.9,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 3,
+          "texturePixels": 1473536,
+          "textureMBEstimate": 7.5
+        },
+        "medium": {
+          "msMedian": 5.2,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        },
+        "high": {
+          "msMedian": 7.2,
+          "canvasesPerBuild": 12,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 15.6,
+        "buildMs": 5.8,
+        "rigFitMs": 40.9,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 177,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 248.7,
+        "mountToFirstPackFrameMs": 250.2,
+        "firstPackFrameCpuMs": 1.1
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 7,
+          "triangles": 6256,
+          "geometries": 8,
+          "textures": 18,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "pouch",
+      "shape": "stand-up-pouch",
+      "model": "pouch",
+      "material": "Kraft + PE",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 60.7,
+        "low": {
+          "msMedian": 6.5,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 3,
+          "texturePixels": 1473536,
+          "textureMBEstimate": 7.5
+        },
+        "medium": {
+          "msMedian": 4.8,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        },
+        "high": {
+          "msMedian": 4.7,
+          "canvasesPerBuild": 12,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.4,
+        "buildMs": 6.1,
+        "rigFitMs": 48.4,
+        "frameShotMs": 0.3,
+        "firstRenderMs": 63.3,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 240.7,
+        "mountToFirstPackFrameMs": 242.3,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 7,
+          "triangles": 6256,
+          "geometries": 8,
+          "textures": 18,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "pouch",
+      "shape": "stand-up-pouch",
+      "model": "pouch",
+      "material": "Kraft + PE",
+      "view": "back",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 60.6,
+        "low": {
+          "msMedian": 5.8,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 3,
+          "texturePixels": 1473536,
+          "textureMBEstimate": 7.5
+        },
+        "medium": {
+          "msMedian": 4.9,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        },
+        "high": {
+          "msMedian": 5,
+          "canvasesPerBuild": 12,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 17.4,
+        "buildMs": 6.9,
+        "rigFitMs": 42.5,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 61.3,
+        "stableRenderMsMedian": 0.4,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 255.7,
+        "mountToFirstPackFrameMs": 258.7,
+        "firstPackFrameCpuMs": 2.4
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 7,
+          "triangles": 6256,
+          "geometries": 8,
+          "textures": 18,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "rotating",
+      "family": "pouch",
+      "shape": "stand-up-pouch",
+      "model": "pouch",
+      "material": "Kraft + PE",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 62.9,
+        "low": {
+          "msMedian": 8.6,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 3,
+          "texturePixels": 1473536,
+          "textureMBEstimate": 7.5
+        },
+        "medium": {
+          "msMedian": 6.2,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        },
+        "high": {
+          "msMedian": 10.9,
+          "canvasesPerBuild": 12,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 19.8,
+        "buildMs": 8,
+        "rigFitMs": 40.8,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 60.7,
+        "stableRenderMsMedian": 0.5,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 261.2,
+        "mountToFirstPackFrameMs": 262.8,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 301,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.5,
+        "frameMsMax": 18.1,
+        "renderCpuMsAvg": 0.5,
+        "info": {
+          "drawCalls": 7,
+          "triangles": 6256,
+          "geometries": 8,
+          "textures": 18,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "tube",
+      "shape": "squeeze-tube",
+      "model": "tube",
+      "material": "PE",
+      "view": "front",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 60.3,
+        "low": {
+          "msMedian": 5.9,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1964544,
+          "textureMBEstimate": 10
+        },
+        "medium": {
+          "msMedian": 8.3,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        },
+        "high": {
+          "msMedian": 3.4,
+          "canvasesPerBuild": 8,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 17.7,
+        "buildMs": 3.5,
+        "rigFitMs": 67.5,
+        "frameShotMs": 0,
+        "firstRenderMs": 29.8,
+        "stableRenderMsMedian": 0.2,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 238.2,
+        "mountToFirstPackFrameMs": 239.6,
+        "firstPackFrameCpuMs": 0.9
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 6,
+          "triangles": 9904,
+          "geometries": 9,
+          "textures": 14,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "tube",
+      "shape": "squeeze-tube",
+      "model": "tube",
+      "material": "PE",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 49.8,
+        "low": {
+          "msMedian": 6.1,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1964544,
+          "textureMBEstimate": 10
+        },
+        "medium": {
+          "msMedian": 4,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        },
+        "high": {
+          "msMedian": 6,
+          "canvasesPerBuild": 8,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 18.5,
+        "buildMs": 3.4,
+        "rigFitMs": 75.1,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 39.4,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 222.6,
+        "mountToFirstPackFrameMs": 223.9,
+        "firstPackFrameCpuMs": 0.9
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 6,
+          "triangles": 9904,
+          "geometries": 9,
+          "textures": 14,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static",
+      "family": "tube",
+      "shape": "squeeze-tube",
+      "model": "tube",
+      "material": "PE",
+      "view": "back",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 45.6,
+        "low": {
+          "msMedian": 3.9,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1964544,
+          "textureMBEstimate": 10
+        },
+        "medium": {
+          "msMedian": 3.8,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        },
+        "high": {
+          "msMedian": 5.4,
+          "canvasesPerBuild": 8,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.2,
+        "buildMs": 3.2,
+        "rigFitMs": 59.8,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 32.1,
+        "stableRenderMsMedian": 0.4,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 222.5,
+        "mountToFirstPackFrameMs": 224.1,
+        "firstPackFrameCpuMs": 1.1
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 6,
+          "triangles": 9904,
+          "geometries": 9,
+          "textures": 14,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "rotating",
+      "family": "tube",
+      "shape": "squeeze-tube",
+      "model": "tube",
+      "material": "PE",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 45.9,
+        "low": {
+          "msMedian": 5.7,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1964544,
+          "textureMBEstimate": 10
+        },
+        "medium": {
+          "msMedian": 6,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        },
+        "high": {
+          "msMedian": 3.7,
+          "canvasesPerBuild": 8,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 17.5,
+        "buildMs": 5.5,
+        "rigFitMs": 66.7,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 32.4,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 220.1,
+        "mountToFirstPackFrameMs": 221.3,
+        "firstPackFrameCpuMs": 0.8
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.6,
+        "frameMsMax": 17.9,
+        "renderCpuMsAvg": 0.5,
+        "info": {
+          "drawCalls": 6,
+          "triangles": 9904,
+          "geometries": 9,
+          "textures": 14,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "rotating-dpr2",
+      "family": "pot",
+      "shape": "cosmetic-jar",
+      "model": "jar",
+      "material": "Verre dépoli",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 2,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 114.1,
+        "low": {
+          "msMedian": 4.9,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 425472,
+          "textureMBEstimate": 2.2
+        },
+        "medium": {
+          "msMedian": 3.5,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        },
+        "high": {
+          "msMedian": 3.4,
+          "canvasesPerBuild": 6,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 24.9,
+        "buildMs": 3.2,
+        "rigFitMs": 17.3,
+        "frameShotMs": 0.4,
+        "firstRenderMs": 104.2,
+        "stableRenderMsMedian": 0.5,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 290.8,
+        "mountToFirstPackFrameMs": 292.8,
+        "firstPackFrameCpuMs": 1.5
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.7,
+        "frameMsMax": 18.9,
+        "renderCpuMsAvg": 0.9,
+        "info": {
+          "drawCalls": 11,
+          "triangles": 4332,
+          "geometries": 9,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "rotating-dpr2",
+      "family": "bottle",
+      "shape": "shampoo-bottle",
+      "model": "bottle",
+      "material": "PEHD",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 2,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 115.7,
+        "low": {
+          "msMedian": 3.8,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1694208,
+          "textureMBEstimate": 8.6
+        },
+        "medium": {
+          "msMedian": 4,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        },
+        "high": {
+          "msMedian": 3.1,
+          "canvasesPerBuild": 18,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 17.3,
+        "buildMs": 3.3,
+        "rigFitMs": 15.6,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 75.6,
+        "stableRenderMsMedian": 0.4,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 239.1,
+        "mountToFirstPackFrameMs": 240.8,
+        "firstPackFrameCpuMs": 1.1
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.6,
+        "frameMsP95": 17.4,
+        "frameMsMax": 18.1,
+        "renderCpuMsAvg": 0.5,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 6272,
+          "geometries": 11,
+          "textures": 16,
+          "programs": 11
+        }
+      }
+    },
+    {
+      "kind": "rotating-dpr2",
+      "family": "glass",
+      "shape": "juice-bottle",
+      "model": "bottle",
+      "material": "Verre transparent",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 2,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 107,
+        "low": {
+          "msMedian": 4.5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1706496,
+          "textureMBEstimate": 8.7
+        },
+        "medium": {
+          "msMedian": 3.3,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        },
+        "high": {
+          "msMedian": 5.3,
+          "canvasesPerBuild": 14,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 25.8,
+        "buildMs": 4.8,
+        "rigFitMs": 15.8,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 128.9,
+        "stableRenderMsMedian": 0.5,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 252.7,
+        "mountToFirstPackFrameMs": 254.4,
+        "firstPackFrameCpuMs": 1.4
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 18,
+        "frameMsMax": 18.6,
+        "renderCpuMsAvg": 1,
+        "info": {
+          "drawCalls": 15,
+          "triangles": 12220,
+          "geometries": 11,
+          "textures": 15,
+          "programs": 16
+        }
+      }
+    },
+    {
+      "kind": "rotating-dpr2",
+      "family": "metal",
+      "shape": "beverage-can",
+      "model": "can",
+      "material": "Aluminium",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 2,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 68,
+        "low": {
+          "msMedian": 7.5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1099776,
+          "textureMBEstimate": 5.6
+        },
+        "medium": {
+          "msMedian": 10,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        },
+        "high": {
+          "msMedian": 9.7,
+          "canvasesPerBuild": 6,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.7,
+        "buildMs": 6.5,
+        "rigFitMs": 18.1,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 56.6,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 225.8,
+        "mountToFirstPackFrameMs": 227.5,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 16.9,
+        "frameMsMax": 17.4,
+        "renderCpuMsAvg": 0.3,
+        "info": {
+          "drawCalls": 8,
+          "triangles": 3558,
+          "geometries": 11,
+          "textures": 12,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "rotating-dpr2",
+      "family": "box",
+      "shape": "folding-box-standard",
+      "model": "box",
+      "material": "Carton couché 350g",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 2,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 70.2,
+        "low": {
+          "msMedian": 4.1,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 6,
+          "texturePixels": 1413120,
+          "textureMBEstimate": 7.2
+        },
+        "medium": {
+          "msMedian": 6.3,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        },
+        "high": {
+          "msMedian": 8.3,
+          "canvasesPerBuild": 13,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 22.5,
+        "buildMs": 3.9,
+        "rigFitMs": 21.2,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 58.6,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 225.9,
+        "mountToFirstPackFrameMs": 227.8,
+        "firstPackFrameCpuMs": 1.5
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 16.9,
+        "frameMsMax": 17,
+        "renderCpuMsAvg": 0.4,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 688,
+          "geometries": 7,
+          "textures": 19,
+          "programs": 9
+        }
+      }
+    },
+    {
+      "kind": "rotating-dpr2",
+      "family": "pouch",
+      "shape": "stand-up-pouch",
+      "model": "pouch",
+      "material": "Kraft + PE",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 2,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 98.3,
+        "low": {
+          "msMedian": 7.9,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 3,
+          "texturePixels": 1473536,
+          "textureMBEstimate": 7.5
+        },
+        "medium": {
+          "msMedian": 5.5,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        },
+        "high": {
+          "msMedian": 7.2,
+          "canvasesPerBuild": 12,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.9,
+        "buildMs": 8.2,
+        "rigFitMs": 42,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 56,
+        "stableRenderMsMedian": 0.2,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 242.6,
+        "mountToFirstPackFrameMs": 244,
+        "firstPackFrameCpuMs": 1.1
+      },
+      "fps": {
+        "frames": 300,
+        "seconds": 5,
+        "fpsAvg": 60.1,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 60,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.1,
+        "frameMsMax": 17.8,
+        "renderCpuMsAvg": 0.4,
+        "info": {
+          "drawCalls": 7,
+          "triangles": 6256,
+          "geometries": 8,
+          "textures": 18,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "rotating-dpr2",
+      "family": "tube",
+      "shape": "squeeze-tube",
+      "model": "tube",
+      "material": "PE",
+      "view": "threeQuarter",
+      "rotate": true,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 2,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 65.2,
+        "low": {
+          "msMedian": 5.3,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1964544,
+          "textureMBEstimate": 10
+        },
+        "medium": {
+          "msMedian": 3.5,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        },
+        "high": {
+          "msMedian": 4.9,
+          "canvasesPerBuild": 8,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 15.5,
+        "buildMs": 3.4,
+        "rigFitMs": 60.4,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 29.4,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 231.1,
+        "mountToFirstPackFrameMs": 232.5,
+        "firstPackFrameCpuMs": 1
+      },
+      "fps": {
+        "frames": 301,
+        "seconds": 5,
+        "fpsAvg": 60,
+        "fpsMinPerSecond": 60,
+        "fpsMaxPerSecond": 61,
+        "frameMsAvg": 16.7,
+        "frameMsP95": 17.3,
+        "frameMsMax": 18,
+        "renderCpuMsAvg": 0.4,
+        "info": {
+          "drawCalls": 6,
+          "triangles": 9904,
+          "geometries": 9,
+          "textures": 14,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static-low",
+      "family": "pot",
+      "shape": "cosmetic-jar",
+      "model": "jar",
+      "material": "Verre dépoli",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": true,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 1.5,
+          "shadowMapSize": 512,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "low"
+        }
+      },
+      "build": {
+        "coldMediumMs": 103.2,
+        "low": {
+          "msMedian": 4.3,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 425472,
+          "textureMBEstimate": 2.2
+        },
+        "medium": {
+          "msMedian": 4.3,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        },
+        "high": {
+          "msMedian": 3.8,
+          "canvasesPerBuild": 6,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 26.2,
+        "buildMs": 3.1,
+        "rigFitMs": 20.1,
+        "frameShotMs": 0.4,
+        "firstRenderMs": 606.5,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 224.1,
+        "mountToFirstPackFrameMs": 225.3,
+        "firstPackFrameCpuMs": 0.9
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 8,
+          "triangles": 3368,
+          "geometries": 9,
+          "textures": 8,
+          "programs": 13
+        }
+      }
+    },
+    {
+      "kind": "static-low",
+      "family": "bottle",
+      "shape": "shampoo-bottle",
+      "model": "bottle",
+      "material": "PEHD",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": true,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 1.5,
+          "shadowMapSize": 512,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "low"
+        }
+      },
+      "build": {
+        "coldMediumMs": 111.6,
+        "low": {
+          "msMedian": 4.3,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1694208,
+          "textureMBEstimate": 8.6
+        },
+        "medium": {
+          "msMedian": 3.6,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        },
+        "high": {
+          "msMedian": 3.8,
+          "canvasesPerBuild": 18,
+          "meshes": 5,
+          "triangles": 6172,
+          "materials": 4,
+          "textureSources": 9,
+          "texturePixels": 2218496,
+          "textureMBEstimate": 11.3
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 19.9,
+        "buildMs": 3.9,
+        "rigFitMs": 19.3,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 251.5,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 225.5,
+        "mountToFirstPackFrameMs": 227.1,
+        "firstPackFrameCpuMs": 1.2
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 6272,
+          "geometries": 11,
+          "textures": 8,
+          "programs": 11
+        }
+      }
+    },
+    {
+      "kind": "static-low",
+      "family": "glass",
+      "shape": "juice-bottle",
+      "model": "bottle",
+      "material": "Verre transparent",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": true,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 1.5,
+          "shadowMapSize": 512,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "low"
+        }
+      },
+      "build": {
+        "coldMediumMs": 108.7,
+        "low": {
+          "msMedian": 5.4,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 1706496,
+          "textureMBEstimate": 8.7
+        },
+        "medium": {
+          "msMedian": 3.4,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        },
+        "high": {
+          "msMedian": 17.8,
+          "canvasesPerBuild": 14,
+          "meshes": 5,
+          "triangles": 6060,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 2099712,
+          "textureMBEstimate": 10.7
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 22.7,
+        "buildMs": 6,
+        "rigFitMs": 20,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 103.4,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 217.2,
+        "mountToFirstPackFrameMs": 218.5,
+        "firstPackFrameCpuMs": 1
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 11,
+          "triangles": 10192,
+          "geometries": 11,
+          "textures": 8,
+          "programs": 13
+        }
+      }
+    },
+    {
+      "kind": "static-low",
+      "family": "metal",
+      "shape": "beverage-can",
+      "model": "can",
+      "material": "Aluminium",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": true,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 1.5,
+          "shadowMapSize": 512,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "low"
+        }
+      },
+      "build": {
+        "coldMediumMs": 61.5,
+        "low": {
+          "msMedian": 6.5,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1099776,
+          "textureMBEstimate": 5.6
+        },
+        "medium": {
+          "msMedian": 6.4,
+          "canvasesPerBuild": 2,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        },
+        "high": {
+          "msMedian": 6.7,
+          "canvasesPerBuild": 6,
+          "meshes": 5,
+          "triangles": 3458,
+          "materials": 3,
+          "textureSources": 5,
+          "texturePixels": 1361920,
+          "textureMBEstimate": 6.9
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 15.7,
+        "buildMs": 5.5,
+        "rigFitMs": 15.3,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 58.4,
+        "stableRenderMsMedian": 0.4,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 219.9,
+        "mountToFirstPackFrameMs": 221,
+        "firstPackFrameCpuMs": 0.8
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 8,
+          "triangles": 3558,
+          "geometries": 11,
+          "textures": 8,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static-low",
+      "family": "box",
+      "shape": "folding-box-standard",
+      "model": "box",
+      "material": "Carton couché 350g",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": true,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 1.5,
+          "shadowMapSize": 512,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "low"
+        }
+      },
+      "build": {
+        "coldMediumMs": 63.9,
+        "low": {
+          "msMedian": 4.2,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 6,
+          "texturePixels": 1413120,
+          "textureMBEstimate": 7.2
+        },
+        "medium": {
+          "msMedian": 3.5,
+          "canvasesPerBuild": 7,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        },
+        "high": {
+          "msMedian": 3.4,
+          "canvasesPerBuild": 13,
+          "meshes": 1,
+          "triangles": 588,
+          "materials": 6,
+          "textureSources": 12,
+          "texturePixels": 1806336,
+          "textureMBEstimate": 9.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 27.7,
+        "buildMs": 5.5,
+        "rigFitMs": 34.5,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 66.3,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 217.7,
+        "mountToFirstPackFrameMs": 219.7,
+        "firstPackFrameCpuMs": 1.5
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 9,
+          "triangles": 688,
+          "geometries": 7,
+          "textures": 13,
+          "programs": 9
+        }
+      }
+    },
+    {
+      "kind": "static-low",
+      "family": "pouch",
+      "shape": "stand-up-pouch",
+      "model": "pouch",
+      "material": "Kraft + PE",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": true,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 1.5,
+          "shadowMapSize": 512,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "low"
+        }
+      },
+      "build": {
+        "coldMediumMs": 88.9,
+        "low": {
+          "msMedian": 9.3,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 3,
+          "texturePixels": 1473536,
+          "textureMBEstimate": 7.5
+        },
+        "medium": {
+          "msMedian": 5.7,
+          "canvasesPerBuild": 4,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        },
+        "high": {
+          "msMedian": 5.9,
+          "canvasesPerBuild": 12,
+          "meshes": 2,
+          "triangles": 6156,
+          "materials": 4,
+          "textureSources": 11,
+          "texturePixels": 1997824,
+          "textureMBEstimate": 10.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 17.1,
+        "buildMs": 8.9,
+        "rigFitMs": 54.2,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 61.2,
+        "stableRenderMsMedian": 0.3,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 241.2,
+        "mountToFirstPackFrameMs": 242.7,
+        "firstPackFrameCpuMs": 1.2
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 7,
+          "triangles": 6256,
+          "geometries": 8,
+          "textures": 10,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "static-low",
+      "family": "tube",
+      "shape": "squeeze-tube",
+      "model": "tube",
+      "material": "PE",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": true,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 1.5,
+          "shadowMapSize": 512,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "low"
+        }
+      },
+      "build": {
+        "coldMediumMs": 58.9,
+        "low": {
+          "msMedian": 4.6,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 1,
+          "texturePixels": 1964544,
+          "textureMBEstimate": 10
+        },
+        "medium": {
+          "msMedian": 6.1,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        },
+        "high": {
+          "msMedian": 5.2,
+          "canvasesPerBuild": 8,
+          "meshes": 3,
+          "triangles": 9804,
+          "materials": 3,
+          "textureSources": 7,
+          "texturePixels": 2357760,
+          "textureMBEstimate": 12
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 16.3,
+        "buildMs": 3.5,
+        "rigFitMs": 67.2,
+        "frameShotMs": 0.1,
+        "firstRenderMs": 28,
+        "stableRenderMsMedian": 0.2,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 241.1,
+        "mountToFirstPackFrameMs": 242.2,
+        "firstPackFrameCpuMs": 0.8
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 6,
+          "triangles": 9904,
+          "geometries": 9,
+          "textures": 8,
+          "programs": 10
+        }
+      }
+    },
+    {
+      "kind": "hd",
+      "family": "pot",
+      "shape": "cosmetic-jar",
+      "model": "jar",
+      "material": "Verre dépoli",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "hd": {
+        "ms": 1602,
+        "quality": {
+          "tier": "hd",
+          "maxPixelRatio": 1,
+          "shadowMapSize": 2048,
+          "samples": 48,
+          "maxSize": 3072,
+          "materialQuality": "high"
+        },
+        "size": 800
+      }
+    },
+    {
+      "kind": "hd",
+      "family": "bottle",
+      "shape": "shampoo-bottle",
+      "model": "bottle",
+      "material": "PEHD",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "hd": {
+        "ms": 1111,
+        "quality": {
+          "tier": "hd",
+          "maxPixelRatio": 1,
+          "shadowMapSize": 2048,
+          "samples": 48,
+          "maxSize": 3072,
+          "materialQuality": "high"
+        },
+        "size": 800
+      }
+    },
+    {
+      "kind": "hd",
+      "family": "glass",
+      "shape": "juice-bottle",
+      "model": "bottle",
+      "material": "Verre transparent",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "hd": {
+        "ms": 1784,
+        "quality": {
+          "tier": "hd",
+          "maxPixelRatio": 1,
+          "shadowMapSize": 2048,
+          "samples": 48,
+          "maxSize": 3072,
+          "materialQuality": "high"
+        },
+        "size": 800
+      }
+    },
+    {
+      "kind": "hd",
+      "family": "metal",
+      "shape": "beverage-can",
+      "model": "can",
+      "material": "Aluminium",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "hd": {
+        "ms": 1237,
+        "quality": {
+          "tier": "hd",
+          "maxPixelRatio": 1,
+          "shadowMapSize": 2048,
+          "samples": 48,
+          "maxSize": 3072,
+          "materialQuality": "high"
+        },
+        "size": 800
+      }
+    },
+    {
+      "kind": "hd",
+      "family": "box",
+      "shape": "folding-box-standard",
+      "model": "box",
+      "material": "Carton couché 350g",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "hd": {
+        "ms": 883,
+        "quality": {
+          "tier": "hd",
+          "maxPixelRatio": 1,
+          "shadowMapSize": 2048,
+          "samples": 48,
+          "maxSize": 3072,
+          "materialQuality": "high"
+        },
+        "size": 800
+      }
+    },
+    {
+      "kind": "hd",
+      "family": "pouch",
+      "shape": "stand-up-pouch",
+      "model": "pouch",
+      "material": "Kraft + PE",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "hd": {
+        "ms": 1064,
+        "quality": {
+          "tier": "hd",
+          "maxPixelRatio": 1,
+          "shadowMapSize": 2048,
+          "samples": 48,
+          "maxSize": 3072,
+          "materialQuality": "high"
+        },
+        "size": 800
+      }
+    },
+    {
+      "kind": "hd",
+      "family": "tube",
+      "shape": "squeeze-tube",
+      "model": "tube",
+      "material": "PE",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 5,
+      "scenario": "none",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "hd": {
+        "ms": 875,
+        "quality": {
+          "tier": "hd",
+          "maxPixelRatio": 1,
+          "shadowMapSize": 2048,
+          "samples": 48,
+          "maxSize": 3072,
+          "materialQuality": "high"
+        },
+        "size": 800
+      }
+    },
+    {
+      "kind": "rebuild",
+      "family": "pot",
+      "shape": "cosmetic-jar",
+      "model": "jar",
+      "material": "Verre dépoli",
+      "view": "threeQuarter",
+      "rotate": false,
+      "seconds": 2,
+      "scenario": "rebuild",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "build": {
+        "coldMediumMs": 45,
+        "low": {
+          "msMedian": 3.1,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 1,
+          "texturePixels": 425472,
+          "textureMBEstimate": 2.2
+        },
+        "medium": {
+          "msMedian": 3.2,
+          "canvasesPerBuild": 2,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        },
+        "high": {
+          "msMedian": 3.7,
+          "canvasesPerBuild": 6,
+          "meshes": 3,
+          "triangles": 2116,
+          "materials": 4,
+          "textureSources": 7,
+          "texturePixels": 818688,
+          "textureMBEstimate": 4.2
+        }
+      },
+      "setup": {
+        "studioRigInitMs": 18.1,
+        "buildMs": 3.4,
+        "rigFitMs": 17.2,
+        "frameShotMs": 0.2,
+        "firstRenderMs": 100.9,
+        "stableRenderMsMedian": 0.6,
+        "note": "private renderer, gl.finish() after each render: CPU+GPU wall time, machine-dependent"
+      },
+      "viewer": {
+        "wrappedAfterMountMs": 258.4,
+        "mountToFirstPackFrameMs": 260.1,
+        "firstPackFrameCpuMs": 1.3
+      },
+      "fps": {
+        "frames": 0,
+        "seconds": 2,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 11,
+          "triangles": 4332,
+          "geometries": 9,
+          "textures": 15,
+          "programs": 16
+        }
+      },
+      "rebuild": [
+        {
+          "kind": "text",
+          "changeToNewPackFrameMs": 177,
+          "newPacksRendered": 1,
+          "canvasesCreated": 10,
+          "cameraAfter": {
+            "position": [
+              2.333,
+              1.7058,
+              3.3319
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "directBuildMs": 3,
+          "mini3dMs": 157.9
+        },
+        {
+          "kind": "color",
+          "changeToNewPackFrameMs": 144.6,
+          "newPacksRendered": 1,
+          "canvasesCreated": 4,
+          "cameraAfter": {
+            "position": [
+              2.333,
+              1.7058,
+              3.3319
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "directBuildMs": 3.2,
+          "mini3dMs": 123.5
+        },
+        {
+          "kind": "art",
+          "changeToNewPackFrameMs": 159.2,
+          "newPacksRendered": 1,
+          "canvasesCreated": 4,
+          "cameraAfter": {
+            "position": [
+              2.333,
+              1.7058,
+              3.3319
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "directBuildMs": 3.7,
+          "mini3dMs": 116.7
+        }
+      ]
+    },
+    {
+      "kind": "camera",
+      "family": "pot",
+      "env": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+        "gpu": "ANGLE (Intel, Intel(R) UHD Graphics P630 (0x00009BF6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "devicePixelRatio": 1,
+        "viewport": [
+          740,
+          740
+        ],
+        "caps": {
+          "webgl": true,
+          "webgl2": true,
+          "webgpu": true,
+          "mobile": false,
+          "lowEnd": false,
+          "maxTextureSize": 16384
+        },
+        "previewQuality": {
+          "tier": "preview",
+          "maxPixelRatio": 2,
+          "shadowMapSize": 1024,
+          "samples": 1,
+          "maxSize": 2048,
+          "materialQuality": "medium"
+        }
+      },
+      "start": {
+        "position": [
+          2.333,
+          1.7058,
+          3.3319
+        ],
+        "direction": [
+          -0.5455,
+          -0.309,
+          -0.7791
+        ]
+      },
+      "afterDrag": {
+        "position": [
+          2.2423,
+          3.1635,
+          -2.3535
+        ],
+        "direction": [
+          -0.5243,
+          -0.6499,
+          0.5503
+        ]
+      },
+      "afterText": {
+        "kind": "text",
+        "changeToNewPackFrameMs": 171.2,
+        "newPacksRendered": 1,
+        "canvasesCreated": 10,
+        "cameraAfter": {
+          "position": [
+            2.2398,
+            3.1641,
+            -2.3551
+          ],
+          "direction": [
+            -0.5237,
+            -0.65,
+            0.5507
+          ]
+        }
+      },
+      "afterColor": {
+        "kind": "color",
+        "changeToNewPackFrameMs": 161.5,
+        "newPacksRendered": 1,
+        "canvasesCreated": 4,
+        "cameraAfter": {
+          "position": [
+            2.238,
+            3.1646,
+            -2.3563
+          ],
+          "direction": [
+            -0.5233,
+            -0.6501,
+            0.5509
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -131,6 +131,9 @@ export class StudioRig {
   /** Tight, darker occlusion right where the pack touches the floor (contact hardening). */
   private contactTight: ContactShadow;
   private center = new THREE.Vector3(0, 0.5, 0);
+  /** Shadow falloff (export only, see setShadowFalloff): floor centre (x, z) and fade range. */
+  private falloffCenter = new THREE.Vector2();
+  private falloffRange = new THREE.Vector2();
   private lightDistance = 5;
 
   constructor(private renderer: THREE.WebGLRenderer, readonly config: StudioLightingConfig, quality: Pick<RenderQualityConfig, "shadowMapSize">) {
@@ -207,6 +210,34 @@ export class StudioRig {
     this.contact.update(renderer, scene, bounds, this.config.shadow.contactOpacity, this.config.shadow.contactBlur);
     // Only what is within a few millimetres of the floor darkens, barely blurred.
     this.contactTight.update(renderer, scene, bounds, Math.min(0.85, this.config.shadow.contactOpacity * 1.1), this.config.shadow.contactBlur * 0.3, 0.05, 1.4, 0.0009);
+  }
+
+  /**
+   * Export framing (phase 3D-D, opt-in — the live viewer never calls it): the cast and contact shadows fade
+   * out on the floor between `start` and `end` (distances from the pack's centre, scene units), so a shadow
+   * longer than the room the shot gives it ends softly instead of being cut by the frame. Call after fit().
+   */
+  setShadowFalloff(start: number, end: number) {
+    this.falloffCenter.set(this.center.x, this.center.z);
+    this.falloffRange.set(start, Math.max(start + 1e-4, end));
+    const materials = [this.ground.material, this.contact.mesh.material, this.contactTight.mesh.material] as THREE.Material[];
+    for (const m of materials) {
+      if (!m.userData.shadowFalloff) {
+        m.userData.shadowFalloff = true;
+        const center = { value: this.falloffCenter }, range = { value: this.falloffRange };
+        m.onBeforeCompile = (shader) => {
+          shader.uniforms.falloffCenter = center;
+          shader.uniforms.falloffRange = range;
+          shader.vertexShader = shader.vertexShader
+            .replace("#include <common>", "#include <common>\nvarying vec3 vFalloffWorld;")
+            .replace("#include <project_vertex>", "#include <project_vertex>\nvFalloffWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;");
+          shader.fragmentShader = shader.fragmentShader
+            .replace("#include <common>", "#include <common>\nuniform vec2 falloffCenter;\nuniform vec2 falloffRange;\nvarying vec3 vFalloffWorld;")
+            .replace(/\}\s*$/, "  gl_FragColor.a *= 1.0 - smoothstep(falloffRange.x, falloffRange.y, distance(vFalloffWorld.xz, falloffCenter));\n}\n");
+        };
+      }
+      m.needsUpdate = true;
+    }
   }
 
   /** HD: moves the key light across its apparent size, so accumulated frames give soft shadows. */

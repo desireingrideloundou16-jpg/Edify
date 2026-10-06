@@ -1,0 +1,1300 @@
+{
+  "commit": "c0954fcfc540d89501f2fdd308fc739d723908d0",
+  "date": "2026-10-06T16:33:27.160Z",
+  "chrome": "Chrome/154.0.8037.93",
+  "headless": true,
+  "uncapped": false,
+  "size": 640,
+  "seconds": 5,
+  "runs": [],
+  "suite": {
+    "tag": "run",
+    "formats": [
+      {
+        "family": "pot",
+        "shape": "cosmetic-jar",
+        "viewerBefore": {
+          "camera": {
+            "position": [
+              2.333,
+              1.7058,
+              3.3319
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        },
+        "interactiveVsHd": {
+          "size": [
+            638,
+            638
+          ],
+          "meanAbsRgbaPerChannel": 0.596,
+          "strongPct": 0.23,
+          "silhouetteIoU": 0.9942,
+          "meanColourDiffOnPack": 1.47
+        },
+        "exports": [
+          {
+            "key": "e1",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1772.7,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 124.9
+          },
+          {
+            "key": "e2",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1762.5,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 122.5
+          },
+          {
+            "key": "e3",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1773.9,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 123.2
+          }
+        ],
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 558648,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 86.99,
+            "opaquePct": 8.36,
+            "partialPct": 4.65
+          },
+          "nonEmptyPct": 13.01,
+          "drawnBox": [
+            536,
+            702,
+            1790,
+            1370
+          ],
+          "packBox": [
+            623,
+            704,
+            1407,
+            1353
+          ],
+          "packMarginsPct": {
+            "left": 30.42,
+            "top": 34.38,
+            "right": 31.25,
+            "bottom": 33.89
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "determinism": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.003,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.04
+        },
+        "viewerAfter": {
+          "camera": {
+            "position": [
+              2.333,
+              1.7058,
+              3.3319
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        }
+      },
+      {
+        "family": "bottle",
+        "shape": "shampoo-bottle",
+        "viewerBefore": {
+          "camera": {
+            "position": [
+              1.6773,
+              1.4502,
+              2.3954
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        },
+        "interactiveVsHd": {
+          "size": [
+            638,
+            638
+          ],
+          "meanAbsRgbaPerChannel": 0.476,
+          "strongPct": 0.22,
+          "silhouetteIoU": 0.998,
+          "meanColourDiffOnPack": 1.64
+        },
+        "exports": [
+          {
+            "key": "e1",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1069,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 134.8
+          },
+          {
+            "key": "e2",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1009.2,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 131.9
+          },
+          {
+            "key": "e3",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1021.5,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 132.5
+          }
+        ],
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 463131,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 89.8,
+            "opaquePct": 8.7,
+            "partialPct": 1.49
+          },
+          "nonEmptyPct": 10.2,
+          "drawnBox": [
+            810,
+            384,
+            1880,
+            1607
+          ],
+          "packBox": [
+            854,
+            385,
+            1192,
+            1596
+          ],
+          "packMarginsPct": {
+            "left": 41.7,
+            "top": 18.8,
+            "right": 41.75,
+            "bottom": 22.02
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "determinism": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.002,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.03
+        },
+        "viewerAfter": {
+          "camera": {
+            "position": [
+              1.6773,
+              1.4502,
+              2.3954
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        }
+      },
+      {
+        "family": "glass",
+        "shape": "juice-bottle",
+        "viewerBefore": {
+          "camera": {
+            "position": [
+              1.7553,
+              1.4943,
+              2.5068
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        },
+        "interactiveVsHd": {
+          "size": [
+            638,
+            638
+          ],
+          "meanAbsRgbaPerChannel": 0.397,
+          "strongPct": 0.155,
+          "silhouetteIoU": 0.9967,
+          "meanColourDiffOnPack": 1.42
+        },
+        "exports": [
+          {
+            "key": "e1",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1904.5,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 157.3
+          },
+          {
+            "key": "e2",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1970.6,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 153.4
+          },
+          {
+            "key": "e3",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1874.7,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 142.8
+          }
+        ],
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 424431,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 90.26,
+            "opaquePct": 5.15,
+            "partialPct": 4.6
+          },
+          "nonEmptyPct": 9.74,
+          "drawnBox": [
+            795,
+            411,
+            1854,
+            1594
+          ],
+          "packBox": [
+            840,
+            412,
+            1201,
+            1576
+          ],
+          "packMarginsPct": {
+            "left": 41.02,
+            "top": 20.12,
+            "right": 41.31,
+            "bottom": 23
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "determinism": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.001,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.04
+        },
+        "viewerAfter": {
+          "camera": {
+            "position": [
+              1.7553,
+              1.4943,
+              2.5068
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        }
+      },
+      {
+        "family": "metal",
+        "shape": "beverage-can",
+        "viewerBefore": {
+          "camera": {
+            "position": [
+              2.0241,
+              1.6466,
+              2.8907
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        },
+        "interactiveVsHd": {
+          "size": [
+            638,
+            638
+          ],
+          "meanAbsRgbaPerChannel": 2.287,
+          "strongPct": 2.656,
+          "silhouetteIoU": 0.9971,
+          "meanColourDiffOnPack": 9.67
+        },
+        "exports": [
+          {
+            "key": "e1",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1161.6,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 157.9
+          },
+          {
+            "key": "e2",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1088,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 152.7
+          },
+          {
+            "key": "e3",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1104.1,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 153.6
+          }
+        ],
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 693594,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 86.35,
+            "opaquePct": 11.83,
+            "partialPct": 1.82
+          },
+          "nonEmptyPct": 13.65,
+          "drawnBox": [
+            692,
+            518,
+            1864,
+            1507
+          ],
+          "packBox": [
+            751,
+            519,
+            1284,
+            1491
+          ],
+          "packMarginsPct": {
+            "left": 36.67,
+            "top": 25.34,
+            "right": 37.26,
+            "bottom": 27.15
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "determinism": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.002,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.03
+        },
+        "viewerAfter": {
+          "camera": {
+            "position": [
+              2.0241,
+              1.6466,
+              2.8907
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        }
+      },
+      {
+        "family": "box",
+        "shape": "folding-box-standard",
+        "viewerBefore": {
+          "camera": {
+            "position": [
+              1.778,
+              1.5072,
+              2.5392
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        },
+        "interactiveVsHd": {
+          "size": [
+            638,
+            638
+          ],
+          "meanAbsRgbaPerChannel": 0.517,
+          "strongPct": 0.195,
+          "silhouetteIoU": 0.999,
+          "meanColourDiffOnPack": 0.79
+        },
+        "exports": [
+          {
+            "key": "e1",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1165.6,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 166.1
+          },
+          {
+            "key": "e2",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1052.4,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 162.1
+          },
+          {
+            "key": "e3",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1049.7,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 163.2
+          }
+        ],
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 796737,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 84.13,
+            "opaquePct": 13.74,
+            "partialPct": 2.13
+          },
+          "nonEmptyPct": 15.87,
+          "drawnBox": [
+            721,
+            403,
+            1978,
+            1597
+          ],
+          "packBox": [
+            763,
+            406,
+            1267,
+            1587
+          ],
+          "packMarginsPct": {
+            "left": 37.26,
+            "top": 19.82,
+            "right": 38.09,
+            "bottom": 22.46
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "determinism": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.006,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.05
+        },
+        "viewerAfter": {
+          "camera": {
+            "position": [
+              1.778,
+              1.5072,
+              2.5392
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        }
+      },
+      {
+        "family": "pouch",
+        "shape": "stand-up-pouch",
+        "viewerBefore": {
+          "camera": {
+            "position": [
+              1.9443,
+              1.6014,
+              2.7768
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        },
+        "interactiveVsHd": {
+          "size": [
+            638,
+            638
+          ],
+          "meanAbsRgbaPerChannel": 0.485,
+          "strongPct": 0.229,
+          "silhouetteIoU": 0.9982,
+          "meanColourDiffOnPack": 1.04
+        },
+        "exports": [
+          {
+            "key": "e1",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1076.9,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 268.7
+          },
+          {
+            "key": "e2",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1038,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 180.6
+          },
+          {
+            "key": "e3",
+            "ok": true,
+            "engine": "hd",
+            "ms": 1018.7,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 174.1
+          }
+        ],
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 732804,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 86.57,
+            "opaquePct": 12.17,
+            "partialPct": 1.26
+          },
+          "nonEmptyPct": 13.43,
+          "drawnBox": [
+            671,
+            524,
+            1909,
+            1493
+          ],
+          "packBox": [
+            742,
+            525,
+            1306,
+            1476
+          ],
+          "packMarginsPct": {
+            "left": 36.23,
+            "top": 25.63,
+            "right": 36.18,
+            "bottom": 27.88
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "determinism": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.004,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.04
+        },
+        "viewerAfter": {
+          "camera": {
+            "position": [
+              1.9443,
+              1.6014,
+              2.7768
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        }
+      },
+      {
+        "family": "tube",
+        "shape": "squeeze-tube",
+        "viewerBefore": {
+          "camera": {
+            "position": [
+              1.7025,
+              1.4644,
+              2.4314
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        },
+        "interactiveVsHd": {
+          "size": [
+            638,
+            638
+          ],
+          "meanAbsRgbaPerChannel": 0.402,
+          "strongPct": 0.162,
+          "silhouetteIoU": 0.9986,
+          "meanColourDiffOnPack": 0.88
+        },
+        "exports": [
+          {
+            "key": "e1",
+            "ok": true,
+            "engine": "hd",
+            "ms": 994,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 184.1
+          },
+          {
+            "key": "e2",
+            "ok": true,
+            "engine": "hd",
+            "ms": 965,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 181.5
+          },
+          {
+            "key": "e3",
+            "ok": true,
+            "engine": "hd",
+            "ms": 986.1,
+            "viewerFramesDuringExport": 0,
+            "jsHeapMB": 182.1
+          }
+        ],
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 476586,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 90.34,
+            "opaquePct": 8.2,
+            "partialPct": 1.46
+          },
+          "nonEmptyPct": 9.66,
+          "drawnBox": [
+            840,
+            390,
+            1962,
+            1597
+          ],
+          "packBox": [
+            856,
+            391,
+            1192,
+            1588
+          ],
+          "packMarginsPct": {
+            "left": 41.8,
+            "top": 19.09,
+            "right": 41.75,
+            "bottom": 22.41
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "determinism": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.002,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.03
+        },
+        "viewerAfter": {
+          "camera": {
+            "position": [
+              1.7025,
+              1.4644,
+              2.4314
+            ],
+            "direction": [
+              -0.5455,
+              -0.309,
+              -0.7791
+            ]
+          },
+          "rendererIds": [
+            1
+          ],
+          "frames": 3,
+          "contextLost": false
+        }
+      }
+    ],
+    "resolution": [
+      {
+        "family": "glass",
+        "size": 1024,
+        "ms": [
+          1823.8,
+          1024.3
+        ],
+        "width": 1024,
+        "pngBytes": 129117,
+        "jsHeapMB": 108.3
+      },
+      {
+        "family": "glass",
+        "size": 1600,
+        "ms": [
+          1454,
+          1673.9
+        ],
+        "width": 1600,
+        "pngBytes": 279150,
+        "jsHeapMB": 100.3
+      },
+      {
+        "family": "glass",
+        "size": 2048,
+        "ms": [
+          1966.6,
+          1899.9
+        ],
+        "width": 2048,
+        "pngBytes": 424722,
+        "jsHeapMB": 112.5
+      },
+      {
+        "family": "glass",
+        "size": 3072,
+        "ms": [
+          3222.7,
+          3172
+        ],
+        "width": 3072,
+        "pngBytes": 862341,
+        "jsHeapMB": 114.9
+      },
+      {
+        "family": "box",
+        "size": 1024,
+        "ms": [
+          964.8,
+          771.7
+        ],
+        "width": 1024,
+        "pngBytes": 225669,
+        "jsHeapMB": 114.6
+      },
+      {
+        "family": "box",
+        "size": 1600,
+        "ms": [
+          860.3,
+          877.8
+        ],
+        "width": 1600,
+        "pngBytes": 516456,
+        "jsHeapMB": 110
+      },
+      {
+        "family": "box",
+        "size": 2048,
+        "ms": [
+          995.5,
+          981
+        ],
+        "width": 2048,
+        "pngBytes": 796470,
+        "jsHeapMB": 112.1
+      },
+      {
+        "family": "box",
+        "size": 3072,
+        "ms": [
+          1346.2,
+          1336.7
+        ],
+        "width": 3072,
+        "pngBytes": 1567248,
+        "jsHeapMB": 119.8
+      }
+    ],
+    "changes": {
+      "base": {
+        "key": "d0",
+        "ok": true,
+        "engine": "hd",
+        "ms": 1928.9,
+        "viewerFramesDuringExport": 0,
+        "jsHeapMB": 208.7
+      },
+      "text": {
+        "export": {
+          "key": "d1",
+          "ok": true,
+          "engine": "hd",
+          "ms": 1795.3,
+          "viewerFramesDuringExport": 0,
+          "jsHeapMB": 204.9
+        },
+        "again": {
+          "key": "d1b",
+          "ok": true,
+          "engine": "hd",
+          "ms": 1829,
+          "viewerFramesDuringExport": 0,
+          "jsHeapMB": 195.4
+        },
+        "vsPrevious": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.086,
+          "strongPct": 0.011,
+          "silhouetteIoU": 0.999,
+          "meanColourDiffOnPack": 0.95
+        },
+        "vsSameDesignAgain": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.003,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.04
+        }
+      },
+      "color": {
+        "export": {
+          "key": "d2",
+          "ok": true,
+          "engine": "hd",
+          "ms": 1797.1,
+          "viewerFramesDuringExport": 0,
+          "jsHeapMB": 206.2
+        },
+        "again": {
+          "key": "d2b",
+          "ok": true,
+          "engine": "hd",
+          "ms": 1815.8,
+          "viewerFramesDuringExport": 0,
+          "jsHeapMB": 218
+        },
+        "vsPrevious": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 1.163,
+          "strongPct": 0.457,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 17.85
+        },
+        "vsSameDesignAgain": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.002,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.03
+        }
+      },
+      "art": {
+        "export": {
+          "key": "d3",
+          "ok": true,
+          "engine": "hd",
+          "ms": 1768.5,
+          "viewerFramesDuringExport": 0,
+          "jsHeapMB": 204.8
+        },
+        "again": {
+          "key": "d3b",
+          "ok": true,
+          "engine": "hd",
+          "ms": 1786.5,
+          "viewerFramesDuringExport": 0,
+          "jsHeapMB": 195.7
+        },
+        "vsPrevious": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.109,
+          "strongPct": 0.208,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 1.7
+        },
+        "vsSameDesignAgain": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 0.002,
+          "strongPct": 0,
+          "silhouetteIoU": 1,
+          "meanColourDiffOnPack": 0.03
+        }
+      },
+      "packaging": {
+        "export": {
+          "key": "d4",
+          "ok": true,
+          "engine": "hd",
+          "ms": 1888.1,
+          "viewerFramesDuringExport": 0,
+          "jsHeapMB": 213.7
+        },
+        "vsPrevious": {
+          "size": [
+            2048,
+            2048
+          ],
+          "meanAbsRgbaPerChannel": 20.193,
+          "strongPct": 13.301,
+          "silhouetteIoU": 0.2417,
+          "meanColourDiffOnPack": 44.6
+        }
+      }
+    },
+    "isolation": {
+      "before": {
+        "camera": {
+          "position": [
+            2.2423,
+            3.1635,
+            -2.3535
+          ],
+          "direction": [
+            -0.5243,
+            -0.6499,
+            0.5503
+          ]
+        },
+        "rendererIds": [
+          1
+        ],
+        "frames": 98,
+        "contextLost": false
+      },
+      "export": {
+        "key": "iso",
+        "ok": true,
+        "engine": "hd",
+        "ms": 1981.9,
+        "viewerFramesDuringExport": 0,
+        "jsHeapMB": 220
+      },
+      "after": {
+        "camera": {
+          "position": [
+            2.2423,
+            3.1635,
+            -2.3535
+          ],
+          "direction": [
+            -0.5243,
+            -0.6499,
+            0.5503
+          ]
+        },
+        "rendererIds": [
+          1
+        ],
+        "frames": 98,
+        "contextLost": false
+      },
+      "idleAfterExport": {
+        "frames": 0,
+        "seconds": 5,
+        "fpsAvg": 0,
+        "fpsMinPerSecond": 0,
+        "fpsMaxPerSecond": 0,
+        "frameMsAvg": null,
+        "frameMsP95": null,
+        "frameMsMax": null,
+        "renderCpuMsAvg": null,
+        "info": {
+          "drawCalls": 11,
+          "triangles": 4332,
+          "geometries": 9,
+          "textures": 15,
+          "programs": 16
+        }
+      },
+      "afterSecondOrbit": {
+        "camera": {
+          "position": [
+            3.4821,
+            2.4781,
+            1.335
+          ],
+          "direction": [
+            -0.8142,
+            -0.4896,
+            -0.3121
+          ]
+        },
+        "rendererIds": [
+          1
+        ],
+        "frames": 189,
+        "contextLost": false
+      },
+      "face": {
+        "position": [
+          0,
+          0.7947,
+          3.9056
+        ],
+        "direction": [
+          0,
+          -0.1045,
+          -0.9945
+        ]
+      },
+      "threeQuarter": {
+        "position": [
+          2.333,
+          1.7058,
+          3.3319
+        ],
+        "direction": [
+          -0.5455,
+          -0.309,
+          -0.7791
+        ]
+      },
+      "back": {
+        "position": [
+          -1.3693,
+          1.2352,
+          -3.7621
+        ],
+        "direction": [
+          0.3345,
+          -0.2079,
+          0.9192
+        ]
+      },
+      "recenter": {
+        "position": [
+          -1.3693,
+          1.2352,
+          -3.7621
+        ],
+        "direction": [
+          0.3345,
+          -0.2079,
+          0.9192
+        ]
+      },
+      "final": {
+        "camera": {
+          "position": [
+            -1.3693,
+            1.2352,
+            -3.7621
+          ],
+          "direction": [
+            0.3345,
+            -0.2079,
+            0.9192
+          ]
+        },
+        "rendererIds": [
+          1
+        ],
+        "frames": 193,
+        "contextLost": false
+      }
+    },
+    "cleanup": {
+      "exports": [
+        1016.5,
+        719.6,
+        720.1,
+        743.9,
+        743.6,
+        718.8,
+        717.1,
+        718.1,
+        718.8,
+        732.1,
+        712.6,
+        727.2,
+        727.7,
+        722.5,
+        726.8,
+        717.3,
+        705.7,
+        713.8,
+        719.1,
+        731.9
+      ],
+      "webglContextsCreated": 24,
+      "viewer": {
+        "camera": {
+          "position": [
+            2.0241,
+            1.6466,
+            2.8907
+          ],
+          "direction": [
+            -0.5455,
+            -0.309,
+            -0.7791
+          ]
+        },
+        "rendererIds": [
+          1
+        ],
+        "frames": 3,
+        "contextLost": false
+      },
+      "viewAfter": {
+        "position": [
+          0,
+          0.8983,
+          3.7896
+        ],
+        "direction": [
+          0,
+          -0.1045,
+          -0.9945
+        ]
+      },
+      "viewerFramesAfterView": 1,
+      "webglWarnings": [],
+      "jsHeapMBAfter": 214.3
+    }
+  }
+}

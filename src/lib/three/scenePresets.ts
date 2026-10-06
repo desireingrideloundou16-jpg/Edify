@@ -258,8 +258,10 @@ export function shotDirection(azimuth: number, elevation: number): Vec3 {
  * Automatic composition: the smallest camera distance at which every corner of the pack's
  * bounding box stays inside the frame minus the margin (exact for a pinhole camera), then
  * `zoom` for close-ups. Works for any pack proportions, so no per-product values are needed.
+ * `include` (optional, phase 3D-D): points that must also fit, e.g. the far end of the cast shadow. The aim
+ * stays on the bounds, so the pack stays centred and only the distance grows.
  */
-export function frameShot(bounds: Bounds, shot: CameraShotConfig, aspect: number): FramedShot {
+export function frameShot(bounds: Bounds, shot: CameraShotConfig, aspect: number, include: readonly Vec3[] = []): FramedShot {
   const { min, max } = bounds;
   const size: Vec3 = [max[0] - min[0], max[1] - min[1], max[2] - min[2]];
   const target: Vec3 = [
@@ -280,11 +282,14 @@ export function frameShot(bounds: Bounds, shot: CameraShotConfig, aspect: number
   const tH = Math.tan(rad(fov) / 2) * Math.max(0.05, aspect) * keep;
 
   let distance = 0;
-  for (const x of [min[0], max[0]]) for (const y of [min[1], max[1]]) for (const z of [min[2], max[2]]) {
+  const fit = (x: number, y: number, z: number) => {
     const c: Vec3 = [x - target[0], y - target[1], z - target[2]];
     const need = Math.max(Math.abs(dot(c, right)) / tH, Math.abs(dot(c, up)) / tV) + dot(c, dir);
     distance = Math.max(distance, need);
-  }
+  };
+  for (const x of [min[0], max[0]]) for (const y of [min[1], max[1]]) for (const z of [min[2], max[2]]) fit(x, y, z);
+  // Extra points that must stay in frame without moving the aim (phase 3D-D: the far end of the shadow).
+  for (const p of include) fit(p[0], p[1], p[2]);
   distance /= Math.max(0.1, shot.zoom);
   // Never closer than the pack's own surface.
   const radius = Math.hypot(...size) / 2;

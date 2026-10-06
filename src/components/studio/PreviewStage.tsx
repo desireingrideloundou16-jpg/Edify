@@ -240,7 +240,9 @@ interface PreviewStageProps {
 export function PreviewStage({ mode, onMode, shape, spec, design, logoUrl, onCaptureReady, onViewChange, smart }: PreviewStageProps) {
   const [zoom, setZoom] = useState(1);
   const [autoRotate, setAutoRotate] = useState(true);
-  const [viewKey, setViewKey] = useState(0);
+  // Explicit camera command for the 3D view (phase 3D-B): a view button or "Recentrer" reframes the
+  // camera in the SAME canvas (no remount, same WebGL context); editing the design never reframes.
+  const [viewCommand, setViewCommand] = useState(0);
   const [view, setView] = useState<ViewPreset>("threeQuarter");
 
   return (
@@ -273,7 +275,7 @@ export function PreviewStage({ mode, onMode, shape, spec, design, logoUrl, onCap
                   setAutoRotate(false);
                   setView(v.id);
                   onViewChange?.(v.id);
-                  setViewKey((k) => k + 1);
+                  setViewCommand((k) => k + 1);
                 }}
               >
                 {v.label}
@@ -282,7 +284,7 @@ export function PreviewStage({ mode, onMode, shape, spec, design, logoUrl, onCap
             <button type="button" onClick={() => setAutoRotate((v) => !v)} aria-pressed={autoRotate} title="Rotation automatique" className={autoRotate ? "is-on" : ""}>
               <RotateCw className="w-4 h-4" />
             </button>
-            <button type="button" className="st-zoom-value" onClick={() => setViewKey((k) => k + 1)} title="Recentrer la vue">Recentrer</button>
+            <button type="button" className="st-zoom-value" onClick={() => setViewCommand((k) => k + 1)} title="Recentrer la vue">Recentrer</button>
           </div>
         )}
       </div>
@@ -296,12 +298,13 @@ export function PreviewStage({ mode, onMode, shape, spec, design, logoUrl, onCap
             <LiveMini3D shape={shape} design={design} onOpen={() => onMode("3d")} />
           </div>
         ) : (
-          <div className="st-3d" key={viewKey}>
+          <div className="st-3d">
             <Packaging3DViewer
               spec={spec}
               design={design}
               logoUrl={logoUrl}
               view={view}
+              viewCommand={viewCommand}
               lighting="studio"
               autoRotate={autoRotate}
               onCaptureReady={onCaptureReady}

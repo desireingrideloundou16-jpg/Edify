@@ -1,0 +1,1591 @@
+{
+  "commit": "c0954fcfc540d89501f2fdd308fc739d723908d0",
+  "date": "2026-10-06T20:01:39.183Z",
+  "chrome": "Chrome/154.0.8037.98",
+  "headless": true,
+  "uncapped": false,
+  "size": 640,
+  "seconds": 5,
+  "runs": [],
+  "suite": {
+    "tag": "before",
+    "variant": "direct",
+    "renders": [
+      {
+        "family": "pot",
+        "style": "heroPremium",
+        "ms": 2081.3,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 559005,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 86.99,
+            "opaquePct": 8.36,
+            "partialPct": 4.65
+          },
+          "nonEmptyPct": 13.01,
+          "drawnBox": [
+            536,
+            702,
+            1790,
+            1370
+          ],
+          "packBox": [
+            623,
+            704,
+            1407,
+            1353
+          ],
+          "packMarginsPct": {
+            "left": 30.42,
+            "top": 34.38,
+            "right": 31.25,
+            "bottom": 33.89
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 38.3,
+        "productHeightPct": 31.7,
+        "productAreaPct": 12.2,
+        "shadowBeyondPackPct": {
+          "left": 4.2,
+          "right": 18.7,
+          "bottom": 0.8
+        }
+      },
+      {
+        "family": "pot",
+        "style": "catalogEcommerce",
+        "ms": 2771.5,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 649758,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 78.54,
+            "opaquePct": 14.38,
+            "partialPct": 7.08
+          },
+          "nonEmptyPct": 21.46,
+          "drawnBox": [
+            464,
+            636,
+            1721,
+            1590
+          ],
+          "packBox": [
+            579,
+            637,
+            1514,
+            1453
+          ],
+          "packMarginsPct": {
+            "left": 28.27,
+            "top": 31.1,
+            "right": 26.03,
+            "bottom": 29
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 45.7,
+        "productHeightPct": 39.9,
+        "productAreaPct": 18.2,
+        "shadowBeyondPackPct": {
+          "left": 5.6,
+          "right": 10.1,
+          "bottom": 6.7
+        }
+      },
+      {
+        "family": "pot",
+        "style": "closeUpDetail",
+        "ms": 2557,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 1369557,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 42.89,
+            "opaquePct": 37.8,
+            "partialPct": 19.3
+          },
+          "nonEmptyPct": 57.11,
+          "drawnBox": [
+            370,
+            168,
+            2047,
+            1800
+          ],
+          "packBox": [
+            573,
+            193,
+            2047,
+            1554
+          ],
+          "packMarginsPct": {
+            "left": 27.98,
+            "top": 9.42,
+            "right": 0,
+            "bottom": 24.07
+          },
+          "touchesEdge": true,
+          "borderMaxAlpha": 255
+        },
+        "productWidthPct": 72,
+        "productHeightPct": 66.5,
+        "productAreaPct": 47.9,
+        "shadowBeyondPackPct": {
+          "left": 9.9,
+          "right": 0,
+          "bottom": 12
+        }
+      },
+      {
+        "family": "pot",
+        "style": "naturalLifestyle",
+        "ms": 1565.3,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 485040,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 89.84,
+            "opaquePct": 5.82,
+            "partialPct": 4.34
+          },
+          "nonEmptyPct": 10.16,
+          "drawnBox": [
+            673,
+            760,
+            1772,
+            1377
+          ],
+          "packBox": [
+            728,
+            761,
+            1306,
+            1345
+          ],
+          "packMarginsPct": {
+            "left": 35.55,
+            "top": 37.16,
+            "right": 36.18,
+            "bottom": 34.28
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 28.3,
+        "productHeightPct": 28.6,
+        "productAreaPct": 8.1,
+        "shadowBeyondPackPct": {
+          "left": 2.7,
+          "right": 22.8,
+          "bottom": 1.6
+        }
+      },
+      {
+        "family": "pot",
+        "style": "dramaticHero",
+        "ms": 1355.1,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 260313,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 96.29,
+            "opaquePct": 2.13,
+            "partialPct": 1.58
+          },
+          "nonEmptyPct": 3.71,
+          "drawnBox": [
+            789,
+            853,
+            1804,
+            1199
+          ],
+          "packBox": [
+            822,
+            856,
+            1222,
+            1180
+          ],
+          "packMarginsPct": {
+            "left": 40.14,
+            "top": 41.8,
+            "right": 40.28,
+            "bottom": 42.33
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 19.6,
+        "productHeightPct": 15.9,
+        "productAreaPct": 3.1,
+        "shadowBeyondPackPct": {
+          "left": 1.6,
+          "right": 28.4,
+          "bottom": 0.9
+        }
+      },
+      {
+        "family": "bottle",
+        "style": "heroPremium",
+        "ms": 1230.9,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 463347,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 89.8,
+            "opaquePct": 8.7,
+            "partialPct": 1.49
+          },
+          "nonEmptyPct": 10.2,
+          "drawnBox": [
+            810,
+            384,
+            1880,
+            1607
+          ],
+          "packBox": [
+            854,
+            385,
+            1192,
+            1596
+          ],
+          "packMarginsPct": {
+            "left": 41.7,
+            "top": 18.8,
+            "right": 41.75,
+            "bottom": 22.02
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 16.6,
+        "productHeightPct": 59.2,
+        "productAreaPct": 9.8,
+        "shadowBeyondPackPct": {
+          "left": 2.1,
+          "right": 33.6,
+          "bottom": 0.5
+        }
+      },
+      {
+        "family": "bottle",
+        "style": "catalogEcommerce",
+        "ms": 1163,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 420018,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 84.46,
+            "opaquePct": 12.93,
+            "partialPct": 2.61
+          },
+          "nonEmptyPct": 15.54,
+          "drawnBox": [
+            753,
+            357,
+            1602,
+            1849
+          ],
+          "packBox": [
+            810,
+            358,
+            1233,
+            1815
+          ],
+          "packMarginsPct": {
+            "left": 39.55,
+            "top": 17.48,
+            "right": 39.75,
+            "bottom": 11.33
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 20.7,
+        "productHeightPct": 71.2,
+        "productAreaPct": 14.7,
+        "shadowBeyondPackPct": {
+          "left": 2.8,
+          "right": 18,
+          "bottom": 1.7
+        }
+      },
+      {
+        "family": "bottle",
+        "style": "closeUpDetail",
+        "ms": 1516.3,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 812925,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 53.61,
+            "opaquePct": 44.89,
+            "partialPct": 1.5
+          },
+          "nonEmptyPct": 46.39,
+          "drawnBox": [
+            894,
+            0,
+            2047,
+            2047
+          ],
+          "packBox": [
+            904,
+            0,
+            1849,
+            2047
+          ],
+          "packMarginsPct": {
+            "left": 44.14,
+            "top": 0,
+            "right": 9.67,
+            "bottom": 0
+          },
+          "touchesEdge": true,
+          "borderMaxAlpha": 255
+        },
+        "productWidthPct": 46.2,
+        "productHeightPct": 100,
+        "productAreaPct": 46.2,
+        "shadowBeyondPackPct": {
+          "left": 0.5,
+          "right": 9.7,
+          "bottom": 0
+        }
+      },
+      {
+        "family": "bottle",
+        "style": "naturalLifestyle",
+        "ms": 846.3,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 267189,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 95.14,
+            "opaquePct": 3.13,
+            "partialPct": 1.72
+          },
+          "nonEmptyPct": 4.86,
+          "drawnBox": [
+            899,
+            665,
+            1865,
+            1419
+          ],
+          "packBox": [
+            922,
+            666,
+            1124,
+            1407
+          ],
+          "packMarginsPct": {
+            "left": 45.02,
+            "top": 32.52,
+            "right": 45.07,
+            "bottom": 31.25
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 9.9,
+        "productHeightPct": 36.2,
+        "productAreaPct": 3.6,
+        "shadowBeyondPackPct": {
+          "left": 1.1,
+          "right": 36.2,
+          "bottom": 0.6
+        }
+      },
+      {
+        "family": "bottle",
+        "style": "dramaticHero",
+        "ms": 778.3,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 153876,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 98.84,
+            "opaquePct": 0.97,
+            "partialPct": 0.19
+          },
+          "nonEmptyPct": 1.16,
+          "drawnBox": [
+            956,
+            801,
+            1537,
+            1221
+          ],
+          "packBox": [
+            967,
+            802,
+            1080,
+            1206
+          ],
+          "packMarginsPct": {
+            "left": 47.22,
+            "top": 39.16,
+            "right": 47.22,
+            "bottom": 41.06
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 5.6,
+        "productHeightPct": 19.8,
+        "productAreaPct": 1.1,
+        "shadowBeyondPackPct": {
+          "left": 0.5,
+          "right": 22.3,
+          "bottom": 0.7
+        }
+      },
+      {
+        "family": "glass",
+        "style": "heroPremium",
+        "ms": 2353.9,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 424881,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 90.26,
+            "opaquePct": 5.15,
+            "partialPct": 4.6
+          },
+          "nonEmptyPct": 9.74,
+          "drawnBox": [
+            795,
+            411,
+            1854,
+            1594
+          ],
+          "packBox": [
+            840,
+            412,
+            1201,
+            1576
+          ],
+          "packMarginsPct": {
+            "left": 41.02,
+            "top": 20.12,
+            "right": 41.31,
+            "bottom": 23
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 17.7,
+        "productHeightPct": 56.9,
+        "productAreaPct": 10.1,
+        "shadowBeyondPackPct": {
+          "left": 2.2,
+          "right": 31.9,
+          "bottom": 0.9
+        }
+      },
+      {
+        "family": "glass",
+        "style": "catalogEcommerce",
+        "ms": 2458.5,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 443895,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 84.62,
+            "opaquePct": 7.84,
+            "partialPct": 7.54
+          },
+          "nonEmptyPct": 15.38,
+          "drawnBox": [
+            733,
+            376,
+            1590,
+            1867
+          ],
+          "packBox": [
+            794,
+            376,
+            1246,
+            1727
+          ],
+          "packMarginsPct": {
+            "left": 38.77,
+            "top": 18.36,
+            "right": 39.11,
+            "bottom": 15.63
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 22.1,
+        "productHeightPct": 66,
+        "productAreaPct": 14.6,
+        "shadowBeyondPackPct": {
+          "left": 3,
+          "right": 16.8,
+          "bottom": 6.8
+        }
+      },
+      {
+        "family": "glass",
+        "style": "closeUpDetail",
+        "ms": 2807.5,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 939087,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 56.11,
+            "opaquePct": 25.43,
+            "partialPct": 18.46
+          },
+          "nonEmptyPct": 43.89,
+          "drawnBox": [
+            891,
+            0,
+            2047,
+            2047
+          ],
+          "packBox": [
+            901,
+            810,
+            1860,
+            2047
+          ],
+          "packMarginsPct": {
+            "left": 43.99,
+            "top": 39.55,
+            "right": 9.13,
+            "bottom": 0
+          },
+          "touchesEdge": true,
+          "borderMaxAlpha": 255
+        },
+        "productWidthPct": 46.9,
+        "productHeightPct": 60.4,
+        "productAreaPct": 28.3,
+        "shadowBeyondPackPct": {
+          "left": 0.5,
+          "right": 9.1,
+          "bottom": 0
+        }
+      },
+      {
+        "family": "glass",
+        "style": "naturalLifestyle",
+        "ms": 1484,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 242394,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 95.03,
+            "opaquePct": 1.95,
+            "partialPct": 3.03
+          },
+          "nonEmptyPct": 4.97,
+          "drawnBox": [
+            885,
+            680,
+            1843,
+            1422
+          ],
+          "packBox": [
+            909,
+            681,
+            1135,
+            1410
+          ],
+          "packMarginsPct": {
+            "left": 44.38,
+            "top": 33.25,
+            "right": 44.53,
+            "bottom": 31.1
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 11.1,
+        "productHeightPct": 35.6,
+        "productAreaPct": 4,
+        "shadowBeyondPackPct": {
+          "left": 1.2,
+          "right": 34.6,
+          "bottom": 0.6
+        }
+      },
+      {
+        "family": "glass",
+        "style": "dramaticHero",
+        "ms": 1378.4,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 145854,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 98.78,
+            "opaquePct": 0.6,
+            "partialPct": 0.62
+          },
+          "nonEmptyPct": 1.22,
+          "drawnBox": [
+            949,
+            804,
+            1547,
+            1222
+          ],
+          "packBox": [
+            961,
+            805,
+            1086,
+            1204
+          ],
+          "packMarginsPct": {
+            "left": 46.92,
+            "top": 39.31,
+            "right": 46.92,
+            "bottom": 41.16
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 6.2,
+        "productHeightPct": 19.5,
+        "productAreaPct": 1.2,
+        "shadowBeyondPackPct": {
+          "left": 0.6,
+          "right": 22.5,
+          "bottom": 0.9
+        }
+      },
+      {
+        "family": "metal",
+        "style": "heroPremium",
+        "ms": 1494.6,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 694413,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 86.35,
+            "opaquePct": 11.83,
+            "partialPct": 1.82
+          },
+          "nonEmptyPct": 13.65,
+          "drawnBox": [
+            692,
+            518,
+            1864,
+            1507
+          ],
+          "packBox": [
+            751,
+            519,
+            1284,
+            1491
+          ],
+          "packMarginsPct": {
+            "left": 36.67,
+            "top": 25.34,
+            "right": 37.26,
+            "bottom": 27.15
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 26.1,
+        "productHeightPct": 47.5,
+        "productAreaPct": 12.4,
+        "shadowBeyondPackPct": {
+          "left": 2.9,
+          "right": 28.3,
+          "bottom": 0.8
+        }
+      },
+      {
+        "family": "metal",
+        "style": "catalogEcommerce",
+        "ms": 1671.5,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 975561,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 72.21,
+            "opaquePct": 23.34,
+            "partialPct": 4.45
+          },
+          "nonEmptyPct": 27.79,
+          "drawnBox": [
+            568,
+            402,
+            1778,
+            1861
+          ],
+          "packBox": [
+            652,
+            403,
+            1405,
+            1792
+          ],
+          "packMarginsPct": {
+            "left": 31.84,
+            "top": 19.68,
+            "right": 31.35,
+            "bottom": 12.45
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 36.8,
+        "productHeightPct": 67.9,
+        "productAreaPct": 25,
+        "shadowBeyondPackPct": {
+          "left": 4.1,
+          "right": 18.2,
+          "bottom": 3.4
+        }
+      },
+      {
+        "family": "metal",
+        "style": "closeUpDetail",
+        "ms": 1992.7,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 1748343,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 35.22,
+            "opaquePct": 62.32,
+            "partialPct": 2.46
+          },
+          "nonEmptyPct": 64.78,
+          "drawnBox": [
+            579,
+            0,
+            2047,
+            2047
+          ],
+          "packBox": [
+            735,
+            0,
+            2047,
+            2047
+          ],
+          "packMarginsPct": {
+            "left": 35.89,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "touchesEdge": true,
+          "borderMaxAlpha": 255
+        },
+        "productWidthPct": 64.1,
+        "productHeightPct": 100,
+        "productAreaPct": 64.1,
+        "shadowBeyondPackPct": {
+          "left": 7.6,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "family": "metal",
+        "style": "naturalLifestyle",
+        "ms": 899,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 417465,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 91.97,
+            "opaquePct": 5.36,
+            "partialPct": 2.67
+          },
+          "nonEmptyPct": 8.03,
+          "drawnBox": [
+            809,
+            702,
+            1843,
+            1406
+          ],
+          "packBox": [
+            841,
+            703,
+            1200,
+            1384
+          ],
+          "packMarginsPct": {
+            "left": 41.06,
+            "top": 34.33,
+            "right": 41.36,
+            "bottom": 32.37
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 17.6,
+        "productHeightPct": 33.3,
+        "productAreaPct": 5.9,
+        "shadowBeyondPackPct": {
+          "left": 1.6,
+          "right": 31.4,
+          "bottom": 1.1
+        }
+      },
+      {
+        "family": "metal",
+        "style": "dramaticHero",
+        "ms": 822.7,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 203976,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 97.78,
+            "opaquePct": 1.84,
+            "partialPct": 0.37
+          },
+          "nonEmptyPct": 2.22,
+          "drawnBox": [
+            899,
+            819,
+            1597,
+            1215
+          ],
+          "packBox": [
+            917,
+            821,
+            1129,
+            1198
+          ],
+          "packMarginsPct": {
+            "left": 44.78,
+            "top": 40.09,
+            "right": 44.82,
+            "bottom": 41.46
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 10.4,
+        "productHeightPct": 18.5,
+        "productAreaPct": 1.9,
+        "shadowBeyondPackPct": {
+          "left": 0.9,
+          "right": 22.9,
+          "bottom": 0.8
+        }
+      },
+      {
+        "family": "box",
+        "style": "heroPremium",
+        "ms": 1066.3,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 796398,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 84.13,
+            "opaquePct": 13.74,
+            "partialPct": 2.13
+          },
+          "nonEmptyPct": 15.87,
+          "drawnBox": [
+            721,
+            403,
+            1978,
+            1597
+          ],
+          "packBox": [
+            763,
+            406,
+            1267,
+            1587
+          ],
+          "packMarginsPct": {
+            "left": 37.26,
+            "top": 19.82,
+            "right": 38.09,
+            "bottom": 22.46
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 24.7,
+        "productHeightPct": 57.7,
+        "productAreaPct": 14.2,
+        "shadowBeyondPackPct": {
+          "left": 2.1,
+          "right": 34.7,
+          "bottom": 0.5
+        }
+      },
+      {
+        "family": "box",
+        "style": "catalogEcommerce",
+        "ms": 996.2,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 765912,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 74.99,
+            "opaquePct": 21.39,
+            "partialPct": 3.62
+          },
+          "nonEmptyPct": 25.01,
+          "drawnBox": [
+            650,
+            347,
+            1764,
+            1890
+          ],
+          "packBox": [
+            700,
+            348,
+            1331,
+            1864
+          ],
+          "packMarginsPct": {
+            "left": 34.18,
+            "top": 16.99,
+            "right": 34.96,
+            "bottom": 8.94
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 30.9,
+        "productHeightPct": 74.1,
+        "productAreaPct": 22.9,
+        "shadowBeyondPackPct": {
+          "left": 2.4,
+          "right": 21.1,
+          "bottom": 1.3
+        }
+      },
+      {
+        "family": "box",
+        "style": "closeUpDetail",
+        "ms": 1378.7,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 1579164,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 38.98,
+            "opaquePct": 59.02,
+            "partialPct": 2
+          },
+          "nonEmptyPct": 61.02,
+          "drawnBox": [
+            733,
+            0,
+            2047,
+            2047
+          ],
+          "packBox": [
+            737,
+            0,
+            1981,
+            2047
+          ],
+          "packMarginsPct": {
+            "left": 35.99,
+            "top": 0,
+            "right": 3.22,
+            "bottom": 0
+          },
+          "touchesEdge": true,
+          "borderMaxAlpha": 255
+        },
+        "productWidthPct": 60.8,
+        "productHeightPct": 100,
+        "productAreaPct": 60.8,
+        "shadowBeyondPackPct": {
+          "left": 0.2,
+          "right": 3.2,
+          "bottom": 0
+        }
+      },
+      {
+        "family": "box",
+        "style": "naturalLifestyle",
+        "ms": 824.3,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 427941,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 91.6,
+            "opaquePct": 5.66,
+            "partialPct": 2.74
+          },
+          "nonEmptyPct": 8.4,
+          "drawnBox": [
+            834,
+            655,
+            1920,
+            1437
+          ],
+          "packBox": [
+            853,
+            656,
+            1189,
+            1426
+          ],
+          "packMarginsPct": {
+            "left": 41.65,
+            "top": 32.03,
+            "right": 41.89,
+            "bottom": 30.32
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 16.5,
+        "productHeightPct": 37.6,
+        "productAreaPct": 6.2,
+        "shadowBeyondPackPct": {
+          "left": 0.9,
+          "right": 35.7,
+          "bottom": 0.5
+        }
+      },
+      {
+        "family": "box",
+        "style": "dramaticHero",
+        "ms": 773.2,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 200592,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 98.07,
+            "opaquePct": 1.67,
+            "partialPct": 0.26
+          },
+          "nonEmptyPct": 1.93,
+          "drawnBox": [
+            923,
+            805,
+            1550,
+            1222
+          ],
+          "packBox": [
+            935,
+            806,
+            1111,
+            1208
+          ],
+          "packMarginsPct": {
+            "left": 45.65,
+            "top": 39.36,
+            "right": 45.7,
+            "bottom": 40.97
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 8.6,
+        "productHeightPct": 19.7,
+        "productAreaPct": 1.7,
+        "shadowBeyondPackPct": {
+          "left": 0.6,
+          "right": 21.4,
+          "bottom": 0.7
+        }
+      },
+      {
+        "family": "pouch",
+        "style": "heroPremium",
+        "ms": 1195.5,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 733785,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 86.57,
+            "opaquePct": 12.17,
+            "partialPct": 1.26
+          },
+          "nonEmptyPct": 13.43,
+          "drawnBox": [
+            671,
+            524,
+            1909,
+            1493
+          ],
+          "packBox": [
+            742,
+            525,
+            1306,
+            1476
+          ],
+          "packMarginsPct": {
+            "left": 36.23,
+            "top": 25.63,
+            "right": 36.18,
+            "bottom": 27.88
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 27.6,
+        "productHeightPct": 46.5,
+        "productAreaPct": 12.8,
+        "shadowBeyondPackPct": {
+          "left": 3.5,
+          "right": 29.4,
+          "bottom": 0.8
+        }
+      },
+      {
+        "family": "pouch",
+        "style": "catalogEcommerce",
+        "ms": 1229,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 902751,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 70.53,
+            "opaquePct": 25.86,
+            "partialPct": 3.61
+          },
+          "nonEmptyPct": 29.47,
+          "drawnBox": [
+            497,
+            403,
+            1840,
+            1849
+          ],
+          "packBox": [
+            607,
+            404,
+            1440,
+            1788
+          ],
+          "packMarginsPct": {
+            "left": 29.64,
+            "top": 19.73,
+            "right": 29.64,
+            "bottom": 12.65
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 40.7,
+        "productHeightPct": 67.6,
+        "productAreaPct": 27.5,
+        "shadowBeyondPackPct": {
+          "left": 5.4,
+          "right": 19.5,
+          "bottom": 3
+        }
+      },
+      {
+        "family": "pouch",
+        "style": "closeUpDetail",
+        "ms": 1560.5,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 2050059,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 29,
+            "opaquePct": 69.35,
+            "partialPct": 1.66
+          },
+          "nonEmptyPct": 71,
+          "drawnBox": [
+            423,
+            0,
+            2047,
+            2047
+          ],
+          "packBox": [
+            612,
+            0,
+            2047,
+            2047
+          ],
+          "packMarginsPct": {
+            "left": 29.88,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "touchesEdge": true,
+          "borderMaxAlpha": 255
+        },
+        "productWidthPct": 70.1,
+        "productHeightPct": 100,
+        "productAreaPct": 70.1,
+        "shadowBeyondPackPct": {
+          "left": 9.2,
+          "right": 0,
+          "bottom": 0
+        }
+      },
+      {
+        "family": "pouch",
+        "style": "naturalLifestyle",
+        "ms": 862.7,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 432825,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 93.08,
+            "opaquePct": 5.01,
+            "partialPct": 1.92
+          },
+          "nonEmptyPct": 6.92,
+          "drawnBox": [
+            800,
+            698,
+            1869,
+            1392
+          ],
+          "packBox": [
+            847,
+            699,
+            1196,
+            1368
+          ],
+          "packMarginsPct": {
+            "left": 41.36,
+            "top": 34.13,
+            "right": 41.55,
+            "bottom": 33.15
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 17.1,
+        "productHeightPct": 32.7,
+        "productAreaPct": 5.6,
+        "shadowBeyondPackPct": {
+          "left": 2.3,
+          "right": 32.9,
+          "bottom": 1.2
+        }
+      },
+      {
+        "family": "pouch",
+        "style": "dramaticHero",
+        "ms": 803.1,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 225933,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 97.88,
+            "opaquePct": 1.9,
+            "partialPct": 0.22
+          },
+          "nonEmptyPct": 2.12,
+          "drawnBox": [
+            891,
+            821,
+            1577,
+            1204
+          ],
+          "packBox": [
+            912,
+            822,
+            1137,
+            1193
+          ],
+          "packMarginsPct": {
+            "left": 44.53,
+            "top": 40.14,
+            "right": 44.43,
+            "bottom": 41.7
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 11,
+        "productHeightPct": 18.2,
+        "productAreaPct": 2,
+        "shadowBeyondPackPct": {
+          "left": 1,
+          "right": 21.5,
+          "bottom": 0.5
+        }
+      },
+      {
+        "family": "tube",
+        "style": "heroPremium",
+        "ms": 1050,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 476358,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 90.34,
+            "opaquePct": 8.2,
+            "partialPct": 1.46
+          },
+          "nonEmptyPct": 9.66,
+          "drawnBox": [
+            840,
+            390,
+            1962,
+            1597
+          ],
+          "packBox": [
+            856,
+            391,
+            1192,
+            1588
+          ],
+          "packMarginsPct": {
+            "left": 41.8,
+            "top": 19.09,
+            "right": 41.75,
+            "bottom": 22.41
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 16.5,
+        "productHeightPct": 58.5,
+        "productAreaPct": 9.6,
+        "shadowBeyondPackPct": {
+          "left": 0.8,
+          "right": 37.6,
+          "bottom": 0.4
+        }
+      },
+      {
+        "family": "tube",
+        "style": "catalogEcommerce",
+        "ms": 951.6,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 433917,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 84.61,
+            "opaquePct": 12.57,
+            "partialPct": 2.82
+          },
+          "nonEmptyPct": 15.39,
+          "drawnBox": [
+            790,
+            358,
+            1696,
+            1848
+          ],
+          "packBox": [
+            805,
+            359,
+            1240,
+            1824
+          ],
+          "packMarginsPct": {
+            "left": 39.31,
+            "top": 17.53,
+            "right": 39.4,
+            "bottom": 10.89
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 21.3,
+        "productHeightPct": 71.6,
+        "productAreaPct": 15.2,
+        "shadowBeyondPackPct": {
+          "left": 0.7,
+          "right": 22.3,
+          "bottom": 1.2
+        }
+      },
+      {
+        "family": "tube",
+        "style": "closeUpDetail",
+        "ms": 1234,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 1052898,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 60.16,
+            "opaquePct": 38.02,
+            "partialPct": 1.82
+          },
+          "nonEmptyPct": 39.84,
+          "drawnBox": [
+            914,
+            0,
+            2047,
+            2047
+          ],
+          "packBox": [
+            924,
+            0,
+            1842,
+            2047
+          ],
+          "packMarginsPct": {
+            "left": 45.12,
+            "top": 0,
+            "right": 10.01,
+            "bottom": 0
+          },
+          "touchesEdge": true,
+          "borderMaxAlpha": 255
+        },
+        "productWidthPct": 44.9,
+        "productHeightPct": 100,
+        "productAreaPct": 44.9,
+        "shadowBeyondPackPct": {
+          "left": 0.5,
+          "right": 10,
+          "bottom": 0
+        }
+      },
+      {
+        "family": "tube",
+        "style": "naturalLifestyle",
+        "ms": 821.4,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 265353,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 95.4,
+            "opaquePct": 2.96,
+            "partialPct": 1.64
+          },
+          "nonEmptyPct": 4.6,
+          "drawnBox": [
+            917,
+            662,
+            1910,
+            1413
+          ],
+          "packBox": [
+            926,
+            663,
+            1121,
+            1403
+          ],
+          "packMarginsPct": {
+            "left": 45.21,
+            "top": 32.37,
+            "right": 45.21,
+            "bottom": 31.45
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 9.6,
+        "productHeightPct": 36.2,
+        "productAreaPct": 3.5,
+        "shadowBeyondPackPct": {
+          "left": 0.4,
+          "right": 38.5,
+          "bottom": 0.5
+        }
+      },
+      {
+        "family": "tube",
+        "style": "dramaticHero",
+        "ms": 794.3,
+        "png": {
+          "width": 2048,
+          "height": 2048,
+          "pngBytes": 158454,
+          "isPng": true,
+          "alpha": {
+            "transparentPct": 98.89,
+            "opaquePct": 0.94,
+            "partialPct": 0.18
+          },
+          "nonEmptyPct": 1.11,
+          "drawnBox": [
+            965,
+            802,
+            1538,
+            1219
+          ],
+          "packBox": [
+            967,
+            804,
+            1080,
+            1205
+          ],
+          "packMarginsPct": {
+            "left": 47.22,
+            "top": 39.26,
+            "right": 47.22,
+            "bottom": 41.11
+          },
+          "touchesEdge": false,
+          "borderMaxAlpha": 0
+        },
+        "productWidthPct": 5.6,
+        "productHeightPct": 19.6,
+        "productAreaPct": 1.1,
+        "shadowBeyondPackPct": {
+          "left": 0.1,
+          "right": 22.4,
+          "bottom": 0.7
+        }
+      }
+    ]
+  }
+}

@@ -5,6 +5,7 @@
 //   /dev-renders?mode=turntable&i=1&n=48 → 360° turntable frames (transparent PNG)
 //   /dev-renders?mode=dieline&i=1        → flat artwork + die-line
 //   /dev-renders?mode=ad&i=1&scene=podium → advertising visual
+//   /dev-renders?mode=bench&shape=cosmetic-jar&view=front → phase 3D-A baseline (bench3d.tsx)
 import React, { useEffect, useState } from "react";
 import { ALL_CATALOG_SHAPES } from "@/lib/catalog/shapes";
 import { SHOWCASE, loadShowcaseArt } from "@/components/landing/showcase";
@@ -189,6 +190,10 @@ export function DevRenders() {
           requestAnimationFrame(tick);
         });
         document.body.dataset.fps = (frames / ((performance.now() - start) / 1000)).toFixed(1);
+      } else if (mode === "bench") {
+        // Phase 3D-A baseline: real viewer measured from the outside (see bench3d.tsx, scripts/bench-3d.mjs).
+        const { runBench } = await import("./bench3d");
+        await runBench(q, setViewer);
       } else if (mode === "ad") {
         const { renderAd } = await import("@/lib/three/adRender");
         const url = await renderAd({
