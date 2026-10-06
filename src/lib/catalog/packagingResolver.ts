@@ -20,6 +20,7 @@ import { resolveStructure } from "@/lib/structure";
 import { detectCategory } from "@/lib/ai/suggest";
 import { SHAPE_ROWS, type ShapeRow } from "./shapeData";
 import { PRODUCT_INTENTS, type ProductIntent } from "./productIntents";
+import { archetypeUsage, dominatingPhrases, termMatches, type Phrase } from "./phraseSpecificity";
 
 // ─── Families (what a user calls a pack) ─────────────────────────────────────
 
@@ -81,6 +82,9 @@ export interface ProductPackagingIntent {
   text: string;
   /** Known product (PRODUCT_INTENTS), the one mentioned first. */
   product: ProductIntent | null;
+  /** "family": the product was only named by a generic word inside a more specific phrase of the same use
+   *  ("crème" in "crème capillaire"): it suggests its family, never its exact pack. Absent: a real mention. */
+  productMatch?: "family";
   /** Product category of the start wizard (coffee, juice, cosmetic…, "generic"). */
   productCategory: string;
   physicalState: PhysicalState | null;
@@ -136,7 +140,7 @@ export type ProductUsage = "supplement" | "pet" | "household" | "food" | "cosmet
 const USAGE_WORDS: [ProductUsage, string[]][] = [
   ["supplement", ["proteine", "whey", "complement", "gelule", "vitamine"]],
   ["pet", ["croquette", "animaux", "animal", "chien"]],
-  ["household", ["bougie", "lessive", "detergent", "huile moteur", "menager", "nettoyant"]],
+  ["household", ["bougie", "lessive", "detergent", "huile moteur", "menager", "nettoyant", "javel"]],
   ["food", ["alimentaire", "yaourt", "dessert", "traiteur", "salade", "confiture", "miel", "gateau", "patisserie", "chocolat", "cacao", "macaron",
     "confiserie", "bonbon", "biscuit", "cereale", "granola", "muesli", "riz", "farine", "epice", "poivre", "piment", "sauce", "ketchup", "tomate",
     "conserve", "lait", "oeuf", "œuf", "chips", "snack", "plantain", "gari", "manioc", "tapioca", "couscous", "arachide", "cacahuete", "cafe", "the",
@@ -198,18 +202,31 @@ const PACKAGING_ONLY = new Set(["luxury-rigid-box", "subscription-box"]);
 export function inferPackagingIntent(text: string): ProductPackagingIntent {
   const t = norm(text);
   // First mention wins; at the same place the longer (more specific) words win: "crème glacée" > "crème".
+  // A generic word inside a more specific phrase (phraseSpecificity) loses its authority: of another use,
+  // it is not a mention of that product ("eau" in "eau de javel" is not water; the phrase's use is kept);
+  // of the same use, it only names the product's family ("crème" in "crème capillaire": a pot, not the
+  // face-cream jar).
+  let phraseUse: ProductUsage | null = null;
   const ranked = PRODUCT_INTENTS.map((p) => {
-    let pos = Infinity, len = 0;
+    let pos = Infinity, len = 0, familyOnly = false;
+    const own = usageOfShape(p.shape);
     for (const w of p.words) {
       const k = norm(w).trim();
-      const m = new RegExp(`(^|[^a-z])${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`).exec(t);
-      if (m && (m.index < pos || (m.index === pos && k.length > len))) { pos = m.index; len = k.length; }
+      for (const m of termMatches(t, k)) {
+        const dom = dominatingPhrases(t, p, k, m);
+        // another use only when both are known (a pack without a declared use conflicts with nothing)
+        const other = own ? dom.find((ph) => { const u = phraseUsageOf(ph); return !!u && u !== own; }) : undefined;
+        if (other) { phraseUse ??= phraseUsageOf(other); continue; }
+        if (m.start - 1 < pos || (m.start - 1 === pos && k.length > len)) { pos = m.start - 1; len = k.length; familyOnly = dom.length > 0; }
+        break;
+      }
     }
-    return { p, pos, len };
+    return { p, pos, len, familyOnly };
   })
     .filter((x) => x.pos < Infinity)
     .sort((a, b) => a.pos - b.pos || b.len - a.len);
-  const product = (ranked.find((x) => !PACKAGING_ONLY.has(x.p.shape)) ?? ranked[0])?.p ?? null;
+  const best = ranked.find((x) => !PACKAGING_ONLY.has(x.p.shape)) ?? ranked[0];
+  const product = best?.p ?? null;
   const preferredFamily = CONTAINER_WORDS.find(([, words]) => words.some((w) => t.includes(` ${w}`) || hasWord(t, w.trim())))?.[0] ?? null;
   const explicit = STATE_WORDS.find(([, words]) => words.some((w) => t.includes(w)))?.[0] ?? null;
   const netContent = parseNetContent(t);
@@ -218,9 +235,13 @@ export function inferPackagingIntent(text: string): ProductPackagingIntent {
   // "liquide" / "en poudre" are decisive; a known product next; the unit only as a last hint
   const physicalState = explicit === "liquid" || explicit === "powder" || explicit === "solid" ? explicit : fromProduct ?? explicit ?? fromUnit;
   const stateSource = physicalState === null ? null : physicalState === explicit && (explicit !== "paste" || !fromProduct) ? "explicit" : physicalState === fromProduct ? "product" : "unit";
-  const usage = (product ? usageOfShape(product.shape) : null) ?? usageOfText(text);
-  return { text: t.trim(), product, productCategory: detectCategory(text).id, physicalState, stateSource, netContent, preferredFamily, usage };
+  // known product's pack > the use of a phrase that overruled a generic word ("eau de javel" → household) > loose words
+  const usage = (product ? usageOfShape(product.shape) : null) ?? phraseUse ?? usageOfText(text);
+  return { text: t.trim(), product, ...(best?.familyOnly ? { productMatch: "family" as const } : {}), productCategory: detectCategory(text).id, physicalState, stateSource, netContent, preferredFamily, usage };
 }
+
+/** The resolver use of a dominating phrase: its archetype's category, or its known product's pack. */
+const phraseUsageOf = (ph: Phrase): ProductUsage | null => (ph.archetype ? archetypeUsage(ph.archetype) : ph.intent ? usageOfShape(ph.intent.shape) : null);
 
 /** What makes two intents the same packaging decision (small wording changes keep it). */
 export const packagingSignature = (i: ProductPackagingIntent) => `${i.product?.product ?? "-"}|${i.physicalState ?? "-"}|${i.preferredFamily ?? "-"}`;
@@ -259,7 +280,25 @@ export interface PackagingResolution {
 }
 
 /** Score weights (documented, tested): container asked > known product > family > state > content > words. */
-export const SCORE = { asked: 100, askedMismatch: -60, product: 60, productFamily: 30, stateFitExplicit: 30, stateFit: 20, stateRank: 3, stateMismatch: -40, usage: 12, usageMismatch: -35, phrase: 7, category: 8, contentClose: 8, contentNear: 4, word: 5, wordCap: 15, sibling: 10 } as const;
+export const SCORE = { asked: 100, askedMismatch: -60, product: 60, productFamily: 30, stateFitExplicit: 30, stateFit: 20, stateRank: 3, stateMismatch: -40, usage: 12, usageMismatch: -35, usageUnsafe: -60, materialFit: 8, phrase: 7, category: 8, contentClose: 8, contentNear: 4, word: 5, wordCap: 15, sibling: 10 } as const;
+
+/**
+ * Product use → pack use, when they differ (PI-1.5). "compatible": a pack made for another non-ingested
+ * use is acceptable (a household liquid in a cosmetic HDPE bottle); "unsafe": never (a household chemical
+ * in a drink or food pack). Any other difference is a plain mismatch.
+ */
+const USAGE_RELATION: Partial<Record<ProductUsage, Partial<Record<ProductUsage, "compatible" | "unsafe">>>> = {
+  household: { cosmetic: "compatible", food: "unsafe" },
+};
+/** Pack materials that suit a use (+) or must be avoided (−): a cleaning product in opaque plastic, not glass. */
+const USAGE_MATERIAL: Partial<Record<ProductUsage, { prefer: RegExp; avoid: RegExp }>> = {
+  household: { prefer: /\b(pehd|hdpe|pe|pp)\b/, avoid: /\bverre\b/ },
+};
+function usageScore(product: ProductUsage, pack: ProductUsage): number {
+  if (product === pack) return SCORE.usage;
+  const rel = USAGE_RELATION[product]?.[pack];
+  return rel === "compatible" ? 0 : rel === "unsafe" ? SCORE.usageUnsafe : SCORE.usageMismatch;
+}
 const LEVEL = { high: 60, medium: 30 } as const;
 
 /**
@@ -287,7 +326,7 @@ function scoreShape(r: ShapeRow, i: ProductPackagingIntent, honourProduct: boole
   }
   if (i.product && honourProduct) {
     const pf = familyOfShape(i.product.shape);
-    if (i.product.shape === r[0]) { score += SCORE.product; why.push(`emballage habituel pour : ${i.product.product.toLowerCase()}`); }
+    if (i.product.shape === r[0] && i.productMatch !== "family") { score += SCORE.product; why.push(`emballage habituel pour : ${i.product.product.toLowerCase()}`); }
     else if (pf === fam) { score += SCORE.productFamily; why.push(`famille habituelle pour : ${i.product.product.toLowerCase()}`); }
     const usual = ROW.get(i.product.shape)?.row[3];
     if (usual && !isSupportedShape(i.product.shape)) {
@@ -304,7 +343,9 @@ function scoreShape(r: ShapeRow, i: ProductPackagingIntent, honourProduct: boole
   }
   // Same use before close shape: a food stays in a food pack, a cream in a cosmetic one.
   const use = usageOfShape(r[0]);
-  if (i.usage && use) score += use === i.usage ? SCORE.usage : SCORE.usageMismatch;
+  if (i.usage && use) score += usageScore(i.usage, use);
+  const mat = i.usage ? USAGE_MATERIAL[i.usage] : undefined;
+  if (mat) score += mat.prefer.test(norm(r[7])) ? SCORE.materialFit : mat.avoid.test(norm(r[7])) ? -SCORE.materialFit : 0;
   const v = nameVolumeMl(r);
   if (v && i.netContent?.ml) {
     const ratio = Math.max(v, i.netContent.ml) / Math.min(v, i.netContent.ml);
@@ -351,7 +392,7 @@ export function resolvePackaging(text: string, opts: { family?: PackagingFamily 
   const supported = supportedShapeIds();
   // A known product whose form contradicts an explicit state ("savon liquide") is not followed.
   const honourProduct = !(intent.product && intent.physicalState && intent.stateSource === "explicit" && !STATE_FAMILIES[intent.physicalState].includes(familyOfShape(intent.product.shape)!));
-  const refused = intent.product && honourProduct && !supported.has(intent.product.shape) ? { shapeId: intent.product.shape, name: shapeName(intent.product.shape) } : null;
+  const refused = intent.product && honourProduct && intent.productMatch !== "family" && !supported.has(intent.product.shape) ? { shapeId: intent.product.shape, name: shapeName(intent.product.shape) } : null;
   const scored = SHAPE_ROWS.filter((r) => supported.has(r[0]))
     .map((r) => ({ r, ...scoreShape(r, intent, honourProduct), index: ROW.get(r[0])!.index }))
     .sort((a, b) => b.score - a.score || a.index - b.index);

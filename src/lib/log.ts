@@ -7,7 +7,12 @@ export type LogCode =
   | "AI_USAGE_RECORD_FAILED"
   | "AI_PROVIDER_ERROR"
   | "AI_COST_CALCULATION_ERROR"
-  | "AI_FALLBACK_USED";
+  | "AI_FALLBACK_USED"
+  | "PACKAGING_SHADOW"
+  | "DESIGN_GRAMMAR_SHADOW"
+  | "CATEGORY_KNOWLEDGE_SHADOW"
+  | "REFERENCE_SHADOW"
+  | "MASTER_DESIGN_INTENT_SHADOW";
 
 export function logEvent(level: "info" | "warn" | "error", code: LogCode, fields: Record<string, unknown> = {}) {
   const line = JSON.stringify({ level, code, at: new Date().toISOString(), ...fields });

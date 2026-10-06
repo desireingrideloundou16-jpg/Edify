@@ -16,6 +16,12 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { resolveProject } from "@/lib/billing/packaging";
 import { dailyAiCount, hasActivePlan } from "@/lib/billing/fairUse";
 import { AI_REGEN_PER_PACKAGING } from "@/lib/billing/plans";
+import { logEvent } from "@/lib/log";
+import { shadowLogFields, shadowPackaging } from "@/lib/intelligence/shadow";
+import { shadowDesignGrammar } from "@/lib/intelligence/grammar";
+import { shadowCategoryKnowledge } from "@/lib/intelligence/category";
+import { intentLogFields, publicIntent, shadowMasterDesignIntent } from "@/lib/intelligence/intent";
+import { shadowReferenceEvidence } from "@/lib/intelligence/reference";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -214,6 +220,65 @@ export async function POST(req: Request) {
     );
   }
 
+  // PI-1.5 shadow mode (measurement only): how Product Intelligence would have chosen the packaging the
+  // user actually got. Logged, never used: the response below does not depend on it. Local and pure (no
+  // network, no AI); the brief itself is not logged. EDIFY_PACKAGING_SHADOW=off disables it.
+  if (process.env.EDIFY_PACKAGING_SHADOW !== "off") {
+    try {
+      logEvent("info", "PACKAGING_SHADOW", shadowLogFields(shadowPackaging(prompt, { shapeId: msgOpts.lockShapeId, source: "locked" })));
+    } catch {
+      // a diagnostic never breaks a generation
+    }
+  }
+
+  // PI-6 — Master Design Intent (contract PI-5.0) in SHADOW mode: built once per generation, validated and
+  // logged (decisions and codes only, no brief, no user text). It never changes the design produced below;
+  // its only operational output is the export shot style handed back in `intent.shotStyle`, which the
+  // client gives to renderExportPreview(…, { shot }) for the ZIP's 3D picture (heroPremium otherwise).
+  // EDIFY_INTENT_SHADOW=off: not built at all. EDIFY_INTENT_EXPORT_SHOT=off: built and logged, no style
+  // handed over. References follow the PI-4 switch (EDIFY_REFERENCE_SHADOW=off → disabled).
+  let intentField: { intent?: ReturnType<typeof publicIntent> } = {};
+  if (process.env.EDIFY_INTENT_SHADOW !== "off") {
+    const t0 = performance.now();
+    const shadow = shadowMasterDesignIntent({
+      brief: prompt, current, shapeId: msgOpts.lockShapeId, references: process.env.EDIFY_REFERENCE_SHADOW === "off" ? "disabled" : "active",
+    });
+    try {
+      logEvent("info", "MASTER_DESIGN_INTENT_SHADOW", intentLogFields(shadow, performance.now() - t0));
+    } catch {
+      // a diagnostic never breaks a generation
+    }
+    intentField = { intent: publicIntent(process.env.EDIFY_INTENT_EXPORT_SHOT === "off" ? { ...shadow, exportShot: null } : shadow) };
+  }
+
+  // PI-2 / PI-3 / PI-4 shadow modes (measurement only): how the produced design compares with the design
+  // grammar and with the category knowledge, and how well that knowledge is backed by references.
+  // Logged after the spec is final, never used by the response; no brief in the logs.
+  // EDIFY_DESIGN_GRAMMAR_SHADOW=off / EDIFY_CATEGORY_SHADOW=off / EDIFY_REFERENCE_SHADOW=off disable them.
+  const logDesignShadows = (spec: DesignSpec) => {
+    if (process.env.EDIFY_DESIGN_GRAMMAR_SHADOW !== "off") {
+      try {
+        logEvent("info", "DESIGN_GRAMMAR_SHADOW", { ...shadowDesignGrammar(prompt, spec) });
+      } catch {
+        // a diagnostic never breaks a generation
+      }
+    }
+    if (process.env.EDIFY_CATEGORY_SHADOW !== "off") {
+      try {
+        logEvent("info", "CATEGORY_KNOWLEDGE_SHADOW", { ...shadowCategoryKnowledge(prompt, spec) });
+      } catch {
+        // a diagnostic never breaks a generation
+      }
+    }
+    if (process.env.EDIFY_REFERENCE_SHADOW !== "off") {
+      try {
+        logEvent("info", "REFERENCE_SHADOW", { ...shadowReferenceEvidence(prompt) });
+      } catch {
+        // a diagnostic never breaks a generation
+      }
+    }
+  };
+
   // Engines in order of quality; each failure falls through to the next one.
   const engines: { name: "claude" | "gemini"; run: () => Promise<DesignSpec> }[] = [];
   if (hasClaude()) engines.push({ name: "claude", run: () => claudeDesign(prompt, current, reference, msgOpts, user.id) });
@@ -223,6 +288,7 @@ export async function POST(req: Request) {
   for (const engine of engines) {
     try {
       const spec = sanitizeSpec(await engine.run(), current, msgOpts.lockShapeId);
+      logDesignShadows(spec);
       await admin.from("projects").update({ ai_generations: project.ai_generations + 1 }).eq("id", project.id);
       // A successful AI design MUST be logged: the daily fair-use cap (dailyAiCount) and the
       // admin statistics count exactly these events. Failures (success=false) and the offline
@@ -234,6 +300,7 @@ export async function POST(req: Request) {
         credits: available,
         projectId: project.id,
         counted: project.counted,
+        ...intentField,
       });
     } catch (error) {
       console.error(`[api/design] ${engine.name}`, error);
@@ -246,11 +313,14 @@ export async function POST(req: Request) {
   await logAiEvent(user.id, "design", "local");
   // Observability: the customer gets the deterministic offline designer (no provider call).
   recordAiFallback({ operation: "design.generate", userId: user.id, reason: engines.length ? "providers_failed" : "not_configured" });
+  const localSpec = sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current, msgOpts.lockShapeId);
+  logDesignShadows(localSpec);
   return Response.json({
-    spec: sanitizeSpec(withLogoColors(localDesign(prompt, current), msgOpts.logoColors), current, msgOpts.lockShapeId),
+    spec: localSpec,
     engine: "local",
     credits: available,
     projectId: project.id,
+    ...intentField,
     // Provider details stay in the server logs; the customer gets a plain message.
     notice: engines.length
       ? "Le designer IA est très demandé en ce moment : design réalisé en mode simplifié. Réessayez dans quelques minutes pour la version complète."

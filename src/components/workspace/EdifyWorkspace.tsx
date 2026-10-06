@@ -67,6 +67,8 @@ interface SavedProject {
   smartLayoutAuto?: boolean;
   /** How the packaging was decided (phase 3C): resolver, user or legacy; validated on load. */
   packaging?: unknown;
+  /** Export shot chosen by the Master Design Intent (PI-6, a SHOT_STYLES id); absent → the export's heroPremium. */
+  exportShot?: string | null;
 }
 
 /** Neutral placeholders: the studio never shows a demo product as if it were the user's. */
@@ -96,6 +98,8 @@ export function EdifyWorkspace() {
   );
   // Phase 3C: how the current packaging was decided (kept with the project; drives its stability).
   const [packagingDecision, setPackagingDecision] = useState<PackagingDecision>(() => legacyDecision(shape.id));
+  // Export shot decided server-side by the Master Design Intent (PI-6): transported, never computed here.
+  const [exportShot, setExportShot] = useState<string | null>(null);
   // The single packaging question, when Edify cannot tell from the brief (resolves the pending answer).
   const [packagingAsk, setPackagingAsk] = useState<((a: PackagingAnswer | null) => void) | null>(null);
   const askPackaging = () => new Promise<PackagingAnswer | null>((resolve) => setPackagingAsk(() => resolve));
@@ -293,6 +297,7 @@ export function EdifyWorkspace() {
     setExtras(d.extras ?? {});
     setSmartLayoutRaw(d.smartLayout ?? null);
     setSmartLayoutAuto(d.smartLayoutAuto ?? true);
+    setExportShot(typeof d.exportShot === "string" ? d.exportShot : null);
     setContent({ ...DEFAULT_CONTENT, ...d.content });
     setUploadedLogo(d.logo ?? null);
     setUploadedLogoName(d.logoName ?? null);
@@ -304,7 +309,7 @@ export function EdifyWorkspace() {
     setSaveState("saving");
     const t = setTimeout(async () => {
       const supabase = createSupabase();
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto, packaging: packagingDecision };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto, packaging: packagingDecision, exportShot };
       const row = { name: (content.projectName || "Sans titre").slice(0, 120), data };
       const id = projectId.current ?? (await ensureProjectId());
       if (!id) return setSaveState("error");
@@ -319,14 +324,14 @@ export function EdifyWorkspace() {
     }, 1200);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, extras, uploadedLogo, uploadedLogoName, smartState, smartLayoutAuto, packagingDecision]);
+  }, [account, content, shape.id, style.id, customPalette, headingFont, bodyFont, layout, motif, extras, uploadedLogo, uploadedLogoName, smartState, smartLayoutAuto, packagingDecision, exportShot]);
 
   /** Makes sure the packaging exists in the database (needed before the AI or a download). */
   const ensureProjectId = async () => {
     if (projectId.current) return projectId.current;
     // Single flight: the autosave and the AI may ask at the same time — create one packaging only.
     if (!creatingProject.current) {
-      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto, packaging: packagingDecision };
+      const data: SavedProject = { version: 1, content, shapeId: shape.id, styleId: style.id, customPalette, headingFont, bodyFont, layout, motif, extras, logo: uploadedLogo, logoName: uploadedLogoName, smartLayout: smartState, smartLayoutAuto, packaging: packagingDecision, exportShot };
       creatingProject.current = (async () => {
         const { data: row } = await createSupabase().from("projects").insert({ name: (content.projectName || "Nouveau packaging").slice(0, 120), data }).select("id").single();
         projectId.current = row?.id ?? null;
@@ -374,6 +379,7 @@ export function EdifyWorkspace() {
     if (s) {
       setShape(s);
       setPackagingDecision(legacyDecision(s.id));
+      setExportShot(null);
     }
     if (st) setStyle(st);
     setCustomPalette(shared.customPalette ?? null);
@@ -586,6 +592,7 @@ export function EdifyWorkspace() {
       if (!res.ok || !json.spec) throw new Error(json.error || `HTTP ${res.status}`);
       const sp = json.spec as DesignSpec;
       applySpec(sp);
+      setExportShot(typeof json.intent?.shotStyle === "string" ? json.intent.shotStyle : null);
       setPackagingDecision(sp.shapeId === decision.shapeId ? decision : legacyDecision(sp.shapeId));
       // The custom illustration is part of the design: wait for it (the layouts fall back without it).
       if (sp.artStyle && sp.artStyle !== "none" && sp.artSubject) {
@@ -759,12 +766,13 @@ export function EdifyWorkspace() {
         return null;
       });
       if (pdf) zip.file(`${base}-impression.pdf`, pdf.bytes);
-      let shot = previewMode === "3d" ? captureRef.current?.() : null;
-      if (!shot) {
-        const { renderShowcase } = await import("@/lib/three/thumbnails");
-        shot = await renderShowcase(shape, design, 1400, -0.5);
-      }
-      if (shot) zip.file(`${base}-apercu-3d.png`, shot.split(",")[1], { base64: true });
+      // 3D picture (phase 3D-C): the HD export of the applied design, fixed hero framing, its own renderer.
+      // Never a capture of the live canvas: the viewer's camera, size and state are left untouched.
+      const { renderExportPreview } = await import("@/lib/three/hdExport");
+      // Phase PI-6: the shot decided by the Master Design Intent of the last generation (resolveExportShot
+      // validates it against SHOT_STYLES and keeps heroPremium when there is none).
+      const shot = await renderExportPreview(shape, spec, design, exportShot ? { shot: { style: exportShot } } : {});
+      if (shot) zip.file(`${base}-apercu-3d.png`, shot.dataUrl.split(",")[1], { base64: true });
       try {
         const { exportGlb } = await import("@/lib/three/arExport");
         zip.file(`${base}-modele-3d.glb`, await exportGlb(spec, design));
