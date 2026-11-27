@@ -4,6 +4,7 @@ import { getLang, serverCopy } from "@/lib/i18n/server";
 import { getMessages } from "@/lib/i18n/messages";
 import { LangProvider } from "@/components/i18n/LangProvider";
 import { THEME_BOOT } from "@/lib/theme";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="bg-white text-slate-900 font-sans antialiased selection:bg-purple-100 selection:text-purple-900">
         <LangProvider lang={lang} messages={getMessages(lang)}>{children}</LangProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
